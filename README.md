@@ -23,7 +23,7 @@ the application works.
 
 ### Card wall
 
-REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
+https://trello.com/client-side-redirect?returnUrl=%2Finvite%2Fb%2FIczCYr2t%2FATTI70d0bf5d5568ddd0d2fcb706fbb96d6712A4E98C%2Facebook-kangaroo
 
 ### Quickstart
 
