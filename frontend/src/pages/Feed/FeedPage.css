@@ -1,0 +1,53 @@
+/* FeedPage.css */
+
+.feed {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.post {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.post-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.post-header h4 {
+    margin: 0;
+}
+
+.post-content {
+    margin-bottom: 10px;
+}
+
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.like-btn,
+.comment-btn {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.like-btn:hover,
+.comment-btn:hover {
+    color: #1877f2;
+}
