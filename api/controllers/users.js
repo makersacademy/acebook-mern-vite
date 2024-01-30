@@ -3,42 +3,52 @@ const crypto = require("crypto");
 const { generateToken } = require("../lib/token");
 
 function checkPassword(str) {
-    var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    return re.test(str);
+	var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+	return re.test(str);
+}
+
+function checkEmail(str) {
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	return emailRegex.test(str);
 }
 
 const create = (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    if (!password) {
-        return res
-            .status(400)
-            .json({ message: "You haven't entered a password" });
-    }
+	const username = req.body.username;
+	const email = req.body.email;
+	const password = req.body.password;
 
-    if (checkPassword(password)) {
-        return res.status(400).json({
-            message:
-                "You haven't entered a valid password. Password must contain at least 8 characters, an uppercase letter, a lowercase letter, a number and a special character.",
-        });
-    }
+	if (!password) {
+		return res.status(400).json({ message: "You haven't entered a password" });
+	}
 
-    // Hash the password
-    const hashedPassword = crypto
-        .createHash("sha256")
-        .update(password)
-        .digest("hex");
+	if (!checkPassword(password)) {
+		return res.status(400).json({
+			message:
+				"You haven't entered a valid password. Password must contain at least 8 characters, an uppercase letter, a lowercase letter, a number and a special character.",
+		});
+	}
+	if (!checkEmail(email)) {
+		return res.status(400).json({
+			message: "You haven't entered a valid email.",
+		});
+	}
+	// Hash the password
+	const hashedPassword = crypto
+		.createHash("sha256")
+		.update(password)
+		.digest("hex");
 
-    const user = new User({ email, password: hashedPassword });
-    user.save()
-        .then((user) => {
-            console.log("User created, id:", user._id.toString());
-            res.status(201).json({ message: "OK" });
-        })
-        .catch((err) => {
-            console.error(err);
-            res.status(400).json({ message: "Something went wrong" });
-        });
+	const user = new User({ username, email, password: hashedPassword });
+	user
+		.save()
+		.then((user) => {
+			console.log("User created, id:", user._id.toString());
+			res.status(201).json({ message: "OK" });
+		})
+		.catch((err) => {
+			console.error(err);
+			res.status(400).json({ message: "Something went wrong" });
+		});
 };
 // 		.catch((err) => {
 //             console.error(err);
@@ -61,6 +71,7 @@ const getUser = async (req, res) => {
 const UsersController = {
     create: create,
     getUser: getUser
+
 };
 
 module.exports = UsersController;
