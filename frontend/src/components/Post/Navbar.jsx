@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import logo from "../../assets/acebook.svg"
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Navbar = () => {
 
     return (
         <nav>
+            <img src={logo} alt="Acebook Logo" className="logo"/>
             <p>Acebook</p>
             <button>Profile</button>
             <button onClick={logout}>Logout</button>
