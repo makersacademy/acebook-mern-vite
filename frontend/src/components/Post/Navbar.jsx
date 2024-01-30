@@ -21,15 +21,15 @@ const Navbar = () => {
 
     return (
         <nav>
-            <div className="logoAndText">
-                <img src={logo} alt="Acebook Logo" className="logo" onClick={home}/>
+            <div onClick={home} className="logoAndText">
+                <img src={logo} alt="Acebook Logo" className="logo" />
                 <p>Acebook</p>
             </div>
             
-            <div>
+            <div className="pageButtons">
+                <button onClick={home}>Home</button>
                 <button onClick={profilePage}>Profile</button>
                 <button onClick={logout}>Logout</button>
-                <button onClick={home}>Home</button>
             </div>
             <input type="text" placeholder="Search.."></input>
         </nav>
