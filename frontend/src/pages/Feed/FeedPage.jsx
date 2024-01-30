@@ -1,3 +1,5 @@
+// FeedPage.jsx
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -42,7 +44,7 @@ export const FeedPage = () => {
       <br></br>
       <h2>Posts</h2>
       <div className="feed" role="feed">
-        {posts.map((post) => (
+      {[...posts].reverse().map((post) => (
           <Post post={post} key={post._id} />
         ))}
       </div>
