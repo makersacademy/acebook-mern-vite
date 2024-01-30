@@ -30,7 +30,22 @@ const Post = mongoose.model("Post", PostSchema);
 
 // These lines will create a test post every time the server starts.
 // You can delete this once you are creating your own posts.
-const dateTimeString = new Date().toLocaleString("en-GB");
-new Post({ message: `Test message, created at ${dateTimeString}` }).save();
+
+// const dateTimeString = new Date().toLocaleString("en-GB");
+// new Post({ message: `Test message, created at ${dateTimeString}` }).save();
+
+new Post({ 
+  message: "Test message new schema",
+  postedBy: "65b8e7e82c3b14ab340c6753",
+  likes: 1,
+  comments: [{
+    message: "hello test1",
+    user: "65b8e7e82c3b14ab340c6754"
+  }]
+})
+  .save();
+
+
+
 
 module.exports = Post;
