@@ -11,9 +11,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     get: v => '${root}${v}' // possible solution but requires image hosting server
   },
-  friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // stores ObjectIds of documents in 'User' collection
-                                                                    // when retrieving a User look to use populate() function to retrieve full documents of friends
-});
+  // stores ObjectIds of documents in 'User' collection
+  // when retrieving a User look to use populate() function to retrieve full documents of friends
+  friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}]
+}, {timestamp: true});
 
 const User = mongoose.model("User", UserSchema);
 

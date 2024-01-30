@@ -1,10 +1,28 @@
 const mongoose = require("mongoose");
 
+const root = ''
+
 // A Schema defines the "shape" of entries in a collection. This is similar to
 // defining the columns of an SQL Database.
+const CommentSchema = new mongoose.Schema({
+  message: String,
+  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  likes: {type: Number, default: 0}
+}, {timestamps: true});
+
 const PostSchema = new mongoose.Schema({
   message: String,
-});
+  media: {
+    type: String,
+    get: v => '${root}${v}' 
+  },
+  likes: {type: Number, default: 0},
+  postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  comments: [CommentSchema]
+
+},  {timestamps: true}); 
+
+//time stamps automatically creates 'createdAt' and 'updatedAt' fields and pupulates these with a time stamps
 
 // We use the Schema to create the Post model. Models are classes which we can
 // use to construct entries in our Database.
