@@ -28,7 +28,10 @@ const CreateNewPost = ({ token }) => {
             <div className="feed" role="feed">
                 <form onSubmit={handleSubmit}>
                     <label>
-                        What's on your mind?
+                        <h2>
+                            What's on your mind?
+                        </h2>
+                            
                         <input
                             name="message"
                             type="text"

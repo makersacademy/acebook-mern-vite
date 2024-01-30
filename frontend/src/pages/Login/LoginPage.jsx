@@ -13,7 +13,8 @@ export const LoginPage = () => {
     event.preventDefault();
     try {
       const token = await login(email, password);
-      window.localStorage.setItem("token", token);
+      window.localStorage.setItem("token", token[0]);
+      window.localStorage.setItem("id", token[1])
       navigate("/posts");
     } catch (err) {
       console.error(err);
