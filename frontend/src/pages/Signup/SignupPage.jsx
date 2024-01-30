@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { signup } from "../../services/authentication";
 
 export const SignupPage = () => {
+  document.title = "Sign Up"
   const [profile_pic, setProfilePic] = useState("");
   const [full_name, setFullName] = useState("");
   const [email, setEmail] = useState("");

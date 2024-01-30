@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
+import Navbar from "../../components/Post/Navbar";
 import "./FeedPage.css";
 import CreateNewPost from "./CreateNewPost";
 
 export const FeedPage = () => {
+  document.title = "Posts"
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const navigate = useNavigate();
@@ -25,7 +27,7 @@ export const FeedPage = () => {
     } else {
       navigate("/login");
     }
-  });
+  }, [token, navigate]); //Needed if useEffect is used anywhere else
 
   if (!token) {
     return;
@@ -33,6 +35,7 @@ export const FeedPage = () => {
 
   return (
     <>
+      <Navbar />
       <br></br>
       <br></br>
       <CreateNewPost token={token}/>
