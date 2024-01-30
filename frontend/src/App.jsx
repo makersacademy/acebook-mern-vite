@@ -29,14 +29,15 @@ const router = createBrowserRouter([
     path: "/users/:username",
     element: <UserPage />
   }
+
 ]);
 
 const App = () => {
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+    return (
+        <>
+            <RouterProvider router={router} />
+        </>
+    );
 };
 
 export default App;
