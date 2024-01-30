@@ -9,7 +9,7 @@ export const getProfile = async (token) => {
         },
     };
 
-    const response = await fetch(`${BACKEND_URL}/Users`, requestOptions);
+    const response = await fetch(`${BACKEND_URL}/profile`, requestOptions);
 
     if (response.status !== 200) {
         throw new Error(`Unable to fetch user profile. Status: ${response.status}, Message: ${data.message || 'Unknown error'}`);
