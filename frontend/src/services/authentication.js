@@ -28,10 +28,12 @@ export const login = async (email, password) => {
   }
 };
 
-export const signup = async (email, password) => {
+export const signup = async (username, email, password, profile_picture) => {
   const payload = {
+    username: username,
     email: email,
     password: password,
+    profile_picture: profile_picture,
   };
 
   const requestOptions = {
