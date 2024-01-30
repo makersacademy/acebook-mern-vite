@@ -6,11 +6,18 @@ const NewPostForm = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const token = window.localStorage.getItem("token");
-  let payload = {
-    message,
-  };
+  
 
   const handleSubmit = () => {
+    let datetime = new Date().toLocaleString("en-GB")
+
+      let payload = {
+        message,
+        datetime,
+
+      };
+
+
     fetch(`${BACKEND_URL}/posts`, {
       method: "POST",
       headers: {
