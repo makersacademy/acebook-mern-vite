@@ -1,15 +1,7 @@
-// const Post = (props) => {
-//   return <article key={props.post._id}>{props.post.message}</article>;
-// };
-
-// export default Post;
-
 // Post.jsx
 
 import React from "react";
 import "../../pages/Feed/FeedPage.css";
-// frontend/src/pages/Feed/FeedPage.css
-// frontend/src/components/Post/Post.jsx
 
 const Post = ({ post }) => {
   return (
@@ -21,7 +13,7 @@ const Post = ({ post }) => {
         <h4>Author's name</h4>
       </div>
       <div className="post-content">
-        <p>{post.message}</p>
+        <article>{post.message}</article>
       </div>
       <div className="post-actions">
         <div className="like-btn">
