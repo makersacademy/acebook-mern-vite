@@ -11,8 +11,6 @@ const createPost = async (req, res) => {
   const post = new Post(req.body);
   post.save();
 
-  console.log("here")
-
   const newToken = generateToken(req.user_id);
   res.status(201).json({ message: "OK", token: newToken });
 };

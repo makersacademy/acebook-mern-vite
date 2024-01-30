@@ -33,11 +33,11 @@ export const FeedPage = () => {
 
   return (
     <>
-      {/* <h2>Posts</h2> */}
       <br></br>
       <br></br>
-      <CreateNewPost />
+      <CreateNewPost token={token}/>
       <br></br>
+      <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
           <Post post={post} key={post._id} />
