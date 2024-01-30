@@ -24,12 +24,19 @@ vi.mock("../../src/services/authentication", () => {
 const completeSignupForm = async () => {
   const user = userEvent.setup();
 
+  const usernameInputEl = screen.getByLabelText("Username:");
   const emailInputEl = screen.getByLabelText("Email:");
   const passwordInputEl = screen.getByLabelText("Password:");
+  const pictureInputEl = screen.getByLabelText("Add Profile Picture:")
   const submitButtonEl = screen.getByRole("submit-button");
 
+  await user.type(usernameInputEl, "Ang");
   await user.type(emailInputEl, "test@email.com");
   await user.type(passwordInputEl, "1234");
+  const file = new File(["profile_picture"], "profile_picture.png", {
+    type: "img",
+  });
+  await user.upload(pictureInputEl, file);
   await user.click(submitButtonEl);
 };
 
@@ -43,7 +50,7 @@ describe("Signup Page", () => {
 
     await completeSignupForm();
 
-    expect(signup).toHaveBeenCalledWith("test@email.com", "1234");
+    expect(signup).toHaveBeenCalledWith("Ang", "test@email.com", "1234", `C:\\fakepath\\profile_picture.png`);
   });
 
   test("navigates to /login on successful signup", async () => {

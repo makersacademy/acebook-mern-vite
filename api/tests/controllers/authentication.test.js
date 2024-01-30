@@ -6,6 +6,7 @@ const User = require("../../models/user");
 describe("/tokens", () => {
   beforeAll(async () => {
     const user = new User({
+      username: "testUser",
       email: "auth-test@test.com",
       password: "12345678",
     });
@@ -20,7 +21,7 @@ describe("/tokens", () => {
   afterAll(async () => {
     await User.deleteMany({});
   });
-
+  // this test needs updating when the login logic is applied. 
   test("returns a token when credentials are valid", async () => {
     const testApp = supertest(app);
     const response = await testApp

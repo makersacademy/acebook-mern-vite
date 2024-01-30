@@ -14,7 +14,7 @@ describe("/users", () => {
     test("the response code is 201", async () => {
       const response = await request(app)
         .post("/users")
-        .send({ email: "poppy@email.com", password: "1234" });
+        .send({ email: "poppy@email.com", password: "1234", username:"Kora", profile_picture: null });
 
       expect(response.statusCode).toBe(201);
     });
@@ -22,11 +22,13 @@ describe("/users", () => {
     test("a user is created", async () => {
       await request(app)
         .post("/users")
-        .send({ email: "scarconstt@email.com", password: "1234" });
+        .send({ email: "scarconstt@email.com", password: "1234", username:"Kora", profile_picture: null });
 
       const users = await User.find();
       const newUser = users[users.length - 1];
       expect(newUser.email).toEqual("scarconstt@email.com");
+      expect(newUser.username).toEqual("Kora")
+      expect(newUser.profile_picture).toEqual(null)
     });
   });
 

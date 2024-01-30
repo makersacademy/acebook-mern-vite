@@ -26,6 +26,7 @@ let token;
 describe("/posts", () => {
   beforeAll(async () => {
     const user = new User({
+      username: "newUser",
       email: "post-test@test.com",
       password: "12345678",
     });
