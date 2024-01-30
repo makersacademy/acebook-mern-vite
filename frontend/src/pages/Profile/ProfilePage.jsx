@@ -13,7 +13,6 @@ export const ProfilePage = () => {
         if (token) {
             getProfile(token)
                 .then((data) => {
-                    console.log(data);
                     setProfile(data.users);
                     setToken(data.token);
                     window.localStorage.setItem("token", data.token);
