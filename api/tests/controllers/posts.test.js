@@ -26,12 +26,14 @@ let token;
 describe("/posts", () => {
     beforeAll(async () => {
         const user = new User({
+            username: "user123",
             email: "post-test@test.com",
             password: "12345678",
         });
         await user.save();
         await Post.deleteMany({});
         token = createToken(user.id);
+
     });
 
     afterEach(async () => {
