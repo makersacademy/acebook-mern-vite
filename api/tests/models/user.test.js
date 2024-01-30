@@ -8,18 +8,16 @@ describe("User model", () => {
 
   it("has an email address", () => {
     const user = new User({
-      email: "someone@example.com",
-      password: "password",
-    });
-    expect(user.email).toEqual("someone@example.com");
-  });
+      username: "test_user10",
+      email: "test10@test.com",
+      password: "1234567",
+      bio: "test bio1",
+      posts: [],
+      friends: ["65b8e7e82c3b14ab340c6754"]
+    })
 
-  it("has a password", () => {
-    const user = new User({
-      email: "someone@example.com",
-      password: "password",
-    });
-    expect(user.password).toEqual("password");
+    expect(user.email).toEqual("test10@test.com");
+    expect(user.password).toEqual("1234567")
   });
 
   it("can list all users", async () => {
@@ -29,14 +27,18 @@ describe("User model", () => {
 
   it("can save a user", async () => {
     const user = new User({
-      email: "someone@example.com",
-      password: "password",
+      username: "test_user1",
+      email: "test1@test.com",
+      password: "1234567",
+      bio: "test bio1",
+      posts: [],
+      friends: ["65b8e7e82c3b14ab340c6754"]
     });
 
     await user.save();
     const users = await User.find();
 
-    expect(users[0].email).toEqual("someone@example.com");
-    expect(users[0].password).toEqual("password");
+    expect(users[0].email).toEqual("test1@test.com");
+    expect(users[0].password).toEqual("1234567");
   });
 });
