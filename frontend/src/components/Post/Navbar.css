@@ -7,10 +7,15 @@ nav {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    box-sizing: border-box;
     }
     
     nav .logo {
     cursor: pointer;
+    }
+
+    nav .logoAndText {
+        display: flex;
     }
 
     nav .brand {
@@ -23,7 +28,7 @@ nav {
     nav p {
         color: white;
         font-size: 1rem; /* Adjust the font size as needed */
-        margin-left: -200px; /* Adjust the margin as needed */
+        margin-left: 10px;
     }
 
 

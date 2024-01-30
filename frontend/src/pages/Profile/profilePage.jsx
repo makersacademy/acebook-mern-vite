@@ -13,7 +13,7 @@ export const ProfilePage = () => {
     useEffect(() => {
         getUser(token, id)
             .then((data) => {
-                setUser(data)
+                setUser(data.user)
             })
             .catch((error) => {
                 console.error(error)
@@ -28,9 +28,9 @@ export const ProfilePage = () => {
         <div className="profile">
         <h1>Profile Page</h1>
         </div>
-        
-
-        {user.full_name}
+        <p>{user.full_name}</p>
+        <p>{user.email}</p>
+        <p>{user.profile_pic}</p>
         </>
     )
 };
