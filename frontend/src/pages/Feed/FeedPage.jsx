@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
-import Navbar from "../../components/Post/Navbar";
+import Navbar from "../../components/Post/Navbar"; 
+import "./FeedPage.css";
+import CreateNewPost from "./CreateNewPost";
 
 export const FeedPage = () => {
   document.title = "Posts"
@@ -34,6 +36,10 @@ export const FeedPage = () => {
   return (
     <>
       <Navbar />
+      <br></br> 
+      <br></br>
+      <CreateNewPost token={token}/>
+      <br></br>
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
