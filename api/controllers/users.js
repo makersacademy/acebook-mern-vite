@@ -5,7 +5,7 @@ const create = (req, res) => {
   const password = req.body.password;
 
   const user = new User({ email, password });
-  console.log(req.body)
+  
   user
     .save()
     .then((user) => {
