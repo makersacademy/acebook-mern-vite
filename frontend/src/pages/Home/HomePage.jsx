@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./HomePage.css";
 
 export const HomePage = () => {
+  document.title = "Acebook"
   return (
     <div className="home">
       <h1>Welcome to Acebook!</h1>
