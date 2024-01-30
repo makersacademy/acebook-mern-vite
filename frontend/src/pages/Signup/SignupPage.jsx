@@ -7,10 +7,16 @@ export const SignupPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    if (password != confirmPassword) {
+      event.preventDefault();
+      navigate("/signup");
+    } else {
+      event.preventDefault();
     try {
       await signup(username, email, password);
       console.log("redirecting...:");
@@ -18,7 +24,7 @@ export const SignupPage = () => {
     } catch (err) {
       console.error(err);
       navigate("/signup");
-    }
+    }}
   };
 
   const handleUsernameChange = (event) => {
@@ -33,6 +39,9 @@ export const SignupPage = () => {
     setPassword(event.target.value);
   };
 
+  const handleConfirmPasswordChange = (event) => {
+    setConfirmPassword(event.target.value)
+  }
   return (
     <>
       <h2>Signup</h2>
@@ -59,7 +68,15 @@ export const SignupPage = () => {
           value={password}
           onChange={handlePasswordChange}
         />
-        <input role="submit-button" id="submit" type="submit" value="Submit" />
+        <label htmlFor="confirmPassword">Confirm Password:</label>
+        <input
+          placeholder="Password"
+          id="confirmPassword"
+          type="assword"
+          value={confirmPassword}
+          onChange={handleConfirmPasswordChange}
+        />
+        <input role="submit-button" id="submit" type="submit" value="Submit"/>
       </form>
     </>
   );

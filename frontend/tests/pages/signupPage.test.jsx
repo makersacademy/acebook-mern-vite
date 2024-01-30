@@ -27,11 +27,29 @@ const completeSignupForm = async () => {
   const userNameInputEl = screen.getByLabelText("Username:")
   const emailInputEl = screen.getByLabelText("Email:");
   const passwordInputEl = screen.getByLabelText("Password:");
+  const confirmPasswordInputEl = screen.getByLabelText("Confirm Password:");
   const submitButtonEl = screen.getByRole("submit-button");
 
   await user.type(userNameInputEl, "testUser")
   await user.type(emailInputEl, "test@email.com");
   await user.type(passwordInputEl, "1234");
+  await user.type(confirmPasswordInputEl, "1234")
+  await user.click(submitButtonEl);
+};
+
+const nonMatchingPasswordSignUp = async () => {
+  const user = userEvent.setup();
+
+  const userNameInputEl = screen.getByLabelText("Username:")
+  const emailInputEl = screen.getByLabelText("Email:");
+  const passwordInputEl = screen.getByLabelText("Password:");
+  const confirmPasswordInputEl = screen.getByLabelText("Confirm Password:");
+  const submitButtonEl = screen.getByRole("submit-button");
+
+  await user.type(userNameInputEl, "testUser")
+  await user.type(emailInputEl, "test@email.com");
+  await user.type(passwordInputEl, "1234");
+  await user.type(confirmPasswordInputEl, "12")
   await user.click(submitButtonEl);
 };
 
@@ -65,6 +83,14 @@ describe("Signup Page", () => {
     const navigateMock = useNavigate();
 
     await completeSignupForm();
+
+    expect(navigateMock).toHaveBeenCalledWith("/signup");
+  });
+
+  test("navigates to /signup when passwords don't match", async () => {
+    render(<SignupPage />);
+    const navigateMock = useNavigate();
+    await nonMatchingPasswordSignUp();
 
     expect(navigateMock).toHaveBeenCalledWith("/signup");
   });
