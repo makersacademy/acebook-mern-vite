@@ -1,10 +1,11 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet, Router } from "react-router-dom";
 
 import "./App.css";
 import { HomePage } from "./pages/Home/HomePage";
 import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
+import { ProfilePage } from "./pages/Profile/ProfilePage";
 import Navbar from "./components/navbar/Navbar";
 
 // docs: https://reactrouter.com/en/main/start/overview
@@ -19,7 +20,7 @@ const Layout = () => (
 );
 
 const router = createBrowserRouter([
-     {
+    {
       element: <Layout />,
       children: [
         {path: "/",
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
         {
           path: "/posts",
           element: <FeedPage />,
+        },
+        {
+          path: "/profile",
+          element: <ProfilePage />,
         },
       ]}
 ]);
