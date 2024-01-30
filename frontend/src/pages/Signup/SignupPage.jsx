@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { signup } from "../../services/authentication";
+import "./SignupPage.css";
 
 export const SignupPage = () => {
   const [username, setUsername] = useState("");
@@ -11,8 +12,19 @@ export const SignupPage = () => {
 
   const navigate = useNavigate();
 
+  const matchPasswords = () => {return password === confirmPassword};
+
+  const checkPasswordComplexity = () => {
+    const specialChar = ["!","?","$","%","£"]
+    const checkSpecialChar = (char) => {
+      return password.includes(char)
+    }
+    return (specialChar.filter(checkSpecialChar).length !== 0 &&  password.length >=8 && /[A-Z]/.test(password) && /[0-9]/.test(password))
+    }
+
   const handleSubmit = async (event) => {
-    if (password != confirmPassword) {
+    // Passwords must match
+    if (!matchPasswords() || !checkPasswordComplexity()) {
       event.preventDefault();
       navigate("/signup");
     } else {
@@ -53,6 +65,7 @@ export const SignupPage = () => {
           value={username}
           onChange={handleUsernameChange}
         />
+        <br></br>
         <label htmlFor="email">Email:</label>
         <input
           id="email"
@@ -60,6 +73,7 @@ export const SignupPage = () => {
           value={email}
           onChange={handleEmailChange}
         />
+        <br></br>
         <label htmlFor="password">Password:</label>
         <input
           placeholder="Password"
@@ -68,15 +82,21 @@ export const SignupPage = () => {
           value={password}
           onChange={handlePasswordChange}
         />
+        <br></br>
+        <span>
         <label htmlFor="confirmPassword">Confirm Password:</label>
         <input
-          placeholder="Password"
+          placeholder="Confirm Password"
           id="confirmPassword"
-          type="assword"
+          type="password"
           value={confirmPassword}
           onChange={handleConfirmPasswordChange}
-        />
+        /> <p>{!matchPasswords() && "Passwords must match"}</p>
+        <p>{!checkPasswordComplexity() && "Password must contain a number, capital letter, be at least 8 characters, and contain one of the following ! ? $ % £"}</p>
+        </span>
+        <br></br>
         <input role="submit-button" id="submit" type="submit" value="Submit"/>
+        
       </form>
     </>
   );
