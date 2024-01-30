@@ -22,23 +22,23 @@ const User = mongoose.model("User", UserSchema);
 // creates new users for testing purposes
 // TODO: Users are adding to DB with same usernames ?uniqueness not working. ?need to check data exists before seedsing.
 
-new User({
-  username: "test_user1",
-  email: "test1@test.com",
-  password: "1234567",
-  bio: "test bio1",
-  posts: [],
-  friends: ["65b8e7e82c3b14ab340c6754"]
-})
-  .save();
+// new User({
+//   username: "test_user1",
+//   email: "test1@test.com",
+//   password: "1234567",
+//   bio: "test bio1",
+//   posts: [],
+//   friends: ["65b8e7e82c3b14ab340c6754"]
+// })
+//   .save();
 
-new User({
-  username: "test_user2",
-  email: "test2@test.com",
-  password: "1234567",
-  bio: "test bio2",
-  posts: []
-})
-  .save();
+// new User({
+//   username: "test_user2",
+//   email: "test2@test.com",
+//   password: "1234567",
+//   bio: "test bio2",
+//   posts: []
+// })
+//   .save();
 
 module.exports = User;

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
+
 import { useNavigate } from "react-router-dom";
 
 import { UserPage } from "../../src/pages/User/UserPage";
@@ -22,7 +22,13 @@ describe('User Page', () => {
 
         render(<UserPage />);
 
-        const user = await screen.findByRole("header");
+        const user = await screen.findByText("testuser");
         expect(user.textContent).toEqual("testuser");
     })
+
+    test("It navigates to login if no token is present", async () => {
+        render(<UserPage />);
+        const navigateMock = useNavigate();
+        expect(navigateMock).toHaveBeenCalledWith("/login");
+    });
 })
