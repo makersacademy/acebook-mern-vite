@@ -23,8 +23,19 @@ const create = (req, res) => {
         });
 };
 
+const getUser = async (req, res) => {
+    const username = req.params.username;
+    const user = await User.findOne({
+        username: username
+    });
+    const token = generateToken(req.user_id);
+    res.status(200).json({ user: user, token: token });
+    
+}
+
 const UsersController = {
     create: create,
+    getUser: getUser
 };
 
 module.exports = UsersController;
