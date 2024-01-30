@@ -1,15 +1,42 @@
-import React from 'react';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const NewPostForm = () => {
-    return (
-        <form><label>Message:
-            <input type="text" name="message" />
-            </label>
-            <label>
-                <input type="submit" name="submit" />
-            </label>
-            </form>
-    )
-}
+  const navigate = useNavigate();
+  const [message, setMessage] = useState("");
+  const token = window.localStorage.getItem("token");
+  let payload = {
+    message,
+  };
 
-export default NewPostForm
+  const handleSubmit = () => {
+    fetch(`${BACKEND_URL}/posts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(payload),
+    });
+    navigate("/posts");
+  };
+
+  const handleChange = (event) => {
+    setMessage(event.target.value);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Message:
+        <input type="text" onChange={handleChange} />
+      </label>
+      <label>
+        <input role="submit-button" id="submit" type="submit" value="Submit" />
+      </label>
+    </form>
+  );
+};
+
+export default NewPostForm;
