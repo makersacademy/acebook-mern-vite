@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { signup } from "../../services/authentication";
 
 export const SignupPage = () => {
+  document.title = "Sign Up"
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
