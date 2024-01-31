@@ -8,7 +8,7 @@ const Navbar = () => {
 
     const logout = () => {
         window.localStorage.removeItem("token");
-        navigate("/login")
+        navigate("/")
     }
 
     const profilePage = () => {

@@ -21,7 +21,7 @@ export const getPosts = async (token) => {
   return data;
 };
 
-export const likePost = async (postId, userId, token) => {
+export const likePost = async (postId, token) => {
   const requestOptions = {
     method: "POST",
     headers: {
@@ -31,7 +31,7 @@ export const likePost = async (postId, userId, token) => {
     body: JSON.stringify({ postId }), // Send the post ID to the backend
   };
 
-  const response = await fetch(`${BACKEND_URL}/posts/${postId}/like/${userId}`, requestOptions);
+  const response = await fetch(`${BACKEND_URL}/posts/${postId}/like`, requestOptions);
 
   if (response.status !== 200) {
     throw new Error("Unable to like the post");
