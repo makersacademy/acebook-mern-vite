@@ -11,12 +11,45 @@ export const SignupPage = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     await signup(profile_pic, full_name, email, password);
+  //     console.log("redirecting...:");
+  //     navigate("/login");
+  //   } catch (err) {
+  //     console.error(err);
+  //     navigate("/signup");
+  //   }
+  // };
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+  
     try {
-      await signup(profile_pic, full_name, email, password);
-      console.log("redirecting...:");
-      navigate("/login");
+      const formData = new FormData();
+      formData.append("profile_pic", profile_pic);
+      formData.append("full_name", full_name);
+      formData.append("email", email);
+      formData.append("password", password);
+      for (var pair of formData.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+      }
+      const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+      // Send the form data to the server using fetch or any HTTP library
+      const response = await fetch(`${BACKEND_URL}/users`, {
+        method: "POST",
+        body: formData,
+      });
+  
+      if (response.ok) {
+        console.log("redirecting...:");
+        navigate("/login");
+      } else {
+        console.error("Server error:", response.statusText);
+        navigate("/signup");
+      }
     } catch (err) {
       console.error(err);
       navigate("/signup");
@@ -27,7 +60,10 @@ export const SignupPage = () => {
     setFullName(event.target.value);
   };
 
-  const handleProfilePicChange = () => {
+  const handleProfilePicChange = (event) => {
+    const file = event.target.files[0];
+    console.log(file)
+    setProfilePic(file);
   };
 
   const handleEmailChange = (event) => {
@@ -43,10 +79,9 @@ export const SignupPage = () => {
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
       <label htmlFor="profile_pic">Profile Pic:</label>
-        <input
+      <input
           id="profile_pic"
           type="file"
-          value={profile_pic}
           onChange={handleProfilePicChange}
         />
       <label htmlFor="full_name">Full name:</label>
