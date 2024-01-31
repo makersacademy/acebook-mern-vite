@@ -260,3 +260,22 @@ If there are any issues with your code, make the appropriate changes and **repea
 >If you have opened a pull request, any commits after that will be shown in that pull request so ensure your pull request is reviewed before you continue working on that branch.
 
 If everything is approved and you merge your branch to the main branch, drop a message in the Slack channel to notify everyone to pull these changes.
+
+## 7. How to revert to old commits when app breaks (locally)
+
+Step 1.
+To see all previous commits:
+```shell
+git logs
+```
+or
+To see all previous commits from the current user:
+```shell
+git reflog
+```
+
+Step 2.
+Reset the branch to last working version using the commit hash of the commit you want to revert to ( the one before the issues )
+```shell
+git reset --hard <commit_hash>
+```

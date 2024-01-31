@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/acebook.svg"
+import "./Navbar.css"
+// import TextField from "@mui/material/TextField";
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -9,14 +11,32 @@ const Navbar = () => {
         navigate("/login")
     }
 
+    const profilePage = () => {
+        navigate("/profile")
+    }
+
+    const home = () => {
+        navigate("/posts")
+    }
+
     return (
         <nav>
-            <img src={logo} alt="Acebook Logo" className="logo"/>
-            <p>Acebook</p>
-            <button>Profile</button>
-            <button onClick={logout}>Logout</button>
+            <div onClick={home} className="logoAndText">
+                <img src={logo} alt="Acebook Logo" className="logo" />
+                <p>Acebook</p>
+            </div>
+            
+            <div className="pageButtons">
+                <button onClick={home}>Home</button>
+                <button onClick={profilePage}>Profile</button>
+                <button onClick={logout}>Logout</button>
+            </div>
+            <input type="text" placeholder="Search.."></input>
         </nav>
-    )
-}
+    );
+
+};
+
 
 export default Navbar;
+

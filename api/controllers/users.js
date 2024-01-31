@@ -1,5 +1,23 @@
 const User = require("../models/user");
 
+const { generateToken } = require("../lib/token");
+
+const getUser = async (req, res) => {
+  const token = generateToken(req.params.id);
+
+  User.findOne({ _id: req.params.id }).then((data) => {
+    if (!data) {
+      console.log(req.params.id);
+      console.log("Auth Error: User not found");
+      res.status(401).json({ message: "User not found" });
+    } else {
+      res.status(200).json({ user: data, token: token });
+      //console.log(data);
+      //console.log("Found user!");
+    }
+  });
+};
+
 const create = (req, res) => {
   const profile_pic = req.file.filename;
   const full_name = req.body.full_name;
@@ -36,6 +54,7 @@ const create = (req, res) => {
 };
 const UsersController = {
   create: create,
+  getUser: getUser,
 };
 
 module.exports = UsersController;

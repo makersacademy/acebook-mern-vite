@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./SignupPage.css"
 
 import { signup } from "../../services/authentication";
 
@@ -75,15 +76,20 @@ export const SignupPage = () => {
   };
 
   return (
-    <>
+    <div className="sign-up">
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
+        
+        <div>
       <label htmlFor="profile_pic">Profile Pic:</label>
       <input
           id="profile_pic"
           type="file"
           onChange={handleProfilePicChange}
-        />
+          />
+        </div>
+
+        <div>
       <label htmlFor="full_name">Full name:</label>
         <input
           id="full_name"
@@ -91,6 +97,9 @@ export const SignupPage = () => {
           value={full_name}
           onChange={handleFullNameChange}
         />
+        </div>
+
+        <div>
         <label htmlFor="email">Email:</label>
         <input
           id="email"
@@ -98,6 +107,9 @@ export const SignupPage = () => {
           value={email}
           onChange={handleEmailChange}
         />
+        </div>
+
+        <div>
         <label htmlFor="password">Password:</label>
         <input
           placeholder="Password"
@@ -106,8 +118,10 @@ export const SignupPage = () => {
           value={password}
           onChange={handlePasswordChange}
         />
+        </div>
+
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
-    </>
+    </div>
   );
 };
