@@ -48,6 +48,10 @@ export const signup = async (username, email, password) => {
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
   if (response.status === 201) {
     return;
+  } else if (response.status === 409) {
+    throw new Error (
+      `Username or Email already exists`
+      );
   } else {
     throw new Error(
       `Received status ${response.status} when signing up. Expected 201`

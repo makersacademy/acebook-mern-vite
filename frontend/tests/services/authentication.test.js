@@ -107,7 +107,7 @@ describe("authentication service", () => {
       const testPassword = "12345678";
 
       fetch.mockResponseOnce(
-        JSON.stringify({ message: "User already exists" }),
+        JSON.stringify({ message: "Error signing up" }),
         {
           status: 400,
         }
@@ -118,6 +118,26 @@ describe("authentication service", () => {
       } catch (err) {
         expect(err.message).toEqual(
           "Received status 400 when signing up. Expected 201"
+        );
+      }
+    });
+    test("throws an error if username or email already exists", async () => {
+      const testUsername = "testUser"
+      const testEmail = "test@testEmail.com";
+      const testPassword = "12345678";
+
+      fetch.mockResponseOnce(
+        JSON.stringify({ message: "User already exists" }),
+        {
+          status: 409,
+        }
+      );
+
+      try {
+        await signup(testUsername, testEmail, testPassword);
+      } catch (err) {
+        expect(err.message).toEqual(
+          `Username or Email already exists`
         );
       }
     });

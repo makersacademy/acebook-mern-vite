@@ -80,4 +80,83 @@ describe("/users", () => {
       expect(users.length).toEqual(0);
     });
   });
+
+  describe("POST, when email already exists", () => {
+    test("response code is 409", async () => {
+      await request(app)
+        .post("/users")
+        .send({ username: "123", email: "123@email.com", password: "1234" });
+
+      const response = await request(app)
+        .post("/users")
+        .send({ username: "user123", email: "123@email.com", password: "1234" });
+
+      expect(response.statusCode).toBe(409);
+      expect(response.body.message).toBe("Email already exists")
+    });
+
+    test("does not create a user", async () => {
+      await request(app)
+        .post("/users")
+        .send({ username: "123", email: "123@email.com", password: "1234" });
+
+      await request(app).post("/users").send({ username: "user123", email: "123@email.com", password: "1234" });
+
+      const users = await User.find({username: "user123"});
+      expect(users.length).toEqual(0);
+    });
+  });
+
+describe("POST, when username already exists", () => {
+  test("response code is 409", async () => {
+    await request(app)
+      .post("/users")
+      .send({ username: "user123", email: "user@email.com", password: "1234" });
+
+    const response = await request(app)
+      .post("/users")
+      .send({ username: "user123", email: "123@email.com", password: "1234" });
+
+    expect(response.statusCode).toBe(409);
+    expect(response.body.message).toBe("Username already exists")
+  });
+
+  test("does not create a user", async () => {
+    await request(app)
+      .post("/users")
+      .send({ username: "user123", email: "user@email.com", password: "1234" });
+
+    await request(app).post("/users").send({ username: "user123", email: "123@email.com", password: "1234" });
+
+    const users = await User.find({email: "123@email.com"});
+    expect(users.length).toEqual(0);
+  });
+
+  describe("POST, when username and email already exists", () => {
+    test("response code is 409", async () => {
+      await request(app)
+        .post("/users")
+        .send({ username: "user123", email: "123@email.com", password: "1234" });
+  
+      const response = await request(app)
+        .post("/users")
+        .send({ username: "user123", email: "123@email.com", password: "1234" });
+  
+      expect(response.statusCode).toBe(409);
+      expect(response.body.message).toBe("Username and Email already exist")
+    });
+  
+    test("does not create a user", async () => {
+      await request(app)
+        .post("/users")
+        .send({ username: "user123", email: "123@email.com", password: "1234" });
+  
+      await request(app).post("/users").send({ username: "user123", email: "123@email.com", password: "1234" });
+  
+      const users = await User.find({email: "123@email.com"});
+      expect(users.length).toEqual(1);
+    });
+    });
+  });
 });
+
