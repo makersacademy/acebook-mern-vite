@@ -5,7 +5,6 @@ const PostsController = require("../controllers/posts");
 
 router.get("/", PostsController.getAllPosts);
 router.post("/",PostsController.createPost);
-router.post("/likes",PostsController.addLikesToPostByPostIdUserId);
 
 module.exports = router;
 

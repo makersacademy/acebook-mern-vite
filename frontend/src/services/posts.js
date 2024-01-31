@@ -41,3 +41,7 @@ export const likePost = async (postId, token) => {
   const data = await response.json();
   return data;
 };
+
+export const getLikesByPostId = async (postId, token) => {
+  // code here
+};
