@@ -48,7 +48,7 @@ describe("Feed Page", () => {
     window.localStorage.setItem("token", "testToken");
     const mockPosts = [{ _id: "12345", message: "Test Post 1", }];
     getPosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
-
+    const navigateMock = useNavigate();
     render(<FeedPage />);
     
     const user = userEvent.setup();
@@ -57,7 +57,7 @@ describe("Feed Page", () => {
 
     await user.type(postInputEl, "testing the new post feature");
     await user.click(submitButtonEl);
-    const navigateMock = useNavigate();
+   
     expect(navigateMock).toHaveBeenCalledWith('/posts');
 
 
