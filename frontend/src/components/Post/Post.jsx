@@ -1,5 +1,6 @@
 const Post = (props) => {
-  return <article key={props.post._id}>{props.post.message}</article>;
+  return (<><br/><article key={props.post._id}>{props.post.message}</article>
+  <div>{props.date}</div></>)
 };
 
 export default Post;
