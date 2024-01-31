@@ -23,7 +23,7 @@ export const FeedPage = () => {
     } else {
       navigate("/login");
     }
-  });
+  },[]);
 
   if (!token) {
     return;
