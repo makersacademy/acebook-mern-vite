@@ -1,8 +1,12 @@
-const User = ({_id, username, email, friends }) => {
+import './User.css';
+
+const User = ({_id, username, email, friends, image, bio }) => {
     return (
         <div className="User" key={_id}>
+            <img src={image} alt="Profile Picture" />
             <p>Username: {username}</p>
             <p>Email: {email}</p>
+            <p>Bio: {bio}</p>
             <p>Friends: </p>
             
             {friends.map((friend) => 
