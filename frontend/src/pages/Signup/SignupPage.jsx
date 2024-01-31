@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SignupPage.css"
 
-import { signup } from "../../services/authentication";
 
 export const SignupPage = () => {
   document.title = "Sign Up"
@@ -11,18 +10,6 @@ export const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     await signup(profile_pic, full_name, email, password);
-  //     console.log("redirecting...:");
-  //     navigate("/login");
-  //   } catch (err) {
-  //     console.error(err);
-  //     navigate("/signup");
-  //   }
-  // };
 
 
   const handleSubmit = async (event) => {
@@ -34,9 +21,8 @@ export const SignupPage = () => {
       formData.append("full_name", full_name);
       formData.append("email", email);
       formData.append("password", password);
-      for (var pair of formData.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
-      }
+      
+
       const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
       // Send the form data to the server using fetch or any HTTP library
       const response = await fetch(`${BACKEND_URL}/users`, {
