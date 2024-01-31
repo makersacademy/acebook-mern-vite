@@ -26,7 +26,7 @@ export const ProfilePage = () => {
         } else {
             navigate("/login");
         }
-    });
+    },[]);
 
 
     if (!token) {

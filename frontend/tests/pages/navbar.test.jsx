@@ -20,6 +20,8 @@ describe("Navbar", () => {
         expect(screen.getByText("Login")).toBeInTheDocument();
         expect(screen.getByText("Sign Up")).toBeInTheDocument();
         expect(screen.getByText("Feed")).toBeInTheDocument();
+        expect(screen.getByText("Logout")).toBeInTheDocument();
+
     });
     test('Navbar link navigates to the Home page', () => {
         render(
