@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
+import Navbar from "../../components/NavBar/navbar";
 
 export const FeedPage = () => {
 	const [posts, setPosts] = useState([]);
@@ -28,34 +29,20 @@ export const FeedPage = () => {
 		}
 	}, []);
 
-	// useEffect(() => {
-	//   if (token) {
-	//     getPosts(token)
-	//       .then((data) => {
-	//         setPosts(data.posts);
-	//         setToken(data.token);
-	//         window.localStorage.setItem("token", data.token);
-	//       })
-	//       .catch((err) => {
-	//         console.err(err);
-	//       });
-	//   } else {
-	//     navigate("/login");
-	//   }
-	// });
 
-	if (!token) {
+  if (!token) {
 		return;
 	}
 
-	return (
-		<>
-			<h2>Posts</h2>
-			<div className="feed" role="feed">
-				{posts.map((post) => (
-					<Post post={post} key={post._id} />
-				))}
-			</div>
-		</>
-	);
-};
+  return (
+    <>
+      <div className="navbar"><Navbar /></div>
+      <h2>Posts</h2>
+      <div className="feed" role="feed">
+        {posts.map((post) => (
+          <Post post={post} key={post._id} />
+        ))}
+      </div>
+    </>
+  );
+
