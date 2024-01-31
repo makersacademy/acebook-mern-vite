@@ -9,6 +9,7 @@ export const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [userExists, setUserExists] = useState("")
 
   const navigate = useNavigate();
 
@@ -34,7 +35,8 @@ export const SignupPage = () => {
       console.log("redirecting...:");
       navigate("/login");
     } catch (err) {
-      console.error(err);
+        setUserExists(err.message)
+      console.error(err.message);
       navigate("/signup");
     }}
   };
@@ -58,7 +60,7 @@ export const SignupPage = () => {
     <>
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
-      <label htmlFor="username">Username:</label>
+      <label htmlFor="username">Username: </label>
         <input
           id="username"
           type="text"
@@ -66,7 +68,7 @@ export const SignupPage = () => {
           onChange={handleUsernameChange}
         />
         <br></br>
-        <label htmlFor="email">Email:</label>
+        <label htmlFor="email">Email: </label>
         <input
           id="email"
           type="text"
@@ -74,7 +76,7 @@ export const SignupPage = () => {
           onChange={handleEmailChange}
         />
         <br></br>
-        <label htmlFor="password">Password:</label>
+        <label htmlFor="password">Password: </label>
         <input
           placeholder="Password"
           id="password"
@@ -84,7 +86,7 @@ export const SignupPage = () => {
         />
         <br></br>
         <span>
-        <label htmlFor="confirmPassword">Confirm Password:</label>
+        <label htmlFor="confirmPassword">Confirm Password: </label>
         <input
           placeholder="Confirm Password"
           id="confirmPassword"
@@ -96,7 +98,7 @@ export const SignupPage = () => {
         </span>
         <br></br>
         <input role="submit-button" id="submit" type="submit" value="Submit"/>
-        
+        <p>{userExists}</p>
       </form>
     </>
   );

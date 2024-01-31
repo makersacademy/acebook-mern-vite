@@ -6,6 +6,7 @@ import { login } from "../../services/authentication";
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("")
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -15,6 +16,7 @@ export const LoginPage = () => {
       window.localStorage.setItem("token", token);
       navigate("/posts");
     } catch (err) {
+      setLoginError(err.message)
       console.error(err);
       navigate("/login");
     }
@@ -47,6 +49,7 @@ export const LoginPage = () => {
           onChange={handlePasswordChange}
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
+        <p>{loginError}</p>
       </form>
     </>
   );

@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
+import { describe, test, expect } from "vitest";
 
 import { HomePage } from "../../src/pages/Home/HomePage";
 import Navbar from "../../src/components/navbar/Navbar";
@@ -19,6 +20,8 @@ describe("Navbar", () => {
         expect(screen.getByText("Login")).toBeInTheDocument();
         expect(screen.getByText("Sign Up")).toBeInTheDocument();
         expect(screen.getByText("Feed")).toBeInTheDocument();
+        expect(screen.getByText("Logout")).toBeInTheDocument();
+
     });
     test('Navbar link navigates to the Home page', () => {
         render(
