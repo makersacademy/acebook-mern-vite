@@ -10,8 +10,18 @@ export const UserPage = () => {
     const [user, setUser] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const [email, setEmail] = useState(window.localStorage.getItem("email"));
+    const [profilePicture, setProfilePicture] = useState()
+    const [bio, setBio] = useState("")
     const navigate = useNavigate();
     const { username } = useParams();
+
+    const handleImageUpdate = (newImage) => {
+        setProfilePicture(newImage)
+    }
+
+    const handleBioUpdate = (newBio) => {
+        setBio(newBio)
+    }
 
 
     useEffect(() => {
@@ -20,6 +30,8 @@ export const UserPage = () => {
                 .then((data) => {
                     setUser(data.user);
                     setToken(data.token);
+                    setProfilePicture(data.user.image)
+                    setBio(data.user.bio)
                     window.localStorage.setItem("token", data.token);
                 })
                 .catch((err) => {
@@ -51,7 +63,11 @@ export const UserPage = () => {
 
             <EditUserModal 
             username={username}
-            image={user.image}
+            // image={user.image}
+            image={profilePicture}
+            handleImageUpdate={handleImageUpdate}
+            handleBioUpdate={handleBioUpdate}
+
             />
 
             : <p>no</p>}
@@ -60,9 +76,9 @@ export const UserPage = () => {
                 key={user._id}
                 username={user.username}
                 email={user.email}
-                bio={user.bio}
+                bio={bio}
                 friends={user.friends}
-                image={user.image}
+                image={profilePicture}
                 
             
             />

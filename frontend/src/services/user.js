@@ -29,7 +29,7 @@ export const uploadImage = async (formData, username) => {
     let response = await fetch(`${BACKEND_URL}/users/${username}/upload`, requestOptions);
 
     if (response.status === 200) {
-		return "upload image successful";
+        return response;
 	} else {
 		throw new Error(
 			`Received status ${response.status} when uploading image up. Expected 200`

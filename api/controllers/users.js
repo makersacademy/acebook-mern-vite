@@ -72,12 +72,13 @@ const uploadImage = async (req, res) => {
 	const fileName = req.file.filename
 
 	try {
-		await User.findOneAndUpdate(
+		const updatedUser = await User.findOneAndUpdate(
 			{username: username},
 			{$set: {image: fileName} },
 			{ new: true }
 		)
-		res.status(200).json({message: 'picture uploaded'});
+		
+		return res.status(200).json({message: 'picture uploaded', user:updatedUser, image:updatedUser.image, testMessage:"hello"});
 	} catch (error) {
 		res.status(500).json({ message: 'An error occurred while uploading the picture.' });
 	}
