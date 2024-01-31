@@ -21,9 +21,6 @@ export const getPosts = async (token) => {
   return data;
 };
 
-
-
-
 export const likePost = async (postId, userId, token) => {
   const requestOptions = {
     method: "POST",
