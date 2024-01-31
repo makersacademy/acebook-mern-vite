@@ -19,7 +19,7 @@ const createPost = async (req, res) => {
 
 const addLikesToPostByPostIdUserId = async (req, res) => {
   try {
-    const postId = req.params.postId;
+    const postId = req.body;
     const userId = req.user_id;
 
     // Find the post by postId

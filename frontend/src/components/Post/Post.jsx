@@ -34,7 +34,7 @@ const Post = ({ post, token }) => {
       <div className="post-actions">
         <div className="like-btn" onClick={handleLikeClick}>
           {/* Display "Like" or "Unlike" based on the isLiked state */}
-          <span>{isLiked ? "Unlike" : "Like"}</span>
+          <button>{isLiked ? "Unlike" : "Like"}</button>
         </div>
         <div className="comment-btn">
           <span>Comment</span>
