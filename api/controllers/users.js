@@ -50,10 +50,7 @@ const create = (req, res) => {
 			res.status(400).json({ message: "Something went wrong" });
 		});
 };
-// 		.catch((err) => {
-//             console.error(err);
-//             res.status(500).json({ message: "Something went wrong" });
-// });
+
 
 const getUser = async (req, res) => {
     const username = req.params.username;
@@ -68,33 +65,24 @@ const getUser = async (req, res) => {
     
 }
 
+
+const uploadImage = async (req, res) => {
+	const username = req.params.username;
+	console.log(req.file);
+
+	const fileName = req.file.filename
+	await User.findOneAndUpdate(
+		{username: username},
+		{$set: {image: fileName} },
+		{ new: true }
+	)
+}
+
 const UsersController = {
     create: create,
-    getUser: getUser
+    getUser: getUser,
+	uploadImage: uploadImage
 };
 
 module.exports = UsersController;
 
-// Hash the password
-//     const hashedPassword = crypto
-//         .createHash("sha256")
-//         .update(password)
-//         .digest("hex");
-
-//     const user = new User({ email, password: hashedPassword });
-//     user.save()
-//         .then((user) => {
-//             console.log("User created, id:", user._id.toString());
-//             res.status(201).json({ message: "OK" });
-//         })
-//         .catch((err) => {
-//             console.error(err);
-//             res.status(400).json({ message: "Something went wrong" });
-//         });
-// };
-
-// const UsersController = {
-//     create: create,
-// };
-
-// module.exports = UsersController;
