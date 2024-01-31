@@ -15,7 +15,9 @@ export const ProfilePage = () => {
                 .then((data) => {
                     setProfile(data.users);
                     setToken(data.token);
-                    window.localStorage.setItem("token", data.token);
+                    window.localStorage.setItem("token", data.token)
+                    console.log(`console log data: ${data.users}`);
+
                 })
                 .catch((err) => {
                     console.err(err);
@@ -27,7 +29,7 @@ export const ProfilePage = () => {
 
 
     if (!token) {
-        navigate("/login");
+        return;
     }
 
     return (
