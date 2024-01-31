@@ -1,5 +1,5 @@
 import createFetchMock from "vitest-fetch-mock";
-import { describe, expect, vi } from "vitest";
+import { describe, expect, vi, test } from "vitest";
 
 import { getPosts } from "../../src/services/posts";
 

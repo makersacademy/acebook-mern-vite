@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { vi } from "vitest";
+import { vi, describe, test, beforeEach, expect } from "vitest";
 
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../src/services/authentication";
@@ -68,7 +68,6 @@ describe("Signup Page", () => {
     const navigateMock = useNavigate();
 
     await completeSignupForm("testUser", "test@email.com", "Password!", "Password!");
-
     expect(navigateMock).toHaveBeenCalledWith("/signup");
   });
 
@@ -111,4 +110,20 @@ describe("Signup Page", () => {
 
     expect(navigateMock).toHaveBeenCalledWith("/signup");
   });
+
+  test("signup page doesn't have matching password error, but has complexity error when first loaded", async () => {
+    render(<SignupPage />);
+    expect(screen.queryByText("Passwords must match")).toBeFalsy()
+    expect(screen.queryByText("Password must contain a number, capital letter, be at least 8 characters, and contain one of the following ! ? $ % £"));
+  });
+
+  test("signup page has matching password error when passwords don't match", async () => {
+    render(<SignupPage />);
+    const user = userEvent.setup();
+    const passwordInputEl = screen.getByLabelText("Password:");
+    await user.type(passwordInputEl, "123");
+    expect(screen.queryByText("Passwords must match"))
+    expect(screen.queryByText("Password must contain a number, capital letter, be at least 8 characters, and contain one of the following ! ? $ % £"));
+  });
+  
 });
