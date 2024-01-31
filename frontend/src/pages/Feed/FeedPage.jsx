@@ -5,12 +5,15 @@ import Post from "../../components/Post/Post";
 import Navbar from "../../components/Post/Navbar";
 import "./FeedPage.css";
 import CreateNewPost from "./CreateNewPost";
+import { getUser } from "../../services/user";
 
 export const FeedPage = () => {
   document.title = "Posts"
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const [user, setUser] = useState({});
   const navigate = useNavigate();
+  const id = window.localStorage.getItem("id")
 
   useEffect(() => {
     if (token) {
@@ -23,6 +26,13 @@ export const FeedPage = () => {
         .catch((err) => {
           console.err(err);
         });
+      getUser(token, id)
+        .then((data) => {
+            setUser(data.user)
+        })
+        .catch((error) => {
+            console.error(error)
+        })
     } else {
       navigate("/login");
     }
@@ -35,7 +45,7 @@ export const FeedPage = () => {
   return (
     <>
       <Navbar />
-
+      <p>{user.full_name}</p>
       <div className="allposts">
       <br></br>
       <br></br>
