@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const multer  = require('multer')
 
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
@@ -36,5 +37,36 @@ app.use((err, _req, res, _next) => {
     res.status(500).json({ err: "Something went wrong" });
   }
 });
+
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '/uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+
+var upload = multer({ storage: storage })
+
+app.use(express.static(__dirname + './frontend/public'));
+app.use('/uploads', express.static('uploads'));
+
+app.post('/users', upload.single('profile_pic'), function (req, res, next) {
+  // req.file is the `profile_pic` file
+  // req.body will hold the text fields, if there were any
+  console.log(JSON.stringify(req.file));
+  console.log(req.body);
+
+  // Handle the signup logic here using req.body
+  // Example: signup(req.body.full_name, req.body.email, req.body.password);
+
+  var response = '<a href="/">Home</a><br>';
+  response += "Files uploaded successfully.<br>";
+  response += `<img src="${req.file.path}" /><br>`;
+  return res.send(response);
+});
+
 
 module.exports = app;

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SignupPage.css"
 
-import { signup } from "../../services/authentication";
 
 export const SignupPage = () => {
   document.title = "Sign Up"
@@ -12,12 +11,32 @@ export const SignupPage = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+  
     try {
-      await signup(profile_pic, full_name, email, password);
-      console.log("redirecting...:");
-      navigate("/login");
+      const formData = new FormData();
+      formData.append("profile_pic", profile_pic);
+      formData.append("full_name", full_name);
+      formData.append("email", email);
+      formData.append("password", password);
+      
+
+      const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+      // Send the form data to the server using fetch or any HTTP library
+      const response = await fetch(`${BACKEND_URL}/users`, {
+        method: "POST",
+        body: formData,
+      });
+  
+      if (response.ok) {
+        console.log("redirecting...:");
+        navigate("/login");
+      } else {
+        console.error("Server error:", response.statusText);
+        navigate("/signup");
+      }
     } catch (err) {
       console.error(err);
       navigate("/signup");
@@ -28,7 +47,10 @@ export const SignupPage = () => {
     setFullName(event.target.value);
   };
 
-  const handleProfilePicChange = () => {
+  const handleProfilePicChange = (event) => {
+    const file = event.target.files[0];
+    console.log(file)
+    setProfilePic(file);
   };
 
   const handleEmailChange = (event) => {
@@ -46,10 +68,9 @@ export const SignupPage = () => {
         
         <div>
       <label htmlFor="profile_pic">Profile Pic:</label>
-        <input
+      <input
           id="profile_pic"
           type="file"
-          value={profile_pic}
           onChange={handleProfilePicChange}
           />
         </div>

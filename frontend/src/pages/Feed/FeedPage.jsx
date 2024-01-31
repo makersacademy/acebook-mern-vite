@@ -40,6 +40,8 @@ export const FeedPage = () => {
     }
   }, [token, navigate]); //Needed if useEffect is used anywhere else
 
+  //<img src={user.profile_pic} alt="" />
+
   if (!token) {
     return;
   }
