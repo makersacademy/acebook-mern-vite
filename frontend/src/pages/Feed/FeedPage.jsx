@@ -29,20 +29,21 @@ export const FeedPage = () => {
 		}
 	}, []);
 
-
-  if (!token) {
+	if (!token) {
 		return;
 	}
 
-  return (
-    <>
-      <div className="navbar"><Navbar /></div>
-      <h2>Posts</h2>
-      <div className="feed" role="feed">
-        {posts.map((post) => (
-          <Post post={post} key={post._id} />
-        ))}
-      </div>
-    </>
-  );
-
+	return (
+		<>
+			<div className="navbar">
+				<Navbar />
+			</div>
+			<h2>Posts</h2>
+			<div className="feed" role="feed">
+				{posts.map((post) => (
+					<Post post={post} key={post._id} />
+				))}
+			</div>
+		</>
+	);
+};
