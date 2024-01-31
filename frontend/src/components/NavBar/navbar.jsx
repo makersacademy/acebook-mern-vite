@@ -3,17 +3,12 @@ import './Navbar.css';
 
 const Navbar = () => {
     const effectRan = React.useRef(false);
-    const loggedIn = React.useRef(true);
-    const text = 'login';
-    if (loggedIn) {
-        const text = 'logout';
-    }
     const createNavbar = () => {
 
     const navbarItems = [
       { text: 'Search', id: 'searchButton'},
       { text: 'Home', id: 'home', link: '/' },
-      { text: text, id: 'logout', link: '/login' },
+      { text: 'Logout', id: 'logout', link: '/login' },
       { text: 'User', link: '/user' }
     ];
 
