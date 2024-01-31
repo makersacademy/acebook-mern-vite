@@ -2,6 +2,7 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const login = async (email, password) => {
+
   const payload = {
     email: email,
     password: password,
@@ -51,4 +52,5 @@ export const signup = async (username, email, password) => {
   } else {
     throw new Error (await response.json().then((data) => data.message));
   } 
+
 };
