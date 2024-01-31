@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
-import Navbar from "../../components/Post/Navbar"; 
+import Navbar from "../../components/Post/Navbar";  
 import "./FeedPage.css";
 import CreateNewPost from "./CreateNewPost";
 
@@ -38,7 +37,9 @@ export const FeedPage = () => {
   return (
     <>
       <Navbar />
-      <br></br> 
+
+      <div className="allposts">
+      <br></br>
       <br></br>
       <CreateNewPost token={token}/>
       <br></br>
@@ -47,7 +48,8 @@ export const FeedPage = () => {
       {[...posts].reverse().map((post) => (
           <Post post={post} key={post._id} />
         ))}
-      </div>
+          </div>
+        </div>
     </>
   );
 };

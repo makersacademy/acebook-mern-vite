@@ -27,7 +27,7 @@ const CreateNewPost = ({ token }) => {
         <div className="feed-container">
             <form className="feed-form" onSubmit={handleSubmit}>
                 <label className="feed-label">
-                    What's on your mind?
+                    What's on your mind? 
                 </label>
                 <div className='input-and-button-container'>
                     <input
