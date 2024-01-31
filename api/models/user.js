@@ -42,4 +42,5 @@ const User = mongoose.model("User", UserSchema);
 //     posts: [],
 // }).save();
 
+
 module.exports = User;
