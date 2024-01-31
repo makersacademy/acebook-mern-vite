@@ -1,5 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { vi } from "vitest";
+import userEvent from "@testing-library/user-event";
+import PostsController from "../../../api/controllers/posts";
 
 import { FeedPage } from "../../src/pages/Feed/FeedPage";
 import { getPosts } from "../../src/services/posts";
@@ -40,5 +42,24 @@ describe("Feed Page", () => {
     render(<FeedPage />);
     const navigateMock = useNavigate();
     expect(navigateMock).toHaveBeenCalledWith("/login");
+  });
+
+  test('Creates a new post if token present', async () => {
+    window.localStorage.setItem("token", "testToken");
+    const mockPosts = [{ _id: "12345", message: "Test Post 1", }];
+    getPosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
+
+    render(<FeedPage />);
+    
+    const user = userEvent.setup();
+    const postInputEl = screen.getByTestId("post-input");
+    const submitButtonEl = screen.getByRole("submit-button");
+
+    await user.type(postInputEl, "testing the new post feature");
+    await user.click(submitButtonEl);
+    const navigateMock = useNavigate();
+    expect(navigateMock).toHaveBeenCalledWith('/posts');
+
+
   });
 });

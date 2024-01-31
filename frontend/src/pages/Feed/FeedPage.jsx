@@ -33,7 +33,7 @@ export const FeedPage = () => {
   return (
     <>
       <h2>Posts</h2>
-      <NewPostForm />
+      <NewPostForm role="new-post"/>
       <div className="feed" role="feed">
         {posts.toReversed().map((post) => (
           <Post post={post} key={post._id} date={post.time_of_post} />
