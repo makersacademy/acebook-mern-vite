@@ -1,4 +1,4 @@
-// FeedPage.jsx
+// frontend/src/pages/Feed/FeedPage.jsx
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
