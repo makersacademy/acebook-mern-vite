@@ -69,19 +69,42 @@ const getUser = async (req, res) => {
 const uploadImage = async (req, res) => {
 	const username = req.params.username;
 	console.log(req.file);
-
 	const fileName = req.file.filename
-	await User.findOneAndUpdate(
-		{username: username},
-		{$set: {image: fileName} },
-		{ new: true }
-	)
+
+	try {
+		await User.findOneAndUpdate(
+			{username: username},
+			{$set: {image: fileName} },
+			{ new: true }
+		)
+		res.status(200).json({message: 'picture uploaded'});
+	} catch (error) {
+		res.status(500).json({ message: 'An error occurred while uploading the picture.' });
+	}
+}
+
+
+const editBio = async (req, res) => {
+	const username = req.params.username;
+	const newBio = req.body.bio
+	console.log("this is the bio", newBio);
+	try {
+		const updatedUser = await User.findOneAndUpdate(
+			{username: username},
+			{$set: {bio: newBio} },
+			{ new: true }
+		)
+		res.status(200).json({message: 'Bio updated'});
+	} catch (error) {
+		res.status(500).json({ message: 'An error occurred while updating the bio.' });
+	}
 }
 
 const UsersController = {
     create: create,
     getUser: getUser,
-	uploadImage: uploadImage
+	uploadImage: uploadImage,
+	editBio: editBio
 };
 
 module.exports = UsersController;
