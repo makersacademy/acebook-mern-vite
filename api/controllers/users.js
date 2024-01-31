@@ -28,9 +28,17 @@ const create = async (req, res) => {
     }
 }
 
+const getAllUserInfo = async (req, res) => {
+  const data = await User.findbyId();
+  const token = generateToken(req.user_id);
+  res.status(200).json({ data: data, token: token });
+};
+
+
 
 const UsersController = {
   create: create,
+  getAllUserInfo: getAllUserInfo, 
 };
 
 module.exports = UsersController;
