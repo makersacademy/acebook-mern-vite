@@ -38,7 +38,7 @@ export const FeedPage = () => {
     } else {
       navigate("/login");
     }
-  }, [token, navigate]); //Needed if useEffect is used anywhere else
+  }, [token, navigate, posts]); //Needed if useEffect is used anywhere else
 
   //<img src={user.profile_pic} alt="" />
 
