@@ -16,7 +16,8 @@ export const ProfilePage = () => {
                     setProfile(data.users);
                     setToken(data.token);
                     window.localStorage.setItem("token", data.token)
-                    console.log(`console log data: ${data.users}`);
+                    // testing to working out why test didn't work
+                    //console.log(`console log data: ${data.users}`);
 
                 })
                 .catch((err) => {
