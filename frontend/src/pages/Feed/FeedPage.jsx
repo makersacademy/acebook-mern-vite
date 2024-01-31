@@ -6,29 +6,33 @@ import Post from "../../components/Post/Post";
 import Navbar from "../../components/NavBar/navbar";
 
 export const FeedPage = () => {
-  const [posts, setPosts] = useState([]);
-  const [token, setToken] = useState(window.localStorage.getItem("token"));
-  const navigate = useNavigate();
+	const [posts, setPosts] = useState([]);
+	const [token, setToken] = useState(window.localStorage.getItem("token"));
+	const navigate = useNavigate();
 
-  useEffect(() => {
-    if (token) {
-      getPosts(token)
-        .then((data) => {
-          setPosts(data.posts);
-          setToken(data.token);
-          window.localStorage.setItem("token", data.token);
-        })
-        .catch((err) => {
-          console.err(err);
-        });
-    } else {
-      navigate("/login");
-    }
-  });
+	useEffect(() => {
+		if (token) {
+			getPosts(token)
+				.then((data) => {
+					const sortedPosts = data.posts.sort(
+						(a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+					);
+					setPosts(sortedPosts.reverse());
+					setToken(data.token);
+					window.localStorage.setItem("token", data.token);
+				})
+				.catch((err) => {
+					console.err(err);
+				});
+		} else {
+			navigate("/login");
+		}
+	}, []);
+
 
   if (!token) {
-    return;
-  }
+		return;
+	}
 
   return (
     <>
@@ -41,4 +45,4 @@ export const FeedPage = () => {
       </div>
     </>
   );
-};
+
