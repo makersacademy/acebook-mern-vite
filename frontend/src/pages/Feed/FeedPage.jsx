@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
+import NewPost from "../../components/Post/NewPost" 
 import Post from "../../components/Post/Post";
 
 export const FeedPage = () => {
@@ -33,6 +34,7 @@ export const FeedPage = () => {
     <>
       <h2>Posts</h2>
       <div className="feed" role="feed">
+        <NewPost />
         {posts.map((post) => (
           <Post post={post} key={post._id} />
         ))}
