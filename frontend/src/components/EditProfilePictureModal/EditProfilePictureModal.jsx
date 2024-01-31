@@ -3,7 +3,7 @@ import "./EditProfilePictureModal.css"
 import { uploadImage } from "../../services/user";
 
 
-export default function EditProfilePictureModal({image, username, handleImageUpdate}) {
+export default function EditProfilePictureModal({image, username, toggleEditPictureModal, handleImageUpdate}) {
     const [modal, setModal] = useState(false)
     const [file, setFile] = useState()
 
@@ -16,6 +16,7 @@ export default function EditProfilePictureModal({image, username, handleImageUpd
             .then(data => {
                 console.log(data.image)
                 handleImageUpdate(data.image)
+                toggleEditPictureModal()
             });
         }
     

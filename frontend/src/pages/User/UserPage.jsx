@@ -74,11 +74,13 @@ export const UserPage = () => {
 
             <User 
                 key={user._id}
+                _id={user._id}
                 username={user.username}
                 email={user.email}
                 bio={bio}
                 friends={user.friends}
                 image={profilePicture}
+                posts={user.posts}
                 
             
             />
