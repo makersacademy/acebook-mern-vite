@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const crypto = require("crypto");
+const { generateToken } = require("../lib/token");
 
 const create = (req, res) => {
     const email = req.body.email;
@@ -27,7 +28,10 @@ const getUser = async (req, res) => {
     const username = req.params.username;
     const user = await User.findOne({
         username: username
-    });
+    }).populate('friends').populate('posts');
+    if(!user) {
+        return res.status(400).json({ message: "User not found" });
+    }  
     const token = generateToken(req.user_id);
     res.status(200).json({ user: user, token: token });
     
