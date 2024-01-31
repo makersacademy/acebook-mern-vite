@@ -23,7 +23,7 @@ export const login = async (email, password) => {
     return data.token;
   } else {
     throw new Error(
-      `Received status ${response.status} when logging in. Expected 201`
+      await response.json().then((data) => data.message)
     );
   }
 };
