@@ -18,15 +18,9 @@ const create = (req, res) => {
     });
 };
 
-const getAllUsers = async (req, res) => {
-  const users = await users.find();
-  const token = generateToken(req.user_id);
-  res.status(200).json({ users: users, token: token });
-};
 
 const UsersController = {
   create: create,
-  // getAllUsers: getAllUsers,
 };
 
 module.exports = UsersController;

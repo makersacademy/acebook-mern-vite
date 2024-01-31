@@ -1,14 +1,15 @@
 const User = require("../models/user");
 const { generateToken } = require("../lib/token");
 
-const getAllUsers = async (req, res) => {
-    const users = await User.find();
+const getUser = async (req, res) => {
     const token = generateToken(req.user_id);
+    const users = await User.find({ _id: req.user_id});
     res.status(200).json({users: users, token: token});
+    
 }
 
 const ProfileController = {
-    getAllUsers: getAllUsers,
+    getUser: getUser,
 }
 
 module.exports = ProfileController;
