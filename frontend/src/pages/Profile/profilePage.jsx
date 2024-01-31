@@ -1,6 +1,7 @@
 import Navbar from "../../components/Post/Navbar";
 import { useState, useEffect } from "react";
 import { getUser } from "../../services/user"
+import "./profilePage.css"
 
 export const ProfilePage = () => {
     document.title = "Profile Page"
@@ -26,6 +27,7 @@ export const ProfilePage = () => {
         <Navbar />
 
         <div className="profile">
+        <img src={user.profile_pic} alt="profile pic" className="profilePage_user_picture"/>
         <h1>Profile Page</h1>
         </div>
         <p>{user.full_name}</p>

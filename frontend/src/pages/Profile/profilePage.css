@@ -1,0 +1,9 @@
+.profilePage_user_picture {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  float: left;
+  border-radius: 50%;
+  margin-right: 15px;
+  border: 2px solid #1877f2;
+}
