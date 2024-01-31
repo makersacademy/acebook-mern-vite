@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/Navbar/Navbar";
 
 import { login } from "../../services/authentication";
 
@@ -30,6 +31,7 @@ export const LoginPage = () => {
 
   return (
     <>
+      <Navbar />
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>

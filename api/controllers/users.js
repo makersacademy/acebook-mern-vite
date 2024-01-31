@@ -29,7 +29,7 @@ const create = async (req, res) => {
 }
 
 const getAllUserInfo = async (req, res) => {
-  const data = await User.findbyId();
+  const data = await User.findOne();
   const token = generateToken(req.user_id);
   res.status(200).json({ data: data, token: token });
 };
