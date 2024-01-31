@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { vi } from "vitest";
+import { vi, describe, test, beforeEach, expect } from "vitest";
 
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../src/services/authentication";

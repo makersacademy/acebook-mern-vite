@@ -1,5 +1,5 @@
 import createFetchMock from "vitest-fetch-mock";
-import { describe, vi } from "vitest";
+import { describe, vi, test, expect} from "vitest";
 
 import { login, signup } from "../../src/services/authentication";
 
@@ -117,7 +117,7 @@ describe("authentication service", () => {
         await signup(testUsername, testEmail, testPassword);
       } catch (err) {
         expect(err.message).toEqual(
-          "Received status 400 when signing up. Expected 201"
+          "Error signing up"
         );
       }
     });
@@ -127,7 +127,7 @@ describe("authentication service", () => {
       const testPassword = "12345678";
 
       fetch.mockResponseOnce(
-        JSON.stringify({ message: "User already exists" }),
+        JSON.stringify({ message: "Username already exists" }),
         {
           status: 409,
         }
@@ -137,7 +137,7 @@ describe("authentication service", () => {
         await signup(testUsername, testEmail, testPassword);
       } catch (err) {
         expect(err.message).toEqual(
-          `Username or Email already exists`
+          `Username already exists`
         );
       }
     });
