@@ -20,20 +20,23 @@ vi.mock("../../src/services/authentication", () => {
   return { signup: signupMock };
 });
 
-// Reusable function for filling out signup form
-const completeSignupForm = async () => {
+// Reusable function for filling out signup form - Correct input
+const completeSignupForm = async (username, email, password, confirmPassword) => {
   const user = userEvent.setup();
 
   const userNameInputEl = screen.getByLabelText("Username:")
   const emailInputEl = screen.getByLabelText("Email:");
   const passwordInputEl = screen.getByLabelText("Password:");
+  const confirmPasswordInputEl = screen.getByLabelText("Confirm Password:");
   const submitButtonEl = screen.getByRole("submit-button");
 
-  await user.type(userNameInputEl, "testUser")
-  await user.type(emailInputEl, "test@email.com");
-  await user.type(passwordInputEl, "1234");
+  await user.type(userNameInputEl, username)
+  await user.type(emailInputEl, email);
+  await user.type(passwordInputEl, password);
+  await user.type(confirmPasswordInputEl, confirmPassword)
   await user.click(submitButtonEl);
 };
+
 
 describe("Signup Page", () => {
   beforeEach(() => {
@@ -43,9 +46,9 @@ describe("Signup Page", () => {
   test("allows a user to signup", async () => {
     render(<SignupPage />);
 
-    await completeSignupForm();
+    await completeSignupForm("testUser", "test@email.com", "Password1!", "Password1!");
 
-    expect(signup).toHaveBeenCalledWith("testUser", "test@email.com", "1234");
+    expect(signup).toHaveBeenCalledWith("testUser", "test@email.com", "Password1!");
   });
 
   test("navigates to /login on successful signup", async () => {
@@ -53,7 +56,7 @@ describe("Signup Page", () => {
 
     const navigateMock = useNavigate();
 
-    await completeSignupForm();
+    await completeSignupForm("testUser", "test@email.com", "Password1!", "Password1!");
 
     expect(navigateMock).toHaveBeenCalledWith("/login");
   });
@@ -64,7 +67,47 @@ describe("Signup Page", () => {
     signup.mockRejectedValue(new Error("Error signing up"));
     const navigateMock = useNavigate();
 
-    await completeSignupForm();
+    await completeSignupForm("testUser", "test@email.com", "Password!", "Password!");
+
+    expect(navigateMock).toHaveBeenCalledWith("/signup");
+  });
+
+  test("navigates to /signup when passwords don't match", async () => {
+    render(<SignupPage />);
+    const navigateMock = useNavigate();
+    await completeSignupForm("testUser", "test@email.com", "Password!", "Password?");
+
+    expect(navigateMock).toHaveBeenCalledWith("/signup");
+  });
+
+  test("navigates to /signup when password is too short", async () => {
+    render(<SignupPage />);
+    const navigateMock = useNavigate();
+    await completeSignupForm("testUser", "test@email.com", "Pass1!", "Pass1!");
+
+    expect(navigateMock).toHaveBeenCalledWith("/signup");
+  });
+
+  test("navigates to /signup when password does not contain ! ? $ % or £", async () => {
+    render(<SignupPage />);
+    const navigateMock = useNavigate();
+    await completeSignupForm("testUser", "test@email.com", "Password1", "Password1");
+
+    expect(navigateMock).toHaveBeenCalledWith("/signup");
+  });
+
+  test("navigates to /signup when password does not have Capital", async () => {
+    render(<SignupPage />);
+    const navigateMock = useNavigate();
+    await completeSignupForm("testUser", "test@email.com", "password1!", "password1!");
+
+    expect(navigateMock).toHaveBeenCalledWith("/signup");
+  });
+
+  test("navigates to /signup when password does not have a number", async () => {
+    render(<SignupPage />);
+    const navigateMock = useNavigate();
+    await completeSignupForm("testUser", "test@email.com", "Password!", "Password!");
 
     expect(navigateMock).toHaveBeenCalledWith("/signup");
   });

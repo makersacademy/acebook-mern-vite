@@ -17,6 +17,7 @@ const create = (req, res) => {
         });
 };
 
+
 const UsersController = {
     create: create,
 };
