@@ -9,7 +9,7 @@ const Navbar = () => {
       { text: 'Search', id: 'searchButton'},
       { text: 'Home', id: 'home', link: '/' },
       { text: 'Logout', id: 'logout', link: '/login' },
-      { text: 'User', link: '/user' }
+      { text: 'User', link: '/users/:username' }
     ];
 
     const navbarContainer = document.getElementById('navbar');

@@ -2,6 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import {expect} from '@vitest/expect'
 import Navbar from '../../src/components/NavBar/navbar.jsx';
 
 describe('Navbar', () => {
@@ -9,16 +10,17 @@ describe('Navbar', () => {
 
     render(<Navbar />);
 
-    const navbarContainer = screen.getByTestId('navbar');
-    expect(navbarContainer).toBeInTheDocument();
+    const testingElement = screen.queryByTestId('navbar');
+    if (testingElement === null) {
+      throw new Error("Testing element was not found");}
 
     const navbarItems = ['Home', 'Logout', 'User'];
     navbarItems.forEach(item => {
-      const linkElement = screen.getByText(item);
-      expect(linkElement).toBeInTheDocument();
+    const testingElement = screen.queryByText(item);
+    if (testingElement === null) {
+      throw new Error("Testing element was not found");}
     });
   });
 });
-
 
 
