@@ -1,3 +1,5 @@
+// api/controllers/posts.js
+
 const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
 

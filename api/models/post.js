@@ -1,3 +1,5 @@
+// api/models/post.js
+
 const mongoose = require("mongoose");
 
 // A Schema defines the "shape" of entries in a collection. This is similar to

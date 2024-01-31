@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { createPost } from "../../services/createPost";
+import "./CreateNewPost.css";
 
 const CreateNewPost = ({ token }) => {
     const [message, setMessage] = useState("");
@@ -23,26 +24,25 @@ const CreateNewPost = ({ token }) => {
     };
 
     return (
-        <>
-            <h2>Create a new post</h2>
-            <div className="feed" role="feed">
-                <form onSubmit={handleSubmit}>
-                    <label>
-                        <h2>
-                            What's on your mind?
-                        </h2>
-                            
-                        <input
-                            name="message"
-                            type="text"
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                        />
-                    </label>
-                    <button type="submit">Submit post</button>
-                </form>
-            </div>
-        </>
+        <div className="feed-container">
+            <form className="feed-form" onSubmit={handleSubmit}>
+                <label className="feed-label">
+                    What's on your mind?
+                </label>
+                <div className='input-and-button-container'>
+                    <input
+                        className="feed-input"
+                        name="message"
+                        type="text"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                    />
+                    <button className="feed-button" type="submit">
+                        Share
+                    </button>
+                </div>
+            </form>
+        </div>
     );
 };
 

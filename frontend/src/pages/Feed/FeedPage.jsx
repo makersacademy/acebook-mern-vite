@@ -1,8 +1,10 @@
+// frontend/src/pages/Feed/FeedPage.jsx
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
-import Navbar from "../../components/Post/Navbar";
+import Navbar from "../../components/Post/Navbar"; 
 import "./FeedPage.css";
 import CreateNewPost from "./CreateNewPost";
 import { getUser } from "../../services/user";
@@ -53,7 +55,7 @@ export const FeedPage = () => {
       <br></br>
       <h2>Posts</h2>
       <div className="feed" role="feed">
-        {posts.map((post) => (
+      {[...posts].reverse().map((post) => (
           <Post post={post} key={post._id} />
         ))}
           </div>
