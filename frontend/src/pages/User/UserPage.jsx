@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { getUser } from "../../services/user";
+import User from "../../components/User";
 
 export const UserPage = () => {
     const [user, setUser] = useState([]);
@@ -40,14 +40,14 @@ export const UserPage = () => {
         return (
             <>
             <h1>User Page</h1>
-            <p>ID {user._id}</p>
-            <p>Username {user.username}</p>
-            <p>Email {user.email}</p>
-            <p>Friends emails</p>
-            {user.friends.map((friend) => (
-                <p key={friend._id}> {friend.email} </p>
+
+            <User 
+                key={user._id}
+                username={user.username}
+                email={user.email}
+                friends={user.friends}
             
-            ))}
+            />
             
             </>
         );
