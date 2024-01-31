@@ -71,8 +71,30 @@
 
 .like-btn:hover,
 .comment-btn:hover {
-    color: #1877f2;
+    background-color: #f5f5f5; /* Lighter hover background */
 }
+
+/* Typography Enhancements */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+    background-color: #f0f2f5; /* Facebook-like background color */
+    color: #333; /* Base text color */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .feed {
+        max-width: 100%;
+        padding: 0 15px; /* Adjust padding for mobile */
+    }
+
+    .post-header h4,
+    .post-content,
+    .post-actions {
+        font-size: 16px; /* Adjust font size for mobile readability */
+    }
+}
+
 
 .allposts {
     margin: 0 auto;
