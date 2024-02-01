@@ -2,7 +2,7 @@
 
 .feed-container {
     width: 300px; /* Adjust the width as needed */
-    margin: 20px; /* Add margin as needed */
+    margin: auto; /* Add margin as needed */
     border: 1px solid #ccc; /* Add border for the container */
     border-radius: 10px; /* Add rounded edges */
     padding: 10px; /* Add padding inside the container */

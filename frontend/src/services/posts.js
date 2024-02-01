@@ -21,6 +21,7 @@ export const getPosts = async (token) => {
   return data;
 };
 
+
 export const likePost = async (postId, token) => {
   const requestOptions = {
     method: "POST",
@@ -28,15 +29,41 @@ export const likePost = async (postId, token) => {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json", // Specify the content type as JSON
     },
-    body: JSON.stringify({ postId }), // Send the post ID to the backend
+    body: JSON.stringify( {postId} ), // Send the post ID to the backend
   };
 
-  const response = await fetch(`${BACKEND_URL}/posts/${postId}/like`, requestOptions);
+  // console.log("Request Body:", requestOptions.body);
+
+  const response = await fetch(`${BACKEND_URL}/likes/toggle`, requestOptions);
 
   if (response.status !== 200) {
-    throw new Error("Unable to like the post");
+    throw new Error("Unable to toggle the like status of the post");
   }
 
   const data = await response.json();
   return data;
 };
+
+export const getAllLikesByPostId = async (postId, token) => {
+  try {
+    const response = await fetch(`${BACKEND_URL}/likes/${postId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+
+
