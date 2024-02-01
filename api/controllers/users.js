@@ -28,9 +28,14 @@ const create = async (req, res) => {
     }
 }
 
+const getId = async (req, res) => {
+  res.status(200).json({ user_id: req.user_id});
+}
+
 
 const UsersController = {
   create: create,
+  getId: getId,
 };
 
 module.exports = UsersController;
