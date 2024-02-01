@@ -37,6 +37,7 @@ const CreateNewPost = ({ token }) => {
                         type="text"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
+                        required={true}
                     />
                     <button className="feed-button" type="submit">
                         Share
