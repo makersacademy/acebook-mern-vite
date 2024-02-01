@@ -19,14 +19,24 @@ const getUser = async (req, res) => {
 };
 
 const create = (req, res) => {
-  const profile_pic = req.file.filename;
+  let profile_pic = "";
+  let url =
+    req.protocol +
+    "://" +
+    req.get("host") +
+    "/uploads/default_profile_pic.svg.png";
+  if (req.file) {
+    profile_pic = req.file.filename;
+    url = req.protocol + "://" + req.get("host") + "/uploads/" + profile_pic;
+  }
+
   const full_name = req.body.full_name;
   const email = req.body.email;
   const password = req.body.password;
 
-  const url = req.protocol + "://" + req.get("host");
+  //const url = req.protocol + "://" + req.get("host") + "/uploads/" + profile_pic;
   const user = new User({
-    profile_pic: url + "/uploads/" + profile_pic,
+    profile_pic: url,
     full_name,
     email,
     password,

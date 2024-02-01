@@ -42,9 +42,9 @@ const Post = ({ post, token }) => {
     <div className="post">
       <div className="post-header">
         {/* <img src={post.author.avatar} alt={`${post.author.name}'s avatar`} /> */}
-        <img src="#" alt={`Author's avatar`} />
+        <img src={post.profile_pic} alt={`Author's avatar`} />
         {/* <h4>{post.author.name}</h4> */}
-        <h4>Author's name</h4>
+        <h4>{post.full_name}</h4>
       </div>
       <div className="post-content">
         <article>{post.message}</article>

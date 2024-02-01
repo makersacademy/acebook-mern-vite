@@ -49,8 +49,7 @@ export const FeedPage = () => {
   return (
     <>
       <Navbar />
-      <p>{user.full_name}</p>
-      <img src={user.profile_pic} alt="" className="profile-pic"/>
+     
       <div className="allposts">
       <br></br>
       <br></br>
