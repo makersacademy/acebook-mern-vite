@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { searchUsers } from "../../services/user"
+import SearchResultsDropDown from "./SearchResultsDropDown"
 
-export default function SearchNavItem() {
+export default function SearchNavItem( { handleSearch }) {
     const [searchUserInput, setSearchUserInput] = useState("")
     const [token, setToken] = useState(window.localStorage.getItem("token"))
     const [foundUsers, setFoundUsers] = useState([])
+    const [showResults, setShowResults] = useState(false)
 
     const handleInputChange = (event) => {
         setSearchUserInput(event.target.value)
@@ -16,6 +18,9 @@ export default function SearchNavItem() {
             searchUsers(searchUserInput)
                 .then((data) => {
                     setFoundUsers(data.result)
+                    // setShowResults(true)
+                    handleSearch(foundUsers)
+
                 })
                 .catch((err) => {
                     console.error(err);
@@ -26,6 +31,7 @@ export default function SearchNavItem() {
         return;
 
     return (
+        <>
         <form onSubmit={handleSubmit}>
             <input type="input"
             placeholder="search user"
@@ -34,7 +40,8 @@ export default function SearchNavItem() {
             />
             <button type="submit">search</button>
         </form>
-        
+
+        </>
     )
 
 
