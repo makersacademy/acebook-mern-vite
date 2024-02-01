@@ -131,6 +131,8 @@ export const SignupPage = () => {
         </div>
         <p className="error-message">{errorMessage}</p>
         <input role="submit-button" id="submit" type="submit" value="Submit" />
+
+        <a href="/login">Login</a>
       </form>
     </div>
   );
