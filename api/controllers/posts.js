@@ -11,9 +11,11 @@ const getAllPosts = async (req, res) => {
 const createPost = async (req, res) => {
     if (req.body.message !== "") {
         const user = await User.findOne({_id: req.user_id})
+        console.log(req.user_id)
+        console.log(user)
+        console.log(req.body)
         req.body.username = user.username
         const post = new Post(req.body);
-        console.log(req)
         post.save();
 
         const newToken = generateToken(req.user_id);
