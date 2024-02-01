@@ -38,7 +38,9 @@ export const FeedPage = () => {
                     <Post post={post} key={post._id} />
                 ))}
             </div>
+            <div className="newPost">
             <CreatePost />
+            </div>
         </>
     );
 };
