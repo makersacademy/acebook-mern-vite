@@ -27,6 +27,7 @@ const getAllPosts = async (req, res) => {
           message: 1,
           full_name: "$userDetails.full_name",
           profile_pic: "$userDetails.profile_pic",
+          image: 1,
         },
       },
     ]);
@@ -39,15 +40,25 @@ const getAllPosts = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-  console.log(req.body.message, req.body.user_id, req.file.filename);
-  let image = "";
-  if (req.file) {
-    image = req.protocol + "://" + req.get("host") + "/uploads/" + req.file.filename
+  try {
+    let image = "";
+
+    if (req.file) {
+      image = req.protocol + "://" + req.get("host") + "/uploads/" + req.file.filename;
+    }
+
+    const { message, user_id } = req.body;
+    // const image = req.protocol + '://' + req.get('host') + '/uploads/' + req.file.filename;
+
+    const post = new Post({ message, user_id, image });
+    await post.save();
+
+    const newToken = generateToken(req.user_id);
+    res.status(201).json({ message: 'OK', token: newToken });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
   }
-  const post = new Post(req.body, req.body.user_id, image);
-  post.save();
-  const newToken = generateToken(req.user_id);
-  res.status(201).json({ message: "OK", token: newToken });
 };
 
 const PostsController = {
