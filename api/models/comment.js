@@ -6,6 +6,7 @@ const CommentSchema = new mongoose.Schema({
     time_of_comment: {type: String, require: false},
     // String array of user_id's
     likes: {type: Array},
+    post_id: {type: String, require: true},
 });
 
 const Comment = mongoose.model("Comment", CommentSchema);
