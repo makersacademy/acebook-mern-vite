@@ -8,3 +8,4 @@ router.post("/", multer.single("images"), PostsController.createPost);
 
 
 module.exports = router;
+

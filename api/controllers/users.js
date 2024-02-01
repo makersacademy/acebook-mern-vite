@@ -51,12 +51,15 @@ const create = (req, res) => {
         .json({ message: "User created successfully", userId: user._id });
     })
     .catch((err) => {
-      console.error(err);
+      //console.error(err);
 
       if (err.name === "ValidationError") {
         res
           .status(400)
           .json({ message: "Validation failed", errors: err.errors });
+      } else if (err.name === "MongoServerError") {
+        console.log("Email already in use");
+        res.status(409).json({ message: "Email already in use" });
       } else {
         res.status(500).json({ message: "Internal server error" });
       }
