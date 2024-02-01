@@ -6,6 +6,7 @@ const { generateToken } = require("../lib/token");
 const getAllLikesByPostId = async (req, res) => {
     try {
         const postId = req.params.postId;
+        const userId = req.user_id;
 
         // Find the post by postId
         const post = await Post.findById(postId);
@@ -17,7 +18,9 @@ const getAllLikesByPostId = async (req, res) => {
 
         // Return the number of likes
         const numberOfLikes = post.likes.length;
-        res.status(200).json({ numberOfLikes: numberOfLikes });
+        const userLiked = post.likes.includes(userId)
+
+        res.status(200).json({ numberOfLikes: numberOfLikes, userLiked: userLiked });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Internal Server Error" });

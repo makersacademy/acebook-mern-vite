@@ -13,6 +13,8 @@ const Post = ({ post, token }) => {
     const fetchLikes = async () => {
       try {
         const likesData = await getAllLikesByPostId(post._id, token);
+
+        setIsLiked(likesData.userLiked);
         setNumberOfLikes(likesData.numberOfLikes);
       } catch (error) {
         console.error("Error fetching likes:", error);
