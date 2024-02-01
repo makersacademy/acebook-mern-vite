@@ -42,7 +42,7 @@ export const UserPage = () => {
             } else {
             navigate("/login");
             } 
-        }, []);
+        }, [username]);
         
     
         if (!token) {

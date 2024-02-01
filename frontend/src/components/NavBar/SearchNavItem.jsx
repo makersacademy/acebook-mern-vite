@@ -15,12 +15,15 @@ export default function SearchNavItem() {
         console.log("searching")
             searchUsers(searchUserInput)
                 .then((data) => {
-                    console.log(data)
+                    setFoundUsers(data.result)
                 })
                 .catch((err) => {
-                    console.error(err);ƒ
+                    console.error(err);
                 });
     }
+
+    if(!token) 
+        return;
 
     return (
         <form onSubmit={handleSubmit}>
