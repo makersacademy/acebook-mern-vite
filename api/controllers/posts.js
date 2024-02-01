@@ -7,6 +7,12 @@ const getAllPosts = async (req, res) => {
     res.status(200).json({ posts: posts, token: token });
 };
 
+const getSinglePost = async (req, res) => {
+    const post = await Post.find({ _id: req.params.id});
+    const token = generateToken(req.user_id);
+    res.status(200).json({post: post, token: token})
+}
+
 const createPost = async (req, res) => {
     if (req.body.message !== "") {
         const post = new Post(req.body);
@@ -26,6 +32,7 @@ const createPost = async (req, res) => {
 const PostsController = {
     getAllPosts: getAllPosts,
     createPost: createPost,
+    getSinglePost: getSinglePost,
 };
 
 module.exports = PostsController;
