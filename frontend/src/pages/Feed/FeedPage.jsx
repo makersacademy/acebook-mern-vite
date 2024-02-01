@@ -17,6 +17,7 @@ export const FeedPage = () => {
           setPosts(data.posts);
           setToken(data.token);
           window.localStorage.setItem("token", data.token);
+          console.log(data)
         })
         .catch((err) => {
           console.err(err);
