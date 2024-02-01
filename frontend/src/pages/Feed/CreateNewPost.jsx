@@ -12,11 +12,12 @@ const CreateNewPost = ({ token }) => {
 
         const postData = {
             message: message,
+            user_id: window.localStorage.getItem("id"),
         };
 
         try {
             const result = await createPost(token, postData);
-            console.log(result);
+            // console.log(result);
             // Optionally, you can update the state or perform any other actions after creating the post.
         } catch (error) {
             console.error(error.message);
@@ -27,7 +28,7 @@ const CreateNewPost = ({ token }) => {
         <div className="feed-container">
             <form className="feed-form" onSubmit={handleSubmit}>
                 <label className="feed-label">
-                    What's on your mind?
+                    What's on your mind? 
                 </label>
                 <div className='input-and-button-container'>
                     <input
@@ -36,6 +37,7 @@ const CreateNewPost = ({ token }) => {
                         type="text"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
+                        required={true}
                     />
                     <button className="feed-button" type="submit">
                         Share

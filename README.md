@@ -4,6 +4,14 @@ In this project, you are task with working on an existing application. A
 significant part of the challenge will be to familiarise yourself with the
 codebase you've inherited, as you work to **improve and extend** it.
 
+### Important after adding a new module / Check after commits
+
+Rerun 
+```shell
+npm install
+``` 
+after commits
+
 ### Structure
 
 This repo contains two applications:

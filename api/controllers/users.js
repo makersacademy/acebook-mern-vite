@@ -19,24 +19,52 @@ const getUser = async (req, res) => {
 };
 
 const create = (req, res) => {
-  const profile_pic = "";
+  let profile_pic = "";
+  let url =
+    req.protocol +
+    "://" +
+    req.get("host") +
+    "/uploads/default_profile_pic.svg.png";
+  if (req.file) {
+    profile_pic = req.file.filename;
+    url = req.protocol + "://" + req.get("host") + "/uploads/" + profile_pic;
+  }
+
   const full_name = req.body.full_name;
   const email = req.body.email;
   const password = req.body.password;
 
-  const user = new User({ profile_pic, full_name, email, password });
+  //const url = req.protocol + "://" + req.get("host") + "/uploads/" + profile_pic;
+  const user = new User({
+    profile_pic: url,
+    full_name,
+    email,
+    password,
+  });
+
   user
     .save()
     .then((user) => {
       console.log("User created, id:", user._id.toString());
-      res.status(201).json({ message: "OK" });
+      res
+        .status(201)
+        .json({ message: "User created successfully", userId: user._id });
     })
     .catch((err) => {
-      console.error(err);
-      res.status(400).json({ message: "Something went wrong" });
+      //console.error(err);
+
+      if (err.name === "ValidationError") {
+        res
+          .status(400)
+          .json({ message: "Validation failed", errors: err.errors });
+      } else if (err.name === "MongoServerError") {
+        console.log("Email already in use");
+        res.status(409).json({ message: "Email already in use" });
+      } else {
+        res.status(500).json({ message: "Internal server error" });
+      }
     });
 };
-
 const UsersController = {
   create: create,
   getUser: getUser,

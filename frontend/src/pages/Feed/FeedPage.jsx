@@ -38,7 +38,9 @@ export const FeedPage = () => {
     } else {
       navigate("/login");
     }
-  }, [token, navigate]); //Needed if useEffect is used anywhere else
+  }, [token, navigate, posts]); //Needed if useEffect is used anywhere else
+
+  //<img src={user.profile_pic} alt="" />
 
   if (!token) {
     return;
@@ -47,7 +49,7 @@ export const FeedPage = () => {
   return (
     <>
       <Navbar />
-      <p>{user.full_name}</p>
+     
       <div className="allposts">
       <br></br>
       <br></br>
@@ -56,7 +58,7 @@ export const FeedPage = () => {
       <h2>Posts</h2>
       <div className="feed" role="feed">
       {[...posts].reverse().map((post) => (
-          <Post post={post} key={post._id} />
+          <Post post={post} key={post._id} token={token} />
         ))}
           </div>
         </div>
