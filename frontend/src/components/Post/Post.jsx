@@ -1,5 +1,12 @@
+import LikeButton from "../LikeButton/LikeButton";
+
 const Post = (props) => {
-  return <article key={props.post._id}>{props.post.message}</article>;
+	return (
+		<div>
+			<article key={props.post._id}>{props.post.message}</article>
+			<LikeButton />
+		</div>
+	);
 };
 
 export default Post;
