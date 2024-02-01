@@ -19,6 +19,16 @@ export const getUser = async (token, username) => {
     return data;
 };
 
+// export const searchUsers = async (username) => {
+//     const requestOptions = {
+//         method: "GET"
+//     }
+
+//     const response = await fetch
+
+
+// }
+
 export const uploadImage = async (formData, username) => {
     console.log("inside uploadImage", formData, username)
     const requestOptions = {

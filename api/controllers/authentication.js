@@ -14,7 +14,18 @@ const createToken = async (req, res) => {
 
     console.log("Hashed password:", hashedPassword);
 
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ email: email })
+        .populate({
+            path:'friends',
+            model: 'User'
+        }).populate({
+            path: "posts",
+            model: "Post",
+            populate: {
+                path:'comments',
+                model: 'Comment'
+            }
+        })
     console.log("User found:", user); // Log the user found
     if (!user) {
         console.log("Auth Error: User not found");
@@ -27,7 +38,7 @@ const createToken = async (req, res) => {
     } else {
         const token = generateToken(user.id);
         console.log("Generated token:", token);
-        return res.status(201).json({ token: token, message: "OK" });
+        return res.status(201).json({ user: user, token: token, message: "OK" });
     }
 };
 

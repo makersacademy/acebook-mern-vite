@@ -1,15 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Navbar.css';
+import SearchNavItem from './SearchNavItem';
+import HomeNavItem from './HomeNavItem';
+import LogoutNavItem from './LogoutNavItem';
+import LoginNavItem from './LoginNavItem';
+import SignupNavItem from './SignupNavItem';
+
 
 const Navbar = () => {
+    const [token, setToken] = useState(window.localStorage.getItem("token"))
     const effectRan = React.useRef(false);
+    
+
     const createNavbar = () => {
 
     const navbarItems = [
-      { text: 'Search', id: 'searchButton'},
-      { text: 'Home', id: 'home', link: '/' },
-      { text: 'Logout', id: 'logout', link: '/login' },
-      { text: 'User', link: '/users/:username' }
+      // // { text: 'Search', id: 'searchButton'},
+      // // { text: 'Home', id: 'home', link: '/' },
+      // { text: 'Logout', id: 'logout', link: '/login' },
+      // { text: 'User', link: '/users/:username' }
     ];
 
     const navbarContainer = document.getElementById('navbar');
@@ -23,10 +32,11 @@ const Navbar = () => {
     container.style.textAlign = 'center';  
     container.style.boxSizing = 'border-box';
 
-    const searchInput = document.createElement('input');
-    searchInput.type = 'input';
-    searchInput.placeholder = 'Search';
-    container.appendChild(searchInput);
+    // const searchInput = document.createElement('input');
+    // searchInput.type = 'input';
+    // searchInput.placeholder = 'search user';
+    // searchInput.value = searchInput;
+    // container.appendChild(searchInput);
 
     navbarItems.forEach(item => {
         const linkElement = document.createElement('a');
@@ -48,7 +58,22 @@ const Navbar = () => {
     return () => effectRan.current = true;
   }, []);
 
-  return <div data-testid="navbar" id="navbar"></div>;
+  return (
+  
+  <div data-testid="navbar" id="navbar">
+  <SearchNavItem />
+  <HomeNavItem />
+  {token ? 
+    <LogoutNavItem />
+    :
+    <>
+    <LoginNavItem />
+    <SignupNavItem />
+    </>
+  }
+  
+  </div>
+  );
 };
 
 export default Navbar;
