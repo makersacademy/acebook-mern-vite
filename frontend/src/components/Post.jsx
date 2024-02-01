@@ -1,7 +1,7 @@
 // frontend/src/components/Post/Post.jsx
 
 import React, { useEffect, useState } from "react";
-import "../../pages/Feed/FeedPage.css";
+import ".././pages/Feed/FeedPage.css";
 import { likePost } from "../services/posts";
 import { getAllLikesByPostId } from "../services/posts";
 import Comment from "./Comment/Comment";
