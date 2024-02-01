@@ -6,6 +6,7 @@ import LogoutNavItem from './LogoutNavItem';
 import LoginNavItem from './LoginNavItem';
 import SignupNavItem from './SignupNavItem';
 import SearchResultsDropDown from './SearchResultsDropDown';
+import { Link } from 'react-router-dom';
 
 
 const Navbar = () => {
@@ -25,26 +26,45 @@ const Navbar = () => {
   return (
   <>
   <div data-testid="navbar" id="navbar">
-    <h3>aceBook</h3>
-  <SearchNavItem 
   
+  <div className="logo-nav-item"> 
+  <Link to={`/`}>
+    <h3>AB</h3>
+    </Link>
+  </div>
+
+  <div className="search-nav-item">
+  <SearchNavItem 
     handleSearch={handleSearch}
   />
+  </div>
+  <div className="home-nav-item">
   <HomeNavItem />
+  </div>
   {token ? 
+
+  <div className="logout-nav-item"> 
     <LogoutNavItem />
+  </div>
     :
     <>
+  <div className="login-nav-item"> 
     <LoginNavItem />
+  </div>
+  <div className="login-nav-item"> 
     <SignupNavItem />
+  </div>
     </>
   }
   </div>
+  {showSearchResults && 
   <div className="search-results-dropdown">
     <SearchResultsDropDown 
+    setShowSearchResults={setShowSearchResults}
       foundUsers={foundUsers}
     />
   </div>
+}
 
 
 </>

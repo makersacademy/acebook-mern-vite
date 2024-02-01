@@ -1,17 +1,43 @@
-#home {
+/* #home {
     color: rgb(0, 0, 0);
     display: flex;
     margin-right: 575px;
-}
+} */
 
 #navbar {
+    display: flex;
+    align-items: center;
     width: 100vw;
-    background-color: #333;
+    background-color: rgb(53, 50, 50);
     padding: 10px;
     border-bottom: 1px solid #ddd;
     display: flex;
     text-align: center;
     box-sizing: border-box;
+}
+
+.login-nav-item {
+    margin-left:10px;
+    padding:0px;
+}
+.logo-nav-item {
+    margin-right:10px;
+    padding:0px;
+
+}
+.search-nav-item {
+    margin-right:auto;
+    padding:10px;
+}
+
+.home-nav-item {
+    margin-left:10px;
+    padding:0px;
+}
+
+.logout-nav-item {
+    margin-left:10px;
+    padding:10px;
 }
 
 #navbar input {

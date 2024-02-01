@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { searchUsers } from "../../services/user"
 import SearchResultsDropDown from "./SearchResultsDropDown"
+import "./SearchNavItem.css"
 
 export default function SearchNavItem( { handleSearch }) {
     const [searchUserInput, setSearchUserInput] = useState("")
     const [token, setToken] = useState(window.localStorage.getItem("token"))
     const [foundUsers, setFoundUsers] = useState([])
-    const [showResults, setShowResults] = useState(false)
 
     const handleInputChange = (event) => {
         setSearchUserInput(event.target.value)
@@ -14,17 +14,17 @@ export default function SearchNavItem( { handleSearch }) {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log("searching")
-            searchUsers(searchUserInput)
-                .then((data) => {
-                    setFoundUsers(data.result)
-                    // setShowResults(true)
-                    handleSearch(foundUsers)
+        console.log("Searching with this input", searchUserInput)
+        searchUsers(searchUserInput)
+            .then((data) => {
+                console.log("found this data", data.result)
+                setFoundUsers(data.result)
+                handleSearch(data.result)
 
-                })
-                .catch((err) => {
-                    console.error(err);
-                });
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     }
 
     if(!token) 
@@ -38,7 +38,9 @@ export default function SearchNavItem( { handleSearch }) {
             value= {searchUserInput}
             onChange={handleInputChange}
             />
-            <button type="submit">search</button>
+            <button className="search-button" type="submit">
+                <i className="fas fa-search"></i> 
+            </button>
         </form>
 
         </>
