@@ -11,6 +11,7 @@ export const SignupPage = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const [errorMessage, setErrorMessage] = useState("")
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -33,6 +34,8 @@ export const SignupPage = () => {
       if (response.ok) {
         console.log("redirecting...:");
         navigate("/login");
+      } else if (response.status === 409) {
+        setErrorMessage("Email already in use")
       } else {
         console.error("Server error:", response.statusText);
         navigate("/signup");
@@ -82,6 +85,7 @@ export const SignupPage = () => {
           type="text"
           value={full_name}
           onChange={handleFullNameChange}
+          required="true"
         />
         </div>
 
@@ -92,6 +96,7 @@ export const SignupPage = () => {
           type="text"
           value={email}
           onChange={handleEmailChange}
+          required="true"
         />
         </div>
 
@@ -103,9 +108,10 @@ export const SignupPage = () => {
           type="password"
           value={password}
           onChange={handlePasswordChange}
+          required="true"
         />
         </div>
-
+        <p className="error-message">{errorMessage}</p>
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
     </div>
