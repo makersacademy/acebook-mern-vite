@@ -10,4 +10,12 @@ describe("Post", () => {
         const article = screen.getByRole("article");
         expect(article.textContent).toBe("test message");
     });
+    // test("Contains a link to the Post", () => {
+    //     const testPost = { _id: "123", message: "test message" };
+    //     render(<Post post={testPost} />);
+    
+    //     const link = screen.getByRole("link");
+    //     expect(link.textContent).toBe("test message");
+    // });
 });
+

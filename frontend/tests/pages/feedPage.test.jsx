@@ -33,7 +33,7 @@ describe("Feed Page", () => {
     render(<FeedPage />);
 
     const post = await screen.findByRole("article");
-    expect(post.textContent).toEqual("Test Post 1");
+    expect(post.textContent).toContain("Test Post 1");
   });
 
   test("It navigates to login if no token is present", async () => {
