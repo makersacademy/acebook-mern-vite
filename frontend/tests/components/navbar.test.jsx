@@ -1,26 +1,26 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import {expect} from '@vitest/expect'
+import {render, screen} from '@testing-library/react'
+import {BrowserRouter, MemoryRouter} from 'react-router-dom'
+import '@testing-library/jest-dom'
+import {within} from '@testing-library/dom'
 import Navbar from '../../src/components/NavBar/navbar.jsx';
 
-describe('Navbar', () => {
-  test('renders navbar with correct items', () => {
 
-    render(<Navbar />);
+test('renders navbar with correct items', () => {
 
-    const testingElement = screen.queryByTestId('navbar');
-    if (testingElement === null) {
-      throw new Error("Testing element was not found");}
+  render(<Navbar />, {wrapper: BrowserRouter})
 
-    const navbarItems = ['Home', 'Logout', 'User'];
-    navbarItems.forEach(item => {
-    const testingElement = screen.queryByText(item);
-    if (testingElement === null) {
-      throw new Error("Testing element was not found");}
-    });
-  });
+  expect(screen.getByTestId('navbar')).toBeInTheDocument()
+  expect(screen.getByRole('button', {name: /home/i})).toBeInTheDocument()
+  expect(screen.getByRole('button', {name: /login/i})).toBeInTheDocument()
+  expect(screen.getByRole('heading', {name: /ab/i})).toBeInTheDocument()
+  expect(screen.getByTestId('searchItem')).toBeInTheDocument()
+
 });
+
+
+
 
 

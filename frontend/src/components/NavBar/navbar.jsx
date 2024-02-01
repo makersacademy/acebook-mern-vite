@@ -33,7 +33,7 @@ const Navbar = () => {
     </Link>
   </div>
 
-  <div className="search-nav-item">
+  <div data-testId="searchItem" className="search-nav-item">
   <SearchNavItem 
     handleSearch={handleSearch}
   />
