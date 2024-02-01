@@ -39,8 +39,12 @@ const getAllPosts = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-  console.log(req.body.message, req.body.user_id);
-  const post = new Post(req.body, req.body.user_id);
+  console.log(req.body.message, req.body.user_id, req.file.filename);
+  let image = "";
+  if (req.file) {
+    image = req.protocol + "://" + req.get("host") + "/uploads/" + req.file.filename
+  }
+  const post = new Post(req.body, req.body.user_id, image);
   post.save();
   const newToken = generateToken(req.user_id);
   res.status(201).json({ message: "OK", token: newToken });

@@ -10,7 +10,8 @@ const CreateNewPost = ({ token }) => {
     
 
     const handleImageChange = (event) => {
-        setImage(event.target.files); // Update state with selected images
+        console.log(event.target.files[0]);
+        setImage(event.target.files[0]); // Update state with selected images
     };
 
     
