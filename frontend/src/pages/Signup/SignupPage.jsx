@@ -13,8 +13,26 @@ export const SignupPage = () => {
 
   const [errorMessage, setErrorMessage] = useState("")
 
+  function isValidEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  }
+
+  function isValidPassword(password) {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (! isValidEmail(email)) {
+      return setErrorMessage("Invalid email address")
+    }
+
+    if (! isValidPassword(password)) {
+      return setErrorMessage("Invalid password!")
+    }
   
     try {
       const formData = new FormData();
@@ -113,6 +131,8 @@ export const SignupPage = () => {
         </div>
         <p className="error-message">{errorMessage}</p>
         <input role="submit-button" id="submit" type="submit" value="Submit" />
+
+        <a href="/login">Login</a>
       </form>
     </div>
   );

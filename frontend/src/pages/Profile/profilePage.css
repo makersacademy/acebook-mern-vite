@@ -1,8 +1,39 @@
 .profilePage_user_picture {
   width: 200px;
   height: 200px;
-  display: flex;
-  float: left;
   border-radius: 50%;
   border: 2px solid #1877f2;
+  margin-right: 80%;
+  position: absolute
 }
+
+.profile {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.profile .user-details {
+  margin-top: 50px;
+}
+
+.posts-by-user {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
+  padding: 20px 0; /* Add vertical padding for better spacing */
+}
+
+.posts-by-user .post {
+  width: 500px;
+}
+
+/* @media (min-width: 1440px) {
+  .profile {
+    width: 1440px;
+  }
+} */

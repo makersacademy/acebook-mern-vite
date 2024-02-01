@@ -50,6 +50,8 @@ export const LoginPage = () => {
           onChange={handlePasswordChange}
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
+
+        <a href="/signup">New here? Sign up!</a>
       </form>
     </div>
   );
