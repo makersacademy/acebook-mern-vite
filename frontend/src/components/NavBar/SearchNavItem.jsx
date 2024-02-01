@@ -18,7 +18,7 @@ export default function SearchNavItem() {
                     console.log(data)
                 })
                 .catch((err) => {
-                    console.error(err);
+                    console.error(err);ƒ
                 });
     }
 
