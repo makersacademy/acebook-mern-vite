@@ -41,11 +41,12 @@ h1 {
 
 .sign-btn:hover,
 .log-in-btn:hover {
-  background-color: #2980b9;
+  background-color: #45a049;
+  color: #fff;
 }
 
 
-  /* body {
+.background-img {
   background-image: url(../../assets/home-3.jpg);
   background-size:cover;
-  } */
+}
