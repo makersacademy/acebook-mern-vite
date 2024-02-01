@@ -6,6 +6,6 @@ const router = express.Router();
 const LikesController = require("../controllers/likes");
 
 router.get("/:postId", LikesController.getAllLikesByPostId);
-router.post("/",LikesController.addLikesToPostByPostIdUserId);
+router.post("/toggle",LikesController.addLikesToPostByPostIdUserId);
 
 module.exports = router;

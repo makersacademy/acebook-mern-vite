@@ -22,7 +22,7 @@ const Post = ({ post, token }) => {
     if (token && post._id) {
       fetchLikes();
     }
-  }, [post._id, token, numberOfLikes]);
+  }, [post._id, token, numberOfLikes, isLiked]);
   
 
   // Function to handle liking/unliking a post

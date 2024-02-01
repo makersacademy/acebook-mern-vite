@@ -34,10 +34,10 @@ export const likePost = async (postId, token) => {
 
   // console.log("Request Body:", requestOptions.body);
 
-  const response = await fetch(`${BACKEND_URL}/likes`, requestOptions);
+  const response = await fetch(`${BACKEND_URL}/likes/toggle`, requestOptions);
 
   if (response.status !== 200) {
-    throw new Error("Unable to like the post");
+    throw new Error("Unable to toggle the like status of the post");
   }
 
   const data = await response.json();

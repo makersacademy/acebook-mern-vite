@@ -38,21 +38,17 @@ const addLikesToPostByPostIdUserId = async (req, res) => {
             return res.status(404).json({ message: "Post not found" });
         }
 
-        // Check if the user has already liked the post
+        // Determine if the user has already liked the post
         if (post.likes.includes(userId)) {
-            return res.status(400).json({ message: "User already liked the post" });
+            // User already liked the post, so remove the like
+            await Post.findByIdAndUpdate(postId, { $pull: { likes: userId } });
+        } else {
+            // User hasn't liked the post, so add the like
+            await Post.findByIdAndUpdate(postId, { $addToSet: { likes: userId } });
         }
 
-        // Add the userId to the list of likes
-        post.likes.push(userId);
-
-        // Save the updated post
-        await post.save();
-
-        const token = generateToken(userId);
-
-        res.status(200).json({ message: "Like added successfully", token: token });
-        } catch (error) {
+        res.status(200).json({ message: "Like status updated successfully" });
+    } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Internal Server Error" });
     }

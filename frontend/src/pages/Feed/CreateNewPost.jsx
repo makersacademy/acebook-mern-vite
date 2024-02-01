@@ -16,7 +16,7 @@ const CreateNewPost = ({ token }) => {
 
         try {
             const result = await createPost(token, postData);
-            console.log(result);
+            // console.log(result);
             // Optionally, you can update the state or perform any other actions after creating the post.
         } catch (error) {
             console.error(error.message);
