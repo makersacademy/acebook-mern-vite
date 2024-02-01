@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getUser } from "../../services/user";
 import User from "../../components/User/User";
 import EditUserModal from "../../components/EditUserModal/EditUserModal";
+import Navbar from "../../components/NavBar/navbar";
 
 
 
@@ -58,7 +59,9 @@ export const UserPage = () => {
 
         return (
             <>
+            <Navbar />
             <h1>User Page</h1>
+            
 
 
             {loggedInUser._id === user._id ? 

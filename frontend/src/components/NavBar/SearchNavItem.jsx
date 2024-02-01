@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { getUser } from "../../services/user"
+import { searchUsers } from "../../services/user"
 
 export default function SearchNavItem() {
     const [searchUserInput, setSearchUserInput] = useState("")
@@ -10,25 +10,20 @@ export default function SearchNavItem() {
         setSearchUserInput(event.target.value)
     }
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault()
-    //     console.log("searching")
-    //         getUser(token, username)
-    //             .then((data) => {
-    //                 setUser(data.user);
-    //                 console.log("user data", data.user)
-    //                 setToken(data.token);
-    //                 setProfilePicture(data.user.image)
-    //                 setBio(data.user.bio)
-    //                 window.localStorage.setItem("token", data.token);
-    //             })
-    //             .catch((err) => {
-    //                 console.err(err);
-    //             });
-    // }
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        console.log("searching")
+            searchUsers(searchUserInput)
+                .then((data) => {
+                    console.log(data)
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+    }
 
     return (
-        <form onSubmit="">
+        <form onSubmit={handleSubmit}>
             <input type="input"
             placeholder="search user"
             value= {searchUserInput}

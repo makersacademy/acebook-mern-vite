@@ -75,6 +75,16 @@ const getUser = async (req, res) => {
     
 }
 
+const searchUsers = async (req, res) => {
+	const searchQuery = req.query.search;
+	const results = await User.find({username: searchQuery})
+
+	if(!results) {
+        return res.status(400).json({ message: "no search results" });
+    }  
+    return res.status(200).json({ result: results} );
+}
+
 
 const uploadImage = async (req, res) => {
 	const username = req.params.username;
@@ -115,7 +125,8 @@ const UsersController = {
     create: create,
     getUser: getUser,
 	uploadImage: uploadImage,
-	editBio: editBio
+	editBio: editBio,
+	searchUsers: searchUsers
 };
 
 module.exports = UsersController;

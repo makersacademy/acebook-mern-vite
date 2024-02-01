@@ -19,15 +19,22 @@ export const getUser = async (token, username) => {
     return data;
 };
 
-// export const searchUsers = async (username) => {
-//     const requestOptions = {
-//         method: "GET"
-//     }
+export const searchUsers = async (searchQuery) => {
+    const requestOptions = {
+        method: "GET",
+        headers: { 'Content-Type': 'application/json' }
+    }
 
-//     const response = await fetch
+    const response = await fetch(`${BACKEND_URL}/users?search=${searchQuery}`, requestOptions);
 
+    if (response.status !== 200) {
+        throw new Error("Unable to fetch user");
+    }
 
-// }
+    const data = await response.json();
+    return data;
+
+}
 
 export const uploadImage = async (formData, username) => {
     console.log("inside uploadImage", formData, username)
