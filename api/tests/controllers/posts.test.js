@@ -141,8 +141,8 @@ describe("/posts", () => {
         });
 
         test("returns every post in the collection", async () => {
-            const post1 = new Post({ message: "howdy!" });
-            const post2 = new Post({ message: "hola!" });
+            const post1 = new Post({ message: "hola!" });
+            const post2 = new Post({ message: "howdy!" });
             await post1.save();
             await post2.save();
 

@@ -3,7 +3,7 @@ const User = require("../models/user")
 const { generateToken } = require("../lib/token");
 
 const getAllPosts = async (req, res) => {
-    const posts = await Post.find();
+    const posts = await Post.find().sort({_id: -1});
     const token = generateToken(req.user_id);
     res.status(200).json({ posts: posts, token: token });
 };
