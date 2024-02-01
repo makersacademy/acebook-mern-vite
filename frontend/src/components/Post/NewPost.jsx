@@ -1,21 +1,15 @@
 import { useState } from 'react';
-
-const NewPost = ({ onNewPost }) => {
+import { createPost } from '../../services/posts'
+const NewPost = ( {token} ) => {
     const [postMessage, setPostMessage] = useState('');
 
-    const submit = async () => {
+    const handleSubmit = () => {
+        createPost(token, postMessage).preventDefault()
 
-        if (postMessage) {
-
-            onNewPost(postMessage)
-
-            setPostMessage('');
-        }
-        
     };
-
+    
     return (
-        <form onSubmit={submit}>
+        <form onSubmit={handleSubmit}>
             <textarea
                 value = {postMessage}
                 onChange={(message) => setPostMessage(message.target.value)}
@@ -23,6 +17,7 @@ const NewPost = ({ onNewPost }) => {
             <button type='submit'>Post</button>
         </form>
     )
+    
 };
 
 export default NewPost

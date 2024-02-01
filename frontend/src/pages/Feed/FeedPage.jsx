@@ -24,7 +24,7 @@ export const FeedPage = () => {
     } else {
       navigate("/login");
     }
-  });
+  }, []);
 
   if (!token) {
     return;
@@ -34,7 +34,7 @@ export const FeedPage = () => {
     <>
       <h2>Posts</h2>
       <div className="feed" role="feed">
-        <NewPost />
+        <NewPost token={token}/>
         {posts.map((post) => (
           <Post post={post} key={post._id} />
         ))}
