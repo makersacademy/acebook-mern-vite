@@ -35,7 +35,7 @@ const NewPostForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label for="message">
+      <label>
         Message:
         <input type="text" onChange={handleChange} data-testid="post-input" />
       </label>
