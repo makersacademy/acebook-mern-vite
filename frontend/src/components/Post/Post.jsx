@@ -1,11 +1,29 @@
 // frontend/src/components/Post/Post.jsx
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../pages/Feed/FeedPage.css";
 import { likePost } from "../../services/posts"; // Import the likePost function
+import { getAllLikesByPostId } from "../../services/posts"; // Import the likePost function
 
 const Post = ({ post, token }) => {
   const [isLiked, setIsLiked] = useState(false);
+  const [numberOfLikes, setNumberOfLikes] = useState(0);
+
+  useEffect(() => {
+    const fetchLikes = async () => {
+      try {
+        const likesData = await getAllLikesByPostId(post._id, token);
+        setNumberOfLikes(likesData.numberOfLikes);
+      } catch (error) {
+        console.error("Error fetching likes:", error);
+      }
+    };
+  
+    if (token && post._id) {
+      fetchLikes();
+    }
+  }, [post._id, token, numberOfLikes]);
+  
 
   // Function to handle liking/unliking a post
   const handleLikeClick = async () => {
@@ -34,7 +52,7 @@ const Post = ({ post, token }) => {
       <div className="post-actions">
         <div className="like-btn" onClick={handleLikeClick}>
           {/* Display "Like" or "Unlike" based on the isLiked state */}
-          <label>{}</label>
+          <label>No. of Likes: {numberOfLikes}</label>
           <button>{isLiked ? "Unlike" : "Like"}</button>
         </div>
         <div className="comment-btn">

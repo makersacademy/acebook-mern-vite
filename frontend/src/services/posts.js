@@ -32,6 +32,8 @@ export const likePost = async (postId, token) => {
     body: JSON.stringify( {postId} ), // Send the post ID to the backend
   };
 
+  // console.log("Request Body:", requestOptions.body);
+
   const response = await fetch(`${BACKEND_URL}/likes`, requestOptions);
 
   if (response.status !== 200) {
@@ -42,6 +44,23 @@ export const likePost = async (postId, token) => {
   return data;
 };
 
-export const getLikesByPostId = async (postId, token) => {
-  // code here
+export const getAllLikesByPostId = async (postId, token) => {
+  try {
+    const response = await fetch(`${BACKEND_URL}/likes/${postId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+  }
 };
