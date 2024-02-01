@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
-import Post from "../../components/Post/Post";
-import Navbar from "../../components/Post/Navbar"; 
+import Post from "../../components/Post";
+import Navbar from "../../components/Navbar/Navbar"; 
 import "./FeedPage.css";
-import CreateNewPost from "./CreateNewPost";
+import CreateNewPost from "../../components/CreateNewPost";
 import { getUser } from "../../services/user";
 
 export const FeedPage = () => {

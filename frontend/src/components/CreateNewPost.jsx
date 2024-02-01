@@ -1,7 +1,7 @@
 // CreateNewPost.jsx
 
 import React, { useState } from "react";
-import { createPost } from "../../services/createPost";
+import { createPost } from "../services/createPost";
 import "./CreateNewPost.css";
 
 const CreateNewPost = ({ token }) => {

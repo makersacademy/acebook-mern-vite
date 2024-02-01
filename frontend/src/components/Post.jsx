@@ -2,12 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import "../../pages/Feed/FeedPage.css";
-import { likePost } from "../../services/posts"; // Import the likePost function
-import { getAllLikesByPostId } from "../../services/posts"; // Import the likePost function
+import { likePost } from "../services/posts";
+import { getAllLikesByPostId } from "../services/posts";
+import Comment from "./Comment/Comment";
 
 const Post = ({ post, token }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [numberOfLikes, setNumberOfLikes] = useState(0);
+  const [toggleCommentForm, setToggleCommentForm] = useState(false);
 
   useEffect(() => {
     const fetchLikes = async () => {
@@ -40,6 +42,11 @@ const Post = ({ post, token }) => {
     }
   };
 
+  // Function to handle opening of the comment form
+  const handleCommentClick = async () => {
+    setToggleCommentForm(!toggleCommentForm);
+  };
+
   return (
     <div className="post">
       <div className="post-header">
@@ -60,8 +67,11 @@ const Post = ({ post, token }) => {
           <button>{isLiked ? "Unlike" : "Like"}</button>
         </div>
         <div className="comment-btn">
-          <span>Comment</span>
+          <button onClick={handleCommentClick} >Comment</button>
         </div>
+      </div>
+      <div className="feed" role="feed">
+          {toggleCommentForm ? <Comment /> : <></>}
       </div>
     </div>
   );
