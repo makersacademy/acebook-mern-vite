@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../Signup/SignupPage.css"
 
 import { login } from "../../services/authentication";
 
@@ -31,7 +32,7 @@ export const LoginPage = () => {
   };
 
   return (
-    <>
+    <div className="sign-up">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
@@ -50,6 +51,6 @@ export const LoginPage = () => {
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
-    </>
+    </div>
   );
 };
