@@ -4,14 +4,14 @@
 // docs: https://vitejs.dev/guide/env-and-mode.html
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export const createPost = async (token, postData) => {
+export const createPost = async (token, formData) => {
     const requestOptions = {
         method: "POST",
         headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            
         },
-        body: JSON.stringify(postData),
+        body: formData,
     };
 
     const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);

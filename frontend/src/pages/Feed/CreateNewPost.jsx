@@ -6,17 +6,33 @@ import "./CreateNewPost.css";
 
 const CreateNewPost = ({ token }) => {
     const [message, setMessage] = useState("");
+    const [image, setImage] = useState("");
+    
+
+    const handleImageChange = (event) => {
+        setImage(event.target.files); // Update state with selected images
+    };
+
+    
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const postData = {
-            message: message,
-            user_id: window.localStorage.getItem("id"),
-        };
+        const formData = new FormData();
+        formData.append("message", message);
+        
+        formData.append("images", image);
+        
+        formData.append("user_id", window.localStorage.getItem("id"));
+
+
+        // const postData = {
+        //     message: message,
+        //     user_id: window.localStorage.getItem("id"),
+        // };
 
         try {
-            const result = await createPost(token, postData);
+            const result = await createPost(token, formData);
             console.log(result);
             // Optionally, you can update the state or perform any other actions after creating the post.
         } catch (error) {
@@ -38,6 +54,13 @@ const CreateNewPost = ({ token }) => {
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                     />
+                    <input
+                        className="feed-input"
+                        name="images"
+                        type="file"
+                        onChange={handleImageChange}
+                    />
+                    
                     <button className="feed-button" type="submit">
                         Share
                     </button>

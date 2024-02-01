@@ -2,6 +2,7 @@
 
 const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
+const mongoose = require("mongoose");
 
 const getAllPosts = async (req, res) => {
   try {
@@ -38,6 +39,7 @@ const getAllPosts = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
+  console.log(req.body.message, req.body.user_id);
   const post = new Post(req.body, req.body.user_id);
   post.save();
   const newToken = generateToken(req.user_id);
