@@ -2,6 +2,7 @@
 
 const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
+const mongoose = require("mongoose");
 
 const getAllPosts = async (req, res) => {
   try {
@@ -26,6 +27,7 @@ const getAllPosts = async (req, res) => {
           message: 1,
           full_name: "$userDetails.full_name",
           profile_pic: "$userDetails.profile_pic",
+          image: 1,
         },
       },
     ]);
@@ -38,10 +40,25 @@ const getAllPosts = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-  const post = new Post(req.body, req.body.user_id);
-  post.save();
-  const newToken = generateToken(req.user_id);
-  res.status(201).json({ message: "OK", token: newToken });
+  try {
+    let image = "";
+
+    if (req.file) {
+      image = req.protocol + "://" + req.get("host") + "/uploads/" + req.file.filename;
+    }
+
+    const { message, user_id } = req.body;
+    // const image = req.protocol + '://' + req.get('host') + '/uploads/' + req.file.filename;
+
+    const post = new Post({ message, user_id, image });
+    await post.save();
+
+    const newToken = generateToken(req.user_id);
+    res.status(201).json({ message: 'OK', token: newToken });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 };
 
 const PostsController = {

@@ -49,7 +49,9 @@ const Post = ({ post, token }) => {
         <h4>{post.full_name}</h4>
       </div>
       <div className="post-content">
-        <article>{post.message}</article>
+      <article>{post.message}</article>
+      {post.image != "" ? ( <img src={post.image} className="post-image"/>): null} 
+
       </div>
       <div className="post-actions">
         <div className="like-btn" onClick={handleLikeClick}>
