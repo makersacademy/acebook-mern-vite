@@ -1,17 +1,25 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import '@testing-library/jest-dom'
 import { vi } from "vitest";
-
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../src/services/authentication";
-
 import { SignupPage } from "../../src/pages/Signup/SignupPage";
 
+
 // Mocking React Router's useNavigate function
-vi.mock("react-router-dom", () => {
+vi.mock("react-router-dom", async () => {
+    const actual = await vi.importActual('react-router-dom')
+    const MockLink = ({to, children}) => <a href={to}>{children}</a>
     const navigateMock = vi.fn();
-    const useNavigateMock = () => navigateMock; // Create a mock function for useNavigate
-    return { useNavigate: useNavigateMock };
+    const useNavigateMock = () => navigateMock;
+    return {
+        ...actual,
+        Link:MockLink,
+        useNavigate: useNavigateMock
+    }
+
+     // Create a mock function for useNavigate
 });
 
 // Mocking the signup service
@@ -24,16 +32,15 @@ vi.mock("../../src/services/authentication", () => {
 const completeSignupForm = async () => {
     const user = userEvent.setup();
 
+    const usernameInputEl = screen.getByLabelText("Username:");
+    const emailInputEl = screen.getByLabelText("Email:");
+    const passwordInputEl = screen.getByLabelText("Password:");
+    const submitButtonEl = screen.getByRole("submit-button");
 
-  const usernameInputEl = screen.getByLabelText("Username:");
-  const emailInputEl = screen.getByLabelText("Email:");
-  const passwordInputEl = screen.getByLabelText("Password:");
-  const submitButtonEl = screen.getByRole("submit-button");
-
-  await user.type(usernameInputEl, "test user");
-  await user.type(emailInputEl, "test@email.com");
-  await user.type(passwordInputEl, "1234");
-  await user.click(submitButtonEl);
+    await user.type(usernameInputEl, "test user");
+    await user.type(emailInputEl, "test@email.com");
+    await user.type(passwordInputEl, "cHeck123Test!");
+    await user.click(submitButtonEl);
 
 };
 
@@ -48,7 +55,7 @@ describe("Signup Page", () => {
         await completeSignupForm();
 
 
-    expect(signup).toHaveBeenCalledWith("test user", "test@email.com", "1234");
+    expect(signup).toHaveBeenCalledWith("test user", "test@email.com", "cHeck123Test!");
   });
 
 
