@@ -56,7 +56,17 @@ const getUser = async (req, res) => {
     const username = req.params.username;
     const user = await User.findOne({
         username: username
-    }).populate('friends').populate('posts');
+    }).populate({
+		path:'friends',
+		model: 'User'
+	}).populate({
+		path: "posts",
+		model: "Post",
+		populate: {
+			path:'comments',
+			model: 'Comment'
+		}
+	})
     if(!user) {
         return res.status(400).json({ message: "User not found" });
     }  

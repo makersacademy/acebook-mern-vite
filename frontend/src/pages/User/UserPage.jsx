@@ -29,6 +29,7 @@ export const UserPage = () => {
             getUser(token, username)
                 .then((data) => {
                     setUser(data.user);
+                    console.log("user data", data.user)
                     setToken(data.token);
                     setProfilePicture(data.user.image)
                     setBio(data.user.bio)
