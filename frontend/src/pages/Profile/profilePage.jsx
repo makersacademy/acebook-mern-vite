@@ -1,6 +1,7 @@
 import Navbar from "../../components/Post/Navbar";
 import { useState, useEffect } from "react";
 import { getUser } from "../../services/user"
+import "./profilePage.css"
 
 export const ProfilePage = () => {
     document.title = "Profile Page"
@@ -24,13 +25,13 @@ export const ProfilePage = () => {
     return (
         <>
         <Navbar />
-
+        <h1>My Profile</h1>
+        
         <div className="profile">
-        <h1>Profile Page</h1>
+            <img src={user.profile_pic} alt="profile pic" className="profilePage_user_picture"/>
+            <p>Username: {user.full_name}</p>
+            <p>Email: {user.email}</p>
         </div>
-        <p>{user.full_name}</p>
-        <p>{user.email}</p>
-        <p>{user.profile_pic}</p>
         </>
     )
 };

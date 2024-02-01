@@ -12,6 +12,7 @@ const CreateNewPost = ({ token }) => {
 
         const postData = {
             message: message,
+            user_id: window.localStorage.getItem("id"),
         };
 
         try {

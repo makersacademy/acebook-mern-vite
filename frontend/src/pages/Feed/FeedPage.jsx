@@ -38,7 +38,7 @@ export const FeedPage = () => {
     } else {
       navigate("/login");
     }
-  }, [token, navigate]); //Needed if useEffect is used anywhere else
+  }, [token, navigate, posts]); //Needed if useEffect is used anywhere else
 
   //<img src={user.profile_pic} alt="" />
 
@@ -49,8 +49,7 @@ export const FeedPage = () => {
   return (
     <>
       <Navbar />
-      <p>{user.full_name}</p>
-      <img src={user.profile_pic} alt="" className="profile-pic"/>
+     
       <div className="allposts">
       <br></br>
       <br></br>
