@@ -1,6 +1,7 @@
 .profilePage_user_picture {
   width: 200px;
   height: 200px;
+  margin-left: 8%;
   display: flex;
   float: left;
   border-radius: 50%;
