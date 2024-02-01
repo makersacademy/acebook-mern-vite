@@ -1,10 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
-
 import { useNavigate } from "react-router-dom";
 import { login } from "../../src/services/authentication";
-
 import { LoginPage } from "../../src/pages/Login/LoginPage";
 
 // Mocking React Router's useNavigate function
