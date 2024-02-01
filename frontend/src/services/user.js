@@ -9,6 +9,7 @@ export const getAllUserInfo = async (token) => {
         },
     };
 
+    // is being called
     const response = await fetch(`${BACKEND_URL}/users`, requestOptions);
 
     if (response.status !== 200) {

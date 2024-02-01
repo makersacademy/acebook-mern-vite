@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import ang from '../../assets/ang_profile.jpeg';
 
 import { getAllUserInfo } from "../../services/user"
-
+import User from "../User/User";
 
 export const Navbar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -14,23 +14,24 @@ export const Navbar = () => {
     setIsDropdownOpen(!isDropdownOpen);
     };
 
-    const [info, setInfo] = useState([]);
+    const [user, setUser] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
 
     useEffect(() => {
         if (token) {
             getAllUserInfo(token)
-            .then((data) => {
-            setInfo(data.info);
-            setToken(data.token);
-            window.localStorage.setItem("token", data.token);
-            })
+                .then((data) => {
+                setUser(data.user);
+                console.log(data.user)
+                setToken(data.token);
+                window.localStorage.setItem("token", data.token);
+                })
         .catch((err) => {
-            console.error(err);
+            console.err(err);
+            console.log(err)
             });
         }
-    });
-
+    }, []);
 
     return (
         <div className="container-fluid">
@@ -38,12 +39,13 @@ export const Navbar = () => {
                     <div className="col">
                     <Link className="navbar-brand mb-0 h1" to='/'>Acebook</Link>
                     </div>
-                    <div className="user-greeting"> Hi Ang!  </div>
+                    <div className="user-greeting">
+                    Hi {user.username}  </div>
                     <div className="col">
                     <div className="dropdown">
                     <img
-                    src={ ang }
-                    alt="Clickable Picture"
+                    src={user.profile_picture || ang}
+                    alt="Profile Picture"
                     className="img-thumbnail"
                     style={{ maxWidth: '15%' }}
                     onClick={handleDropdownToggle}

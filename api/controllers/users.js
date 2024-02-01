@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const { generateToken } = require("../lib/token");
 
 const create = async (req, res) => {
   const username = req.body.username;
@@ -29,9 +30,18 @@ const create = async (req, res) => {
 }
 
 const getAllUserInfo = async (req, res) => {
-  const data = await User.findOne();
-  const token = generateToken(req.user_id);
-  res.status(200).json({ data: data, token: token });
+  try {
+
+    const user = await User.findById(req.user_id);
+
+    const token = generateToken(req.user_id);
+    res.status(200).json({user : user, token: token });
+  } 
+  catch (error) {
+    console.log(error)
+    console.log("bad call")
+    return res.status(404).json({ message: 'User not found' })
+  }
 };
 
 
