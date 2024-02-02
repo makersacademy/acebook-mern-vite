@@ -50,19 +50,20 @@ describe("/comments", () => {
         await Comment.deleteMany({});
     });
 
+    const postID = "testing";
     describe("POST, when a valid token is present", () => {
         it("responds with a 201", async () => {
             const response = await request(app)
-                .post("/comments")
+                .post(`/comments/${postID}`)
                 .set("Authorization", `Bearer ${token}`)
-                .send({ message: "Hello World!", post_id: "testing" });
+                .send({ message: "Hello World!" });
             expect(response.status).toEqual(201);
         });
         it("creates a new comment", async () => {
             await request(app)
-                .post("/comments")
+                .post(`/comments/${postID}`)
                 .set("Authorization", `Bearer ${token}`)
-                .send({ message: "Hello World!", post_id: "testing" });
+                .send({ message: "Hello World!", post_id: postID });
             const comments = await Comment.find();
             expect(comments.length).toEqual(1);
             expect(comments[0].message).toEqual("Hello World!");
@@ -70,7 +71,7 @@ describe("/comments", () => {
         it("does not create a new comment if the message is blank", async () => {
             const testApp = await request(app);
             const response = await testApp
-                .post("/comments")
+                .post(`/comments/${postID}`)
                 .set("Authorization", `Bearer ${token}`)
                 .send({ message: "" });
 
@@ -85,7 +86,7 @@ describe("/comments", () => {
         it("returns a new token", async () => {
             const testApp = request(app);
             const response = await testApp
-                .post("/comments")
+                .post(`/comments/${postID}`)
                 .set("Authorization", `Bearer ${token}`)
                 .send({ message: "hello world" });
 
@@ -104,7 +105,7 @@ describe("/comments", () => {
     describe("POST, when token is missing", () => {
         test("responds with a 401", async () => {
             const response = await request(app)
-                .post("/comments")
+                .post(`/comments/${postID}`)
                 .send({ message: "hello again world" });
 
             expect(response.status).toEqual(401);
@@ -112,7 +113,7 @@ describe("/comments", () => {
 
         test("a comment is not created", async () => {
             const response = await request(app)
-                .post("/comments")
+                .post(`/comments/${postID}`)
                 .send({ message: "hello again world" });
 
             const comments = await Comment.find();
@@ -121,7 +122,7 @@ describe("/comments", () => {
 
         test("a token is not returned", async () => {
             const response = await request(app)
-                .post("/comments")
+                .post(`/comments/${postID}`)
                 .send({ message: "hello again world" });
 
             expect(response.body.token).toEqual(undefined);
@@ -142,7 +143,7 @@ describe("/comments", () => {
             await comment2.save();
 
             const response = await request(app)
-                .get("/comments/testing")
+                .get(`/comments/${postID}`)
                 .set("Authorization", `Bearer ${token}`);
 
             expect(response.status).toEqual(200);
@@ -161,7 +162,7 @@ describe("/comments", () => {
             await comment2.save();
 
             const response = await request(app)
-                .get(`/comments/testing`)
+                .get(`/comments/${postID}`)
                 .set("Authorization", `Bearer ${token}`);
 
             const comments = response.body.comments;
@@ -186,7 +187,7 @@ describe("/comments", () => {
             await comment2.save();
 
             const response = await request(app)
-                .get("/comments/testing")
+                .get(`/comments/${postID}`)
                 .set("Authorization", `Bearer ${token}`);
 
             const newToken = response.body.token;
@@ -208,7 +209,7 @@ describe("/comments", () => {
             await comment1.save();
             await comment2.save();
 
-            const response = await request(app).get("/comments");
+            const response = await request(app).get(`/comments/${postID}`);
 
             expect(response.status).toEqual(401);
         });
@@ -219,7 +220,7 @@ describe("/comments", () => {
             await comment1.save();
             await comment2.save();
 
-            const response = await request(app).get("/comments");
+            const response = await request(app).get(`/comments/${postID}`);
 
             expect(response.body.posts).toEqual(undefined);
         });
@@ -230,7 +231,7 @@ describe("/comments", () => {
             await comment1.save();
             await comment2.save();
 
-            const response = await request(app).get("/comments");
+            const response = await request(app).get(`/comments/${postID}`);
 
             expect(response.body.token).toEqual(undefined);
         });
