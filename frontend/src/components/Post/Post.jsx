@@ -10,9 +10,9 @@ const Post = (props) => {
         setLikes(props.post.likes.length);
         console.log("I'm being clicked too");
     };
-    // const checkLikes = (props) => {
-    //     setLikes(props.post.likes.length);
-    // };
+    const checkLikes = (props) => {
+        setLikes(props.post.likes.length);
+    };
 
     return (
         <div>
