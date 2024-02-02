@@ -1,0 +1,6 @@
+#password, #email, #submit, #username {
+    border: 2px solid #00843D;
+    border-radius: 10px 10px 10px 10px;
+    font-size:large;
+    margin: 8px;
+}
