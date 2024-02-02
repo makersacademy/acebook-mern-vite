@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import ".././pages/Feed/FeedPage.css";
 import { likePost } from "../services/posts";
 import { getAllLikesByPostId } from "../services/posts";
-import Comment from "./Comment/Comment";
+import CreateNewComment from "./Comment/CreateNewComment";
 
 const Post = ({ post, token }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -50,9 +50,7 @@ const Post = ({ post, token }) => {
   return (
     <div className="post">
       <div className="post-header">
-        {/* <img src={post.author.avatar} alt={`${post.author.name}'s avatar`} /> */}
         <img src={post.profile_pic} alt={`Author's avatar`} />
-        {/* <h4>{post.author.name}</h4> */}
         <h4>{post.full_name}</h4>
       </div>
       <div className="post-content">
@@ -71,7 +69,7 @@ const Post = ({ post, token }) => {
         </div>
       </div>
       <div className="feed" role="feed">
-          {toggleCommentForm ? <Comment /> : <></>}
+          {toggleCommentForm ? <CreateNewComment /> : <></>}
       </div>
     </div>
   );

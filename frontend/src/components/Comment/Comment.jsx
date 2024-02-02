@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-const Comment = ({ text, author, timestamp }) => {
+const Comment = ({ author, timestamp, text }) => {
     return (
         <div className="comment">
             <div className="comment-author">{author}</div>
