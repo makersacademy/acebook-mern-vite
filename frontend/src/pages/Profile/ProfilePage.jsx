@@ -21,7 +21,8 @@ export const ProfilePage = () => {
 
                 })
                 .catch((err) => {
-                    console.err(err);
+                    console.error(err);
+                    navigate("/login")
                 });
         } else {
             navigate("/login");

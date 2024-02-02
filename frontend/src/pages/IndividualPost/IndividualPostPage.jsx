@@ -6,7 +6,7 @@ import { getSinglePost } from "../../services/posts";
 
 export const PostPage = () => {
     const handle = useParams()
-    console.log(handle.id)
+    //console.log(handle.id)
     const postId = handle.id
 
     const [post, setPost] = useState([]);
@@ -18,7 +18,8 @@ export const PostPage = () => {
             getSinglePost(postId, token).then((data) => {
                 setPost(data.post[0]);
                 setToken(data.token);
-                console.log(data)
+                //console.log('post details:')
+                //console.log(data.post[0])
                 window.localStorage.setItem("token", data.token);
             }).catch((err) => {
                 console.log(err)
@@ -32,10 +33,11 @@ export const PostPage = () => {
         return;
     }
     return (
-        <div>
+        <div role="postContent">
         <h2>Post</h2>
         <Post post={post} key={post._id}/>
         <DeletePostButton/>
+
 
         </div>
     );

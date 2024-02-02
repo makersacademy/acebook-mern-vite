@@ -24,7 +24,7 @@ const createToken = (userId) => {
 
 let token;
 describe("/posts", () => {
-    beforeAll(async () => {
+    beforeEach(async () => {
         const user = new User({
             username: "user123",
             email: "post-test@test.com",
@@ -32,7 +32,8 @@ describe("/posts", () => {
         });
         await user.save();
         await Post.deleteMany({});
-        token = createToken(user.id);
+        token = createToken(user.id)
+        user_id = user.id;
 
     });
 
@@ -54,7 +55,7 @@ describe("/posts", () => {
             await request(app)
                 .post("/posts")
                 .set("Authorization", `Bearer ${token}`)
-                .send({ message: "Hello World!!" });
+                .send({ message: "Hello World!!"});
 
             const posts = await Post.find();
             expect(posts.length).toEqual(1);
@@ -82,7 +83,7 @@ describe("/posts", () => {
             const response = await testApp
                 .post("/posts")
                 .set("Authorization", `Bearer ${token}`)
-                .send({ message: "hello world" });
+                .send({ message: "hello world"});
 
             const newToken = response.body.token;
             const newTokenDecoded = JWT.decode(
@@ -140,8 +141,8 @@ describe("/posts", () => {
         });
 
         test("returns every post in the collection", async () => {
-            const post1 = new Post({ message: "howdy!" });
-            const post2 = new Post({ message: "hola!" });
+            const post1 = new Post({ message: "hola!" });
+            const post2 = new Post({ message: "howdy!" });
             await post1.save();
             await post2.save();
 

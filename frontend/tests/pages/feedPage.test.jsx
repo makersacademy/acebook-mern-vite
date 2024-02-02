@@ -27,14 +27,16 @@ describe("Feed Page", () => {
   test("It displays posts from the backend", async () => {
     window.localStorage.setItem("token", "testToken");
 
-    const mockPosts = [{ _id: "12345", message: "Test Post 1" }];
+    const mockPosts = [{ _id: "12345", message: "Test Post 1", username: "user1", reg_time: "2024-02-01T12:29:41.763+00:00"}];
 
     getPosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
 
     render(<FeedPage />);
 
     const post = await screen.findByRole("article");
-    expect(post.textContent).toContain("Test Post 1");
+
+    expect(post.textContent).toEqual("Test Post 1user1 01/02/2024 12:29");
+
   });
 
   test("It navigates to login if no token is present", async () => {
