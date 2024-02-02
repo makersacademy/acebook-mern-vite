@@ -4,6 +4,7 @@ import { getUser } from "../../services/user";
 import User from "../../components/User/User";
 import EditUserModal from "../../components/EditUserModal/EditUserModal";
 import Navbar from "../../components/NavBar/navbar";
+import "./Userpage.css"
 
 export const UserPage = () => {
     const [user, setUser] = useState([]);

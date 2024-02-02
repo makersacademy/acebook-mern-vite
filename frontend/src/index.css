@@ -17,9 +17,25 @@ body {
   display: flex;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #F7D117;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Headings styling */
+h1, h2 {
+  font-size: 3.9em;
+  line-height: 1;
+  color: #00843D;
+  text-transform: uppercase;
+  text-shadow: 5px 5px 13px grey;
 }
+
+h3 {
+  color: #F7D117;
+}
+
+/* input {
+  border: 2px solid #00843D;
+  border-radius: 10px 10px 10px 10px;
+  font-size:large;
+  margin: 8px;
+} */

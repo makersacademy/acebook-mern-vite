@@ -10,6 +10,7 @@ export default function HomeNavItem() {
     return (
         <button
         type="button"
+        id="home-nav-button"
         onClick={handleClick}
         >
             Home
