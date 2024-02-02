@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { getUser } from "../../services/users"
 import { submitComment } from "../../services/comments";
 import Comment from './Comment';
-import { getAllComments } from "../../services/comments"
+import { getAllCommentsForAPost } from "../../services/comments"
 
-const CreateNewComment = () => {
+const CreateNewComment = (props) => {
     const [text, setText] = useState('');
     const [user, setUser] = useState({});
     const [token, setToken] = useState(window.localStorage.getItem("token"))
@@ -15,9 +15,17 @@ const CreateNewComment = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const timestamp = new Date().toISOString(); // Generate timestamp
-        const comment = { author: user.full_name, timestamp, text }; 
+        // const timestamp = new Date().toISOString(); // Generate timestamp
+        // author: user.full_name, 
+        const comment = {userId: id, commentText: text, postId: props.post_id }; 
         setText(''); // Reset the text field after submitting
+        submitComment(comment, token)
+            .then((data) => {
+                console.log(data)
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     };
 
     useEffect(() => {
@@ -30,17 +38,7 @@ const CreateNewComment = () => {
             .catch((error) => {
                 console.error(error)
             })
-        submitComment(token, id)
-            .then((data) => {
-                setComments(data.comments);
-                setToken(data.token);
-                window.localStorage.setItem("token", data.token);
-            })
-            .catch((err) => {
-                console.err(err);
-            });
-
-    }, [token, id, handleSubmit])
+    }, [token, id])
 
     return (
         <>
@@ -51,7 +49,7 @@ const CreateNewComment = () => {
                     onChange={(e) => setText(e.target.value)}
                     placeholder="Write a comment..."
                 />
-                <button type="submit">Submit Comment</button>
+                <button type="submit">Submit Comment!</button>
             </form>
             {[...comments].map((comment) => (
                     <Comment comment={comment} key={comment._id} token={token} />

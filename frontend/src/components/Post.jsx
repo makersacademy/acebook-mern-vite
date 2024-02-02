@@ -5,6 +5,7 @@ import ".././pages/Feed/FeedPage.css";
 import { likePost } from "../services/posts";
 import { getAllLikesByPostId } from "../services/posts";
 import CreateNewComment from "./Comment/CreateNewComment";
+import CommentsList from "./Comment/CommentsList";
 
 const Post = ({ post, token }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -47,8 +48,9 @@ const Post = ({ post, token }) => {
     setToggleCommentForm(!toggleCommentForm);
   };
 
+  // console.log(post.comments)
   return (
-    <div className="post">
+    <div className="post" id={post._id}>
       <div className="post-header">
         <img src={post.profile_pic} alt={`Author's avatar`} />
         <h4>{post.full_name}</h4>
@@ -56,7 +58,17 @@ const Post = ({ post, token }) => {
       <div className="post-content">
       <article>{post.message}</article>
       {post.image != "" ? ( <img src={post.image} className="post-image"/>): null} 
-
+      <div>{post.comments?.length > 0 ? 
+        ( post.comments.map(({userId, text}, index) => {
+          return (
+            <article key={index}>
+                <p>{userId} </p>
+                <p>{text}</p>
+            </article>
+          )
+        }
+        ))  : null}
+        </div>
       </div>
       <div className="post-actions">
         <div className="like-btn" onClick={handleLikeClick}>
@@ -65,11 +77,18 @@ const Post = ({ post, token }) => {
           <button>{isLiked ? "Unlike" : "Like"}</button>
         </div>
         <div className="comment-btn">
-          <button onClick={handleCommentClick} >Comment</button>
+          <button onClick={handleCommentClick} >Comments</button>
         </div>
       </div>
       <div className="feed" role="feed">
-          {toggleCommentForm ? <CreateNewComment /> : <></>}
+          {toggleCommentForm ? 
+          <div>
+                <CommentsList 
+                postId={post._id}/>
+                
+              <CreateNewComment 
+            post_id={post._id} /> </div> : <></>}
+          
       </div>
     </div>
   );
