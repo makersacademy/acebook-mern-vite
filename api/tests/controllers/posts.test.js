@@ -214,4 +214,79 @@ describe("/posts", () => {
             expect(response.body.token).toEqual(undefined);
         });
     });
+
+    describe("GET single post, when token is present", () => {
+        test("the response code is 200", async () => {
+            const post1 = new Post({
+                message: "Test message",
+            });
+            await post1.save();
+
+            const response = await request(app)
+                .get(`/posts/find/${post1._id}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            expect(response.status).toEqual(200);
+        });
+
+        test("returns single post in the collection", async () => {
+            const post1 = new Post({ message: "howdy!" });
+            const post2 = new Post({ message: "hola!" });
+            await post1.save();
+            await post2.save();
+
+            const response = await request(app)
+                .get(`/posts/find/${post2.id}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            const post = response.body.post;
+
+            expect(post.length).toEqual(1)
+            expect(post[0].message).toEqual("hola!");
+        });
+
+        test("returns a new token", async () => {
+            const post1 = new Post({ message: "First Post!" });
+            const post2 = new Post({ message: "Second Post!" });
+            await post1.save();
+            await post2.save();
+
+            const response = await request(app)
+                .get(`/posts/find/${post2.id}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            const newToken = response.body.token;
+            const newTokenDecoded = JWT.decode(
+                newToken,
+                process.env.JWT_SECRET
+            );
+            const oldTokenDecoded = JWT.decode(token, process.env.JWT_SECRET);
+
+            // iat stands for issued at
+            expect(newTokenDecoded.iat > oldTokenDecoded.iat).toEqual(true);
+        });
+    });
+
+    describe("GET single post, when token is missing", () => {
+        test("the response code is 401", async () => {
+            const post1 = new Post({ message: "howdy!" });
+            await post1.save();
+            const response = await request(app).get(`/posts/find/${post1.id}`);
+            expect(response.status).toEqual(401);
+        });
+
+        test("returns no posts", async () => {
+            const post1 = new Post({ message: "howdy!" });
+            await post1.save();
+            const response = await request(app).get(`/posts/find/${post1.id}`);
+            expect(response.body.posts).toEqual(undefined);
+        });
+
+        test("does not return a new token", async () => {
+            const post1 = new Post({ message: "howdy!" });
+            await post1.save();
+            const response = await request(app).get(`/posts/find/${post1.id}`);
+            expect(response.body.token).toEqual(undefined);
+        });
+    });
 });

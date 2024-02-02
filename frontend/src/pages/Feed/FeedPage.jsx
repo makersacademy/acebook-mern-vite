@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
@@ -36,7 +36,10 @@ export const FeedPage = () => {
             <h2>Posts</h2>
             <div className="feed" role="feed">
                 {posts.map((post) => (
+                    <div key={post._id}>
                     <Post post={post} key={post._id} />
+                    <Link to={`/posts/find/${post._id}`}>Post Page</Link>
+                    </div>
                 ))}
             </div>
             <div className="newPost">

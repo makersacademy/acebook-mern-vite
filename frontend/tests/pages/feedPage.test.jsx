@@ -14,8 +14,9 @@ vi.mock("../../src/services/posts", () => {
 // Mocking React Router's useNavigate function
 vi.mock("react-router-dom", () => {
   const navigateMock = vi.fn();
+  const linkMock = vi.fn();
   const useNavigateMock = () => navigateMock; // Create a mock function for useNavigate
-  return { useNavigate: useNavigateMock };
+  return { useNavigate: useNavigateMock, Link: linkMock};
 });
 
 describe("Feed Page", () => {
@@ -33,7 +34,9 @@ describe("Feed Page", () => {
     render(<FeedPage />);
 
     const post = await screen.findByRole("article");
+
     expect(post.textContent).toEqual("Test Post 1user1 01/02/2024 12:29");
+
   });
 
   test("It navigates to login if no token is present", async () => {

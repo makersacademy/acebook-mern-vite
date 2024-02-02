@@ -8,6 +8,7 @@ import { FeedPage } from "./pages/Feed/FeedPage";
 import { ProfilePage } from "./pages/Profile/ProfilePage";
 import { ProfileEditsPage }  from "./pages/Profile/ProfileEditsPage";
 import Navbar from "./components/navbar/Navbar";
+import {PostPage} from "./pages/IndividualPost/IndividualPostPage"
 
 // docs: https://reactrouter.com/en/main/start/overview
 
@@ -47,6 +48,9 @@ const router = createBrowserRouter([
           path: "/profileEdits",
           element: <ProfileEditsPage />,
         }
+          path: "/posts/find/:id",
+          element: <PostPage />,
+        },
       ]}
 ]);
 
