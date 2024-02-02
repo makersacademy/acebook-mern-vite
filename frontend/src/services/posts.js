@@ -19,6 +19,25 @@ export const getPosts = async (token) => {
     return data;
 };
 
+export const getSinglePost = async (post_id, token) => {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
+    const response = await fetch(`${BACKEND_URL}/posts/find/${post_id}`, requestOptions);
+    // console.log("response is")
+    // console.log(response)
+    if (response.status !== 200) {
+        throw new Error("Unable to fetch post");
+    }
+
+    const data = await response.json();
+    return data;
+};
+
 export const createNewPost = async (message) => {
     let token = window.localStorage.getItem("token");
     if (!token) {
@@ -46,7 +65,7 @@ export const createNewPost = async (message) => {
         return responseObject;
     } else {
         throw new Error(
-            `Received status ${response.status} when creating post. Expected 200`
+            `Received status ${response.status} when creating post. Expected 201`
         );
     }
 };
