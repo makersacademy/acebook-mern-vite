@@ -1,54 +1,74 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import './Navbar.css';
+import SearchNavItem from './SearchNavItem';
+import HomeNavItem from './HomeNavItem';
+import LogoutNavItem from './LogoutNavItem';
+import LoginNavItem from './LoginNavItem';
+import SignupNavItem from './SignupNavItem';
+import SearchResultsDropDown from './SearchResultsDropDown';
+import { Link } from 'react-router-dom';
+
 
 const Navbar = () => {
-    const effectRan = React.useRef(false);
-    const createNavbar = () => {
+    const [token, setToken] = useState(window.localStorage.getItem("token"))
+    const [showSearchResults, setShowSearchResults] = useState(false)
+    const [foundUsers, setFoundUsers] = useState([])
 
-    const navbarItems = [
-      { text: 'Search', id: 'searchButton'},
-      { text: 'Home', id: 'home', link: '/' },
-      { text: 'Logout', id: 'logout', link: '/login' },
-      { text: 'User', link: '/users/:username' }
-    ];
 
-    const navbarContainer = document.getElementById('navbar');
+    const handleSearch = (searchResults) => {
+      setShowSearchResults(true)
+      setFoundUsers(searchResults)
+      console.log("search results", searchResults)
 
-    const container = document.createElement('div');
-    container.style.width = '100vw';
-    container.style.backgroundColor = '#333';
-    container.style.padding = '10px';
-    container.style.borderBottom = '1px solid #ddd';
-    container.style.display = 'flex';
-    container.style.textAlign = 'center';  
-    container.style.boxSizing = 'border-box';
+    }
 
-    const searchInput = document.createElement('input');
-    searchInput.type = 'input';
-    searchInput.placeholder = 'Search';
-    container.appendChild(searchInput);
 
-    navbarItems.forEach(item => {
-        const linkElement = document.createElement('a');
-        linkElement.href = item.link;
-        linkElement.id = item.id;
-        linkElement.textContent = item.text;
-        
+  return (
+  <>
+  <div data-testid="navbar" id="navbar">
+  
+  <div className="logo-nav-item"> 
+  <Link to={`/`}>
+    <h3>AB</h3>
+    </Link>
+  </div>
 
-        container.appendChild(linkElement);
-    });
+  <div data-testId="searchItem" className="search-nav-item">
+  <SearchNavItem 
+    handleSearch={handleSearch}
+  />
+  </div>
+  <div className="home-nav-item">
+  <HomeNavItem />
+  </div>
+  {token ? 
 
-    navbarContainer.appendChild(container);
-};
-  useEffect(() => {
-    if (!effectRan.current) {
-        createNavbar()
-          }
-    
-    return () => effectRan.current = true;
-  }, []);
+  <div className="logout-nav-item"> 
+    <LogoutNavItem />
+  </div>
+    :
+    <>
+  <div className="login-nav-item"> 
+    <LoginNavItem />
+  </div>
+  <div className="login-nav-item"> 
+    <SignupNavItem />
+  </div>
+    </>
+  }
+  </div>
+  {showSearchResults && 
+  <div className="search-results-dropdown">
+    <SearchResultsDropDown 
+    setShowSearchResults={setShowSearchResults}
+      foundUsers={foundUsers}
+    />
+  </div>
+}
 
-  return <div data-testid="navbar" id="navbar"></div>;
+
+</>
+  );
 };
 
 export default Navbar;

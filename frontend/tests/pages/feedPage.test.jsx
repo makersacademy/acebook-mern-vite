@@ -12,11 +12,18 @@ vi.mock("../../src/services/posts", () => {
 });
 
 // Mocking React Router's useNavigate function
-vi.mock("react-router-dom", () => {
+vi.mock("react-router-dom", async () => {
+	const actual = await vi.importActual('react-router-dom')
+	const MockLink = ({to, children}) => <a href={to}>{children}</a>
 	const navigateMock = vi.fn();
-	const useNavigateMock = () => navigateMock; // Create a mock function for useNavigate
-	return { useNavigate: useNavigateMock };
+	const useNavigateMock = () => navigateMock;
+	return {
+		...actual,
+		Link:MockLink,
+		useNavigate: useNavigateMock
+	}
 });
+
 
 describe("Feed Page", () => {
 	beforeEach(() => {

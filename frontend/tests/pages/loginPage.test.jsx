@@ -1,18 +1,23 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
-
 import { useNavigate } from "react-router-dom";
 import { login } from "../../src/services/authentication";
-
 import { LoginPage } from "../../src/pages/Login/LoginPage";
 
 // Mocking React Router's useNavigate function
-vi.mock("react-router-dom", () => {
+vi.mock("react-router-dom", async () => {
+  const actual = await vi.importActual('react-router-dom')
+  const MockLink = ({to, children}) => <a href={to}>{children}</a>
   const navigateMock = vi.fn();
-  const useNavigateMock = () => navigateMock; // Create a mock function for useNavigate
-  return { useNavigate: useNavigateMock };
+  const useNavigateMock = () => navigateMock;
+  return {
+      ...actual,
+      Link:MockLink,
+      useNavigate: useNavigateMock
+  }
 });
+
 
 // Mocking the login service
 vi.mock("../../src/services/authentication", () => {
