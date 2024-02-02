@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { vi, describe, beforeEach, test, expect } from "vitest";
 import { useParams } from 'react-router-dom';
 import { PostPage } from "../../src/pages/IndividualPost/IndividualPostPage";
@@ -28,12 +28,18 @@ describe("Individual Post Page", () => {
     const mockPost = [{ _id: "12345", message: "Test Post 1" }];
     vi.mocked(useParams).mockReturnValue({ id: "12345" });
 
-    getSinglePost.mockResolvedValue({ post: mockPost[0], token: "newToken" });
+    getSinglePost.mockResolvedValue({ post: mockPost, token: "newToken" });
+    //console.log("mockPost:")
+    //console.log(mockPost[0])
 
     render(<PostPage />);
 
-    const postElement = await screen.findByRole("article");
+    const postElement = await screen.findByRole("postContent");
+    //console.log(postElement)
 
-    expect(postElement.textContent).toContain("Test Post 1");
+  expect(postElement.textContent).toContain("Test Post 1");
+  {/*await waitFor(() => {
+    expect(screen.findByRole("article").textContent).toBe("Test Post 1");
+  })*/}
   });
 });

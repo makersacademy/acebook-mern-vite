@@ -1,6 +1,6 @@
 
 const Post = (props) => {
-
+  //console.log(props.post.message)
 
   return <>
   <article className="post" key={props.post._id}>{props.post.message}
