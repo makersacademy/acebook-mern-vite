@@ -6,44 +6,48 @@ import Post from "../../components/Post/Post";
 import Navbar from "../../components/NavBar/navbar";
 
 export const FeedPage = () => {
-	const [posts, setPosts] = useState([]);
-	const [token, setToken] = useState(window.localStorage.getItem("token"));
-	const navigate = useNavigate();
+    const [posts, setPosts] = useState([]);
+    const [token, setToken] = useState(window.localStorage.getItem("token"));
+    const [click, setClick] = useState(false);
+    const clicked = () => {
+        setClick(!click);
+    };
+    const navigate = useNavigate();
 
-	useEffect(() => {
-		if (token) {
-			getPosts(token)
-				.then((data) => {
-					const sortedPosts = data.posts.sort(
-						(a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-					);
-					setPosts(sortedPosts.reverse());
-					setToken(data.token);
-					window.localStorage.setItem("token", data.token);
-				})
-				.catch((err) => {
-					console.err(err);
-				});
-		} else {
-			navigate("/login");
-		}
-	}, []);
+    useEffect(() => {
+        if (token) {
+            getPosts(token)
+                .then((data) => {
+                    const sortedPosts = data.posts.sort(
+                        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+                    );
+                    setPosts(sortedPosts.reverse());
+                    setToken(data.token);
+                    window.localStorage.setItem("token", data.token);
+                })
+                .catch((err) => {
+                    console.err(err);
+                });
+        } else {
+            navigate("/login");
+        }
+    }, []);
 
-	if (!token) {
-		return;
-	}
+    if (!token) {
+        return;
+    }
 
-	return (
-		<>
-			<div className="navbar">
-				<Navbar />
-			</div>
-			<h2>Posts</h2>
-			<div className="feed" role="feed">
-				{posts.map((post) => (
-					<Post post={post} key={post._id} />
-				))}
-			</div>
-		</>
-	);
+    return (
+        <>
+            <div className="navbar">
+                <Navbar />
+            </div>
+            <h2>Posts</h2>
+            <div className="feed" role="feed">
+                {posts.map((post) => (
+                    <Post post={post} key={post._id} clicked={clicked} />
+                ))}
+            </div>
+        </>
+    );
 };
