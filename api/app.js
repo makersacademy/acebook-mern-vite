@@ -8,6 +8,7 @@ const authenticationRouter = require("./routes/authentication");
 const profileRouter = require("./routes/profiles");
 const tokenChecker = require("./middleware/tokenChecker");
 
+
 const app = express();
 
 // Allow requests from any client

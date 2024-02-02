@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { getProfile } from "../../services/Profile";
 import Profile from "../../components/Profile/Profile";
 import ProfileEdits from "../../components/Profile/ProfileEdits";
 
 
-export const ProfilePage = () => {
+export const ProfileEditsPage = () => {
     const [profile, setProfile] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const navigate = useNavigate();
@@ -23,10 +23,10 @@ export const ProfilePage = () => {
                 })
                 .catch((err) => {
                     console.error(err);
-                    navigate("/login")
+                    navigate("/profile")
                 });
         } else {
-            navigate("/login");
+            navigate("/profileEdits");
         }
     },[]);
 
@@ -37,17 +37,17 @@ export const ProfilePage = () => {
 
     return (
         <>
-            <h2>Users</h2>
-            <div className="profile" role="profile">
+            <h2>Edit Profile</h2>
+            <div className="profileEdits" role="profileEdits">
                 {profile.map((user) => (
                     <>
-                        <Profile user={user} key={user._id} />
+                        <ProfileEdits user={user} key={user._id} />
+                        <ul className="profile-edits">
+                            <Link to='/profile'>Cancel Edit Profile</Link>
+                        </ul>
                     </>
                 ))}
             </div>
-            <div className="profile-edits">
-                    <Link to='/profileEdits'>Edit Profile</Link>
-                </div>
         </>
     );
                 };
