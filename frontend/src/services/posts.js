@@ -19,7 +19,7 @@ export const getPosts = async (token) => {
     return data;
 };
 
-export const getSinglePost = async (token) => {
+export const getSinglePost = async (token, post_id) => {
     const requestOptions = {
         method: "GET",
         headers: {
@@ -27,7 +27,7 @@ export const getSinglePost = async (token) => {
         },
     };
 
-    const response = await fetch(`${BACKEND_URL}/posts/find/:id`, requestOptions);
+    const response = await fetch(`${BACKEND_URL}/posts/find/${post_id}`, requestOptions);
     console.log("response is")
     console.log(response)
     if (response.status !== 200) {

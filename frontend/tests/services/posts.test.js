@@ -1,7 +1,7 @@
 import createFetchMock from "vitest-fetch-mock";
 import { describe, expect, vi, test, it, beforeEach} from "vitest";
 
-import { getPosts, createNewPost, getIndividualPost } from "../../src/services/posts";
+import { getPosts, createNewPost, getSinglePost } from "../../src/services/posts";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -110,23 +110,19 @@ describe("createNewPost service", () => {
     });
 });
 
-describe("getIndividualPost", () => {
+describe("getSinglePost", () => {
     test("includes a token with its request", async () => {
-        fetch.mockResponseOnce(
-            JSON.stringify({ post: [], token: "newToken" }),
-            {
-                status: 200,
-            }
-        );
+        const mockResponse = { id: 1, content: "Hello", token: "newToken"};
+        fetch.mockResponseOnce(JSON.stringify(mockResponse), { status: 200 });
 
-        await getIndividualPost("testToken");
+        await getSinglePost("testToken", 1);
 
         // This is an array of the arguments that were last passed to fetch
         const fetchArguments = fetch.mock.lastCall;
         const url = fetchArguments[0];
         const options = fetchArguments[1];
 
-        expect(url).toEqual(`${BACKEND_URL}/posts/find/:id`);
+        expect(url).toEqual(`${BACKEND_URL}/posts/find/${mockResponse.id}`);
         expect(options.method).toEqual("GET");
         expect(options.headers["Authorization"]).toEqual(
             "Bearer testToken"
@@ -140,7 +136,7 @@ describe("getIndividualPost", () => {
         );
 
         try {
-            await getIndividualPost("testToken");
+            await getSinglePost("testToken");
         } catch (err) {
             expect(err.message).toEqual("Unable to fetch post");
         }
@@ -149,7 +145,7 @@ describe("getIndividualPost", () => {
     it("returns response object on successful fetch", async () => {
         const mockResponse = { id: 1, content: "Hello" };
         fetch.mockResponseOnce(JSON.stringify(mockResponse), { status: 200 });
-        const response = await getIndividualPost("token");
+        const response = await getSinglePost("token");
         expect(response).toEqual(mockResponse);
     });
 })
