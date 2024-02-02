@@ -8,11 +8,17 @@ import Comment from "./Comment";
 export const Post = (props) => {
   const [comments, setComments] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const [viewComment, setCommentSection] = useState(false);
   const navigate = useNavigate();
   
   const getPostById = (data, post_id) => {
     const comments = data.comments.filter((comment) => comment.post_id == post_id)
     setComments(comments)
+  }
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    setCommentSection(!viewComment)
   }
 
   useEffect(() => {
@@ -40,14 +46,18 @@ export const Post = (props) => {
   <br/>
   <h4>POSTS</h4>
   <article key={props.post._id}>{props.post.message}</article>
-  <h6><div>{props.date}</div></h6>
-  <CommentForm role="new-comment" post_id={props.post._id}/>
-  <h4>Comments</h4>
-  <div className="comment" role="comment">
+  <div><h6>{props.date}</h6></div>
+  <div>
+    <button type="button" onClick={handleClick}>View comments</button>
+  </div>
+  {viewComment && <div className="comment_section" role="comment_section">
+    <CommentForm role="new-comment" post_id={props.post._id}/>
+    <div className="comment" role="comment">
         {comments.toReversed().map((comment) => (
         <Comment comment={comment} key={comment._id} date={comment.time_of_comment} />
         ))}
-      </div>
+    </div>
+  </div>}
       
 
 
