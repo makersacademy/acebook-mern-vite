@@ -1,17 +1,43 @@
-/* #home {
+/* /* #home {
     color: rgb(0, 0, 0);
     display: flex;
     margin-right: 575px;
-}
+} */
 
 #navbar {
+    display: flex;
+    align-items: center;
     width: 100vw;
-    background-color: #333;
+    background-color: rgb(53, 50, 50);
     padding: 10px;
     border-bottom: 1px solid #ddd;
     display: flex;
     text-align: center;
     box-sizing: border-box;
+}
+
+.login-nav-item {
+    margin-left:10px;
+    padding:0px;
+}
+.logo-nav-item {
+    margin-right:10px;
+    padding:0px;
+
+}
+.search-nav-item {
+    margin-right:auto;
+    padding:10px;
+}
+
+.home-nav-item {
+    margin-left:10px;
+    padding:0px;
+}
+
+.logout-nav-item {
+    margin-left:10px;
+    padding:10px;
 }
 
 #navbar input {
@@ -27,5 +53,17 @@
 }
 
 #navbar a {
-    color: white;
-} */
+}
+
+.search-results {
+    position: absolute;
+    top: 10%; /* Adjust the distance from the search input */
+    right: 10%;
+    left: 10%;
+    width: 200px; /* Adjust the width as needed */
+    background: #959595; /* Set background color */
+    border: 1px solid #ccc; /* Add a border for styling */
+    z-index: 1000; /* Ensure the dropdown is above other elements */
+    border-radius: 10%;
+
+}

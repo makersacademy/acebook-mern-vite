@@ -9,6 +9,7 @@ router.post("/", UsersController.create);
 router.get("/:username", UsersController.getUser);
 router.patch("/:username/upload", multerUpload.single('file'), UsersController.uploadImage);
 router.patch("/:username/edit-bio", UsersController.editBio);
+router.get("/", UsersController.searchUsers)
 
 
 module.exports = router;

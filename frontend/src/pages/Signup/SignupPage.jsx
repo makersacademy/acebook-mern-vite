@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { signup } from "../../services/authentication";
+import Navbar from "../../components/NavBar/navbar";
 
 export const SignupPage = () => {
     const [username, setUsername] = useState("");
@@ -35,6 +35,7 @@ export const SignupPage = () => {
 
     return (
         <>
+            <Navbar />
             <h2>Signup</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="username">Username:</label>

@@ -3,13 +3,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getUser } from "../../services/user";
 import User from "../../components/User/User";
 import EditUserModal from "../../components/EditUserModal/EditUserModal";
+import Navbar from "../../components/NavBar/navbar";
 
 
 
 export const UserPage = () => {
     const [user, setUser] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
-    const [email, setEmail] = useState(window.localStorage.getItem("email"));
+    const [loggedInUser, setLoggedInUser] = useState(JSON.parse(window.localStorage.getItem("user")))
     const [profilePicture, setProfilePicture] = useState()
     const [bio, setBio] = useState("")
     const navigate = useNavigate();
@@ -36,12 +37,13 @@ export const UserPage = () => {
                     window.localStorage.setItem("token", data.token);
                 })
                 .catch((err) => {
-                    console.err(err);
+                    console.error(err);
                 });
             } else {
             navigate("/login");
-            }
-        }, []);
+            } 
+        }, [username]);
+        
     
         if (!token) {
             navigate("/login")
@@ -57,10 +59,12 @@ export const UserPage = () => {
 
         return (
             <>
+            <Navbar />
             <h1>User Page</h1>
+            
 
 
-            {email === user.email ? 
+            {loggedInUser._id === user._id ? 
 
             <EditUserModal 
             username={username}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { login } from "../../services/authentication";
+import Navbar from "../../components/NavBar/navbar";
 
 export const LoginPage = () => {
 	const [email, setEmail] = useState("");
@@ -11,10 +11,9 @@ export const LoginPage = () => {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			const token = await login(email, password);
-			window.localStorage.setItem("token", token);
-			window.localStorage.setItem("email", email);
-			console.log("token form login", token)
+			const data = await login(email, password);
+			window.localStorage.setItem("token", data.token);
+			window.localStorage.setItem("user", JSON.stringify(data.user));
 			navigate("/posts");
 		} catch (err) {
 			console.error(err);
@@ -32,6 +31,7 @@ export const LoginPage = () => {
 
 	return (
 		<>
+		<Navbar />
 			<h2>Login</h2>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="email">Email:</label>
