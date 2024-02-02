@@ -12,13 +12,13 @@ export const PostPage = () => {
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const navigate = useNavigate();
 
-    useEffect(() => {
+     useEffect(() => {
         if (token){
-            getSinglePost(token, postId).then((data) => {
-                setPost(data.post);
+            getSinglePost(postId, token).then((data) => {
+                setPost(data.post[0]);
                 setToken(data.token);
-                window.localStorage.setItem("token", data.token);
                 console.log(data)
+                window.localStorage.setItem("token", data.token);
             }).catch((err) => {
                 console.log(err)
             })
@@ -31,9 +31,9 @@ export const PostPage = () => {
         return;
     }
     return (
-        <div key={post._id}>
+        <div>
         <h2>Post</h2>
-        <Post post={post[0]} key={post[0]._id}/>
+        <Post post={post} key={post._id}/>
 
         </div>
     );

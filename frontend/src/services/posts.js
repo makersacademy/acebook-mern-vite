@@ -19,7 +19,7 @@ export const getPosts = async (token) => {
     return data;
 };
 
-export const getSinglePost = async (token, post_id) => {
+export const getSinglePost = async (post_id, token) => {
     const requestOptions = {
         method: "GET",
         headers: {
@@ -28,8 +28,8 @@ export const getSinglePost = async (token, post_id) => {
     };
 
     const response = await fetch(`${BACKEND_URL}/posts/find/${post_id}`, requestOptions);
-    console.log("response is")
-    console.log(response)
+    // console.log("response is")
+    // console.log(response)
     if (response.status !== 200) {
         throw new Error("Unable to fetch post");
     }

@@ -115,7 +115,7 @@ describe("getSinglePost", () => {
         const mockResponse = { id: 1, content: "Hello", token: "newToken"};
         fetch.mockResponseOnce(JSON.stringify(mockResponse), { status: 200 });
 
-        await getSinglePost("testToken", 1);
+        await getSinglePost(1, "testToken");
 
         // This is an array of the arguments that were last passed to fetch
         const fetchArguments = fetch.mock.lastCall;
