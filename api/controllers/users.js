@@ -1,73 +1,87 @@
 const User = require("../models/user");
-
 const { generateToken } = require("../lib/token");
+const { updateUser, deleteUser } = require("../../services/user");
 
 const getUser = async (req, res) => {
-  const token = generateToken(req.params.id);
+  try {
+    const token = generateToken(req.params.id);
+    const user = await User.findOne({ _id: req.params.id });
 
-  User.findOne({ _id: req.params.id }).then((data) => {
-    if (!data) {
+    if (!user) {
       console.log(req.params.id);
       console.log("Auth Error: User not found");
-      res.status(401).json({ message: "User not found" });
-    } else {
-      res.status(200).json({ user: data, token: token });
-      //console.log(data);
-      //console.log("Found user!");
+      return res.status(401).json({ message: "User not found" });
     }
-  });
-};
 
-const create = (req, res) => {
-  let profile_pic = "";
-  let url =
-    req.protocol +
-    "://" +
-    req.get("host") +
-    "/uploads/default_profile_pic.svg.png";
-  if (req.file) {
-    profile_pic = req.file.filename;
-    url = req.protocol + "://" + req.get("host") + "/uploads/" + profile_pic;
+    res.status(200).json({ user, token });
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
-
-  const full_name = req.body.full_name;
-  const email = req.body.email;
-  const password = req.body.password;
-
-  //const url = req.protocol + "://" + req.get("host") + "/uploads/" + profile_pic;
-  const user = new User({
-    profile_pic: url,
-    full_name,
-    email,
-    password,
-  });
-
-  user
-    .save()
-    .then((user) => {
-      console.log("User created, id:", user._id.toString());
-      res
-        .status(201)
-        .json({ message: "User created successfully", userId: user._id });
-    })
-    .catch((err) => {
-      //console.error(err);
-
-      if (err.name === "ValidationError") {
-        res
-          .status(400)
-          .json({ message: "Validation failed", errors: err.errors });
-      } else if (err.name === "MongoServerError") {
-        console.log("Email already in use");
-        res.status(409).json({ message: "Email already in use" });
-      } else {
-        res.status(500).json({ message: "Internal server error" });
-      }
-    });
 };
+
+const create = async (req, res) => {
+  try {
+    let profile_pic = "";
+    let url = `${req.protocol}://${req.get("host")}/uploads/default_profile_pic.svg.png`;
+
+    if (req.file) {
+      profile_pic = req.file.filename;
+      url = `${req.protocol}://${req.get("host")}/uploads/${profile_pic}`;
+    }
+
+    const { full_name, email, password } = req.body;
+
+    const user = new User({
+      profile_pic: url,
+      full_name,
+      email,
+      password,
+    });
+
+    const savedUser = await user.save();
+
+    console.log("User created, id:", savedUser._id.toString());
+    res.status(201).json({ message: "User created successfully", userId: savedUser._id });
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      res.status(400).json({ message: "Validation failed", errors: error.errors });
+    } else if (error.name === "MongoServerError" && error.code === 11000) {
+      console.log("Email already in use");
+      res.status(409).json({ message: "Email already in use" });
+    } else {
+      console.error("Error creating user:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+};
+
 const UsersController = {
-  create: create,
-  getUser: getUser,
+  create,
+  getUser,
+  updateUser: async (req, res) => {
+    const { id } = req.params;
+    const { updatedUserData } = req.body;
+
+    try {
+      const updatedUser = await updateUser(id, updatedUserData);
+      res.json(updatedUser);
+    } catch (error) {
+      console.error("Error updating user:", error);
+      res.status(500).json({ error: error.message });
+    }
+  },
+  deleteUser: async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      const deletedUser = await deleteUser(id);
+      res.json({ message: "User deleted successfully", deletedUser });
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      res.status(500).json({ error: error.message });
+    }
+  },
 };
 
 module.exports = UsersController;
