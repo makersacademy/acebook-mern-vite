@@ -345,4 +345,40 @@ describe("/posts", () => {
             expect(newTokenDecoded.iat > oldTokenDecoded.iat).toEqual(true);
         });
     });
+
+    describe("POST update a single post, when token is present", () => {
+        test("the response code is 200", async () => {
+            const post1 = new Post({
+                message: "Test message",
+            });
+            await post1.save();
+            const post = await Post.findOne({_id: post1._id})
+            post.message = "New Test Message"
+            post.save()
+
+            const response = await request(app)
+                .get(`/posts/find/${post1._id}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            expect(response.status).toEqual(200);
+        });
+
+        test("Updates message of post", async () => {
+            const post1 = new Post({
+                message: "Test message",
+            });
+            await post1.save();
+            const post = await Post.findOne({_id: post1._id})
+            post.message = "New Test Message"
+            post.save()
+            
+            const response = await request(app)
+            .get(`/posts/find/${post1._id}`)
+            .set("Authorization", `Bearer ${token}`);
+
+            const updatedPost = response.body.post;
+
+            expect(updatedPost[0].message).toEqual("New Test Message");
+        });
+    });
 });
