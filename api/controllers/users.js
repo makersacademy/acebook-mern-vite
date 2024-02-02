@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const { generateToken } = require("../lib/token");
-const { updateUser, deleteUser } = require("../../services/user");
+// const { updateUser, deleteUser } = require("../../services/user");
+const mongoose = require("mongoose");
 
 const getUser = async (req, res) => {
   try {
@@ -75,7 +76,7 @@ const UsersController = {
     const { id } = req.params;
 
     try {
-      const deletedUser = await deleteUser(id);
+      const deletedUser = await User.deleteOne({_id:new mongoose.Types.ObjectId(id)});
       res.json({ message: "User deleted successfully", deletedUser });
     } catch (error) {
       console.error("Error deleting user:", error);

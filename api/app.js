@@ -27,7 +27,7 @@ app.use("/tokens", authenticationRouter);
 app.use("/uploads", express.static("uploads"));
 app.use("/posts", tokenChecker, postsRouter);
 app.use("/likes", tokenChecker, likesRouter);
-app.use("/settings", settingsRoutes); 
+app.use("/users", settingsRoutes); 
 
 // 404 Handler
 app.use((_req, res) => {
