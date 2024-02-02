@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { getUser } from "../../services/users"
 import { submitComment } from "../../services/comments";
 import Comment from './Comment';
+import { getAllComments } from "../../services/comments"
 
 const CreateNewComment = () => {
     const [text, setText] = useState('');
