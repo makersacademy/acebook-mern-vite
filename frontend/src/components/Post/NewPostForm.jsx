@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
+
 const NewPostForm = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
@@ -34,6 +35,7 @@ const NewPostForm = () => {
   };
 
   return (
+    <div>
     <form onSubmit={handleSubmit}>
       <label for="message">
         Message:
@@ -43,7 +45,11 @@ const NewPostForm = () => {
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </label>
     </form>
+    </div>
   );
 };
 
 export default NewPostForm;
+
+
+

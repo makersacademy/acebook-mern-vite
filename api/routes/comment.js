@@ -7,6 +7,7 @@ const logReq = (req) => {
     console.log(req);
 }
 
+router.get("/", CommentController.getAllComment);
 router.post("/", CommentController.createComment)
 
 module.exports = router
