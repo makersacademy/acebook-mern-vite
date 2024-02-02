@@ -85,3 +85,24 @@ export const getAllLikesByPostId = async (postId, token) => {
     console.error("Error:", error);
   }
 };
+
+
+export const createPost = async (token, formData) => {
+  const requestOptions = {
+      method: "POST",
+      headers: {
+          Authorization: `Bearer ${token}`,
+          
+      },
+      body: formData,
+  };
+
+  const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
+
+  if (response.status !== 201) {
+      throw new Error("Unable to create post");
+  }
+
+  const data = await response.json();
+  return data;
+};

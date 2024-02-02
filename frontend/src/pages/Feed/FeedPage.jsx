@@ -7,7 +7,7 @@ import Post from "../../components/Post";
 import Navbar from "../../components/Navbar/Navbar"; 
 import "./FeedPage.css";
 import CreateNewPost from "../../components/CreateNewPost";
-import { getUser } from "../../services/user";
+import { getUser } from "../../services/users";
 
 export const FeedPage = () => {
   document.title = "Posts"

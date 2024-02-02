@@ -1,8 +1,8 @@
 // frontend/src/components/Comment/CreateNewComment.jsx
 
 import React, { useEffect, useState } from 'react';
-import { getUser } from "../../services/user"
-import { submitComment } from "../services/comments";
+import { getUser } from "../../services/users"
+import { submitComment } from "../../services/comments";
 import Comment from './Comment';
 
 const CreateNewComment = () => {

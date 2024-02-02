@@ -1,6 +1,6 @@
 import Navbar from "../../components/Navbar/Navbar.jsx";
 import { useState, useEffect } from "react";
-import { getUser } from "../../services/user"
+import { getUser } from "../../services/users"
 import "./profilePage.css"
 import Post from "../../components/Post.jsx";
 import { getPostsByUser } from "../../services/posts";
