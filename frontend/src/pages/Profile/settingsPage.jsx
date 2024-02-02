@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getUser, updateUser, deleteUser } from "../../services/user";
 import Navbar from "../../components/Post/Navbar";
 import "./profilePage.css";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const SettingsPage = () => {
   document.title = "Settings Page";
@@ -11,47 +11,63 @@ export const SettingsPage = () => {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const id = window.localStorage.getItem("id");
   const navigate = useNavigate();
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const [formData, setFormData] = useState({
+    full_name: "",
+    email: "",
+  });
 
   useEffect(() => {
     getUser(token, id)
       .then((data) => {
         setUser(data.user);
+        setFormData({
+          full_name: data.user.full_name,
+          email: data.user.email,
+        });
       })
       .catch((error) => {
         console.error(error);
       });
-  }, [token, id]);
-
-  const handleUpdateName = async () => {
-    try {
-      const updatedUser = await updateUser(token, id, { full_name: user.full_name });
-      setUser((prevUser) => ({ ...prevUser, full_name: updatedUser.full_name }));
-      console.log("Name updated successfully", updatedUser);
-    } catch (error) {
-      console.error("Error updating Name", error);
+  
+    // Clear success message after a certain time
+    let timer;
+    if (successMessage) {
+      timer = setTimeout(() => {
+        setSuccessMessage("");
+      }, 3000); 
     }
+  
+    return () => clearTimeout(timer);
+  
+  }, [token, id, successMessage]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleUpdateEmail = async () => {
+  const handleUpdate = async () => {
     try {
-      const updatedUser = await updateUser(token, id, { email: user.email });
-      setUser((prevUser) => ({ ...prevUser, email: updatedUser.email }));
-      console.log("Email updated successfully", updatedUser);
+      const updatedUser = await updateUser(token, id, { updatedUserData: formData });
+      setUser(updatedUser);
+      setSuccessMessage("Profile updated successfully");
+      console.log("User updated successfully", updatedUser);
     } catch (error) {
-      console.error("Error updating email", error);
+      console.error("Error updating user", error);
     }
   };
 
   const handleDeleteUser = async () => {
     try {
-        deleteUser(token, id);
-        console.log("User deleted");
-        navigate("/")
+      await deleteUser(token, id);
+      console.log("User deleted");
+      navigate("/");
+    } catch (error) {
+      console.error("Error deleting user", error);
     }
-    catch (error) {
-        console.error("Error deleting user" + error);
-    }
-  }
+  };
 
   return (
     <>
@@ -59,32 +75,42 @@ export const SettingsPage = () => {
       <div className="settings">
         <h1>Settings</h1>
 
-        {/* Form for updating username */}
-        <form onSubmit={(e) => e.preventDefault()}>
-          <label>
-            Update Full Name:
+        {successMessage && <p className="success-message">{successMessage}</p>}
+
+        {/* Form for updating user */}
+        <form onSubmit={(e) => e.preventDefault()} class="form-settings">
+          <label class="label-settings">
+            Change Name:
+          </label>
+          <label class="label-settings">
             <input
               type="text"
-              value={user.full_name || ""}
-              onChange={(e) => setUser((prevUser) => ({ ...prevUser, full_name: e.target.value }))}
+              name="full_name"
+              placeholder={`${user.full_name}`}
+              value={formData.full_name}
+              onChange={handleInputChange}
+              class="input-settings"
             />
           </label>
-          <button onClick={handleUpdateName}>Update Name</button>
-        </form>
 
-        {/* Form for updating email */}
-        <form onSubmit={(e) => e.preventDefault()}>
-          <label>
-            Update Email:
+          <label class="label-settings">
+            Change Email:
+          </label>
+          <label class="label-settings">
             <input
               type="email"
-              value={user.email || ""}
-              onChange={(e) => setUser((prevUser) => ({ ...prevUser, email: e.target.value }))}
+              name="email"
+              placeholder={`${user.email}`}
+              value={formData.email}
+              onChange={handleInputChange}
+              class="input-settings"
             />
           </label>
-          <button onClick={handleUpdateEmail}>Update Email</button>
+
+          <button onClick={handleUpdate} class="button-settings">Save</button>
         </form>
-        <button onClick={handleDeleteUser}>Delete Account</button>
+
+        <button onClick={handleDeleteUser} class="delete-button">Delete Account</button>
       </div>
     </>
   );
