@@ -1,28 +1,23 @@
 const express = require("express");
 const router = express.Router();
-
 const userController = require("../controllers/users");
-// const SettingsController = require("../controllers/settings");
 
-// router.put("/:id/updateName", SettingsController.updateName);
-// router.put("/:id/updateEmail", SettingsController.updateEmail);
-// router.put("/:id/updateAboutMe", SettingsController.updateAboutMe);
-router.delete("/:id", userController.deleteUser);
+// Route for updating user's name
+router.put("/:id/updateUser", userController.updateUser);
 
-
+// Route for updating user data (consider using a more descriptive endpoint, e.g., "/:id/update")
 router.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const { updatedUserData } = req.body;
+  const id = req.params.id;
 
   try {
-    const updatedUser = await userController.updateUser(id, updatedUserData);
+    const updatedUser = await userController.updateUser(id, req.body);
     res.json(updatedUser);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// Delete user route
+// Route for deleting a user
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 

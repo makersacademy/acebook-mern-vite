@@ -65,13 +65,15 @@ const UsersController = {
     const { updatedUserData } = req.body;
 
     try {
-      const updatedUser = await updateUser(id, updatedUserData);
+      const updatedUser = await updateUser(id, updatedUserData, {new: true});
       res.json(updatedUser);
     } catch (error) {
       console.error("Error updating user:", error);
       res.status(500).json({ error: error.message });
     }
   },
+
+
   deleteUser: async (req, res) => {
     const { id } = req.params;
 
@@ -84,6 +86,7 @@ const UsersController = {
       res.status(500).json({ error: error.message });
     }
   },
+
 };
 
 module.exports = UsersController;
