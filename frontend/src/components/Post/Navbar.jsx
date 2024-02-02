@@ -19,6 +19,10 @@ const Navbar = () => {
         navigate("/posts")
     }
 
+    const settingsPage = () => {
+        navigate("/settings")
+    }
+
     return (
         <nav>
             <div onClick={home} className="logoAndText">
@@ -29,6 +33,7 @@ const Navbar = () => {
             <div className="pageButtons">
                 <button onClick={home}>Home</button>
                 <button onClick={profilePage}>Profile</button>
+                <button onClick={settingsPage}>Settings</button>
                 <button onClick={logout}>Logout</button>
             </div>
             <input type="text" placeholder="Search.."></input>
