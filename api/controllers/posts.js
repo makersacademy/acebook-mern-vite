@@ -2,10 +2,12 @@ const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
 
 const getAllPosts = async (req, res) => {
-  const posts = await Post.find().populate({
-    path: 'comments',
-    populate: { path: 'user' }
-  });
+  const posts = await Post.find()
+    .populate({
+      path: 'comments',
+      populate: { path: 'user' }
+    })
+    .populate('postedBy');
   const token = generateToken(req.user_id);
   res.status(200).json({ posts: posts, token: token });
 };
