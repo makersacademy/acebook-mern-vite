@@ -34,7 +34,7 @@ export const FeedPage = () => {
 	}
 
 	return (
-		<>
+		<div className="feedpage" data-testid="feed-page">
 			<div className="navbar">
 				<Navbar />
 			</div>
@@ -48,6 +48,6 @@ export const FeedPage = () => {
 					/>
 				))}
 			</div>
-		</>
+		</div>
 	);
 };

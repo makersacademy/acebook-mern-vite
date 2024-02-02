@@ -4,11 +4,11 @@ const Post = (props) => {
 
 return (
 
-<div className="post-article">
-  <article 
-      key={props.post._id}>
+<div key={props.post._id} className="post-article">
+
+    <article>
       {props.postedBy && 
-      <div className="user-info">
+      <div className="user-info" >
         <img src={props.postedBy.image} alt="user image"></img>
         <h4>{props.postedBy.username}</h4>
       </div>
