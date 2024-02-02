@@ -5,8 +5,6 @@ import User from "../../components/User/User";
 import EditUserModal from "../../components/EditUserModal/EditUserModal";
 import Navbar from "../../components/NavBar/navbar";
 
-
-
 export const UserPage = () => {
     const [user, setUser] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
@@ -30,7 +28,6 @@ export const UserPage = () => {
             getUser(token, username)
                 .then((data) => {
                     setUser(data.user);
-                    console.log("user data", data.user)
                     setToken(data.token);
                     setProfilePicture(data.user.image)
                     setBio(data.user.bio)

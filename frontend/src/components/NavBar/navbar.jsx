@@ -18,50 +18,51 @@ const Navbar = () => {
       setShowSearchResults(true)
       setFoundUsers(searchResults)
       console.log("search results", searchResults)
-
     }
 
   return (
   <>
   <div data-testid="navbar" id="navbar">
   
-  <div className="logo-nav-item"> 
-  <Link to={`/`}>
-    <h3>AB</h3>
-    </Link>
-  </div>
+    <div className="logo-nav-item"> 
+    <Link to={`/`}>
+      <h3>AB</h3>
+      </Link>
+    </div>
 
-  <div data-testId="searchItem" className="search-nav-item">
-  <SearchNavItem 
-    handleSearch={handleSearch}
-  />
-  </div>
-  <div className="home-nav-item">
-  <HomeNavItem />
-  </div>
-  {token ? 
-
-  <div className="logout-nav-item"> 
-    <LogoutNavItem />
-  </div>
-    :
-    <>
-  <div className="login-nav-item"> 
-    <LoginNavItem />
-  </div>
-  <div className="login-nav-item"> 
-    <SignupNavItem />
-  </div>
-    </>
-  }
-  </div>
-  {showSearchResults && 
-  <div className="search-results-dropdown">
-    <SearchResultsDropDown 
-    setShowSearchResults={setShowSearchResults}
-      foundUsers={foundUsers}
+    <div data-testId="searchItem" className="search-nav-item">
+    <SearchNavItem 
+      handleSearch={handleSearch}
     />
-  </div>
+    </div>
+
+    <div className="home-nav-item">
+    <HomeNavItem />
+    </div>
+    
+    {token ? 
+
+    <div className="logout-nav-item"> 
+      <LogoutNavItem />
+    </div>
+      :
+      <>
+    <div className="login-nav-item"> 
+      <LoginNavItem />
+    </div>
+    <div className="login-nav-item"> 
+      <SignupNavItem />
+    </div>
+      </>
+    }
+    </div>
+    {showSearchResults && 
+    <div className="search-results-dropdown">
+      <SearchResultsDropDown 
+      setShowSearchResults={setShowSearchResults}
+        foundUsers={foundUsers}
+      />
+    </div>
 }
 
 

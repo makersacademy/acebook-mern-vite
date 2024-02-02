@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Comment from '../Comment/Comment.jsx';
 import './User.css';
+import Post from '../Post/Post.jsx';
 
 const User = ({_id, username, email, friends, image, bio, posts }) => {
     const [userPosts, setUserPosts] = useState([])
@@ -11,6 +12,7 @@ const User = ({_id, username, email, friends, image, bio, posts }) => {
             (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
         );
         setUserPosts(sortedPosts.reverse());
+        console.log("sorted posts", userPosts)
     }, ([posts]))
     
     
@@ -32,10 +34,12 @@ const User = ({_id, username, email, friends, image, bio, posts }) => {
             {userPosts.map((post) => 
                 post ? 
                 <div key={post._id}>
-                    <p>post message: {post.message}</p> 
-                    <p>likes: {post.likes}</p> 
-                    <p>posted at: {new Date(post.createdAt).toLocaleString('en-UK')}</p>
-                    <p>comments:</p>
+                    <Post 
+                        key={post._id}
+                        post={post}
+                        postedBy={post.postedBy}
+                    
+                    />
 
                     {post.comments.map((comment) => 
                         comment ? 

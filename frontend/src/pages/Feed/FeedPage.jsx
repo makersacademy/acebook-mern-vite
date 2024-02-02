@@ -34,16 +34,20 @@ export const FeedPage = () => {
 	}
 
 	return (
-		<>
+		<div className="feedpage" data-testid="feed-page">
 			<div className="navbar">
 				<Navbar />
 			</div>
 			<h1>Posts</h1>
 			<div className="feed" role="feed">
 				{posts.map((post) => (
-					<Post post={post} key={post._id} />
+					<Post 
+						key={post._id}
+						post={post}
+						postedBy={post.postedBy}
+					/>
 				))}
 			</div>
-		</>
+		</div>
 	);
 };

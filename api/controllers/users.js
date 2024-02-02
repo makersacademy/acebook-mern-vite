@@ -64,9 +64,16 @@ const getUser = async (req, res) => {
 		model: "Post",
 		populate: {
 			path:'comments',
-			model: 'Comment'
-		}
-	})
+			model: 'Comment',
+		}})
+		.populate({
+			path: "posts",
+			model: "Post",
+			populate: {
+				path: "postedBy",
+				model: 'User'
+			}
+		})
     if(!user) {
         return res.status(400).json({ message: "User not found" });
     }  

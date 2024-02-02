@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import "./HomePage.css";
+import Navbar from "../../components/NavBar/navbar";
 
 export const HomePage = () => {
   return (
+    <>
+    <Navbar />
     <div className="home">
 
       <h1>Welcome to Acebook!</h1>
@@ -13,5 +16,6 @@ export const HomePage = () => {
         <button id="log-in-button" type="button">Log in</button>
       </a>
     </div>
+    </>
   );
 };
