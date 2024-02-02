@@ -10,22 +10,22 @@ export const FeedPage = () => {
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const navigate = useNavigate();
 
-  useEffect(() => {
-    if (token) {
-      getPosts(token)
-        .then((data) => {
-          setPosts(data.posts);
-          setToken(data.token);
-          window.localStorage.setItem("token", data.token);
-        })
-        .catch((err) => {
-          console.error(err);
-          navigate("/login")
-        });
-    } else {
-      navigate("/login");
-    }
-  },[]);
+    useEffect(() => {
+        if (token) {
+            getPosts(token)
+                .then((data) => {
+                    setPosts(data.posts);
+                    setToken(data.token);
+                    window.localStorage.setItem("token", data.token);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    navigate("/login");
+                });
+        } else {
+            navigate("/login");
+        }
+    }, []);
 
     if (!token) {
         return;
@@ -34,16 +34,18 @@ export const FeedPage = () => {
     return (
         <>
             <h2>Posts</h2>
+            <hr></hr>
             <div className="feed" role="feed">
                 {posts.map((post) => (
                     <div key={post._id}>
-                    <Post post={post} key={post._id} />
-                    <Link to={`/posts/find/${post._id}`}>Post Page</Link>
+                        <Post post={post} key={post._id} />
+                        <Link to={`/posts/find/${post._id}`}>Post Page</Link>
+                        <hr></hr>
                     </div>
                 ))}
             </div>
             <div className="newPost">
-            <CreatePost />
+                <CreatePost />
             </div>
         </>
     );
