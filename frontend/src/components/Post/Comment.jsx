@@ -5,7 +5,7 @@ const Comments = (props) => {
         <>
     <br/>
     <article key={props.comment._id}>{props.comment.message}</article>
-    {/* <div>{props.date}</div> */}
+    <h6><div>{props.date}</div></h6>
     </>
     );
 };

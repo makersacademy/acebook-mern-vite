@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import React from 'react';
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const CommentForm = ({ post_id }) => {
@@ -8,7 +9,6 @@ const CommentForm = ({ post_id }) => {
     const token = window.localStorage.getItem("token");
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
         console.log(post_id);
         let datetime = new Date().toLocaleString("en-GB");
         let payload = {
@@ -49,7 +49,7 @@ const CommentForm = ({ post_id }) => {
                 <input type="text" onChange={handleChange} data-testid="comment-input" />
             </label>
             <label>
-                <input type="submit" value="Submit Comment" />
+                <input role="submit-button" type="submit" value="Submit Comment" />  
             </label>
             </form>
         </div>

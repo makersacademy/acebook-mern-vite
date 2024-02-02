@@ -40,14 +40,15 @@ export const Post = (props) => {
   <br/>
   <h4>POSTS</h4>
   <article key={props.post._id}>{props.post.message}</article>
-  {/* <div>{props.date}</div> */}
+  <h6><div>{props.date}</div></h6>
+  <CommentForm role="new-comment" post_id={props.post._id}/>
   <h4>Comments</h4>
   <div className="comment" role="comment">
         {comments.toReversed().map((comment) => (
         <Comment comment={comment} key={comment._id} date={comment.time_of_comment} />
         ))}
       </div>
-      <CommentForm role="new-comment" post_id={props.post._id}/>
+      
 
 
   </>
