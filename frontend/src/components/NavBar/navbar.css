@@ -1,20 +1,28 @@
-/* /* #home {
+/* #home {
     color: rgb(0, 0, 0);
     display: flex;
     margin-right: 575px;
 } */
 
 #navbar {
-    display: flex;
+    display: grid;
     align-items: center;
-    width: 100vw;
-    background-color: rgb(53, 50, 50);
+    width: 800px;
+    background-color: #00843D;
+    border-radius: 20px 20px 20px 20px;
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    margin: 20px;
     display: flex;
     text-align: center;
     box-sizing: border-box;
+    box-shadow: 5px 5px 20px grey;
 }
+
+/* #navbar > button {
+    border: 2px solid #F7D117;
+    border-radius: 10px 10px 10px 10px;
+    font-size: large;
+} */
 
 .login-nav-item {
     margin-left:10px;
@@ -35,9 +43,21 @@
     padding:0px;
 }
 
+#home-nav-button {
+    border: 2px solid #F7D117;
+    border-radius: 10px 10px 10px 10px;
+    font-size: large;
+}
+
 .logout-nav-item {
     margin-left:10px;
     padding:10px;
+}
+
+#logout-nav-button {
+    border: 2px solid #F7D117;
+    border-radius: 10px 10px 10px 10px;
+    font-size: large;
 }
 
 #navbar input {
@@ -55,15 +75,17 @@
 #navbar a {
 }
 
+.search-nav-item
+
 .search-results {
     position: absolute;
     top: 10%; /* Adjust the distance from the search input */
     right: 10%;
     left: 10%;
     width: 200px; /* Adjust the width as needed */
-    background: #959595; /* Set background color */
-    border: 1px solid #ccc; /* Add a border for styling */
+    background: #61A0AF; /* Set background color */
+    border: 1px solid #96C9DC; /* Add a border for styling */
     z-index: 1000; /* Ensure the dropdown is above other elements */
-    border-radius: 10%;
+    border-radius: 20px 20px 20px 20px;
 
 }

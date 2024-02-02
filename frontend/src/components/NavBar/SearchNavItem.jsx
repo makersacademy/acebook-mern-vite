@@ -33,10 +33,10 @@ export default function SearchNavItem( { handleSearch }) {
     return (
         <>
         <form onSubmit={handleSubmit}>
-            <input type="input"
-            placeholder="search user"
-            value= {searchUserInput}
-            onChange={handleInputChange}
+            <input id="search-box" type="input"
+                placeholder="Search user"
+                value= {searchUserInput}
+                onChange={handleInputChange}
             />
             <button className="search-button" type="submit">
                 <i className="fas fa-search"></i> 

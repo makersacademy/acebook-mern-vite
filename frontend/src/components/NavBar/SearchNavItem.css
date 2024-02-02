@@ -1,6 +1,14 @@
 @import '../../../node_modules/@fortawesome/fontawesome-free/css/all.css';
 
 .search-button {
-    border-radius: 100%;
-    font-size:13px
+    border: 2px solid #F7D117;
+    border-radius: 20px 20px 20px 20px;
+    font-size:large;
+    margin: 5px;
+}
+
+#search-box {
+    border: 2px solid #F7D117;
+    border-radius: 20px 20px 20px 20px;
+    font-size:large;
 }

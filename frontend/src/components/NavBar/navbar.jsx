@@ -14,14 +14,12 @@ const Navbar = () => {
     const [showSearchResults, setShowSearchResults] = useState(false)
     const [foundUsers, setFoundUsers] = useState([])
 
-
     const handleSearch = (searchResults) => {
       setShowSearchResults(true)
       setFoundUsers(searchResults)
       console.log("search results", searchResults)
 
     }
-
 
   return (
   <>

@@ -11,6 +11,7 @@ export default function LogoutNavItem() {
     return (
         <button
         type="button"
+        id="logout-nav-button"
         onClick={handleClick}
         >
             Logout

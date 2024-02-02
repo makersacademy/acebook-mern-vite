@@ -1,3 +1,5 @@
+import './Post.css';
+
 const Post = (props) => {
   return <article key={props.post._id}>{props.post.message}</article>;
 };

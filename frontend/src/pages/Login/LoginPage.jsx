@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/authentication";
 import Navbar from "../../components/NavBar/navbar";
+import './LoginPage.css';
 
 export const LoginPage = () => {
 	const [email, setEmail] = useState("");
@@ -34,17 +35,19 @@ export const LoginPage = () => {
 		<Navbar />
 			<h2>Login</h2>
 			<form onSubmit={handleSubmit}>
-				<label htmlFor="email">Email:</label>
+				<label htmlFor="email"></label>
 				<input
 					id="email"
 					type="text"
+					placeholder="Email"
 					value={email}
 					onChange={handleEmailChange}
 				/>
-				<label htmlFor="password">Password:</label>
+				<label htmlFor="password"></label>
 				<input
 					id="password"
 					type="password"
+					placeholder="Password"
 					value={password}
 					onChange={handlePasswordChange}
 				/>

@@ -20,39 +20,22 @@ body {
   background-color: #F7D117;
 }
 
-/* Navbar */
-.navbar {
-  display: grid;
-  place-items: center;
-  background-color: #00843D;
-  border: 5px solid #00843D;
-  border-radius: 20px 20px 20px 20px;
-  max-width: 500px;
-}
-
 /* Headings styling */
 h1, h2 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 3.9em;
+  line-height: 1;
   color: #00843D;
   text-transform: uppercase;
+  text-shadow: 5px 5px 13px grey;
 }
 
-/* Post styling */
-.feed {
-  display: grid;
-  place-items: center;
-  height: 100vh;
+h3 {
+  color: #F7D117;
 }
 
-article {
-  align-self: center;
-  width: 500px;
-  min-height: 50px;
-  text-align: left;
-  background-color: white;
-  padding: 10px;
-  margin: 20px;
-  border: 5px solid #00843D;
-  border-radius: 20px 20px 20px 20px;
-}
+/* input {
+  border: 2px solid #00843D;
+  border-radius: 10px 10px 10px 10px;
+  font-size:large;
+  margin: 8px;
+} */

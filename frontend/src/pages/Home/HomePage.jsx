@@ -6,8 +6,12 @@ export const HomePage = () => {
     <div className="home">
 
       <h1>Welcome to Acebook!</h1>
-      <Link to="/signup">Sign Up</Link>
-      <Link to="/login">Log In</Link>
+      <a href="/signup">
+        <button id="sign-up-button" type="button">Sign up</button>
+      </a>
+      <a href="/login">
+        <button id="log-in-button" type="button">Log in</button>
+      </a>
     </div>
   );
 };
