@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './Navbar.css';
+// import './Navbar.css';
 
 const Navbar = () => {
     const effectRan = React.useRef(false);
@@ -15,13 +15,13 @@ const Navbar = () => {
     const navbarContainer = document.getElementById('navbar');
 
     const container = document.createElement('div');
-    container.style.width = '100vw';
-    container.style.backgroundColor = '#333';
-    container.style.padding = '10px';
-    container.style.borderBottom = '1px solid #ddd';
-    container.style.display = 'flex';
-    container.style.textAlign = 'center';  
-    container.style.boxSizing = 'border-box';
+    // container.style.width = '100vw';
+    // container.style.backgroundColor = '#333';
+    // container.style.padding = '10px';
+    // container.style.borderBottom = '1px solid #ddd';
+    // container.style.display = 'flex';
+    // container.style.textAlign = 'center';  
+    // container.style.boxSizing = 'border-box';
 
     const searchInput = document.createElement('input');
     searchInput.type = 'input';

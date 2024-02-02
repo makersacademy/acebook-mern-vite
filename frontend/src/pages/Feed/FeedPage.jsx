@@ -38,7 +38,7 @@ export const FeedPage = () => {
 			<div className="navbar">
 				<Navbar />
 			</div>
-			<h2>Posts</h2>
+			<h1>Posts</h1>
 			<div className="feed" role="feed">
 				{posts.map((post) => (
 					<Post post={post} key={post._id} />
