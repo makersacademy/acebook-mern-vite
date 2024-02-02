@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { vi } from "vitest";
-
+import '@testing-library/jest-dom'
 import { FeedPage } from "../../src/pages/Feed/FeedPage";
 import { getPosts } from "../../src/services/posts";
 import { useNavigate } from "react-router-dom";
@@ -12,11 +12,18 @@ vi.mock("../../src/services/posts", () => {
 });
 
 // Mocking React Router's useNavigate function
-vi.mock("react-router-dom", () => {
+vi.mock("react-router-dom", async () => {
+	const actual = await vi.importActual('react-router-dom')
+	const MockLink = ({to, children}) => <a href={to}>{children}</a>
 	const navigateMock = vi.fn();
-	const useNavigateMock = () => navigateMock; // Create a mock function for useNavigate
-	return { useNavigate: useNavigateMock };
+	const useNavigateMock = () => navigateMock;
+	return {
+		...actual,
+		Link:MockLink,
+		useNavigate: useNavigateMock
+	}
 });
+
 
 describe("Feed Page", () => {
 	beforeEach(() => {
@@ -26,14 +33,15 @@ describe("Feed Page", () => {
 	test("It displays posts from the backend", async () => {
 		window.localStorage.setItem("token", "testToken");
 
-		const mockPosts = [{ _id: "12345", message: "Test Post 1" }];
+		const mockPosts = [{ _id: "12345", message: "Test Post 1", username: "test_user1" }];
 
 		getPosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
 
 		render(<FeedPage />);
 
-		const post = await screen.findByRole("article");
-		expect(post.textContent).toEqual("Test Post 1");
+		const post = await screen.findByText(/test post 1/i);
+		expect(post).toBeInTheDocument();
+
 	});
 
 	test("It displays posts in reverse chronologicle order", async () => {
@@ -64,9 +72,9 @@ describe("Feed Page", () => {
 		const postTexts = post.map((p) => p.textContent);
 
 		expect(postTexts).toEqual([
-			"Test Post New",
-			"Test Post Middle",
-			"Test Post Old",
+			"30/01/2024, 15:39:22Test Post Newlikes: ",
+			"30/01/2023, 15:39:22Test Post Middlelikes: ",
+			"30/01/2022, 15:39:22Test Post Oldlikes: "
 		]);
 	});
 

@@ -36,18 +36,23 @@ export const FeedPage = () => {
     if (!token) {
         return;
     }
+  
+	return (
+		<div className="feedpage" data-testid="feed-page">
+			<div className="navbar">
+				<Navbar />
+			</div>
+			<h1>Posts</h1>
+			<div className="feed" role="feed">
+				{posts.map((post) => (
+					<Post 
+						key={post._id}
+						post={post}
+						postedBy={post.postedBy}
+					/>
+				))}
+			</div>
+		</div>
+	);
 
-    return (
-        <>
-            <div className="navbar">
-                <Navbar />
-            </div>
-            <h2>Posts</h2>
-            <div className="feed" role="feed">
-                {posts.map((post) => (
-                    <Post post={post} key={post._id} clicked={clicked} />
-                ))}
-            </div>
-        </>
-    );
 };

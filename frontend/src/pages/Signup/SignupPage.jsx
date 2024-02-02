@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { signup } from "../../services/authentication";
+import Navbar from "../../components/NavBar/navbar";
+import "./SignupPage.css";
 
 export const SignupPage = () => {
     const [username, setUsername] = useState("");
@@ -35,23 +36,26 @@ export const SignupPage = () => {
 
     return (
         <>
+            <Navbar />
             <h2>Signup</h2>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
+                <label htmlFor="username"></label>
                 <input
                     id="username"
+                    placeholder="Username"
                     type="text"
                     value={username}
                     onChange={handleUsernameChange}
                 />
-                <label htmlFor="email">Email:</label>
+                <label htmlFor="email"></label>
                 <input
                     id="email"
+                    placeholder="Email"
                     type="email"
                     value={email}
                     onChange={handleEmailChange}
                 />
-                <label htmlFor="password">Password:</label>
+                <label htmlFor="password"></label>
                 <input
                     placeholder="Password"
                     id="password"

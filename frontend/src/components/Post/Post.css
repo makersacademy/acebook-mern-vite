@@ -1,0 +1,42 @@
+.feed {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+article {
+  align-self: center;
+  width: 500px;
+  min-height: 50px;
+  text-align: left;
+  background-color: white;
+  padding: 8px;
+  margin: 10px;
+  border: 5px solid #00843D;
+  border-radius: 20px 20px 20px 20px;
+  box-shadow: 5px 5px 20px grey;
+}
+
+.post-article   {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info img {
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    margin-right: 10px;
+    
+}
+
+.date-time {
+    font-size: 10px;
+}

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const root = "";
+const root = "../public/images/";
 
 const UserSchema = new mongoose.Schema(
 	{
@@ -10,14 +10,14 @@ const UserSchema = new mongoose.Schema(
 		bio: String,
 		image: {
 			type: String,
-			get: (v) => "${root}${v}", // possible solution but requires image hosting server
+			get: (v) => `${root}${v}`, // possible solution but requires image hosting server
 		},
 		// stores ObjectIds of documents in 'User' collection
 		// when retrieving a User look to use populate() function to retrieve full documents of friends
 		friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 		posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
 	},
-	{ timestamp: true }
+	{ timestamp: true, toJSON: { getters: true } }
 );
 
 const User = mongoose.model("User", UserSchema);

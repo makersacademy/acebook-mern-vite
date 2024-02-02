@@ -50,16 +50,30 @@ const create = (req, res) => {
 			res.status(400).json({ message: "Something went wrong" });
 		});
 };
-// 		.catch((err) => {
-//             console.error(err);
-//             res.status(500).json({ message: "Something went wrong" });
-// });
+
 
 const getUser = async (req, res) => {
     const username = req.params.username;
     const user = await User.findOne({
         username: username
-    }).populate('friends').populate('posts');
+    }).populate({
+		path:'friends',
+		model: 'User'
+	}).populate({
+		path: "posts",
+		model: "Post",
+		populate: {
+			path:'comments',
+			model: 'Comment',
+		}})
+		.populate({
+			path: "posts",
+			model: "Post",
+			populate: {
+				path: "postedBy",
+				model: 'User'
+			}
+		})
     if(!user) {
         return res.status(400).json({ message: "User not found" });
     }  
@@ -68,33 +82,59 @@ const getUser = async (req, res) => {
     
 }
 
+const searchUsers = async (req, res) => {
+	const searchQuery = req.query.search;
+	const results = await User.find({username: searchQuery})
+
+	if(!results) {
+        return res.status(400).json({ message: "no search results" });
+    }  
+    return res.status(200).json({ result: results} );
+}
+
+
+const uploadImage = async (req, res) => {
+	const username = req.params.username;
+	console.log(req.file);
+	const fileName = req.file.filename
+
+	try {
+		const updatedUser = await User.findOneAndUpdate(
+			{username: username},
+			{$set: {image: fileName} },
+			{ new: true }
+		)
+		
+		return res.status(200).json({message: 'picture uploaded', user:updatedUser, image:updatedUser.image, testMessage:"hello"});
+	} catch (error) {
+		res.status(500).json({ message: 'An error occurred while uploading the picture.' });
+	}
+}
+
+
+const editBio = async (req, res) => {
+	const username = req.params.username;
+	const newBio = req.body.bio
+	console.log("this is the bio", newBio);
+	try {
+		const updatedUser = await User.findOneAndUpdate(
+			{username: username},
+			{$set: {bio: newBio} },
+			{ new: true }
+		)
+		res.status(200).json({message: 'Bio updated'});
+	} catch (error) {
+		res.status(500).json({ message: 'An error occurred while updating the bio.' });
+	}
+}
+
 const UsersController = {
     create: create,
-    getUser: getUser
+    getUser: getUser,
+	uploadImage: uploadImage,
+	editBio: editBio,
+	searchUsers: searchUsers
 };
 
 module.exports = UsersController;
 
-// Hash the password
-//     const hashedPassword = crypto
-//         .createHash("sha256")
-//         .update(password)
-//         .digest("hex");
-
-//     const user = new User({ email, password: hashedPassword });
-//     user.save()
-//         .then((user) => {
-//             console.log("User created, id:", user._id.toString());
-//             res.status(201).json({ message: "OK" });
-//         })
-//         .catch((err) => {
-//             console.error(err);
-//             res.status(400).json({ message: "Something went wrong" });
-//         });
-// };
-
-// const UsersController = {
-//     create: create,
-// };
-
-// module.exports = UsersController;
