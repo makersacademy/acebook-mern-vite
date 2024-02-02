@@ -1,6 +1,7 @@
 import { useState, useEffect} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Post from "../../components/Post/Post";
+import DeletePostButton from "../../components/Post/DeletePostButton";
 import { getSinglePost } from "../../services/posts";
 
 export const PostPage = () => {
@@ -34,6 +35,7 @@ export const PostPage = () => {
         <div>
         <h2>Post</h2>
         <Post post={post} key={post._id}/>
+        <DeletePostButton/>
 
         </div>
     );

@@ -29,10 +29,17 @@ const createPost = async (req, res) => {
     }
 };
 
+const deletePost = async (req, res) => {
+    await Post.deleteOne({_id: req.params.id})
+    const newToken = generateToken(req.user_id);
+    res.status(200).json({ message: "Post was deleted", token: newToken });
+}
+
 const PostsController = {
     getAllPosts: getAllPosts,
     createPost: createPost,
     getSinglePost: getSinglePost,
+    deletePost: deletePost,
 };
 
 module.exports = PostsController;
