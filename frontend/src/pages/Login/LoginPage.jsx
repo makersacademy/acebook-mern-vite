@@ -7,6 +7,7 @@ import { login } from "../../services/authentication";
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setError] = useState()
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -17,6 +18,7 @@ export const LoginPage = () => {
       navigate("/posts");
     } catch (err) {
       console.error(err);
+      setError(err.cause)
       navigate("/login");
     }
   };
@@ -50,6 +52,7 @@ export const LoginPage = () => {
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
+      {loginError && <div><h4>{loginError}</h4></div>}
     </>
   );
 };

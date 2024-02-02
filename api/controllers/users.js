@@ -11,7 +11,7 @@ const create = async (req, res) => {
   const existingUser = await User.findOne({ email: email });
 
   if (existingUser) {
-    return res.status(401).json({ message: 'Email already in use' });
+    return res.status(401).json({ message: 'Email already in use', code: 1});
   } 
   // creates a new user if the email is not in use 
   else {
@@ -44,11 +44,15 @@ const getAllUserInfo = async (req, res) => {
   }
 };
 
+const clearTestData = async () => {
+  await User.deleteMany({})
+}
 
 
 const UsersController = {
   create: create,
   getAllUserInfo: getAllUserInfo, 
+  clearTestData: clearTestData,
 };
 
 module.exports = UsersController;

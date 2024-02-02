@@ -17,15 +17,29 @@ export const login = async (email, password) => {
   };
 
   const response = await fetch(`${BACKEND_URL}/tokens`, requestOptions);
+  let data = await response.json();
 
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
   if (response.status === 201) {
-    let data = await response.json();
+    
     return data.token;
   } else {
-    throw new Error(
-      `Received status ${response.status} when logging in. Expected 201`
-    );
+    // let data = await response.json()
+    if (data.code == 1) {
+      throw new Error(
+        `Received status ${response.status} when logging in. Expected 201`,
+        {cause: "Email not found"}
+      );
+    } else if (data.code == 2) {
+      throw new Error(
+        `Received status ${response.status} when logging in. Expected 201`,
+        {cause: "Password incorrect"}
+      )
+    } else {
+      throw new Error(
+        `Received status ${response.status} when logging in. Expected 201`,
+      )
+    }
   }
 };
 
@@ -52,7 +66,8 @@ export const signup = async (username, email, password, profile_picture) => {
     return;
   } else {
     throw new Error(
-      `Received status ${response.status} when signing up. Expected 201`
+      `Received status ${response.status} when signing up. Expected 201`,
+      {cause: "Email is already in use"}
     );
   }
 };
