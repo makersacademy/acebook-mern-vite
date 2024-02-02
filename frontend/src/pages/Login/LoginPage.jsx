@@ -31,7 +31,7 @@ export const LoginPage = () => {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>

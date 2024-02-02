@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import ang from '../../assets/ang_profile.jpeg';
 
 import { getAllUserInfo } from "../../services/user"
-import User from "../User/User";
 
 export const Navbar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -33,6 +32,7 @@ export const Navbar = () => {
         }
     }, []);
 
+
     return (
         <div className="container-fluid">
         <nav className="navbar sticky-top navbar-light">
@@ -40,11 +40,12 @@ export const Navbar = () => {
                     <Link className="navbar-brand mb-0 h1" to='/'>Acebook</Link>
                     </div>
                     <div className="user-greeting">
-                    Hi {user.username}  </div>
+                    Hi {user.username || "You"}  
+                    </div>
                     <div className="col">
                     <div className="dropdown">
                     <img
-                    src={user.profile_picture || ang}
+                    src={ user.profile_picture || ang }
                     alt="Profile Picture"
                     className="img-thumbnail"
                     style={{ maxWidth: '15%' }}

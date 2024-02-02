@@ -52,6 +52,7 @@ describe("/users", () => {
 
             expect(response.status).toEqual(200);
             const user1 = response.body.user;
+            console.log(`I should be an object: ${user1}`)
 
             expect(user1.username).toEqual("Test user");
             expect(user1.email).toEqual("Test email");
@@ -80,3 +81,5 @@ describe("/users", () => {
     //     })
     // })
 })
+
+
