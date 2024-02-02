@@ -28,9 +28,14 @@ const create = async (req, res) => {
     }
 }
 
+const clearTestData = async () => {
+  await User.deleteMany({})
+}
+
 
 const UsersController = {
   create: create,
+  clearTestData: clearTestData
 };
 
 module.exports = UsersController;
