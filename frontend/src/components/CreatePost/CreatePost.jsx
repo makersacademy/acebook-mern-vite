@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createNewPost } from "../../services/posts";
 
+
+
 const CreatePost = () => {
     const [message, setMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -18,10 +20,11 @@ const CreatePost = () => {
             console.log(responseObject.message);
             console.log("creating post...");
             setMessage("");
+            navigate(0)
         } catch (err) {
             setMessage("");
             console.log(err);
-            navigate("/posts");
+            navigate(0);
         }
     };
 

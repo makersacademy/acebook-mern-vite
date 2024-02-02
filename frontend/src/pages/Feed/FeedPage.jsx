@@ -19,7 +19,8 @@ export const FeedPage = () => {
           window.localStorage.setItem("token", data.token);
         })
         .catch((err) => {
-          console.err(err);
+          console.error(err);
+          navigate("/login")
         });
     } else {
       navigate("/login");
@@ -41,7 +42,9 @@ export const FeedPage = () => {
                     </div>
                 ))}
             </div>
+            <div className="newPost">
             <CreatePost />
+            </div>
         </>
     );
 };
