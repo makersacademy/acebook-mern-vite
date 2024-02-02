@@ -3,7 +3,7 @@ const router = express.Router();
 const userController = require("../controllers/users");
 
 // Route for updating user's name
-router.put("/:id/updateUser", userController.updateUser);
+router.put("/:id", userController.updateUser);
 
 // Route for updating user data (consider using a more descriptive endpoint, e.g., "/:id/update")
 router.put("/:id", async (req, res) => {

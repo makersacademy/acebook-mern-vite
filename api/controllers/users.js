@@ -57,6 +57,16 @@ const create = async (req, res) => {
   }
 };
 
+const updateUser = async (id, updatedUserData, options) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(id, updatedUserData, options);
+    return updatedUser;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 const UsersController = {
   create,
   getUser,
