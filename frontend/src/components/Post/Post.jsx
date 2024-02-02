@@ -9,12 +9,17 @@ export const Post = (props) => {
   const [comments, setComments] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const navigate = useNavigate();
+  
+  const getPostById = (data, post_id) => {
+    const comments = data.comments.filter((comment) => comment.post_id == post_id)
+    setComments(comments)
+  }
 
   useEffect(() => {
     if (token) {
       getComment(token)
         .then((data) => {
-          setComments(data.comments);
+          getPostById(data, props.post._id)
           setToken(data.token);
           window.localStorage.setItem("token", data.token);
         })
@@ -42,7 +47,7 @@ export const Post = (props) => {
         <Comment comment={comment} key={comment._id} date={comment.time_of_comment} />
         ))}
       </div>
-      <CommentForm role="new-comment"/>
+      <CommentForm role="new-comment" post_id={props.post._id}/>
 
 
   </>

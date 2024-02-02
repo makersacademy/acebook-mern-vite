@@ -2,19 +2,19 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-const CommentForm = ({ postId }) => {
+const CommentForm = ({ post_id }) => {
     const navigate = useNavigate();
     const [comment, setComment] = useState("");
     const token = window.localStorage.getItem("token");
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+        console.log(post_id);
         let datetime = new Date().toLocaleString("en-GB");
         let payload = {
         message: comment,
         datetime,
-        post_id: postId,
+        post_id: post_id,
         };
 
         const response = await fetch(`${BACKEND_URL}/comments`, {
@@ -29,7 +29,7 @@ const CommentForm = ({ postId }) => {
         if (response.ok) {
         const data = await response.json();
         console.log("Comment created:", data);
-        navigate(`/posts/${postId}`);
+        navigate(`/posts/`);
         } else {
         console.error("Error creating comment:", response.statusText);
         }
