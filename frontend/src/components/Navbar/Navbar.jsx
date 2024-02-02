@@ -39,7 +39,7 @@ export const Navbar = () => {
                     <div className="col">
                     <Link className="navbar-brand mb-0 h1" to='/'>Acebook</Link>
                     </div>
-                    <div className="user-greeting">
+                    <div className="user-greeting" data-testid="user-greeting">
                     Hi {user.username || "You"}  
                     </div>
                     <div className="col">

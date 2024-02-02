@@ -16,7 +16,7 @@ export const SignupPage = () => {
     try {
       await signup(username, email, password, profile_picture);
       console.log("redirecting...:");
-      navigate("/profile");
+      navigate("/login");
     } catch (err) {
       console.error(err);
       navigate("/signup");

@@ -60,7 +60,7 @@ describe("Signup Page", () => {
 
     await completeSignupForm();
 
-    expect(navigateMock).toHaveBeenCalledWith("/profile");
+    expect(navigateMock).toHaveBeenCalledWith("/login");
   });
 
   test("navigates to /signup on unsuccessful signup", async () => {
