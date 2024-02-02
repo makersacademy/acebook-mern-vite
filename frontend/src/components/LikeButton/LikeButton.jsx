@@ -36,8 +36,9 @@ const LikeButton = (props) => {
         await likeThePost(props)
             .then(() => props.handleLikeUnlike())
             .then(() => {
-                props.clicked();
+                // props.clicked();
                 console.log("Clicked is being clicked");
+				props.toggleStateChange()
             })
             .then(() => {
                 setLike(!like);

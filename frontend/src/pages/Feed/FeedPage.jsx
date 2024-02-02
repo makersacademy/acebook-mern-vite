@@ -8,10 +8,13 @@ import Navbar from "../../components/NavBar/navbar";
 export const FeedPage = () => {
     const [posts, setPosts] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
-    const [click, setClick] = useState(false);
-    const clicked = () => {
-        setClick(!click);
-    };
+    // const [click, setClick] = useState(false);
+	const [stateChange, setStateChange] = useState(false)
+
+	const toggleStateChange = () => {
+		setStateChange(!stateChange)
+	}
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -31,7 +34,7 @@ export const FeedPage = () => {
         } else {
             navigate("/login");
         }
-    }, []);
+    }, [stateChange]);
 
     if (!token) {
         return;
@@ -49,6 +52,7 @@ export const FeedPage = () => {
 						key={post._id}
 						post={post}
 						postedBy={post.postedBy}
+						toggleStateChange={toggleStateChange}
 					/>
 				))}
 			</div>

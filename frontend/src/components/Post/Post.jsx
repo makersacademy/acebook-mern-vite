@@ -31,15 +31,17 @@ return (
           {new Date(props.post.createdAt).toLocaleString('en-UK')}
         </div>
       {props.post.message}<br></br>
-      <h5>likes: {props.post.likes}</h5>
-    </article>
-      <p>{likes}</p>
-        <LikeButton
+      <h5>likes: {props.post.likes.length}</h5>
+	  <LikeButton
             postID={props.post._id}
             like={like}
             handleLikeUnlike={handleLikeUnlike}
             clicked={props.clicked}
+			toggleStateChange={props.toggleStateChange}
         />
+    </article>
+
+        
   </div>
   )
 };
