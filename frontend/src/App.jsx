@@ -6,6 +6,7 @@ import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
 import { ProfilePage } from "./pages/Profile/ProfilePage";
+import { ProfileEditsPage }  from "./pages/Profile/ProfileEditsPage";
 import Navbar from "./components/navbar/Navbar";
 import {PostPage} from "./pages/IndividualPost/IndividualPostPage"
 
@@ -44,6 +45,9 @@ const router = createBrowserRouter([
           element: <ProfilePage />,
         },
         {
+          path: "/profileEdits",
+          element: <ProfileEditsPage />,
+        }
           path: "/posts/find/:id",
           element: <PostPage />,
         },

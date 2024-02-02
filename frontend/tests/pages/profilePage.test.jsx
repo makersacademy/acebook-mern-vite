@@ -13,8 +13,9 @@ vi.mock("../../src/services/profile", () => {
   // Mocking React Router's useNavigate function
   vi.mock("react-router-dom", () => {
     const navigateMock = vi.fn();
+    const linkMock = vi.fn();
     const useNavigateMock = () => navigateMock; // Create a mock function for useNavigate
-    return { useNavigate: useNavigateMock };
+    return { useNavigate: useNavigateMock, Link: linkMock};
   });
 
   describe("Profile Page", () => {
