@@ -7,7 +7,6 @@ export default function EditBioModal(  {username, toggleEditBioModal, handleBioU
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(bioText)
         editBio(bioText, username)
             .then((res) => {
                 console.log(res)

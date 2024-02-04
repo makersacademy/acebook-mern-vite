@@ -37,7 +37,6 @@ export const searchUsers = async (searchQuery) => {
 }
 
 export const uploadImage = async (formData, username) => {
-    console.log("inside uploadImage", formData, username)
     const requestOptions = {
         method: "PATCH",
 		body: formData,
