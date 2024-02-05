@@ -1,8 +1,7 @@
 const User = require("../models/user");
+
 const { generateToken } = require("../lib/token");
-const bcrypt = require('bcrypt'); // includ bcrypt
-
-
+const bcrypt = require('bcrypt'); // include bcrypt
 const createToken = async (req, res) => {
 
   const email = req.body.email;
@@ -26,6 +25,8 @@ const createToken = async (req, res) => {
 
 
 };
+
+
 
 const AuthenticationController = {
   createToken: createToken,

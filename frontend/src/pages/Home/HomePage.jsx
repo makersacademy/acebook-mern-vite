@@ -1,11 +1,13 @@
 
 
 import { Link } from "react-router-dom";
+import Navbar from "../../components/Navbar/Navbar";
 
 import "./HomePage.css";
 
 export const HomePage = () => {
   return (
+
     <body>
     
         {/* Left Column */}
@@ -34,5 +36,6 @@ export const HomePage = () => {
 
 
     </body>
+
   );
 };
