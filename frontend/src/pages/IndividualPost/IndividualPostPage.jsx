@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Post from "../../components/Post/Post";
+import DeletePostButton from "../../components/Post/DeletePostButton";
 import Comment from "../../components/Comments/Comments";
 import CreateComment from "../../components/Comments/CreateComment";
 import { getSinglePost } from "../../services/posts";
@@ -49,10 +50,12 @@ export const PostPage = () => {
         return;
     }
     return (
+
         <>
             <div role="postContent">
                 <h2>Post</h2>
                 <Post post={post} key={post._id} />
+                <DeletePostButton/>
             </div>
             <hr></hr>
             <h2>Comments</h2>
