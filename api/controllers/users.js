@@ -55,19 +55,6 @@ const create = (req, res) => {
 //             res.status(500).json({ message: "Something went wrong" });
 // });
 
-const getUser = async (req, res) => {
-    const username = req.params.username;
-    const user = await User.findOne({
-        username: username
-    }).populate('friends').populate('posts');
-    if(!user) {
-        return res.status(400).json({ message: "User not found" });
-    }  
-    const token = generateToken(req.user_id);
-    res.status(200).json({ user: user, token: token });
-    
-}
-
 
 const getUser = async (req, res) => {
     const username = req.params.username;
