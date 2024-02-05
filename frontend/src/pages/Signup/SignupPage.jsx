@@ -8,6 +8,7 @@ export const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [profile_picture, setProfilePicture] = useState("")
+  const [signUpError, setError] = useState()
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -18,6 +19,7 @@ export const SignupPage = () => {
       navigate("/login");
     } catch (err) {
       console.error(err);
+      setError(err.cause)
       navigate("/signup");
     }
   };
@@ -75,6 +77,7 @@ export const SignupPage = () => {
           />
           <input role="submit-button" id="submit" type="submit" value="Sign up!" />
       </form>
+      {signUpError && <div ><h4 role="invalid-signup">{signUpError}</h4></div>}
     </>
   );
 };

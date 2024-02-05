@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getComment } from "../../services/comment";
 import CommentForm from "./CommentForm";
 import Comment from "./Comment";
+import { ViewCommentButton } from "./ViewCommentButton";
 
 
 export const Post = (props) => {
@@ -16,10 +17,7 @@ export const Post = (props) => {
     setComments(comments)
   }
 
-  const handleClick = (event) => {
-    event.preventDefault();
-    setCommentSection(!viewComment)
-  }
+  
 
   useEffect(() => {
     if (token) {
@@ -47,9 +45,7 @@ export const Post = (props) => {
   <h4>POSTS</h4>
   <article key={props.post._id}>{props.post.message}</article>
   <div><h6>{props.date}</h6></div>
-  <div>
-    <button type="button" onClick={handleClick}>View comments</button>
-  </div>
+  <ViewCommentButton setCommentSection={setCommentSection} viewComment={viewComment}/>
   {viewComment && <div className="comment_section" role="comment_section">
     <CommentForm role="new-comment" post_id={props.post._id}/>
     <div className="comment" role="comment">
@@ -59,10 +55,7 @@ export const Post = (props) => {
     </div>
   </div>}
       
-
-
   </>
-  
   )
 
 };

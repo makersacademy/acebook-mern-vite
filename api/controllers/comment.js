@@ -22,11 +22,17 @@ const createComment = async (req, res) => {
     res.status(201).json({message: "OK", token: newToken});
 };
 
+const clearTestComments = async (req, res) => {
+    console.log("here")
+    await Comment.deleteMany({})
+}
+
 
 
 const CommentController = {
     createComment: createComment,
     getAllComment: getAllComment,
+    clearTestComments: clearTestComments
 };
 
 
