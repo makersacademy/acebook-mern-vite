@@ -20,9 +20,8 @@ export const getProfile = async (token) => {
     return data;
 };
 
-export const setProfile = async ( username, email, profilePic, token) => {
+export const setProfilePic = async (email, profilePic, token) => {
     const payload = {
-        username: username,
         email: email,
         profilePic: profilePic,
         };

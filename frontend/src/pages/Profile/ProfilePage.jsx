@@ -5,6 +5,7 @@ import Profile from "../../components/Profile/Profile";
 import ProfileEdits from "../../components/Profile/ProfileEdits";
 
 
+
 export const ProfilePage = () => {
     const [profile, setProfile] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
@@ -36,18 +37,15 @@ export const ProfilePage = () => {
     }
 
     return (
-        <>
+            <>
             <h2>Users</h2>
-            <div className="profile" role="profile">
-                {profile.map((user) => (
-                    <>
+                <div className="profile" role="profile">
+                    {profile.map((user) => (
                         <Profile user={user} key={user._id} />
-                    </>
-                ))}
-            </div>
-            <div className="profile-edits">
-                    <Link to='/profileEdits'>Edit Profile</Link>
-                </div>
-        </>
+                    ))}
+                    <div className="profile-edits">
+                        <Link to='/profileEdits'>Edit Profile</Link>
+                    </div>
+                </div></>
     );
                 };
