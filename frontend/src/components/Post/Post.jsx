@@ -88,6 +88,7 @@ return (
 								likes={revSortedComments[0].likes}
 								// postedBy={comment.user.username}
 								postedAt={revSortedComments[0].createdAt}
+								user = {revSortedComments[0].user}
 							/> 
 					}
 
@@ -97,16 +98,16 @@ return (
 					
 					{showMoreComments &&
 						revSortedComments.slice(1).map((comment) => 
-                            <li key={comment._id}>
-							
+                            
 							<Comment 
+								key={comment._id}
 								_id={comment._id}
 								message={comment.message}
 								likes={comment.likes}
-								// postedBy={comment.user.username}
 								postedAt={comment.createdAt}
+								user={comment.user}
 							/> 
-							</li>
+	
 					)}
 
 					{showMoreComments && <button onClick={hideCommentsClick}>hide</button>}

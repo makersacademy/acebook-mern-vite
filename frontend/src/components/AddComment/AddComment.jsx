@@ -13,6 +13,7 @@ export default function AddComment({ postId, toggleStateChange }) {
     }
 
     const submitComment  = async (event) => {
+        console.log("comment  userId", userId._id)
         event.preventDefault();
         if(commentText.length !== 0){
             try {
