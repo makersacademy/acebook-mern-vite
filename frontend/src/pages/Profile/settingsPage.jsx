@@ -106,6 +106,17 @@ export const SettingsPage = () => {
               class="input-settings"
             />
           </label>
+          <label class="label-settings">
+            About me:
+            <input
+              type="about_me"
+              name="about_me"
+              placeholder={`${user.about_me}`}
+              value={formData.about_me}
+              onChange={handleInputChange}
+              class="input-settings"
+            />
+          </label>
 
           <button onClick={handleUpdate} class="button-settings">Save</button>
         </form>

@@ -43,6 +43,7 @@ export const ProfilePage = () => {
             <div className="user-details">
                 <p>Username: {user.full_name}</p>
                 <p>Email: {user.email}</p>
+                {user.about_me && <p>About Me: {user.about_me}</p>}
             </div>
             <div className="posts-by-user">
                 <h2>My posts</h2>
