@@ -57,7 +57,7 @@ const Post = ({ post, token }) => {
       </div>
       <div className="post-content">
         <article>{post.message}</article>
-        {post.image != "" ? ( <img src={post.image} className="post-image"/>): null} 
+        {post.image != undefined ? ( <img src={post.image} className="post-image"/>): null} 
       </div>
       <div className="post-actions">
         <div className="like-btn" onClick={handleLikeClick}>
@@ -66,19 +66,16 @@ const Post = ({ post, token }) => {
           <button>{isLiked ? "Unlike" : "Like"}</button>
         </div>
         <div className="comment-btn">
-          <button onClick={handleCommentClick} >Comments</button>
+          <button onClick={handleCommentClick} >Comment</button>
         </div>
       </div>
+      {toggleCommentForm ? 
       <div className="feed" role="feed">
-          {toggleCommentForm ? 
           <div>
-                <CommentsList 
-                postId={post._id}/>
-                
-              <CreateNewComment 
-            post_id={post._id} /> </div> : <></>}
-          
-      </div>
+            <CommentsList 
+            postId={post._id}/>
+          </div>
+      </div> : <></>}
     </div>
   );
 };

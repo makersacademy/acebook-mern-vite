@@ -1,28 +1,32 @@
 // frontend/src/components/Comment/CommentsList.jsx
 
 import React, { useEffect, useState } from 'react';
-import { submitComment } from "../../services/comments";
 import Comment from './Comment';
 import { getAllCommentsForAPost } from "../../services/comments"
+import CreateNewComment from './CreateNewComment';
 
 const CommentsList = (props) => {
     const token = window.localStorage.getItem("token")
     const id = window.localStorage.getItem("id")
     const [comments, setComments] = useState([]);
+    const [newComment, setNewComment] = useState(false)
 
     useEffect(() => {
         getAllCommentsForAPost(token, props.postId)
         .then((data) => {
             setComments(data.comments)
+            setNewComment(false)
         }
         )
-    }, [token, id, comments])
+    }, [token, id, newComment])
 
     return (
         <>
             {[...comments].map((comment) => (
-                    <Comment key={comment._id} comment_data={comment} />
+                    <Comment key={comment._id} comment_data={comment} setNewComment={setNewComment}/>
             ))}
+            <CreateNewComment 
+            post_id={props.postId} setNewComment={setNewComment}/>
         </>
     );
 };

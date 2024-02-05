@@ -2,15 +2,27 @@
 
 import React, { useState } from 'react';
 import "./comment.css"
+import { deleteComment } from '../../services/comments';
 
-const Comment = ({ comment_data }) => {
+const Comment = ({ comment_data, setNewComment }) => {
     const [showOptions, setShowOptions] = useState(false)
     const handleOptions = () => {
         setShowOptions(!showOptions)
     }
-
+    const id = window.localStorage.getItem("id")
+    const token = window.localStorage.getItem("token")
     const [isLiked, setIsLiked] = useState(false);
     const [numberOfLikes, setNumberOfLikes] = useState(0);
+
+    const handleDeleteComment = async () => {
+        try {
+            await deleteComment(token, comment_data._id);
+            console.log("Comment deleted");
+            setNewComment(true)
+          } catch (error) {
+            console.error("Error deleting comment", error);
+          }
+    }
 
     const handleLikeClick = async () => {
         try {
@@ -29,11 +41,13 @@ const Comment = ({ comment_data }) => {
             <div className='comment-user'>
                 <img src={comment_data.profile_pic} alt="" className='profile-pic'/>
                 <h5 className="comment-author">{comment_data.full_name}</h5>
+                {comment_data.user_id == id && (
                 <button className='options' onClick={handleOptions}>...</button>
+                )}
                 {showOptions && (
                     <div className='options-menu'>
                         <button>Edit</button>
-                        <button>Delete</button>
+                        <button onClick={handleDeleteComment}>Delete</button>
                     </div>
                 )}
             </div>
