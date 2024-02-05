@@ -32,9 +32,8 @@ describe("/posts", () => {
         });
         await user.save();
         await Post.deleteMany({});
-        token = createToken(user.id)
+        token = createToken(user.id);
         user_id = user.id;
-
     });
 
     afterEach(async () => {
@@ -55,7 +54,7 @@ describe("/posts", () => {
             await request(app)
                 .post("/posts")
                 .set("Authorization", `Bearer ${token}`)
-                .send({ message: "Hello World!!"});
+                .send({ message: "Hello World!!" });
 
             const posts = await Post.find();
             expect(posts.length).toEqual(1);
@@ -83,7 +82,7 @@ describe("/posts", () => {
             const response = await testApp
                 .post("/posts")
                 .set("Authorization", `Bearer ${token}`)
-                .send({ message: "hello world"});
+                .send({ message: "hello world" });
 
             const newToken = response.body.token;
             const newTokenDecoded = JWT.decode(
@@ -241,7 +240,7 @@ describe("/posts", () => {
 
             const post = response.body.post;
 
-            expect(post.length).toEqual(1)
+            expect(post.length).toEqual(1);
             expect(post[0].message).toEqual("hola!");
         });
 
@@ -311,8 +310,8 @@ describe("/posts", () => {
             await post2.save();
 
             await request(app)
-            .delete(`/posts/find/${post1._id}`)
-            .set("Authorization", `Bearer ${token}`)
+                .delete(`/posts/find/${post1._id}`)
+                .set("Authorization", `Bearer ${token}`);
 
             const response = await request(app)
                 .get(`/posts`)
@@ -320,7 +319,7 @@ describe("/posts", () => {
 
             const posts = response.body.posts;
 
-            expect(posts.length).toEqual(1)
+            expect(posts.length).toEqual(1);
             expect(posts[0].message).toEqual("hola!");
         });
 
@@ -331,8 +330,8 @@ describe("/posts", () => {
             await post2.save();
 
             const response = await request(app)
-            .delete(`/posts/find/${post1._id}`)
-            .set("Authorization", `Bearer ${token}`)
+                .delete(`/posts/find/${post1._id}`)
+                .set("Authorization", `Bearer ${token}`);
 
             const newToken = response.body.token;
             const newTokenDecoded = JWT.decode(
@@ -352,9 +351,9 @@ describe("/posts", () => {
                 message: "Test message",
             });
             await post1.save();
-            const post = await Post.findOne({_id: post1._id})
-            post.message = "New Test Message"
-            post.save()
+            const post = await Post.findOne({ _id: post1._id });
+            post.message = "New Test Message";
+            post.save();
 
             const response = await request(app)
                 .get(`/posts/find/${post1._id}`)
@@ -368,13 +367,14 @@ describe("/posts", () => {
                 message: "Test message",
             });
             await post1.save();
-            const post = await Post.findOne({_id: post1._id})
-            post.message = "New Test Message"
-            post.save()
-            
+            console.log(post1._id);
+            const post = await Post.findOne({ _id: post1._id });
+            post.message = "New Test Message";
+            await post.save();
+
             const response = await request(app)
-            .get(`/posts/find/${post1._id}`)
-            .set("Authorization", `Bearer ${token}`);
+                .get(`/posts/find/${post1._id}`)
+                .set("Authorization", `Bearer ${token}`);
 
             const updatedPost = response.body.post;
 

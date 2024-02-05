@@ -27,7 +27,10 @@ export const getSinglePost = async (post_id, token) => {
         },
     };
 
-    const response = await fetch(`${BACKEND_URL}/posts/find/${post_id}`, requestOptions);
+    const response = await fetch(
+        `${BACKEND_URL}/posts/find/${post_id}`,
+        requestOptions
+    );
     // console.log("response is")
     // console.log(response)
     if (response.status !== 200) {
@@ -76,13 +79,15 @@ export const deletePost = async (post_id, token) => {
         headers: {
             Authorization: `Bearer ${token}`,
         },
-    }
+    };
 
-    const response = await fetch(`${BACKEND_URL}/posts/find/${post_id}`, requestOptions)
+    const response = await fetch(
+        `${BACKEND_URL}/posts/find/${post_id}`,
+        requestOptions
+    );
     if (response.status !== 200) {
         throw new Error("Unable to delete post");
     }
     const data = await response.json();
     return data;
-
-}
+};

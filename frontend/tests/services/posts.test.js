@@ -1,7 +1,12 @@
 import createFetchMock from "vitest-fetch-mock";
-import { describe, expect, vi, test, it, beforeEach} from "vitest";
+import { describe, expect, vi, test, it, beforeEach } from "vitest";
 
-import { getPosts, createNewPost, getSinglePost } from "../../src/services/posts";
+import {
+    getPosts,
+    createNewPost,
+    getSinglePost,
+    deletePost,
+} from "../../src/services/posts";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -112,7 +117,7 @@ describe("createNewPost service", () => {
 
 describe("getSinglePost", () => {
     test("includes a token with its request", async () => {
-        const mockResponse = { id: 1, content: "Hello", token: "newToken"};
+        const mockResponse = { id: 1, content: "Hello", token: "newToken" };
         fetch.mockResponseOnce(JSON.stringify(mockResponse), { status: 200 });
 
         await getSinglePost(1, "testToken");
@@ -124,9 +129,7 @@ describe("getSinglePost", () => {
 
         expect(url).toEqual(`${BACKEND_URL}/posts/find/${mockResponse.id}`);
         expect(options.method).toEqual("GET");
-        expect(options.headers["Authorization"]).toEqual(
-            "Bearer testToken"
-        );
+        expect(options.headers["Authorization"]).toEqual("Bearer testToken");
     });
 
     it("rejects with an error if the status is not 200", async () => {
@@ -148,4 +151,47 @@ describe("getSinglePost", () => {
         const response = await getSinglePost("token");
         expect(response).toEqual(mockResponse);
     });
-})
+});
+
+describe("tests delete post service", () => {
+    it("includes a token with its request", async () => {
+        const mockResponse = {
+            message: "Post was deleted",
+            token: "newToken",
+        };
+        fetch.mockResponseOnce(JSON.stringify(mockResponse), { status: 200 });
+        const mockPostID = 1;
+        await deletePost(mockPostID, "testToken");
+
+        // This is an array of the arguments that were last passed to fetch
+        const fetchArguments = fetch.mock.lastCall;
+        const url = fetchArguments[0];
+        const options = fetchArguments[1];
+
+        expect(url).toEqual(`${BACKEND_URL}/posts/find/${mockPostID}`);
+        expect(options.method).toEqual("DELETE");
+        expect(options.headers["Authorization"]).toEqual("Bearer testToken");
+    });
+
+    it("rejects with an error if the status is not 200", async () => {
+        const mockPostID = 1;
+        fetch.mockResponseOnce(
+            JSON.stringify({ message: "Something went wrong" }),
+            { status: 400 }
+        );
+
+        try {
+            await deletePost(mockPostID, "testToken");
+        } catch (err) {
+            expect(err.message).toEqual("Unable to delete post");
+        }
+    });
+
+    it("returns response object on successful fetch", async () => {
+        const mockPostID = 1;
+        const mockResponse = { message: "Post was deleted", token: "newToken" };
+        fetch.mockResponseOnce(JSON.stringify(mockResponse), { status: 200 });
+        const response = await deletePost(mockPostID, "token");
+        expect(response).toEqual(mockResponse);
+    });
+});
