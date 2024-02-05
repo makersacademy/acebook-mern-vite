@@ -17,9 +17,9 @@ const getSinglePost = async (req, res) => {
 const createPost = async (req, res) => {
     if (req.body.message !== "") {
         const user = await User.findOne({_id: req.user_id})
-        console.log(req.user_id)
-        console.log(user)
-        console.log(req.body)
+        //console.log(req.user_id)
+        //console.log(user)
+        //console.log(req.body)
         req.body.username = user.username
         const post = new Post(req.body);
         post.save();
@@ -64,7 +64,7 @@ const deletePost = async (req, res) => {
 const likePost = async (req, res) => {
     await Post.findOneAndUpdate({_id: req.params.id},{$push:{likes:req.user_id}});
     const newToken = generateToken(req.user_id);
-    res.status(200).json({message: "Post was likes", token: newToken})
+    res.status(200).json({message: "Post was liked", token: newToken})
 
 }
 
