@@ -1,11 +1,11 @@
-import './Post.css';
+import "./Post.css";
 import LikeButton from "../LikeButton/LikeButton";
 import React, { useState } from "react";
 import AddComment from '../AddComment/AddComment';
 import Comment from '../Comment/Comment';
 
-
 const Post = (props) => {
+
 	const [like, setLike] = useState(false);
 	const [likes, setLikes] = useState(props.post.likes.length);
 	const [showCommentBox, setShowCommentBox] = useState(false)
@@ -66,6 +66,7 @@ return (
 				handleLikeUnlike={handleLikeUnlike}
 				clicked={props.clicked}
 				toggleStateChange={props.toggleStateChange}
+        liked={props.liked}
 			/>
 
 			<div className="comments">
@@ -122,6 +123,7 @@ return (
 		</article>
 		</div>
 	)
+
 
 };
 
