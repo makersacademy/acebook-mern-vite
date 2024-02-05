@@ -61,12 +61,20 @@ const deletePost = async (req, res) => {
     res.status(200).json({ message: "Post was deleted", token: newToken });
 }
 
+const likePost = async (req, res) => {
+    await Post.findOneAndUpdate({_id: req.params.id},{$push:{likes:req.user_id}});
+    const newToken = generateToken(req.user_id);
+    res.status(200).json({message: "Post was likes", token: newToken})
+
+}
+
 const PostsController = {
     getAllPosts: getAllPosts,
     createPost: createPost,
     getSinglePost: getSinglePost,
     deletePost: deletePost,
     updatePost: updatePost,
+    likePost: likePost
 };
 
 module.exports = PostsController;

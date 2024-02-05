@@ -6,6 +6,7 @@ const PostSchema = new mongoose.Schema({
   message: String,
   username: String,
   reg_time: {type: Date, default: Date.now},
+  likes: [String],
 },{
     versionKey: false // You should be aware of the outcome after set to false
 });

@@ -19,6 +19,9 @@ const Post = (props) => {
             <p className="messageInfo">
                 {props.post.username} {date}
             </p>
+            {/*uses coalescing operator to check for whether props.post.likes
+            has a value for length, if so, use that value, else use 0 as default value*/}
+            <p>{props.post.likes?.length ?? 0}</p>
         </article>
     );
 };

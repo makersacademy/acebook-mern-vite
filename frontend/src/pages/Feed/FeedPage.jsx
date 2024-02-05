@@ -40,6 +40,7 @@ export const FeedPage = () => {
                     <div key={post._id}>
                         <Post post={post} key={post._id} />
                         <Link to={`/posts/find/${post._id}`}>Post Page</Link>
+                        {console.log(post)}
                         <hr></hr>
                     </div>
                 ))}
