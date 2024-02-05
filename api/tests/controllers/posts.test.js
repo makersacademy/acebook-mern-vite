@@ -351,9 +351,11 @@ describe("/posts", () => {
                 message: "Test message",
             });
             await post1.save();
-            const post = await Post.findOne({ _id: post1._id });
-            post.message = "New Test Message";
-            post.save();
+
+            await request(app)
+                .post(`/posts/find/${post1._id}`)
+                .set("Authorization", `Bearer ${token}`)
+                .send({ _id: post1.id, message: "New Test Message" });
 
             const response = await request(app)
                 .get(`/posts/find/${post1._id}`)
@@ -368,17 +370,14 @@ describe("/posts", () => {
             });
             await post1.save();
             console.log(post1._id);
+
+            await request(app)
+                .post(`/posts/find/${post1._id}`)
+                .set("Authorization", `Bearer ${token}`)
+                .send({ _id: post1.id, message: "New Test Message" });
+
             const post = await Post.findOne({ _id: post1._id });
-            post.message = "New Test Message";
-            await post.save();
-
-            const response = await request(app)
-                .get(`/posts/find/${post1._id}`)
-                .set("Authorization", `Bearer ${token}`);
-
-            const updatedPost = response.body.post;
-
-            expect(updatedPost[0].message).toEqual("New Test Message");
+            expect(post.message).toBe("New Test Message");
         });
     });
 });
