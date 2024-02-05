@@ -1,6 +1,7 @@
 .profilePage_user_picture {
   width: 200px;
   height: 200px;
+  margin-left: 8%;
   border-radius: 50%;
   border: 2px solid #1877f2;
   margin-right: 80%;
@@ -32,8 +33,80 @@
   width: 500px;
 }
 
+
 /* @media (min-width: 1440px) {
   .profile {
     width: 1440px;
   }
 } */
+
+.success-message {
+  background-color: #4caf50; 
+  color: #fff; 
+  padding: 10px; 
+  border-radius: 5px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  margin-bottom: 10px;
+}
+
+/* Add these styles to your existing profilePage.css file */
+
+.settings {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 5%;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.form-settings {
+  margin-bottom: 20px;
+}
+
+.label-settings {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333333;
+  font-size: 20px;
+}
+
+.input-settings {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.button-settings {
+  background-color: #4caf50;
+  color: #ffffff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 25px;
+}
+
+.button-settings :hover {
+  background-color: #45a049;
+}
+
+.delete-button {
+  background-color: #ff3333;
+  color: #ffffff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.delete-button:hover {
+  background-color: #ff0000;
+}
+

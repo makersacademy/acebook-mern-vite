@@ -17,3 +17,43 @@ export const getUser = async (token, id) => {
   const data = await response.json();
   return data;
 };
+
+export const updateUser = async (token, id, updatedUserData) => {
+  const requestOptions = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(updatedUserData),
+  };
+
+  const response = await fetch(`${BACKEND_URL}/users/${id}`, requestOptions);
+
+  if (response.status !== 200) {
+    const errorText = await response.text();
+    throw new Error(`Unable to update user. Status: ${response.status}, Message: ${errorText}`);
+  }
+
+  const updatedUser = await response.json();
+  return updatedUser;
+};
+
+export const deleteUser = async (token, id) => {
+  const requestOptions = {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  console.log(`Deleting user with ID: ${id}`);
+  const response = await fetch(`${BACKEND_URL}/users/${id}`, requestOptions);
+
+  if (response.status !== 200) {
+    const errorText = await response.text();
+    throw new Error(`Unable to delete user. Status: ${response.status}, Message: ${errorText}`);
+  }
+
+  const deletedUser = await response.json();
+  return deletedUser;
+};
