@@ -1,15 +1,15 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 import "./App.css";
 import { HomePage } from "./pages/Home/HomePage";
 import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
 import { ProfilePage } from "./pages/Profile/profilePage";
+import { SettingsPage } from "./pages/Profile/settingsPage";
 
 
-// docs: https://reactrouter.com/en/main/start/overview
 const router = createBrowserRouter([
+
   {
     path: "/",
     element: <HomePage />,
@@ -24,18 +24,22 @@ const router = createBrowserRouter([
   },
   {
     path: "/posts",
-    element: <FeedPage />
+    element: <FeedPage />,
   },
   {
     path: "/profile",
-    element: <ProfilePage />
+    element: <ProfilePage />,
   },
-
+  {
+    path: "/settings",
+    element: <SettingsPage />,
+  },
 ]);
 
 const App = () => {
   return (
     <>
+      {/* Provide the router to your app */}
       <RouterProvider router={router} />
     </>
   );
