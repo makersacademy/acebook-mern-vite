@@ -79,31 +79,42 @@ export const SettingsPage = () => {
 
         {/* Form for updating user */}
         <form onSubmit={(e) => e.preventDefault()} class="form-settings">
-          <label class="label-settings">
+          <label className="label-settings">
             Change Name:
           </label>
-          <label class="label-settings">
+          <label className="label-settings">
             <input
               type="text"
               name="full_name"
               placeholder={`${user.full_name}`}
               value={formData.full_name}
               onChange={handleInputChange}
-              class="input-settings"
+              className="input-settings"
             />
           </label>
 
-          <label class="label-settings">
+          <label className="label-settings">
             Change Email:
           </label>
-          <label class="label-settings">
+          <label className="label-settings">
             <input
               type="email"
               name="email"
               placeholder={`${user.email}`}
               value={formData.email}
               onChange={handleInputChange}
-              class="input-settings"
+              className="input-settings"
+            />
+          </label>
+          <label className="label-settings">
+            About me:
+            <textarea
+              type="about_me"
+              name="about_me"
+              placeholder={`${user.about_me}`}
+              value={formData.about_me}
+              onChange={handleInputChange}
+              className="input-settings about-me"
             />
           </label>
 

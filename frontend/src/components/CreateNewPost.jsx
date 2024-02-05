@@ -49,7 +49,7 @@ const CreateNewPost = ({ token, setPostChanged }) => {
                     What's on your mind? 
                 </label>
                 <div className='input-and-button-container'>
-                    <input
+                    <textarea
                         className="feed-input"
                         name="message"
                         type="text"
