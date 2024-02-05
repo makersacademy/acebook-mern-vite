@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getUser, updateUser, deleteUser } from "../../services/user";
-import Navbar from "../../components/Post/Navbar";
+import { getUser, updateUser, deleteUser } from "../../services/users";
+import Navbar from "../../components/Navbar/Navbar";
 import "./profilePage.css";
 import { useNavigate } from "react-router-dom";
 
