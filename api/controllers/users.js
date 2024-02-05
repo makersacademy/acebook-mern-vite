@@ -29,6 +29,9 @@ const create = async (req, res) => {
     }
 }
 
+const getId = async (req, res) => {
+  res.status(200).json({ user_id: req.user_id});
+}
 const getAllUserInfo = async (req, res) => {
   try {
 
@@ -76,6 +79,7 @@ const clearTestData = async () => {
 
 const UsersController = {
   create: create,
+  getId: getId,
   getAllUserInfo: getAllUserInfo, 
   updateUserInfo: updateUserInfo,
   clearTestData: clearTestData,

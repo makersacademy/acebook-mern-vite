@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import "./SignupPage.css";
+
 import Navbar from "../../components/Navbar/Navbar";
+
 
 import { signup } from "../../services/authentication";
 
@@ -42,45 +46,77 @@ export const SignupPage = () => {
   };
 
   return (
-    <>
-    {/* <Navbar /> */}
-      <h2>Signup</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username:</label>
-          <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={handleUsernameChange}
-          required />
-          <label htmlFor="email">Email:</label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
-            onChange={handleEmailChange}
-          required />
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            type="password"
-            minLength="8"
-            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-            title="Must contain at least one number, one uppercase and lowercase letter, and at least 8 or more characters"
-            value={password}
-            onChange={handlePasswordChange}
-          required />
-          <label htmlFor="profile_picture">Add Profile Picture:</label>
-          <input
-            id="profile_picture"
-            type="file"
-            value={profile_picture}
-            onChange={handleProfilePictureChange}
-          />
-          <input role="submit-button" id="submit" type="submit" value="Sign up!" />
-      </form>
-      {signUpError && <div ><h4 role="invalid-signup">{signUpError}</h4></div>}
-    </>
+
+    <body>
+      
+      <div className="signup-box">
+
+        {/* TITLE */}
+        <h2>Create Account</h2>
+
+        {/* FORM */}
+        <form className="content-signup" onSubmit={handleSubmit}>
+
+          {/* USERNAME FORM */}
+          {/* <label htmlFor="username">Username:</label> */}
+            <input
+              className="input-sg"
+              placeholder="Username"
+              id="username"
+              type="text"
+              value={username}
+              onChange={handleUsernameChange}
+            />
+
+            {/* EMAIL FORM */}
+            {/* <label htmlFor="email">Email:</label> */}
+            <input
+              className="input-sg"
+              placeholder="Email"
+              id="email"
+              type="email"
+              value={email}
+              onChange={handleEmailChange}
+            />
+
+            {/* PASSWORD FORM */}
+            {/* <label htmlFor="password">Password:</label> */}
+            <input
+              className="input-sg"
+              placeholder="Password"
+              id="password"
+              type="password"
+              minLength="8"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+
+            {/* PICTURE FORM */}
+            {/* <label className="label-picture"  htmlFor="profile_picture">Add Profile Picture:</label> */}
+            <label className="picture" htmlFor="profile_picture">
+              <input
+                id="profile_picture"
+                type="file"
+                value={profile_picture}
+                onChange={handleProfilePictureChange}
+                style={{ display: 'none' }}
+              />
+              Upload Profile Picture
+            </label>
+            
+
+            {/* BUTTON SUBMIT */}
+            <input className="btn btn-signup" role="submit-button" id="submit" type="submit" value="Create!" />
+
+        </form>
+
+            {/* ERROR */}
+            {signUpError && <div ><h4 role="invalid-signup">{signUpError}</h4></div>}
+
+
+      </div>
+    </body>
+
   );
 };
+

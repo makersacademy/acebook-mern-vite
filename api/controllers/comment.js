@@ -1,6 +1,13 @@
 const Comment = require("../models/comment")
 const { generateToken } = require("../lib/token")
 
+
+const getAllComment = async (req, res) => {
+    const comments = await Comment.find(req.comment_ids);
+    const token = generateToken(req.user_id);
+    res.status(200).json({ comments: comments, token: token });
+};
+
 const createComment = async (req, res) => {
     const commentObject = {
         message: req.body.message,
@@ -15,8 +22,18 @@ const createComment = async (req, res) => {
     res.status(201).json({message: "OK", token: newToken});
 };
 
+const clearTestComments = async (req, res) => {
+    console.log("here")
+    await Comment.deleteMany({})
+}
+
+
+
 const CommentController = {
-    createComment: createComment
+    createComment: createComment,
+    getAllComment: getAllComment,
+    clearTestComments: clearTestComments
 };
+
 
 module.exports = CommentController;
