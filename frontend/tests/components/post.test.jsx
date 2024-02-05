@@ -4,7 +4,7 @@ import Post from "../../src/components/Post/Post";
 
 describe("Post", () => {
   test("displays the message as an article", () => {
-    const testPost = { _id: "123", message: "test message" };
+    const testPost = { _id: "123", message: "test message", likes: [] };
     render(<Post post={testPost} />);
 
     const article = screen.getByRole("article");
