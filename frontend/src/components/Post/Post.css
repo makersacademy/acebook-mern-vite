@@ -19,9 +19,18 @@ article {
 
 .post-article   {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+.post-article img {
+  display: flex;
+  height: 200px;
+  width: 200px;
+  align-items: center;
+  padding: 16px;
+
 }
 
 .user-info {

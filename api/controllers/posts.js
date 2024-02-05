@@ -16,11 +16,27 @@ const getAllPosts = async (req, res) => {
 
 
 const createPost = async (req, res) => {
-    const post = new Post(req.body);
-    post.save();
+    const postMessage = req.body.postMessage
+    let filename;
 
-    const newToken = generateToken(req.user_id);
-    res.status(201).json({ message: "OK", token: newToken });
+    if(req.file){
+        filename = req.file.filename
+    }
+    const userId = req.body.userId
+
+    try {
+        const post = new Post({ 
+            message: postMessage,
+            media: filename ? filename : null,
+            postedBy: userId
+        })
+
+        await post.save();
+        res.status(200).json({message: 'create post successful'});
+    } catch(error){
+        res.status(500).json({message: "create post error", error: error.message})
+    }
+
 };
 
 

@@ -3,20 +3,21 @@ import "./EditProfilePictureModal.css"
 import { uploadImage } from "../../services/user";
 
 
-export default function EditProfilePictureModal({image, username, toggleEditPictureModal, handleImageUpdate}) {
+export default function EditProfilePictureModal({image, username, toggleEditPictureModal, triggerStateChange}) {
     const [modal, setModal] = useState(false)
     const [file, setFile] = useState()
 
     const handleUpload = () => {
-        console.log("handling upload with file", file)
+        // console.log("handling upload with file", file)
         const formData = new FormData();
         formData.append('file', file)
         uploadImage(formData, username)
             .then(res => res.json())
             .then(data => {
                 console.log(data.image)
-                handleImageUpdate(data.image)
+                // handleImageUpdate(data.image)
                 toggleEditPictureModal()
+                triggerStateChange()
             });
         }
     

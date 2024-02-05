@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./EditBioModal.css"
 import { editBio } from "../../services/user";
 
-export default function EditBioModal(  {username, toggleEditBioModal, handleBioUpdate} ) {
+export default function EditBioModal(  {username, toggleEditBioModal, triggerStateChange} ) {
     const [bioText, setBioText] = useState("")
 
     const handleSubmit = (event) => {
@@ -11,7 +11,8 @@ export default function EditBioModal(  {username, toggleEditBioModal, handleBioU
             .then((res) => {
                 console.log(res)
                 toggleEditBioModal()
-                handleBioUpdate(bioText)
+                // handleBioUpdate(bioText)
+                triggerStateChange()
                 })
     
     }

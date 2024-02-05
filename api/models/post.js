@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const root = "";
+const root = "../public/images/";
 
 // A Schema defines the "shape" of entries in a collection. This is similar to
 // defining the columns of an SQL Database.
@@ -18,13 +18,13 @@ const PostSchema = new mongoose.Schema(
         message: String,
         media: {
             type: String,
-            get: (v) => "${root}${v}",
+            get: (v) => `${root}${v}`,
         },
         likes: { type: [String], default: [] },
         postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
         comments: [CommentSchema],
     },
-    { timestamps: true }
+    { timestamps: true , toJSON: { getters: true }}
 );
 
 //time stamps automatically creates 'createdAt' and 'updatedAt' fields and pupulates these with a time stamps

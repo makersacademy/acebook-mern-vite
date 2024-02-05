@@ -9,29 +9,32 @@ import Navbar from "../../components/NavBar/navbar";
 export const FeedPage = () => {
     const [posts, setPosts] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
+    const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")))
     // const [click, setClick] = useState(false);
-	const [stateChange, setStateChange] = useState(false)
+    const [stateChange, setStateChange] = useState(false)
 
-  useEffect(() => {
-    if (token) {
-      getPosts(token)
-        .then((data) => {
-          setPosts(data.posts);
-          setToken(data.token);
-          window.localStorage.setItem("token", data.token);
-        })
-        .catch((err) => {
-          console.err(err);
-        });
-    } else {
-      navigate("/login");
-    }
-  }, []);
+    const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (token) {
+  //     getPosts(token)
+  //       .then((data) => {
+  //         setPosts(data.posts);
+  //         setToken(data.token);
+  //         window.localStorage.setItem("token", data.token);
+  //       })
+  //       .catch((err) => {
+  //         console.err(err);
+  //       });
+  //   } else {
+  //     navigate("/login");
+  //   }
+  // }, []);
+
 	const toggleStateChange = () => {
 		setStateChange(!stateChange)
 	}
 
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (token) {
@@ -63,7 +66,12 @@ export const FeedPage = () => {
 			</div>
 			<h1>Posts</h1>
 			<div className="feed" role="feed">
-      <NewPost token={token}/>
+      <NewPost 
+      token={token}
+      userId={user._id}
+      toggleStateChange={toggleStateChange}
+      />
+
 				{posts.map((post) => (
 					<Post 
 						key={post._id}

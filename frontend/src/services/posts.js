@@ -45,26 +45,22 @@ export const postComment = async (token, commentText, postId, userId) => {
   return data;
 }
 
-export const createPost = async (token, message) => {
-  const payload = {
-    message: message,
-  };
+export const createPost = async (token, formData) => {
   const requestOptions = {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
     },
-    body: JSON.stringify(payload),
+    body: formData
   };
 
   const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
 
-  if (response.status === 201) {
-		return;
+  if (response.ok) {
+		return "post submitted successfully";
   } else {
   throw new Error(
-    `Received status ${response.status} when signing up. Expected 201`
+    `Received status ${response.status} when creating post.`
   );
   }
 };
