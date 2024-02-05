@@ -29,8 +29,6 @@ const router = createBrowserRouter([
     path: "/users/:username",
     element: <UserPage />
   }
-
-
 ]);
 
 

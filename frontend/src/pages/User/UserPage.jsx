@@ -6,6 +6,7 @@ import EditUserModal from "../../components/EditUserModal/EditUserModal";
 import Navbar from "../../components/NavBar/navbar";
 import "./Userpage.css"
 
+
 export const UserPage = () => {
     const [user, setUser] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
@@ -41,7 +42,6 @@ export const UserPage = () => {
             navigate("/login");
             } 
         }, [username]);
-        
     
         if (!token) {
             navigate("/login")

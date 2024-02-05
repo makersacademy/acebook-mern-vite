@@ -122,6 +122,7 @@ return (
 		</article>
 		</div>
 	)
+
 };
 
 export default Post;

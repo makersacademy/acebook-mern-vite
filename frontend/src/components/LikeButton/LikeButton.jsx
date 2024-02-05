@@ -38,7 +38,7 @@ const LikeButton = (props) => {
             .then(() => {
                 // props.clicked();
                 console.log("Clicked is being clicked");
-				props.toggleStateChange()
+                props.toggleStateChange();
             })
             .then(() => {
                 setLike(!like);
@@ -47,11 +47,13 @@ const LikeButton = (props) => {
         console.log("I'm being clicked");
         // props.handleLikeUnlike();
     };
+  
     return (
-    <button onClick={() => handleClick(props)}>
-        <i className="fa-solid fa-thumbs-up"></i>
-    </button>
+      <button onClick={() => handleClick(props)}>
+          <i className="fa-solid fa-thumbs-up"></i>
+      </button>
     )
+
 };
 
 export default LikeButton;

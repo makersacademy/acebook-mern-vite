@@ -42,6 +42,7 @@ const completeSignupForm = async () => {
     await user.type(passwordInputEl, "cHeck123Test!");
     await user.click(submitButtonEl);
 
+
 };
 
 describe("Signup Page", () => {
@@ -53,7 +54,6 @@ describe("Signup Page", () => {
         render(<SignupPage />);
 
         await completeSignupForm();
-
 
     expect(signup).toHaveBeenCalledWith("test user", "test@email.com", "cHeck123Test!");
   });

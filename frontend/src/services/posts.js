@@ -45,3 +45,29 @@ export const postComment = async (token, commentText, postId, userId) => {
   return data;
 }
 
+export const createPost = async (token, message) => {
+  const payload = {
+    message: message,
+  };
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  };
+
+  const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
+
+  if (response.status === 201) {
+		return;
+  } else {
+  throw new Error(
+    `Received status ${response.status} when signing up. Expected 201`
+  );
+  }
+};
+
+  
+

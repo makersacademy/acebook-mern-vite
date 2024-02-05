@@ -50,6 +50,10 @@ const create = (req, res) => {
 			res.status(400).json({ message: "Something went wrong" });
 		});
 };
+// 		.catch((err) => {
+//             console.error(err);
+//             res.status(500).json({ message: "Something went wrong" });
+// });
 
 
 const getUser = async (req, res) => {
@@ -137,4 +141,3 @@ const UsersController = {
 };
 
 module.exports = UsersController;
-
