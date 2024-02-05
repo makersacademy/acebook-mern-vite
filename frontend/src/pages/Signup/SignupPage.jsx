@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/Navbar/Navbar";
 
 import { signup } from "../../services/authentication";
 
@@ -8,6 +9,7 @@ export const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [profile_picture, setProfilePicture] = useState("")
+  const [signUpError, setError] = useState()
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -18,6 +20,7 @@ export const SignupPage = () => {
       navigate("/login");
     } catch (err) {
       console.error(err);
+      setError(err.cause)
       navigate("/signup");
     }
   };
@@ -40,6 +43,7 @@ export const SignupPage = () => {
 
   return (
     <>
+    {/* <Navbar /> */}
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>
@@ -75,6 +79,7 @@ export const SignupPage = () => {
           />
           <input role="submit-button" id="submit" type="submit" value="Sign up!" />
       </form>
+      {signUpError && <div ><h4 role="invalid-signup">{signUpError}</h4></div>}
     </>
   );
 };

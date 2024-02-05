@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/Navbar/Navbar";
 
 import { getPosts } from "../../services/posts";
 import { getId } from "../../services/users";
@@ -43,6 +44,7 @@ export const FeedPage = () => {
 
   return (
     <>
+      <Navbar />
       <h2>Posts</h2>
       <NewPostForm role="new-post"/>
       <div className="feed" role="feed">

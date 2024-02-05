@@ -1,12 +1,16 @@
 const express = require("express");
-const tokenChecker = require("../middleware/tokenChecker");
 
+const router = express.Router();
+const tokenChecker = require("../../api/middleware/tokenChecker");
 
 const UsersController = require("../controllers/users");
 
-const router = express.Router();
+const logReq = (req) => {
+    console.log(req);
+}
 
 router.post("/", UsersController.create);
 router.get("/id", tokenChecker, UsersController.getId);
+router.get("/", tokenChecker, UsersController.getAllUserInfo)
 
 module.exports = router;

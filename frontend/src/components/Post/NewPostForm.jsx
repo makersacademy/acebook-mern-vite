@@ -35,7 +35,11 @@ const NewPostForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+<<<<<<< HEAD
       <label>
+=======
+      <label hmtlFor="message">
+>>>>>>> main
         Message:
         <input type="text" onChange={handleChange} data-testid="post-input" />
       </label>
