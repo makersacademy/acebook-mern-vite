@@ -11,7 +11,6 @@ const CreateNewComment = (props) => {
     const [user, setUser] = useState({});
     const [token, setToken] = useState(window.localStorage.getItem("token"))
     const id = window.localStorage.getItem("id")
-    const [comments, setComments] = useState([]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -51,9 +50,6 @@ const CreateNewComment = (props) => {
                 />
                 <button type="submit">Submit Comment!</button>
             </form>
-            {[...comments].map((comment) => (
-                    <Comment comment={comment} key={comment._id} token={token} />
-            ))}
         </>
     );
 };
