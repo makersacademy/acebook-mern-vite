@@ -13,8 +13,7 @@ const CommentsList = (props) => {
     useEffect(() => {
         getAllCommentsForAPost(token, props.postId)
         .then((data) => {
-            setComments(data.commentsWithUserDetails)
-            console.log(data)
+            setComments(data.comments)
         }
         )
     }, [token, id, comments])
@@ -22,7 +21,7 @@ const CommentsList = (props) => {
     return (
         <>
             {[...comments].map((comment, index) => (
-                    <Comment text={comment.text} key={index} author={comment.full_name} />
+                    <Comment text={comment.message} key={comment._id} author={comment.full_name} />
             ))}
         </>
     );

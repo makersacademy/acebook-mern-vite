@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { createPost } from "../services/posts";
 import "./CreateNewPost.css";
 
-const CreateNewPost = ({ token }) => {
+const CreateNewPost = ({ token, setPostChanged }) => {
     const [message, setMessage] = useState("");
     const [image, setImage] = useState("");
     
@@ -34,6 +34,7 @@ const CreateNewPost = ({ token }) => {
 
         try {
             const result = await createPost(token, formData);
+            setPostChanged(true)
             // console.log(result);
             // Optionally, you can update the state or perform any other actions after creating the post.
         } catch (error) {
