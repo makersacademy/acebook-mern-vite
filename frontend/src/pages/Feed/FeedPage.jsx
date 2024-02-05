@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
 import CreatePost from "../../components/CreatePost/CreatePost";
+import LikePostButton from "../../components/Post/LikePost";
 
 export const FeedPage = () => {
     const [posts, setPosts] = useState([]);
@@ -39,8 +40,8 @@ export const FeedPage = () => {
                 {posts.map((post) => (
                     <div key={post._id}>
                         <Post post={post} key={post._id} />
+                        <LikePostButton post={post}/>
                         <Link to={`/posts/find/${post._id}`}>Post Page</Link>
-                        {console.log(post)}
                         <hr></hr>
                     </div>
                 ))}

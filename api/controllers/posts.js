@@ -62,7 +62,7 @@ const deletePost = async (req, res) => {
 }
 
 const likePost = async (req, res) => {
-    await Post.findOneAndUpdate({_id: req.params.id},{$push:{likes:req.user_id}});
+    await Post.findOneAndUpdate({_id: req.params.id},{$addToSet:{likes:req.user_id}});
     const newToken = generateToken(req.user_id);
     res.status(200).json({message: "Post was liked", token: newToken})
 

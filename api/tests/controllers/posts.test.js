@@ -403,7 +403,21 @@ describe("/posts", () => {
                 .set("Authorization", `Bearer ${token}`);
             const posts = response.body.posts;
             expect(posts[0].likes.length).toEqual(1)
-
+        });
+        test("the length of the array is still 1 when 1 user has clicked like on the post twice", async () => {
+            const post1 = new Post({message: "Test message"});
+            await post1.save();
+            await request(app)
+                .post(`/posts/find/${post1._id}/like`)
+                .set("Authorization", `Bearer ${token}`);
+            await request(app)
+                .post(`/posts/find/${post1._id}/like`)
+                .set("Authorization", `Bearer ${token}`);
+            response = await request(app)
+                .get(`/posts`)
+                .set("Authorization", `Bearer ${token}`);
+            const posts = response.body.posts;
+            expect(posts[0].likes.length).toEqual(1)
         })
     });
 });
