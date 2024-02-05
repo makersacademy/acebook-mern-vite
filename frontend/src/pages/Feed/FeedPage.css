@@ -130,6 +130,6 @@ body {
 }
 
 .post-image {
-    width: 200px;
+    width: 100%;
     height: auto;
 }
