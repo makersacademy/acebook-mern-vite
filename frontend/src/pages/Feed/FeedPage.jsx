@@ -63,6 +63,7 @@ export const FeedPage = () => {
 			</div>
 			<h1>Posts</h1>
 			<div className="feed" role="feed">
+      <NewPost token={token}/>
 				{posts.map((post) => (
 					<Post 
 						key={post._id}
