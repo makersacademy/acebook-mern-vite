@@ -29,6 +29,9 @@
 
 .user-details p {
   margin: 8px 0;
+  text-align: justify;
+  padding-left: 3%;
+  padding-right: 3%;
 }
 
 .posts-by-user {
@@ -75,6 +78,11 @@
   border: 1px solid #cccccc;
   border-radius: 4px;
   font-size: 16px;
+}
+
+.about-me {
+  height: 100px;
+  vertical-align: top;
 }
 
 .button-settings {

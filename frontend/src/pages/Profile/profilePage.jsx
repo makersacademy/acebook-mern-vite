@@ -42,7 +42,9 @@ export const ProfilePage = () => {
             <img src={user.profile_pic} alt="profile pic" className="profilePage_user_picture"/>
             <div className="user-details">
                 <p>Username: {user.full_name}</p>
+                <br />
                 <p>Email: {user.email}</p>
+                <br />
                 {user.about_me && <p>About Me: {user.about_me}</p>}
             </div>
             <div className="posts-by-user">
