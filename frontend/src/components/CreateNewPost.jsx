@@ -57,16 +57,17 @@ const CreateNewPost = ({ token, setPostChanged }) => {
                         onChange={(e) => setMessage(e.target.value)}
                         required={true}
                     />
+                    <button className="feed-button" type="submit">
+                        Share
+                    </button>
+                </div>
+                <div className="upload-a-picture">
+                    <button>{!image ? "Upload a photo" : `Photo Added\n${image.name}`}</button>
                     <input
-                        className="feed-input"
                         name="images"
                         type="file"
                         onChange={handleImageChange}
                     />
-                    
-                    <button className="feed-button" type="submit">
-                        Share
-                    </button>
                 </div>
             </form>
         </div>

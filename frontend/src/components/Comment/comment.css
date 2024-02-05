@@ -46,6 +46,10 @@
     font-size: large;
 }
 
+.comment .options:hover {
+    background-color: #ccc;
+}
+
 .options-menu {
     position: absolute;
     top: 25px; 
@@ -64,4 +68,8 @@
     cursor: pointer;
     background-color: transparent;
     padding: 2px;
+}
+
+.options-menu button:hover {
+    text-decoration: underline;
 }

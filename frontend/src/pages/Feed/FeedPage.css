@@ -6,7 +6,6 @@
     gap: 20px;
     max-width: 600px;
     margin: auto;
-    padding: 20px 0; /* Add vertical padding for better spacing */
 }
 
 .post {
@@ -109,6 +108,7 @@ body {
     margin: 0 auto;
     text-align: center;
     width: 80%; 
+    margin-bottom: 20px;
 }
 
 
@@ -130,6 +130,6 @@ body {
 }
 
 .post-image {
-    width: 200px;
+    width: 100%;
     height: auto;
 }
