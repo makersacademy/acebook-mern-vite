@@ -3,17 +3,18 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
-import Post from "../../components/Post/Post";
-import Navbar from "../../components/Post/Navbar"; 
+import Post from "../../components/Post";
+import Navbar from "../../components/Navbar/Navbar"; 
 import "./FeedPage.css";
-import CreateNewPost from "./CreateNewPost";
-import { getUser } from "../../services/user";
+import CreateNewPost from "../../components/CreateNewPost";
+import { getUser } from "../../services/users";
 
 export const FeedPage = () => {
   document.title = "Posts"
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [user, setUser] = useState({});
+  const [postChanged, setPostChanged] = useState(false);
   const navigate = useNavigate();
   const id = window.localStorage.getItem("id")
 
@@ -38,9 +39,22 @@ export const FeedPage = () => {
     } else {
       navigate("/login");
     }
-  }, [token, navigate, posts]); //Needed if useEffect is used anywhere else
+  }, [token, navigate]); //Needed if useEffect is used anywhere else
 
-  //<img src={user.profile_pic} alt="" />
+  useEffect(() => {
+    if (token) {
+      getPosts(token)
+        .then((data) => {
+          setPosts(data.posts);
+          setToken(data.token);
+          setPostChanged(false)
+          window.localStorage.setItem("token", data.token);
+        })
+        .catch((err) => {
+          console.err(err);
+        });
+    }
+  }, [postChanged])
 
   if (!token) {
     return;
@@ -53,7 +67,7 @@ export const FeedPage = () => {
       <div className="allposts">
       <br></br>
       <br></br>
-      <CreateNewPost token={token}/>
+      <CreateNewPost token={token} setPostChanged={setPostChanged}/>
       <br></br>
       <h2>Posts</h2>
       <div className="feed" role="feed">

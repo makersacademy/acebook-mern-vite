@@ -126,8 +126,7 @@ export const SignupPage = () => {
           type="password"
           value={password}
           onChange={handlePasswordChange}
-          required="true"
-        />
+          required="true"        />
         </div>
         <p className="error-message">{errorMessage}</p>
         <input role="submit-button" id="submit" type="submit" value="Submit" />

@@ -1,10 +1,10 @@
 // CreateNewPost.jsx
 
 import React, { useState } from "react";
-import { createPost } from "../../services/createPost";
+import { createPost } from "../services/posts";
 import "./CreateNewPost.css";
 
-const CreateNewPost = ({ token }) => {
+const CreateNewPost = ({ token, setPostChanged }) => {
     const [message, setMessage] = useState("");
     const [image, setImage] = useState("");
     
@@ -34,6 +34,7 @@ const CreateNewPost = ({ token }) => {
 
         try {
             const result = await createPost(token, formData);
+            setPostChanged(true)
             // console.log(result);
             // Optionally, you can update the state or perform any other actions after creating the post.
         } catch (error) {
@@ -56,16 +57,17 @@ const CreateNewPost = ({ token }) => {
                         onChange={(e) => setMessage(e.target.value)}
                         required={true}
                     />
+                    <button className="feed-button" type="submit">
+                        Share
+                    </button>
+                </div>
+                <div className="upload-a-picture">
+                    <button>{!image ? "Add a photo" : `Photo Added\n${image.name}`}</button>
                     <input
-                        className="feed-input"
                         name="images"
                         type="file"
                         onChange={handleImageChange}
                     />
-                    
-                    <button className="feed-button" type="submit">
-                        Share
-                    </button>
                 </div>
             </form>
         </div>

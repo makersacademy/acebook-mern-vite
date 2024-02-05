@@ -1,8 +1,8 @@
-import Navbar from "../../components/Post/Navbar";
+import Navbar from "../../components/Navbar/Navbar.jsx";
 import { useState, useEffect } from "react";
-import { getUser } from "../../services/user"
+import { getUser } from "../../services/users"
 import "./profilePage.css"
-import Post from "../../components/Post/Post";
+import Post from "../../components/Post.jsx";
 import { getPostsByUser } from "../../services/posts";
 
 export const ProfilePage = () => {
@@ -23,12 +23,12 @@ export const ProfilePage = () => {
             })
         getPostsByUser(token, id)
             .then((data) => {
-              setPosts(data.posts);
-              setToken(data.token);
-              window.localStorage.setItem("token", data.token);
+                setPosts(data.posts);
+                setToken(data.token);
+                window.localStorage.setItem("token", data.token);
             })
             .catch((err) => {
-              console.err(err);
+                console.err(err);
             });
     }, [token, id])
     

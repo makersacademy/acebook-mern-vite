@@ -1,13 +1,16 @@
 // frontend/src/components/Post/Post.jsx
 
 import React, { useEffect, useState } from "react";
-import "../../pages/Feed/FeedPage.css";
-import { likePost } from "../../services/posts"; // Import the likePost function
-import { getAllLikesByPostId } from "../../services/posts"; // Import the likePost function
+import ".././pages/Feed/FeedPage.css";
+import { likePost } from "../services/posts";
+import { getAllLikesByPostId } from "../services/posts";
+import CreateNewComment from "./Comment/CreateNewComment";
+import CommentsList from "./Comment/CommentsList";
 
 const Post = ({ post, token }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [numberOfLikes, setNumberOfLikes] = useState(0);
+  const [toggleCommentForm, setToggleCommentForm] = useState(false);
 
   useEffect(() => {
     const fetchLikes = async () => {
@@ -40,18 +43,21 @@ const Post = ({ post, token }) => {
     }
   };
 
+  // Function to handle opening of the comment form
+  const handleCommentClick = async () => {
+    setToggleCommentForm(!toggleCommentForm);
+  };
+
+  // console.log(post.comments)
   return (
-    <div className="post">
+    <div className="post" id={post._id}>
       <div className="post-header">
-        {/* <img src={post.author.avatar} alt={`${post.author.name}'s avatar`} /> */}
         <img src={post.profile_pic} alt={`Author's avatar`} />
-        {/* <h4>{post.author.name}</h4> */}
         <h4>{post.full_name}</h4>
       </div>
       <div className="post-content">
-      <article>{post.message}</article>
-      {post.image != "" ? ( <img src={post.image} className="post-image"/>): null} 
-
+        <article>{post.message}</article>
+        {post.image != "" ? ( <img src={post.image} className="post-image"/>): null} 
       </div>
       <div className="post-actions">
         <div className="like-btn" onClick={handleLikeClick}>
@@ -60,8 +66,18 @@ const Post = ({ post, token }) => {
           <button>{isLiked ? "Unlike" : "Like"}</button>
         </div>
         <div className="comment-btn">
-          <span>Comment</span>
+          <button onClick={handleCommentClick} >Comments</button>
         </div>
+      </div>
+      <div className="feed" role="feed">
+          {toggleCommentForm ? 
+          <div>
+                <CommentsList 
+                postId={post._id}/>
+                
+              <CreateNewComment 
+            post_id={post._id} /> </div> : <></>}
+          
       </div>
     </div>
   );

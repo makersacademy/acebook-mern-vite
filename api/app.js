@@ -1,4 +1,4 @@
-// api/app.js  
+// api/app.js
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -9,6 +9,7 @@ const postsRouter = require("./routes/posts");
 const authenticationRouter = require("./routes/authentication");
 const tokenChecker = require("./middleware/tokenChecker");
 const likesRouter = require("./routes/likes");
+const commentsRouter = require("./routes/comments");
 const settingsRoutes = require("./routes/settings");
 
 const app = express();
@@ -27,7 +28,8 @@ app.use("/tokens", authenticationRouter);
 app.use("/uploads", express.static("uploads"));
 app.use("/posts", tokenChecker, postsRouter);
 app.use("/likes", tokenChecker, likesRouter);
-app.use("/users", settingsRoutes); 
+app.use("/comments", commentsRouter);
+app.use("/users", settingsRoutes);
 
 // 404 Handler
 app.use((_req, res) => {
