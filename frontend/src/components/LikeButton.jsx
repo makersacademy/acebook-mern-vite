@@ -29,7 +29,7 @@ const LikeButton = (props) => {
 
   return (
     <>
-      {numberOfLikes} Likes<br/>
+    {numberOfLikes} Likes<br/>
         {likeList.indexOf(props.user_id) === -1 ? <input onClick={handleClick} type="image" src="src/assets/not_liked.png" /> : <input onClick={handleClick} type="image" src="src/assets/liked.png" />}
     </>
   );
