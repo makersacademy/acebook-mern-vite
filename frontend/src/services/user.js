@@ -38,7 +38,6 @@ export const searchUsers = async (searchQuery) => {
 }
 
 export const uploadImage = async (formData, username) => {
-    console.log("inside uploadImage", formData, username)
     const requestOptions = {
         method: "PATCH",
 		body: formData,
@@ -78,6 +77,61 @@ export const editBio = async(bioText, username) => {
 			`Received status ${response.status} when changing bio. Expected 200`
 		);
 	}
+
+}
+
+
+export const addFriend = async(username, requestingUserId, token) => {
+
+    const payload = {
+        requestingUserId: requestingUserId
+    }
+
+    const requestOptions ={
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    }
+
+    let response = await fetch(`${BACKEND_URL}/users/${username}/friends`, requestOptions)
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Failed to add friend: ${JSON.stringify(errorData)}`);
+    }
+
+    const data = await response.json();
+    return data;
+
+}
+
+export const removeFriend = async(username, requestingUserId, token) => {
+
+    const payload = {
+        requestingUserId: requestingUserId
+    }
+
+    const requestOptions ={
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    }
+
+    let response = await fetch(`${BACKEND_URL}/users/${username}/friends`, requestOptions)
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Failed to remove friend: ${JSON.stringify(errorData)}`);
+    }
+
+    const data = await response.json();
+    return data;
 
 }
 

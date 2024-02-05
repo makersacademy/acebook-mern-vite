@@ -1,0 +1,33 @@
+.comment-container {
+    display: flex;
+    flex-direction: row;
+    border-top: 0.5px solid #f3f3f3;
+    border-bottom: 0.5px solid #f3f3f3;
+    padding: 10px;
+    width: 80%
+}
+
+.comment-container img {
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 100%;
+    padding: 10px;
+
+}
+
+.comment-date {
+    font-size: 12px;
+}
+
+.comment-likes {
+    font-size: 12px;
+}
+
+.comment-username {
+    font-size: 14px
+}
+
+.comment-username {
+    font-size: 14px;
+    font-weight: bold;
+}

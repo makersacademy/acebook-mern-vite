@@ -4,3 +4,10 @@
     font-size:large;
     margin: 8px;
 }
+
+.userpage-container {
+    display: flex; 
+    flex-direction: columns;
+}
+
+

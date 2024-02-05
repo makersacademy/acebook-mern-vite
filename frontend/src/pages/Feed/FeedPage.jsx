@@ -67,10 +67,6 @@ export const FeedPage = () => {
                 <NewPost token={token} />
                 {posts.map((post) => {
                     const liked = post.likes.includes(userID._id);
-                    console.log("Line 75: ", liked);
-                    console.log(post.likes);
-                    console.log(userID);
-                    console.log(typeof userID._id);
                     return (
                         <Post
                             key={post._id}
@@ -84,4 +80,5 @@ export const FeedPage = () => {
             </div>
         </div>
     );
+
 };

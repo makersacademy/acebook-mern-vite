@@ -20,6 +20,7 @@ const likeThePost = async (props) => {
 };
 
 const LikeButton = (props) => {
+
 	const [like, setLike] = useState(props.liked);
 	const handleClick = async () => {
 		try {
@@ -34,7 +35,13 @@ const LikeButton = (props) => {
 	};
 
 	return (
-		<button onClick={handleClick}>{props.liked ? "unlike" : "like"}</button>
+		<button onClick={handleClick}>
+			{props.liked ? (
+				<i className="fa-solid fa-thumbs-up"></i>
+			) : (
+				<i className="fa-regular fa-thumbs-up"></i>
+			)}
+		</button>
 	);
 };
 

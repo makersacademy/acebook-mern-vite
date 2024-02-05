@@ -132,12 +132,62 @@ const editBio = async (req, res) => {
 	}
 }
 
+
+const addFriend = async(req, res) => {
+	const username = req.params.username
+	const requestingUserId = req.body.requestingUserId
+
+	const requestingUser = await User.findById(requestingUserId);
+	if (!requestingUser) {
+	return res.status(400).json({ message: "Requesting user not found" });
+	}
+
+	try {
+		const updatedUser = await User.findOneAndUpdate(
+			{username:username},
+			{$addToSet: {friends: requestingUserId}},
+			{new: true}
+		);
+		if (!updatedUser) {
+			return res.status(404).json({ message: "User not found" });
+		}
+		res.status(200).json({message: 'Friend added to array'});
+	} catch (error) {
+		res.status(500).json({message: "error adding friend"})
+	}
+
+}
+
+const removeFriend = async(req, res) => {
+
+	const username = req.params.username
+	const requestingUserId = req.body.requestingUserId
+
+	try {
+		const updatedUser = await User.findOneAndUpdate(
+			{username:username},
+			{$pull: {friends: requestingUserId}},
+			{new:true}
+		);
+		if (!updatedUser) {
+			return res.status(404).json({ message: "User not found" });
+		}
+		res.status(200).json({message: 'Friend removed from array'});	
+	} catch (error) {
+		res.status(500).json({message: "error removing friend"})
+	}
+}
+
+
+
 const UsersController = {
     create: create,
     getUser: getUser,
 	uploadImage: uploadImage,
 	editBio: editBio,
-	searchUsers: searchUsers
+	searchUsers: searchUsers,
+	addFriend: addFriend,
+	removeFriend: removeFriend
 };
 
 module.exports = UsersController;
