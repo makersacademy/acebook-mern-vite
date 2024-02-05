@@ -20,8 +20,8 @@ const CommentsList = (props) => {
 
     return (
         <>
-            {[...comments].map((comment, index) => (
-                    <Comment text={comment.message} key={comment._id} author={comment.full_name} />
+            {[...comments].map((comment) => (
+                    <Comment key={comment._id} comment_data={comment} />
             ))}
         </>
     );
