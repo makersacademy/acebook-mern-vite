@@ -5,12 +5,20 @@ import PostsController from "../../../api/controllers/posts";
 
 import { FeedPage } from "../../src/pages/Feed/FeedPage";
 import { getPosts } from "../../src/services/posts";
+import { getId } from "../../src/services/users";
 import { useNavigate, Link } from "react-router-dom";
+
 
 // Mocking the getPosts service
 vi.mock("../../src/services/posts", () => {
   const getPostsMock = vi.fn();
   return { getPosts: getPostsMock };
+});
+
+// Mocking the getId service
+vi.mock("../../src/services/users", () => {
+  const getIdMock = vi.fn();
+  return { getId: getIdMock };
 });
 
 // Mocking React Router's useNavigate function
@@ -37,9 +45,10 @@ describe("Feed Page", () => {
   test("It displays posts from the backend", async () => {
     window.localStorage.setItem("token", "testToken");
 
-    const mockPosts = [{ _id: "12345", message: "Test Post 1" }];
+    const mockPosts = [{ _id: "12345", message: "Test Post 1", likes: [] }];
 
     getPosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
+    getId.mockResolvedValue({user_id: '1'});
 
     render(<FeedPage />);
 
@@ -55,8 +64,10 @@ describe("Feed Page", () => {
 
   test('Creates a new post if token present', async () => {
     window.localStorage.setItem("token", "testToken");
-    const mockPosts = [{ _id: "12345", message: "Test Post 1", }];
+    const mockPosts = [{ _id: "12345", message: "Test Post 1", likes: [] }];
     getPosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
+    getId.mockResolvedValue({user_id: '1'});
+
     const navigateMock = useNavigate();
     render(<FeedPage />);
     
