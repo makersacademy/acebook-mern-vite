@@ -8,7 +8,7 @@ export const getId = async (token) => {
     },
   };
 
-  const response = await fetch(`${BACKEND_URL}/users`, requestOptions);
+  const response = await fetch(`${BACKEND_URL}/users/id`, requestOptions);
 
   if (response.status !== 200) {
     throw new Error("Unable to fetch user id");

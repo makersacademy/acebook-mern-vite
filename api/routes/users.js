@@ -7,6 +7,6 @@ const UsersController = require("../controllers/users");
 const router = express.Router();
 
 router.post("/", UsersController.create);
-router.get("/", tokenChecker, UsersController.getId);
+router.get("/id", tokenChecker, UsersController.getId);
 
 module.exports = router;
