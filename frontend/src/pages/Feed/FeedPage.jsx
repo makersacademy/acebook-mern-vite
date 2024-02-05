@@ -14,12 +14,20 @@ export const FeedPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if(token) {
+      getId(token)
+      .then((data) => {
+        setUserId(data.user_id);
+      })
+    }
+  }, []);
+  
+  useEffect(() => {
     if (token) {
       getPosts(token)
         .then((data) => {
           setPosts(data.posts);
           setToken(data.token);
-          setUserId(data.user_id);
           window.localStorage.setItem("token", data.token);
         })
         .catch((err) => {
