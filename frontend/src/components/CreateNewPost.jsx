@@ -62,7 +62,7 @@ const CreateNewPost = ({ token, setPostChanged }) => {
                     </button>
                 </div>
                 <div className="upload-a-picture">
-                    <button>{!image ? "Upload a photo" : `Photo Added\n${image.name}`}</button>
+                    <button>{!image ? "Add a photo" : `Photo Added\n${image.name}`}</button>
                     <input
                         name="images"
                         type="file"
