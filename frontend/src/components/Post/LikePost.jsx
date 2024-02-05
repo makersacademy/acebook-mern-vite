@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import {likePost} from "../../services/posts";
 import koalathumbsup from "../../assets/koalathumbsup.png"
 import thumbsup from "../../assets/thumbsup.png"
-import './LikePost.css'
+import './Post.css'
 
 
 
@@ -26,7 +26,7 @@ const LikePostButton = (prop) => {
 
     return <>
     <button onClick={handleLike} className="likeButton">
-        <img src={koalathumbsup} height = "40"></img></button>
+        <img src={thumbsup} height = "20"></img></button>
     </>
 
   };
