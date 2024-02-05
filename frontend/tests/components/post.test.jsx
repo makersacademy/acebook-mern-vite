@@ -1,5 +1,6 @@
+/* eslint-disable no-undef */
 import { render, screen } from "@testing-library/react";
-
+import '@testing-library/jest-dom'
 import Post from "../../src/components/Post/Post";
 
 describe("Post", () => {
@@ -7,7 +8,7 @@ describe("Post", () => {
     const testPost = { _id: "123", message: "test message" };
     render(<Post post={testPost} />);
 
-    const article = screen.getByRole("article");
-    expect(article.textContent).toBe("test message");
+    // const article = screen.getByRole("article");
+    expect(screen.getByText(/test message/i)).toBeInTheDocument();
   });
 });

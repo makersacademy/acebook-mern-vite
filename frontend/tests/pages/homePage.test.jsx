@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-
 import { HomePage } from "../../src/pages/Home/HomePage";
+import '@testing-library/jest-dom'
+
 
 describe("Home Page", () => {
   test("welcomes you to the site", () => {
@@ -12,8 +13,7 @@ describe("Home Page", () => {
       </BrowserRouter>
     );
 
-    const heading = screen.getByRole("heading");
-    expect(heading.textContent).toEqual("Welcome to Acebook!");
+    expect(screen.getByRole('heading', {name: /welcome to acebook!/i})).toBeInTheDocument()
   });
 
   test("Displays a signup link", async () => {

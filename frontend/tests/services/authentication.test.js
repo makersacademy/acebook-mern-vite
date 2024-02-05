@@ -42,7 +42,7 @@ describe("authentication service", () => {
 			});
 
 			const token = await login(testEmail, testPassword);
-			expect(token).toEqual("testToken");
+			expect(token.token).toEqual("testToken");
 		});
 
 		test("throws an error if the request failed", async () => {

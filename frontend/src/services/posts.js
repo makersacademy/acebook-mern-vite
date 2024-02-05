@@ -19,6 +19,7 @@ export const getPosts = async (token) => {
   return data;
 };
 
+
 export const createPost = async (token, message) => {
   const payload = {
     message: message,
@@ -42,3 +43,4 @@ export const createPost = async (token, message) => {
   );
 }
 };
+

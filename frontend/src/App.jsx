@@ -29,14 +29,12 @@ const router = createBrowserRouter([
     path: "/users/:username",
     element: <UserPage />
   }
-
 ]);
+
 
 const App = () => {
     return (
-        <>
-            <RouterProvider router={router} />
-        </>
+      <RouterProvider router={router} />
     );
 };
 
