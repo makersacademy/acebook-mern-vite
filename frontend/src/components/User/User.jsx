@@ -2,9 +2,17 @@ import { useState, useEffect } from 'react';
 import Comment from '../Comment/Comment.jsx';
 import './User.css';
 import Post from '../Post/Post.jsx';
+import { addFriend, removeFriend } from '../../services/user.js';
 
-const User = ({_id, username, email, friends, image, bio, posts }) => {
+const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId, token, triggerStateChange }) => {
     const [userPosts, setUserPosts] = useState([])
+
+    const friendIds = friends.map((friend) => {
+        return friend._id
+    })
+
+    console.log("friend Ids", friendIds)
+    
 
 
     useEffect(()=> {
@@ -12,14 +20,39 @@ const User = ({_id, username, email, friends, image, bio, posts }) => {
             (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
         );
         setUserPosts(sortedPosts.reverse());
-        console.log("sorted posts", userPosts)
     }, ([posts]))
+
+    const handleAddFriend = () => {
+        addFriend(username, loggedInUserId, token)
+            .then(res => console.log(res))
+            .then(triggerStateChange())
+    }
+
+    const handleRemoveFriend = () => {
+        removeFriend(username, loggedInUserId, token)
+            .then(res => console.log(res))
+            .then(triggerStateChange())
+    }
     
     
     return (
         <div className="User" key={_id}>
-            <img src={image} alt="Profile Picture" />
-            <p>{_id}</p>
+            <img src={image} alt="Profile Picture" /><br></br>
+            {/* <p>{_id}</p> */}
+            
+            {friendIds.includes(loggedInUserId) ?
+    
+                <button
+                onClick={handleRemoveFriend}>
+                    remove from friends
+                </button>
+            
+            : 
+            
+            <button
+            onClick={handleAddFriend}
+            >Add friend</button> }
+
             <p>Username: {username}</p>
             <p>Email: {email}</p>
             <p>Bio: {bio}</p>
