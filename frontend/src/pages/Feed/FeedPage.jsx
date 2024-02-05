@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
+import NewPost from "../../components/Post/NewPost" 
 import Post from "../../components/Post/Post";
 import Navbar from "../../components/NavBar/navbar";
 
@@ -11,6 +12,21 @@ export const FeedPage = () => {
     // const [click, setClick] = useState(false);
 	const [stateChange, setStateChange] = useState(false)
 
+  useEffect(() => {
+    if (token) {
+      getPosts(token)
+        .then((data) => {
+          setPosts(data.posts);
+          setToken(data.token);
+          window.localStorage.setItem("token", data.token);
+        })
+        .catch((err) => {
+          console.err(err);
+        });
+    } else {
+      navigate("/login");
+    }
+  }, []);
 	const toggleStateChange = () => {
 		setStateChange(!stateChange)
 	}
@@ -59,4 +75,15 @@ export const FeedPage = () => {
 		</div>
 	);
 
+  return (
+    <>
+      <h2>Posts</h2>
+      <div className="feed" role="feed">
+        <NewPost token={token}/>
+        {posts.map((post) => (
+          <Post post={post} key={post._id} />
+        ))}
+      </div>
+    </>
+  );
 };

@@ -11,5 +11,4 @@ router.patch("/:username/upload", multerUpload.single('file'), UsersController.u
 router.patch("/:username/edit-bio", UsersController.editBio);
 router.get("/", UsersController.searchUsers)
 
-
 module.exports = router;

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const root = "../public/images/";
 
+
 const UserSchema = new mongoose.Schema(
 	{
 		username: { type: String, unique: true },

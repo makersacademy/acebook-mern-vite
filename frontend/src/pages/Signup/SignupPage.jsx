@@ -10,6 +10,7 @@ export const SignupPage = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -47,6 +48,7 @@ export const SignupPage = () => {
                     value={username}
                     onChange={handleUsernameChange}
                 />
+
                 <label htmlFor="email"></label>
                 <input
                     id="email"
@@ -55,7 +57,8 @@ export const SignupPage = () => {
                     value={email}
                     onChange={handleEmailChange}
                 />
-                <label htmlFor="password"></label>
+
+                <label htmlFor="password">Password:</label>
                 <input
                     placeholder="Password"
                     id="password"

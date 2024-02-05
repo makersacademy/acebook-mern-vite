@@ -19,6 +19,7 @@ export const getUser = async (token, username) => {
     return data;
 };
 
+
 export const searchUsers = async (searchQuery) => {
     const requestOptions = {
         method: "GET",

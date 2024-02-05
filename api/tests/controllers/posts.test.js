@@ -10,6 +10,7 @@ require("../mongodb_helper");
 const secret = process.env.JWT_SECRET;
 
 const createToken = (userId) => {
+
 	return JWT.sign(
 		{
 			user_id: userId,
@@ -24,6 +25,7 @@ const createToken = (userId) => {
 
 let token;
 describe("/posts", () => {
+
 	beforeAll(async () => {
 		const user = new User({
 			username: "posttest",
@@ -190,4 +192,5 @@ describe("/posts", () => {
 			expect(response.body.token).toEqual(undefined);
 		});
 	});
+
 });

@@ -26,6 +26,7 @@ const createToken = async (req, res) => {
                 model: 'Comment'
             }
         })
+
     console.log("User found:", user); // Log the user found
     if (!user) {
         console.log("Auth Error: User not found");
