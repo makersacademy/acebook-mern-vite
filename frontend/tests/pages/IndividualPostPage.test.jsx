@@ -53,7 +53,7 @@ describe("Individual Post Page", () => {
         render(<PostPage />);
 
         const postElement = await screen.findByRole("postContent");
-        console.log(postElement);
+        //console.log(postElement);
 
         expect(postElement.textContent).toContain("Test Post 1");
     });
@@ -73,8 +73,8 @@ describe("Individual Post Page", () => {
             comments: mockComments,
             token: "newToken",
         });
-        console.log("mockComments:");
-        console.log(mockComments);
+        //console.log("mockComments:");
+        //console.log(mockComments);
 
         render(<PostPage />);
 
