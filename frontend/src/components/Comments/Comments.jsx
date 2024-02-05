@@ -10,17 +10,19 @@ const createDate = (date) => {
     return `${day}/${month}/${year} ${hours}:${minutes}`;
 };
 
-const Post = (props) => {
-    const datetime = new Date(props.post.reg_time);
+const Comment = (props) => {
+    const datetime = new Date(props.comment.reg_time);
     const date = createDate(datetime);
+
     return (
-        <article key={props.post._id}>
-            <p className="message">{props.post.message}</p>
+        <article key={props.comment._id}>
+            <p className="message">{props.comment.message}</p>
             <p className="messageInfo">
-                {props.post.username} {date}
+                {props.comment.username} {date}
             </p>
+            <hr></hr>
         </article>
     );
 };
 
-export default Post;
+export default Comment;
