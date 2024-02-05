@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/Navbar/Navbar";
 
 import { signup } from "../../services/authentication";
 
@@ -42,6 +43,7 @@ export const SignupPage = () => {
 
   return (
     <>
+    {/* <Navbar /> */}
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>

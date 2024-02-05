@@ -5,7 +5,7 @@ import PostsController from "../../../api/controllers/posts";
 
 import { FeedPage } from "../../src/pages/Feed/FeedPage";
 import { getPosts } from "../../src/services/posts";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 // Mocking the getPosts service
 vi.mock("../../src/services/posts", () => {
@@ -14,10 +14,19 @@ vi.mock("../../src/services/posts", () => {
 });
 
 // Mocking React Router's useNavigate function
-vi.mock("react-router-dom", () => {
+vi.mock("react-router-dom", async () => {
+  //imports module bypassing all the mock checks. Here I only want Link to be mocked partially
+  // from this module.
+  const allfunctions = await vi.importActual('react-router-dom');
   const navigateMock = vi.fn();
   const useNavigateMock = () => navigateMock; // Create a mock function for useNavigate
-  return { useNavigate: useNavigateMock };
+  
+  return { 
+    ...allfunctions, 
+      useNavigate: useNavigateMock,
+      // to describes the target URL, and the children is the content
+      Link: ({ to, children }) => <a href={to}>{children}</a> 
+    }
 });
 
 describe("Feed Page", () => {
