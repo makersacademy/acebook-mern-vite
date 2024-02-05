@@ -74,16 +74,4 @@ export const FeedPage = () => {
 			</div>
 		</div>
 	);
-
-  return (
-    <>
-      <h2>Posts</h2>
-      <div className="feed" role="feed">
-        <NewPost token={token}/>
-        {posts.map((post) => (
-          <Post post={post} key={post._id} />
-        ))}
-      </div>
-    </>
-  );
 };

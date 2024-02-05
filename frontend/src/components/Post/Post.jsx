@@ -32,7 +32,7 @@ return (
         </div>
       {props.post.message}<br></br>
       <h5>likes: {props.post.likes.length}</h5>
-	  <LikeButton
+      <LikeButton
             postID={props.post._id}
             like={like}
             handleLikeUnlike={handleLikeUnlike}
