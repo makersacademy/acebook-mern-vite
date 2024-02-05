@@ -16,38 +16,27 @@ const likeThePost = async (props) => {
         }
     } catch (error) {
         console.error("Error fetching data:", error);
-        // Handle errors appropriately
     }
 };
-// const handleClick = async (props) => {
-//     await likeThePost(props)
-//         .then(() => props.handleLikeUnlike())
-//         .then(() => {
-//             props.clicked();
-//             console.log("Clicked is being clicked");
-//         })
-//     console.log("I'm being clicked");
-// props.handleLikeUnlike();
-// };
 
 const LikeButton = (props) => {
-    const [like, setLike] = useState(false);
-    const handleClick = async (props) => {
-        await likeThePost(props)
-            .then(() => props.handleLikeUnlike())
-            .then(() => {
-                // props.clicked();
-                console.log("Clicked is being clicked");
-                props.toggleStateChange();
-            })
-            .then(() => {
-                setLike(!like);
-                console.log("and me!");
-            });
-        console.log("I'm being clicked");
-        // props.handleLikeUnlike();
+    const [like, setLike] = useState(props.liked);
+    const handleClick = async () => {
+        try {
+            await likeThePost(props);
+            props.handleLikeUnlike();
+            props.toggleStateChange();
+            setLike((prevLike) => !prevLike);
+            console.log("Clicked is being clicked");
+        } catch (error) {
+            console.error("Error liking/unliking post:", error);
+            // Handle errors appropriately
+        }
     };
-    return <button onClick={() => handleClick(props)}>Like</button>;
+
+    return (
+        <button onClick={handleClick}>{props.liked ? "unlike" : "like"}</button>
+    );
 };
 
 export default LikeButton;
