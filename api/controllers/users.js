@@ -39,20 +39,47 @@ const getAllUserInfo = async (req, res) => {
   } 
   catch (error) {
     console.log(error)
-    console.log("bad call")
     return res.status(404).json({ message: 'User not found' })
   }
 };
+
+const updateUserInfo = async (req, res) => {
+    updatedData = {
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+      profile_picture: req.body.profile_picture || null,
+      };
+      
+    const user = await User.findById(req.user_id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found', code: 2 });
+    }
+    // evaluates whether any of the inputs have been updated and defaults
+    // to the saved value if not/
+    user.username = updatedData.username || user.username;
+    user.email = updatedData.email || user.email;
+    user.password = updatedData.password || user.password;
+    user.profile_picture = updatedData.profile_picture || user.profile_picture;
+    
+    await user.save();
+
+    const token = generateToken(req.user_id);
+    return res.status(200).json({message: "User updated", user, token});
+  };
+
 
 const clearTestData = async () => {
   await User.deleteMany({})
 }
 
-
 const UsersController = {
   create: create,
   getAllUserInfo: getAllUserInfo, 
+  updateUserInfo: updateUserInfo,
   clearTestData: clearTestData,
 };
+
 
 module.exports = UsersController;

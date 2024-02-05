@@ -26,7 +26,7 @@ export const Navbar = () => {
                 window.localStorage.setItem("token", data.token);
                 })
         .catch((err) => {
-            console.err(err);
+            console.error(err);
             console.log(err)
             });
         }

@@ -9,6 +9,7 @@ const logReq = (req) => {
 }
 
 router.post("/", UsersController.create);
-router.get("/", tokenChecker, UsersController.getAllUserInfo)
+router.get("/", tokenChecker, UsersController.getAllUserInfo);
+router.patch("/",tokenChecker, UsersController.updateUserInfo);
 
 module.exports = router;

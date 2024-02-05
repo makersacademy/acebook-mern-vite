@@ -50,6 +50,7 @@ export const signup = async (username, email, password, profile_picture) => {
     password: password,
     profile_picture: profile_picture,
   };
+  
 
   const requestOptions = {
     method: "POST",
