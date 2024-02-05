@@ -86,6 +86,7 @@ const UsersController = {
 
   deleteUser: async (req, res) => {
     const { id } = req.params;
+    console.log(id)
 
     try {
       const deletedUser = await User.deleteOne({_id:new mongoose.Types.ObjectId(id)});

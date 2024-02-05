@@ -18,15 +18,17 @@ router.put("/:id", async (req, res) => {
 });
 
 // Route for deleting a user
-router.delete("/:id", async (req, res) => {
-  const { id } = req.params;
+router.delete("/:id", userController.deleteUser);
+// router.delete("/:id", async (req, res) => {
+//   const { id } = req.params;
 
-  try {
-    const deletedUser = await userController.deleteUser(id);
-    res.json({ message: "User deleted successfully", deletedUser });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+
+//   try {
+//     const deletedUser = await userController.deleteUser(id);
+//     res.json({ message: "User deleted successfully", deletedUser });
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
 
 module.exports = router;
