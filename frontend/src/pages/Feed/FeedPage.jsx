@@ -55,7 +55,7 @@ export const FeedPage = () => {
     if (!token) {
         return;
     }
-  
+
 	return (
 		<div className="feedpage" data-testid="feed-page">
 			<div className="navbar">

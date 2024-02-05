@@ -61,32 +61,30 @@ export const UserPage = () => {
             <h1>User Page</h1>
             
 
-
-            {loggedInUser._id === user._id ? 
-
-            <EditUserModal 
-            username={username}
-            // image={user.image}
-            image={profilePicture}
-            handleImageUpdate={handleImageUpdate}
-            handleBioUpdate={handleBioUpdate}
-
-            />
-
-            : <p>no</p>}
-
-            <User 
-                key={user._id}
-                _id={user._id}
-                username={user.username}
-                email={user.email}
-                bio={bio}
-                friends={user.friends}
-                image={profilePicture}
-                posts={user.posts}
-                
             
-            />
+                {loggedInUser._id === user._id && 
+
+                <EditUserModal 
+                username={username}
+                // image={user.image}
+                image={profilePicture}
+                handleImageUpdate={handleImageUpdate}
+                handleBioUpdate={handleBioUpdate}
+                />
+
+                }
+                <div className="user-container">
+                <User 
+                    key={user._id}
+                    _id={user._id}
+                    username={user.username}
+                    email={user.email}
+                    bio={bio}
+                    friends={user.friends}
+                    image={profilePicture}
+                    posts={user.posts}
+                />
+                </div>
             
             </>
         );

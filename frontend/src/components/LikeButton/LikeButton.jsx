@@ -47,7 +47,13 @@ const LikeButton = (props) => {
         console.log("I'm being clicked");
         // props.handleLikeUnlike();
     };
-    return <button onClick={() => handleClick(props)}>Like</button>;
+  
+    return (
+      <button onClick={() => handleClick(props)}>
+          <i className="fa-solid fa-thumbs-up"></i>
+      </button>
+    )
+
 };
 
 export default LikeButton;
