@@ -1,11 +1,11 @@
 .profilePage_user_picture {
   width: 200px;
   height: 200px;
-  margin-left: 8%;
+  margin-left: 3%;
   border-radius: 50%;
   border: 2px solid #1877f2;
   margin-right: 80%;
-  position: absolute
+  position: absolute;
 }
 
 .profile {
@@ -14,14 +14,28 @@
   text-align: center;
   justify-content: space-between;
   flex-direction: column;
+  margin-top: 20px; /* Adjust the top margin as needed */
 }
 
 .profile .user-details {
-  margin-top: 50px;
+  margin-top: 20px; /* Adjust the top margin as needed */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 60%;
+}
+
+.user-details p {
+  margin: 8px 0;
+  text-align: justify;
+  padding-left: 3%;
+  padding-right: 3%;
 }
 
 .posts-by-user {
-  margin-top: 100px;
+  margin-top: 20px; /* Adjust the top margin as needed */
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -34,22 +48,6 @@
 }
 
 
-/* @media (min-width: 1440px) {
-  .profile {
-    width: 1440px;
-  }
-} */
-
-.success-message {
-  background-color: #4caf50; 
-  color: #fff; 
-  padding: 10px; 
-  border-radius: 5px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  margin-bottom: 10px;
-}
-
-/* Add these styles to your existing profilePage.css file */
 
 .settings {
   max-width: 600px;
@@ -74,12 +72,17 @@
 }
 
 .input-settings {
-  width: 100%;
+  width: 80%;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #cccccc;
   border-radius: 4px;
   font-size: 16px;
+}
+
+.about-me {
+  height: 100px;
+  vertical-align: top;
 }
 
 .button-settings {
@@ -109,4 +112,3 @@
 .delete-button:hover {
   background-color: #ff0000;
 }
-
