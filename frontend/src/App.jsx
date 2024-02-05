@@ -47,7 +47,8 @@ const router = createBrowserRouter([
         {
           path: "/profileEdits",
           element: <ProfileEditsPage />,
-        }
+        },
+        {
           path: "/posts/find/:id",
           element: <PostPage />,
         },
