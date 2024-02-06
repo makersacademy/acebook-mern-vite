@@ -22,10 +22,9 @@ export const updateUser = async (token, id, updatedUserData) => {
   const requestOptions = {
     method: "PUT",
     headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(updatedUserData),
+    body: updatedUserData,
   };
 
   const response = await fetch(`${BACKEND_URL}/users/${id}`, requestOptions);
