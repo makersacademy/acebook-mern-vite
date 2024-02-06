@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createNotification } from "../../services/user";
 
 const likeThePost = async (props) => {
 	try {
@@ -32,6 +33,20 @@ const LikeButton = (props) => {
 		} catch (error) {
 			console.error("Error liking/unliking post:", error);
 		}
+		// likeThePost not working below try statement needs to be after await likeThePost when working
+		try {
+			const notificationResult = await createNotification({
+				username: props.loggedInUsername, 
+				entity_userId: props.post_userId,
+				token: props.token,
+				notificationType: "post-like"
+			})
+		} catch (error) {
+			console.log("An error occured while creating a notification")
+		}
+
+
+
 	};
 
 	return (

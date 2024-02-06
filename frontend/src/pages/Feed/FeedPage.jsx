@@ -14,7 +14,7 @@ export const FeedPage = () => {
     const navigate = useNavigate();
 
     const toggleStateChange = () => {
-      setStateChange(!stateChange)
+        setStateChange(!stateChange)
     }
 
 
@@ -48,11 +48,11 @@ export const FeedPage = () => {
 			</div>
 			<h1>Posts</h1>
 			<div className="feed" role="feed">
-      <NewPost 
-      token={token}
-      userId={user._id}
-      toggleStateChange={toggleStateChange}
-      />
+                <NewPost 
+                token={token}
+                userId={user._id}
+                toggleStateChange={toggleStateChange}
+                />
 
 				{posts.map((post) => (
 					<Post 
@@ -60,6 +60,8 @@ export const FeedPage = () => {
 						post={post}
 						postedBy={post.postedBy}
 						toggleStateChange={toggleStateChange}
+                        loggedInUsername={user.username}
+                        token={token}
 					/>
 				))}
 			</div>

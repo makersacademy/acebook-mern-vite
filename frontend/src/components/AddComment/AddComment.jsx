@@ -7,7 +7,7 @@ import { createNotification } from "../../services/user"
 export default function AddComment({ postId, toggleStateChange, post_userId }) {
     const [commentText, setCommentText] = useState("")
     const [token, setToken] = useState(window.localStorage.getItem("token"))
-    const [userId, setUserId] = useState(JSON.parse(window.localStorage.getItem("user")))
+    const [user, setUserId] = useState(JSON.parse(window.localStorage.getItem("user")))
     const [errorMessage, setErrorMessage] = useState("")
 
     const handleChange = (event) => {
@@ -19,7 +19,7 @@ export default function AddComment({ postId, toggleStateChange, post_userId }) {
         event.preventDefault();
         if(commentText.length !== 0){
             try {
-                const result = await postComment(token, commentText, postId, userId._id)
+                const result = await postComment(token, commentText, postId, user._id)
                 console.log(result)
                 toggleStateChange()
                 
