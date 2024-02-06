@@ -13,9 +13,9 @@ const Post = ({ post, token }) => {
   const [numberOfLikes, setNumberOfLikes] = useState(0);
   const [toggleCommentForm, setToggleCommentForm] = useState(false);
   const navigate = useNavigate();
-  const profilePage = () => {
-    navigate("/profile")
-  }
+  const navigateToProfile = () => {
+    navigate(`/profile/${post.user_id}`);
+  };
 
   useEffect(() => {
     const fetchLikes = async () => {
@@ -58,14 +58,12 @@ const Post = ({ post, token }) => {
     <div className="post" id={post._id}>
       <div className="post-header">
         <img src={post.profile_pic} alt={`Author's avatar`} />
-        <a href={`/profile`} onClick={(e) => {
-          e.preventDefault(); // Prevent default link behavior
-          profilePage(); // Call your profilePage function or navigate programmatically
-        }}>{post.full_name}</a>
+        <a onClick={navigateToProfile}>{post.full_name}</a>
       </div>
       <div className="post-content">
         <article>{post.message}</article>
         {post.image != "" ? ( <img src={post.image} className="post-image"/>): null} 
+        {/* <div>user_id: {post.user_id}</div> */}
       </div>
       <div className="post-actions">
         <div className="like-btn" onClick={handleLikeClick}>
@@ -92,5 +90,3 @@ const Post = ({ post, token }) => {
 };
 
 export default Post;
-
-// commit test

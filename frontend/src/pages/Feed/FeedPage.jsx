@@ -27,7 +27,7 @@ export const FeedPage = () => {
           window.localStorage.setItem("token", data.token);
         })
         .catch((err) => {
-          console.err(err);
+          console.error(err);
         });
       getUser(token, id)
         .then((data) => {
@@ -51,7 +51,7 @@ export const FeedPage = () => {
           window.localStorage.setItem("token", data.token);
         })
         .catch((err) => {
-          console.err(err);
+          console.error(err);
         });
     }
   }, [postChanged])
@@ -73,6 +73,7 @@ export const FeedPage = () => {
       <div className="feed" role="feed">
       {[...posts].reverse().map((post) => (
           <Post post={post} key={post._id} token={token} />
+  
         ))}
           </div>
         </div>
