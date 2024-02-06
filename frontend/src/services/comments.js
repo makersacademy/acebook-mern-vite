@@ -64,3 +64,49 @@ export const deleteComment = async (token, id) => {
   const deletedComment = await response.json();
   return deletedComment;
 };
+
+export const likeComment = async (commentId, token) => {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json", // Specify the content type as JSON
+    },
+    body: JSON.stringify({ commentId }), // Send the comment ID to the backend
+  };
+
+  // console.log("Request Body:", requestOptions.body);
+
+  const response = await fetch(
+    `${BACKEND_URL}/comments/like/toggle`,
+    requestOptions
+  );
+
+  if (response.status !== 200) {
+    throw new Error("Unable to toggle the like status of the comment");
+  }
+
+  const data = await response.json();
+  return data;
+};
+
+export const getAllLikesByCommentId = async (commentId, token) => {
+  try {
+    const response = await fetch(`${BACKEND_URL}/comments/likes/${commentId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};

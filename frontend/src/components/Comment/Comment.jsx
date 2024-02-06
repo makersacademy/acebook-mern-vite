@@ -1,8 +1,9 @@
 // frontend/src/components/Comment/Comment.jsx
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./comment.css"
 import { deleteComment } from '../../services/comments';
+import { getAllLikesByCommentId, likeComment } from '../../services/comments';
 
 const Comment = ({ comment_data, setNewComment }) => {
     const [showOptions, setShowOptions] = useState(false)
@@ -24,15 +25,28 @@ const Comment = ({ comment_data, setNewComment }) => {
           }
     }
 
+    useEffect(() => {
+        const fetchLikes = async () => {
+            try {
+              const likesData = await getAllLikesByCommentId(comment_data._id, token);
+              setIsLiked(likesData.userLiked);
+              setNumberOfLikes(likesData.numberOfLikes);
+            } catch (error) {
+              console.error("Error fetching likes:", error);
+            }
+        };
+        fetchLikes()
+    }, [isLiked])
+
     const handleLikeClick = async () => {
         try {
           // Call the likePost function to send the like request to the backend
-          //await likePost(post._id, token);
+          await likeComment(comment_data._id, token);
     
           // Toggle the like status in the UI
-          //setIsLiked(!isLiked);
+          setIsLiked(!isLiked);
         } catch (error) {
-          //console.error("Error liking the post:", error.message);
+          console.error("Error liking the post:", error.message);
         }
       };
 
