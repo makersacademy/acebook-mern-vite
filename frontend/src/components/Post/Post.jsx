@@ -1,16 +1,21 @@
 // frontend/src/components/Post/Post.jsx
 
 import React, { useEffect, useState } from "react";
-import ".././pages/Feed/FeedPage.css";
-import { likePost } from "../services/posts";
-import { getAllLikesByPostId } from "../services/posts";
-import CreateNewComment from "./Comment/CreateNewComment";
-import CommentsList from "./Comment/CommentsList";
+import "../../pages/Feed/FeedPage.css";
+import { likePost } from "../../services/posts";
+import { getAllLikesByPostId } from "../../services/posts";
+import CreateNewComment from "../Comment/CreateNewComment";
+import CommentsList from "../Comment/CommentsList";
+import { useNavigate } from "react-router-dom";
 
 const Post = ({ post, token }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [numberOfLikes, setNumberOfLikes] = useState(0);
   const [toggleCommentForm, setToggleCommentForm] = useState(false);
+  const navigate = useNavigate();
+  const profilePage = () => {
+    navigate("/profile")
+  }
 
   useEffect(() => {
     const fetchLikes = async () => {
@@ -53,7 +58,10 @@ const Post = ({ post, token }) => {
     <div className="post" id={post._id}>
       <div className="post-header">
         <img src={post.profile_pic} alt={`Author's avatar`} />
-        <h4>{post.full_name}</h4>
+        <a href={`/profile`} onClick={(e) => {
+          e.preventDefault(); // Prevent default link behavior
+          profilePage(); // Call your profilePage function or navigate programmatically
+        }}>{post.full_name}</a>
       </div>
       <div className="post-content">
         <article>{post.message}</article>

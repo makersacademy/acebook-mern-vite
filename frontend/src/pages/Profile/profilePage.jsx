@@ -2,10 +2,10 @@ import Navbar from "../../components/Navbar/Navbar.jsx";
 import { useState, useEffect } from "react";
 import { getUser } from "../../services/users"
 import "./profilePage.css"
-import Post from "../../components/Post.jsx";
+import Post from "../../components/Post/Post.jsx";
 import { getPostsByUser } from "../../services/posts";
 
-export const ProfilePage = () => {
+export const ProfilePage = (otherUserId = none) => {
     document.title = "Profile Page"
     
     const [user, setUser] = useState({});
@@ -57,4 +57,3 @@ export const ProfilePage = () => {
         </>
     )
 };
-
