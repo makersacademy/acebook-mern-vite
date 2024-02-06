@@ -289,4 +289,96 @@ describe("/posts", () => {
             expect(response.body.token).toEqual(undefined);
         });
     });
+
+    describe("DELETE single post, when token is present", () => {
+        test("the response code is 200", async () => {
+            const post1 = new Post({
+                message: "Test message",
+            });
+            await post1.save();
+
+            const response = await request(app)
+                .delete(`/posts/find/${post1._id}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            expect(response.status).toEqual(200);
+        });
+
+        test("returns single post when 2 have been added and 1 deleted", async () => {
+            const post1 = new Post({ message: "howdy!" });
+            const post2 = new Post({ message: "hola!" });
+            await post1.save();
+            await post2.save();
+
+            await request(app)
+            .delete(`/posts/find/${post1._id}`)
+            .set("Authorization", `Bearer ${token}`)
+
+            const response = await request(app)
+                .get(`/posts`)
+                .set("Authorization", `Bearer ${token}`);
+
+            const posts = response.body.posts;
+
+            expect(posts.length).toEqual(1)
+            expect(posts[0].message).toEqual("hola!");
+        });
+
+        test("returns a new token", async () => {
+            const post1 = new Post({ message: "First Post!" });
+            const post2 = new Post({ message: "Second Post!" });
+            await post1.save();
+            await post2.save();
+
+            const response = await request(app)
+            .delete(`/posts/find/${post1._id}`)
+            .set("Authorization", `Bearer ${token}`)
+
+            const newToken = response.body.token;
+            const newTokenDecoded = JWT.decode(
+                newToken,
+                process.env.JWT_SECRET
+            );
+            const oldTokenDecoded = JWT.decode(token, process.env.JWT_SECRET);
+
+            // iat stands for issued at
+            expect(newTokenDecoded.iat > oldTokenDecoded.iat).toEqual(true);
+        });
+    });
+
+    describe("POST update a single post, when token is present", () => {
+        test("the response code is 200", async () => {
+            const post1 = new Post({
+                message: "Test message",
+            });
+            await post1.save();
+            const post = await Post.findOne({_id: post1._id})
+            post.message = "New Test Message"
+            post.save()
+
+            const response = await request(app)
+                .get(`/posts/find/${post1._id}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            expect(response.status).toEqual(200);
+        });
+
+        test("Updates message of post", async () => {
+            const post1 = new Post({
+                message: "Test message",
+            });
+            await post1.save();
+            const post = await Post.findOne({_id: post1._id})
+            post.message = "New Test Message"
+            post.save()
+            
+            const response = await request(app)
+            .get(`/posts/find/${post1._id}`)
+            .set("Authorization", `Bearer ${token}`);
+
+            const updatedPost = response.body.post;
+
+            expect(updatedPost[0].message).toEqual("New Test Message");
+        });
+    });
 });
