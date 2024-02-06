@@ -14,13 +14,14 @@ export const ProfilePage = () => {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userId, setUserId] = useState('');
   const [posts, setPosts] = useState([]);
-  let [feed, setFeed] = useState("")
+  let [feed, setFeed] = useState("Posts")
   const navigate = useNavigate();
 
 
 
 
   const getUsersPosts = (posts, userId) => {
+    console.log(userId)
     return posts.filter((post) => post.user_id == userId)
   }
 
@@ -38,15 +39,15 @@ export const ProfilePage = () => {
       .then((userId) => {
         getPosts(token)
           .then((data) => {
-            // console.log(data.user_id)
+            
             setToken(data.token);
-            // console.log(feed)
+            console.log(feed)
             // console.log(data)
             console.log(data.posts)
 
             if (feed == "Posts") {
               let usersPosts = getUsersPosts(data.posts, userId);
-              // console.log(usersPosts)
+              console.log(usersPosts)
               setPosts(usersPosts);
             } else if (feed == "Liked") {
               let likedPosts = getLikedPosts(data.posts)
@@ -64,12 +65,11 @@ export const ProfilePage = () => {
     } else {
       navigate("/login")
     }
-  }, [])
+  }, [feed])
 
   if(!token) {
     return;
   }
-  console.log(posts)
 
   return (
     <div className="profilepage">
