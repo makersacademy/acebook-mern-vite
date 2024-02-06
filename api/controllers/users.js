@@ -92,12 +92,19 @@ const getUser = async (req, res) => {
 
 const searchUsers = async (req, res) => {
 	const searchQuery = req.query.search;
-	const results = await User.find({username: searchQuery})
+	const regex = new RegExp(searchQuery, 'i')
 
-	if(!results) {
-        return res.status(400).json({ message: "no search results" });
+	try {
+	const results = await User.find({username: {$regex: regex}})
+
+	if(!results || results.length === 0) {
+        return res.status(404).json({ message: "no search results" });
     }  
     return res.status(200).json({ result: results} );
+	} catch (error) {
+		return res.status(500).json({ message: "internal server error "})
+	}
+
 }
 
 

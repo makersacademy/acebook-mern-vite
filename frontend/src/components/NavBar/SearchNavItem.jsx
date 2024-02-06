@@ -10,6 +10,17 @@ export default function SearchNavItem( { handleSearch }) {
 
     const handleInputChange = (event) => {
         setSearchUserInput(event.target.value)
+        event.preventDefault()
+        searchUsers(event.target.value)
+            .then((data) => {
+                console.log("found this data", data.result)
+                setFoundUsers(data.result)
+                handleSearch(data.result)
+
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     }
 
     const handleSubmit = (event) => {

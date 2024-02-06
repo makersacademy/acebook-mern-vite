@@ -1,6 +1,12 @@
-.search-results {
-    position: absolute;
-    height: 10rem;
-    background-color: grey;
+.search-nav-item {
+    position: relative
+}
 
+.search-results-dropdown {
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    min-width: 230px;
+    min-height: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 }
