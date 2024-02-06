@@ -7,6 +7,7 @@ import Navbar from "../../components/Navbar/Navbar";
 
 
 import { signup } from "../../services/authentication";
+import { login } from "../../services/authentication";
 
 export const SignupPage = () => {
   const [username, setUsername] = useState("");
@@ -20,8 +21,11 @@ export const SignupPage = () => {
     event.preventDefault();
     try {
       await signup(username, email, password, profile_picture);
+      const token = await login(email, password);
+      window.localStorage.setItem("token", token);
       console.log("redirecting...:");
-      navigate("/login");
+      navigate("/posts");
+ 
     } catch (err) {
       console.error(err);
       setError(err.cause)
