@@ -78,7 +78,7 @@ export const SettingsPage = () => {
         {successMessage && <p className="success-message">{successMessage}</p>}
 
         {/* Form for updating user */}
-        <form onSubmit={(e) => e.preventDefault()} class="form-settings">
+        <form onSubmit={(e) => e.preventDefault()} className="form-settings">
           <label className="label-settings">
             Change Name:
           </label>
@@ -118,10 +118,10 @@ export const SettingsPage = () => {
             />
           </label>
 
-          <button onClick={handleUpdate} class="button-settings">Save</button>
+          <button onClick={handleUpdate} className="button-settings">Save</button>
         </form>
 
-        <button onClick={handleDeleteUser} class="delete-button">Delete Account</button>
+        <button onClick={handleDeleteUser} className="delete-button">Delete Account</button>
       </div>
     </>
   );

@@ -42,8 +42,3 @@ export const getAllCommentsForAPost = async (token, post_id) => {
         const data = await response.json();
         return data;
     };
-
-
-
-
-

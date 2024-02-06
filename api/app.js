@@ -11,6 +11,7 @@ const tokenChecker = require("./middleware/tokenChecker");
 const likesRouter = require("./routes/likes");
 const settingsRoutes = require("./routes/settings");
 const commentsRouter = require("./routes/comments");
+const friendsRouter = require("./routes/friends");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use("/posts", tokenChecker, postsRouter);
 app.use("/likes", tokenChecker, likesRouter);
 app.use("/users", settingsRoutes); 
 app.use("/comments", commentsRouter);
+app.use("/friends", tokenChecker, friendsRouter);
 
 // 404 Handler
 app.use((_req, res) => {
