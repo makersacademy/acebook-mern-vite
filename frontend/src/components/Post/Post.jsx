@@ -11,9 +11,13 @@ const Post = (props) => {
     const [showCommentBox, setShowCommentBox] = useState(false);
     const [showMoreComments, setShowMoreComments] = useState(false);
     const [hideComments, setHideComments] = useState(false);
-
+    const [deletes, setDeletes] = useState(false);
     // console.log("comments", props.post.comments)
     // console.log("post media url", props.post.media)
+
+    const handleDelete = () => {
+        setDeletes(!deletes);
+    };
 
     const handleLikeUnlike = () => {
         setLike(!like);
@@ -73,7 +77,11 @@ const Post = (props) => {
                     toggleStateChange={props.toggleStateChange}
                     liked={props.liked}
                 />
-                <DeleteButton />
+                <DeleteButton
+                    postID={props.post._id}
+                    handleDelete={handleDelete}
+                    onDelete={props.onDelete}
+                />
                 <div className="comments">
                     <p> comments </p>
                     <button onClick={addCommentClick}>add comment</button>
