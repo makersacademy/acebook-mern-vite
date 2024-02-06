@@ -16,6 +16,7 @@ export const FeedPage = () => {
             getPosts(token)
                 .then((data) => {
                     setPosts(data.posts);
+                    //console.log(data)
                     setToken(data.token);
                     window.localStorage.setItem("token", data.token);
                 })

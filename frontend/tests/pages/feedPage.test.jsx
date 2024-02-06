@@ -27,7 +27,7 @@ describe("Feed Page", () => {
   test("It displays posts from the backend", async () => {
     window.localStorage.setItem("token", "testToken");
 
-    const mockPosts = [{ _id: "12345", message: "Test Post 1", username: "user1", reg_time: "2024-02-01T12:29:41.763+00:00"}];
+    const mockPosts = [{ _id: "12345", message: "Test Post 1",  user: [{_id: "1234", email: "email1@email.com", password: "123", username: "user1", profilePic: "Pic"}], reg_time: "2024-02-01T12:29:41.763+00:00"}];
 
     getPosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
 
@@ -36,7 +36,7 @@ describe("Feed Page", () => {
     const post = await screen.findByRole("article");
     console.log(post.textContent)
 
-    expect(post.textContent).toEqual("Test Post 1user1 01/02/2024 12:29Likes: 0");
+    expect(post.textContent).toEqual("Test Post 1user101/02/2024 12:29Likes: 0");
 
   });
 
