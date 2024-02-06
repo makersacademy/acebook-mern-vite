@@ -8,7 +8,6 @@ const getAllLikesByPostId = async (req, res) => {
   try {
     const postId = req.params.postId;
     const userId = req.user_id;
-
     // Find the post by postId
     const post = await Post.findById(postId);
 
@@ -34,7 +33,7 @@ const addLikesToPostByPostIdUserId = async (req, res) => {
   try {
     const postId = req.body.postId;
     const userId = req.user_id;
-    console.log(userId);
+    //console.log(userId);
     // Find the post by postId
     const post = await Post.findById(postId);
 
@@ -69,7 +68,7 @@ const getAllLikesByCommentId = async (req, res) => {
   try {
     const commentId = req.params.commentId;
     const userId = req.user_id;
-
+    //console.log(userId);
     // Find the comment by commentId
     const comment = await Comment.findById(commentId);
 
@@ -95,7 +94,7 @@ const addLikesToCommentByCommentIdUserId = async (req, res) => {
   try {
     const commentId = req.body.commentId;
     const userId = req.user_id;
-    console.log(userId);
+    //console.log(userId);
     // Find the comment by Id
     const comment = await Comment.findById(commentId);
 
