@@ -47,6 +47,32 @@ const getAllUserInfo = async (req, res) => {
   }
 };
 
+const updateUsersLikedPost = async (req, res) => {
+  const liked_post_id = req.body.post_id
+  const status = req.body.status
+  const user = await User.findById(req.user_id)
+  
+  if (!user) {
+    return res.status(404).json({ message: "Unable to find user's ID"})
+  }
+
+  if (status == "unlike" && user.liked_posts.includes(liked_post_id)){
+    const newListWithLikePostRemoved = user.liked_posts.filter((id) => id != liked_post_id)
+    user.liked_posts = newListWithLikePostRemoved
+    
+
+  } else {
+    user.liked_posts.push(liked_post_id)
+  }
+
+  console.log("liked list below")
+  console.log(user.liked_posts)
+
+  await user.save();
+
+  return res.status(201).json({message: "User's liked list updated"})
+}
+
 const clearTestData = async () => {
   await User.deleteMany({})
 }
@@ -57,6 +83,7 @@ const UsersController = {
   getId: getId,
   getAllUserInfo: getAllUserInfo, 
   clearTestData: clearTestData,
+  updateUsersLikedPost: updateUsersLikedPost
 };
 
 module.exports = UsersController;

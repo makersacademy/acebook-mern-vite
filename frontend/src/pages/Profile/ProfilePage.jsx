@@ -7,6 +7,7 @@ import { getId } from "../../services/users.js";
 import "./ProfilePage.css";
 import Post from "../../components/Post/Post.jsx";
 import ProfileFeedSelector from "../../components/Profile/ProfileFeedSelector.jsx";
+import { getAllUserInfo } from "../../services/user.js";
 
 
 
@@ -25,8 +26,13 @@ export const ProfilePage = () => {
     return posts.filter((post) => post.user_id == userId)
   }
 
-  const getLikedPosts = (posts) => {
-    return posts
+  const getLikedPosts = async (posts) => {
+    // getUserLikeList()
+    const data = await getAllUserInfo(token);
+    const user_liked_list = data.user.liked_posts
+    console.log(posts)
+
+    return posts.filter(post => user_liked_list.includes(post._id))
   }
 
   useEffect(() => {
@@ -34,6 +40,7 @@ export const ProfilePage = () => {
       getId(token)
       .then((data) => {
         // console.log(data.user_id)
+        setUserId(data.user_id)
         return data.user_id
       })
       .then((userId) => {
@@ -49,9 +56,16 @@ export const ProfilePage = () => {
               let usersPosts = getUsersPosts(data.posts, userId);
               console.log(usersPosts)
               setPosts(usersPosts);
+              console.log("hdhw")
+              console.log(posts)
             } else if (feed == "Liked") {
-              let likedPosts = getLikedPosts(data.posts)
+              getLikedPosts(data.posts)
+              .then((likedPosts) => {console.log(likedPosts)
               setPosts(likedPosts)
+              console.log("hdhw")
+              });
+
+              
             }
             
             window.localStorage.setItem("token", data.token);
