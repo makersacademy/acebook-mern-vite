@@ -96,9 +96,8 @@ const searchUsers = async (req, res) => {
 
 	try {
 	const results = await User.find({username: {$regex: regex}})
-
 	if(!results || results.length === 0) {
-        return res.status(404).json({ message: "no search results" });
+        return res.status(404).json({ message: "no user found" });
     }  
     return res.status(200).json({ result: results} );
 	} catch (error) {

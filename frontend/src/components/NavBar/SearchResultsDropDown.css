@@ -10,3 +10,31 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
+
+.found-user {
+    display: flex;
+    direction: column;
+}
+
+.user-image-container{
+    display: flex;
+    padding: 10px;
+}
+.user-image {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+}
+
+.user-name-link {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    
+}
+
+.user-name-link a {
+    font-size: 16px;
+    color: rgb(0, 0, 0);
+
+}

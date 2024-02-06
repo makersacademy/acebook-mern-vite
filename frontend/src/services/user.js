@@ -28,8 +28,9 @@ export const searchUsers = async (searchQuery) => {
 
     const response = await fetch(`${BACKEND_URL}/users?search=${searchQuery}`, requestOptions);
 
-    if (response.status !== 200) {
-        throw new Error("Unable to fetch user");
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Unable to fetch user");
     }
 
     const data = await response.json();
