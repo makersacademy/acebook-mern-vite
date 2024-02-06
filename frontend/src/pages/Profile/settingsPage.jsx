@@ -13,10 +13,12 @@ export const SettingsPage = () => {
   const id = window.localStorage.getItem("id");
   const navigate = useNavigate();
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
+    about_me: "",
   });
 
   useEffect(() => {
@@ -32,13 +34,15 @@ export const SettingsPage = () => {
         console.error(error);
       });
   
-    // Clear success message after a certain time
-    let timer;
-    if (successMessage) {
-      timer = setTimeout(() => {
-        setSuccessMessage("");
-      }, 3000); 
-    }
+
+let timer;
+
+if (successMessage || errorMessage) {
+  timer = setTimeout(() => {
+    setSuccessMessage("");
+    setErrorMessage("");
+  }, 3000);
+}
   
     return () => clearTimeout(timer);
   
@@ -61,16 +65,17 @@ export const SettingsPage = () => {
   try {
     await updateUser(token, id, updateData); // updateUser should be adapted to handle FormData
     setSuccessMessage("Profile updated successfully");
-    setTimeout(() => setSuccessMessage(""), 3000); // Clear success message after delay
+    setTimeout(() => setSuccessMessage(""), 2000);
   } catch (error) {
-    console.error("Error updating user:", error);
+    console.error("Email already in use", error);
+    setErrorMessage("Email is already in use. Please choose a different email.");
+    setTimeout(() => {
+      setErrorMessage("");
+    }, 2000);
   }
   };
 
-
-
-
-
+  
   const handleFileChange = (e) => {
     setProfilePic(e.target.files[0]);
   };
@@ -92,6 +97,7 @@ export const SettingsPage = () => {
         <h1>Settings</h1>
 
         {successMessage && <p className="success-message">{successMessage}</p>}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
 
         {/* Form for updating user */}
         <form onSubmit={(e) => e.preventDefault()} class="form-settings">
