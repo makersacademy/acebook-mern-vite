@@ -13,5 +13,6 @@ router.get("/", UsersController.searchUsers)
 router.post("/:username/friends", UsersController.addFriend)
 router.delete("/:username/friends", UsersController.removeFriend)
 router.post("/:username/notifications", UsersController.createNotification)
+router.delete("/:username/notifications", UsersController.removeNotification)
 
 module.exports = router;

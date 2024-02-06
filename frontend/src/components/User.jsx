@@ -9,6 +9,8 @@ const User = ({_id, username, email, friends }) => {
                 friend ? <p key={friend._id}>{friend.username}</p> : null
             )}
 
+        
+
         </div>
     )
 

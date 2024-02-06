@@ -11,20 +11,10 @@ export const UserPage = () => {
     const [user, setUser] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const [loggedInUser, setLoggedInUser] = useState(JSON.parse(window.localStorage.getItem("user")))
-    // const [profilePicture, setProfilePicture] = useState()
-    // const [bio, setBio] = useState("")
     const [stateChange, setStateChange] = useState(false)
     
     const { username } = useParams();
     const navigate = useNavigate();
-
-    // const handleImageUpdate = (newImage) => {
-    //     setProfilePicture(newImage)
-    // }
-
-    // const handleBioUpdate = (newBio) => {
-    //     setBio(newBio)
-    // }
 
     const triggerStateChange = () => {
         setStateChange(!stateChange)
@@ -87,6 +77,7 @@ export const UserPage = () => {
                     friends={user.friends}
                     image={user.image}
                     posts={user.posts}
+                    notifications={user.notifications}
                     loggedInUserId={loggedInUser._id}
                     token={token}
                     triggerStateChange={triggerStateChange}

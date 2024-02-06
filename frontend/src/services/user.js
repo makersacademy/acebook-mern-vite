@@ -175,6 +175,31 @@ export const createNotification = async({username, entity_userId, token, notific
 
     const data = await response.json();
     return data;
+}
 
+export const deleteNotification = async(username, notificationId, token) => {
+
+    const payload = {
+        notificationId: notificationId
+    }
+
+    const requestOptions = {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    }
+
+    let response = await fetch(`${BACKEND_URL}/users/${username}/notifications`, requestOptions)
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Failed to delete notification: ${JSON.stringify(errorData)}`);
+    }
+
+    const data = await response.json();
+    return data;
 
 }

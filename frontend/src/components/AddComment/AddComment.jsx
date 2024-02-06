@@ -25,7 +25,7 @@ export default function AddComment({ postId, toggleStateChange, post_userId }) {
                 
                 try {
                     const notificationResult = await createNotification({
-                        username: userId.username, 
+                        username: user.username, 
                         entity_userId: post_userId,
                         token: token,
                         notificationType: "post-comment"
