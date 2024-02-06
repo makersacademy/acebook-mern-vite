@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Museo+Sans:wght@300;500&display=swap');
 
 
-.search-nav-item {
-    position: relative
-}
 
 .search-results-dropdown {
     position: absolute;
@@ -12,7 +9,9 @@
     min-height: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
+    top: 10%;
 }
+
 
 .found-user {
     display: flex;
@@ -45,3 +44,4 @@
     
 
 }
+
