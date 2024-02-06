@@ -57,8 +57,10 @@ const Post = ({ post, token }) => {
   return (
     <div className="post" id={post._id}>
       <div className="post-header">
-        <img src={post.profile_pic} alt={`Author's avatar`} />
-        <a onClick={navigateToProfile}>{post.full_name}</a>
+        <a onClick={navigateToProfile} className="author-container">
+          <img src={post.profile_pic} alt={`Author's avatar`} />
+          <p>{post.full_name}</p>
+        </a>
       </div>
       <div className="post-content">
         <article>{post.message}</article>
