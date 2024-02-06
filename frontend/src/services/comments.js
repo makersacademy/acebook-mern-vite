@@ -44,6 +44,7 @@ export const getAllCommentsForAPost = async (token, post_id) => {
   return data;
 };
 
+
 export const deleteComment = async (token, id) => {
   const requestOptions = {
     method: "DELETE",
@@ -63,4 +64,28 @@ export const deleteComment = async (token, id) => {
 
   const deletedComment = await response.json();
   return deletedComment;
+};
+
+
+export const editComment = async (token, id, editedComment) => {
+  const requestOptions = {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ comment: editedComment }),
+  };
+  console.log(`Editing comment with id: ${id}`);
+  const response = await fetch(`${BACKEND_URL}/comments/${id}`, requestOptions)
+
+  if (response.status !== 200) {
+    throw new Error(
+      "Failed to update comment"
+    );
+  }
+
+  const updatedCommentData = await response.json();
+  return updatedCommentData;
+
 };

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import "./comment.css"
 import { deleteComment } from '../../services/comments';
+import { editComment } from '../../services/comments';
 
 const Comment = ({ comment_data, setNewComment }) => {
     const [showOptions, setShowOptions] = useState(false)
@@ -13,28 +14,49 @@ const Comment = ({ comment_data, setNewComment }) => {
     const token = window.localStorage.getItem("token")
     const [isLiked, setIsLiked] = useState(false);
     const [numberOfLikes, setNumberOfLikes] = useState(0);
+    const [editedComment, setEditedComment] = useState(comment_data.message);
+
 
     const handleDeleteComment = async () => {
         try {
             await deleteComment(token, comment_data._id);
             console.log("Comment deleted");
             setNewComment(true)
-          } catch (error) {
+        } catch (error) {
             console.error("Error deleting comment", error);
-          }
+        }
     }
+
+
+    const handleEditComment = async () => {
+        try {
+            if (!token) {
+                console.error("Token not found in local storage");
+                return;
+            }
+
+            await editComment(token, comment_data._id, editedComment);
+            console.log("Comment Successfully Edited!")
+            setNewComment(true);
+        } catch (error) {
+            console.error("Error Editing Comment:", error);
+            console.log("Error Editing Comment!")
+        }
+    }
+
+
 
     const handleLikeClick = async () => {
         try {
-          // Call the likePost function to send the like request to the backend
-          //await likePost(post._id, token);
+        // Call the likePost function to send the like request to the backend
+        //await likePost(post._id, token);
     
-          // Toggle the like status in the UI
-          //setIsLiked(!isLiked);
+        // Toggle the like status in the UI
+        //setIsLiked(!isLiked);
         } catch (error) {
-          //console.error("Error liking the post:", error.message);
+        //console.error("Error liking the post:", error.message);
         }
-      };
+    };
 
     return (
         <div className="comment">
@@ -46,7 +68,8 @@ const Comment = ({ comment_data, setNewComment }) => {
                 )}
                 {showOptions && (
                     <div className='options-menu'>
-                        <button>Edit</button>
+                        <textarea value={editedComment} onChange={(e) => setEditedComment(e.target.value)} />
+                        <button onClick={handleEditComment}>Edit</button>
                         <button onClick={handleDeleteComment}>Delete</button>
                     </div>
                 )}
