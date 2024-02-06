@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createNotification } from "../../services/user";
+
+
 
 const likeThePost = async (props) => {
 	try {
@@ -19,16 +22,54 @@ const likeThePost = async (props) => {
 	}
 };
 
-const LikeButton = (props) => {
 
+
+const LikeButton = (props) => {
+	// console.log("props liked", props.liked)
 	const [like, setLike] = useState(props.liked);
+	// console.log("like", like)
+
+
+
+
+	// useEffect(() => {
+	// 	// This useEffect will be triggered whenever the 'like' state changes
+	// 	console.log("like has changed:", like);
+		
+	// }, [like]);
+
 	const handleClick = async () => {
 		try {
 			await likeThePost(props);
+			setLike((prevLike) => !prevLike);
 			props.handleLikeUnlike();
 			props.toggleStateChange();
-			setLike((prevLike) => !prevLike);
-			console.log("Clicked is being clicked");
+			if(!like){
+				try {
+					const notificationResult = await createNotification({
+						username: props.loggedInUsername, 
+						entity_userId: props.post_userId,
+						token: props.token,
+						notificationType: "post-like"
+					})
+					console.log(notificationResult)
+				} catch (error) {
+					console.log("An error occured while creating a notification")
+				}
+			} else {
+				try {
+					const notificationResult = await createNotification({
+						username: props.loggedInUsername, 
+						entity_userId: props.post_userId,
+						token: props.token,
+						notificationType: "post-unlike"
+					})
+					console.log(notificationResult)
+				} catch (error) {
+					console.log("An error occured while creating a notification")
+				}
+
+			}
 		} catch (error) {
 			console.error("Error liking/unliking post:", error);
 		}
@@ -37,7 +78,7 @@ const LikeButton = (props) => {
 	return (
 		<button onClick={handleClick}>
 			{props.liked ? (
-				<i className="fa-solid fa-thumbs-up"></i>
+				<i className="fa-solid fa-thumbs-up" style={{ color: 'red' }}></i>
 			) : (
 				<i className="fa-regular fa-thumbs-up"></i>
 			)}

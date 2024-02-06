@@ -3,17 +3,14 @@ import Comment from '../Comment/Comment.jsx';
 import './User.css';
 import Post from '../Post/Post.jsx';
 import { addFriend, removeFriend } from '../../services/user.js';
+import Notification from '../Notification/Notification.jsx';
 
-const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId, token, triggerStateChange }) => {
+const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId, token, triggerStateChange, notifications }) => {
     const [userPosts, setUserPosts] = useState([])
 
     const friendIds = friends.map((friend) => {
         return friend._id
     })
-
-    console.log("friend Ids", friendIds)
-    
-
 
     useEffect(()=> {
         const sortedPosts = posts.sort(
@@ -51,7 +48,27 @@ const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId,
             
             <button
             onClick={handleAddFriend}
-            >Add friend</button> }
+            >Add friend</button> 
+            
+            }
+
+            <p>notifications: </p>
+
+            { notifications &&
+                notifications.map((notification) => 
+                    notification ? 
+                    <div key={notification._id}>
+                    
+                    <Notification 
+                        notification={notification}
+                        username={username}
+                        token={token}
+                        triggerStateChange={triggerStateChange}
+                    />
+                    </div>
+
+                    : null
+            )}
 
             <p>Username: {username}</p>
             <p>Email: {email}</p>

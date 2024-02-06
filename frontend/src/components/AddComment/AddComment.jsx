@@ -1,11 +1,13 @@
 import { useState } from "react"
 import { postComment } from "../../services/posts"
+import { createNotification } from "../../services/user"
 
 
-export default function AddComment({ postId, toggleStateChange }) {
+
+export default function AddComment({ postId, toggleStateChange, post_userId }) {
     const [commentText, setCommentText] = useState("")
     const [token, setToken] = useState(window.localStorage.getItem("token"))
-    const [userId, setUserId] = useState(JSON.parse(window.localStorage.getItem("user")))
+    const [user, setUserId] = useState(JSON.parse(window.localStorage.getItem("user")))
     const [errorMessage, setErrorMessage] = useState("")
 
     const handleChange = (event) => {
@@ -13,13 +15,25 @@ export default function AddComment({ postId, toggleStateChange }) {
     }
 
     const submitComment  = async (event) => {
-        console.log("comment  userId", userId._id)
+        // console.log("comment  userId", userId._id)
         event.preventDefault();
         if(commentText.length !== 0){
             try {
-                const result = await postComment(token, commentText, postId, userId._id)
+                const result = await postComment(token, commentText, postId, user._id)
                 console.log(result)
                 toggleStateChange()
+                
+                try {
+                    const notificationResult = await createNotification({
+                        username: user.username, 
+                        entity_userId: post_userId,
+                        token: token,
+                        notificationType: "post-comment"
+                    })
+                } catch (error) {
+                    console.log("An error occured while creating a notification")
+                }
+
             } catch (error) {
                 setErrorMessage("An error occured while posting comment")
             }

@@ -1,6 +1,6 @@
 import "./Post.css";
 import LikeButton from "../LikeButton/LikeButton";
-import React, { useState } from "react";
+import { useState } from "react";
 import AddComment from '../AddComment/AddComment';
 import Comment from '../Comment/Comment';
 
@@ -11,6 +11,7 @@ const Post = (props) => {
 	const [showCommentBox, setShowCommentBox] = useState(false)
 	const [showMoreComments, setShowMoreComments] = useState(false)
 	const [hideComments, setHideComments] = useState(false)
+
 
 	// console.log("comments", props.post.comments)
 	// console.log("post media url", props.post.media)
@@ -51,10 +52,10 @@ return (
 
 		<article>
 			{props.postedBy && 
-			<div className="user-info" >
-				<img src={props.postedBy.image} alt="user image"></img>
-				<h4>{props.postedBy.username}</h4>
-			</div>
+				<div className="user-info" >
+					<img src={props.postedBy.image} alt="user image"></img>
+					<h4>{props.postedBy.username}</h4>
+				</div>
 			}
 			<div className="date-time">
 				{new Date(props.post.createdAt).toLocaleString('en-UK')}
@@ -68,14 +69,19 @@ return (
 
 			{props.post.message}<br></br>
 			<h5>likes: {props.post.likes.length}</h5>
+			{props.postedBy && 
 			<LikeButton
 				postID={props.post._id}
-				like={like}
+				// like={like}
 				handleLikeUnlike={handleLikeUnlike}
 				clicked={props.clicked}
 				toggleStateChange={props.toggleStateChange}
-        liked={props.liked}
+				liked={props.liked}
+				post_userId={props.postedBy._id}
+				loggedInUsername={props.loggedInUsername}
+				token={props.token}
 			/>
+			}
 
 			<div className="comments">
 			<p> comments </p>
@@ -86,6 +92,7 @@ return (
 						<AddComment
 							postId={props.post._id}
 							toggleStateChange={props.toggleStateChange}
+							post_userId={props.postedBy._id}
 						/>
 					</div>
 					}
