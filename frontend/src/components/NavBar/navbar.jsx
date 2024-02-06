@@ -19,8 +19,8 @@ const Navbar = () => {
     const [foundUsers, setFoundUsers] = useState([])
 
     const handleSearch = (searchResults) => {
-      setShowSearchResults(true)
       setFoundUsers(searchResults)
+      setShowSearchResults(true) 
       console.log("search results", searchResults)
     }
 
@@ -41,7 +41,7 @@ const Navbar = () => {
       {showSearchResults && 
         <div className="search-results-dropdown">
         <SearchResultsDropDown 
-        setShowSearchResults={setShowSearchResults}
+          setShowSearchResults={setShowSearchResults}
           foundUsers={foundUsers}
         />
         </div>

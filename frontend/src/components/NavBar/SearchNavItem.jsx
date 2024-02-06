@@ -9,32 +9,33 @@ export default function SearchNavItem( { handleSearch }) {
     const [foundUsers, setFoundUsers] = useState([])
 
     const handleInputChange = (event) => {
-        setSearchUserInput(event.target.value)
-        event.preventDefault()
-        searchUsers(event.target.value)
+
+        const inputValue = event.target.value;
+
+        setSearchUserInput(inputValue)
+        searchUsers(inputValue)
             .then((data) => {
-                console.log("found this data", data.result)
                 setFoundUsers(data.result)
                 handleSearch(data.result)
-
             })
             .catch((err) => {
                 console.error(err);
+                setFoundUsers([]);
+                handleSearch([]);
             });
     }
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log("Searching with this input", searchUserInput)
         searchUsers(searchUserInput)
             .then((data) => {
-                console.log("found this data", data.result)
                 setFoundUsers(data.result)
                 handleSearch(data.result)
-
             })
             .catch((err) => {
                 console.error(err);
+                setFoundUsers([])
+                handleSearch(foundUsers)
             });
     }
 
@@ -48,6 +49,7 @@ export default function SearchNavItem( { handleSearch }) {
                 placeholder="Search user"
                 value= {searchUserInput}
                 onChange={handleInputChange}
+                autoComplete="off"
             />
             <button className="search-button" type="submit">
                 <i className="fas fa-search"></i> 

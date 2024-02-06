@@ -23,9 +23,9 @@ const Post = (props) => {
     // console.log(user._id, props.post.postedBy._id, "LOOK HERE");
     // console.log(props);
 
-    if (props.post.postedBy._id) {
-        console.log(props.post.postedBy._id, "LOOK HERE");
-    }
+    // if (props.post.postedBy._id) {
+    //     console.log(props.post.postedBy._id, "LOOK HERE");
+    // }
 
     const isPostOwner = user._id && props.post.postedBy._id === user._id;
 
@@ -86,6 +86,10 @@ const Post = (props) => {
                     clicked={props.clicked}
                     toggleStateChange={props.toggleStateChange}
                     liked={props.liked}
+                    post_userId={props.postedBy._id}
+                    loggedInUsername={props.loggedInUsername}
+                    token={props.token}
+
                 />
                 <DeleteButton
                     postID={props.post._id}
@@ -102,6 +106,7 @@ const Post = (props) => {
                             <AddComment
                                 postId={props.post._id}
                                 toggleStateChange={props.toggleStateChange}
+                                post_userId={props.postedBy._id}
                             />
                         </div>
                     )}
