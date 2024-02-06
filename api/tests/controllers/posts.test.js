@@ -41,7 +41,9 @@ describe("/posts", () => {
 
     });
 
-    afterEach(async () => {
+    afterAll(async () => {
+        await User.deleteMany({});
+        await Post.deleteMany({});
     });
 
     describe("POST, when a valid token is present", () => {
