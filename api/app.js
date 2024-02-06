@@ -1,4 +1,4 @@
-// api/app.js  
+// api/app.js
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -9,8 +9,8 @@ const postsRouter = require("./routes/posts");
 const authenticationRouter = require("./routes/authentication");
 const tokenChecker = require("./middleware/tokenChecker");
 const likesRouter = require("./routes/likes");
-const settingsRoutes = require("./routes/settings");
 const commentsRouter = require("./routes/comments");
+const settingsRoutes = require("./routes/settings");
 const friendsRouter = require("./routes/friends");
 
 const app = express();

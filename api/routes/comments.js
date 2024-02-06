@@ -5,7 +5,7 @@ const router = express.Router();
 
 const CommentsController = require("../controllers/comments.js");
 
-router.get("/:postId", CommentsController.getAllCommentsForAPost);
+router.get("/:postId", CommentsController.getAllCommentsByPostID);
 router.post("/", CommentsController.submitComment);
 
 module.exports = router;

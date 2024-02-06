@@ -1,7 +1,7 @@
 /* CreateNewPost.css */
 
 .feed-container {
-    width: 550px; /* Adjust the width as needed */
+    width: 570px;
     margin: auto; /* Add margin as needed */
     border: 1px solid #ccc; /* Add border for the container */
     border-radius: 10px; /* Add rounded edges */
@@ -14,6 +14,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .feed-form {
@@ -42,4 +43,29 @@
     padding: 8px 15px;
     cursor: pointer;
     align-self: flex-end; /* Align the button to the right */
+}
+
+.upload-a-picture input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+.upload-a-picture {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.upload-a-picture button {
+    border: 2px solid;
+    color: white;
+    background-color: #007bff;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 15px;
+    white-space: pre-line;
+    line-height: 1.5;
 }
