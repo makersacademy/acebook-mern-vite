@@ -2,65 +2,65 @@ const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
 
 const getAllPosts = async (req, res) => {
-
-	const posts = await Post.find()
-		.populate({
-			path: 'comments',
-			populate: { path: 'user' }
-		})
-		.populate('postedBy');
-	const token = generateToken(req.user_id);
-	res.status(200).json({ posts: posts, token: token });
-	
+    const posts = await Post.find()
+        .populate({
+            path: "comments",
+            populate: { path: "user" },
+        })
+        .populate("postedBy");
+    const token = generateToken(req.user_id);
+    res.status(200).json({ posts: posts, token: token });
 };
-
 
 const createPost = async (req, res) => {
-    const postMessage = req.body.postMessage
+    const postMessage = req.body.postMessage;
     let filename;
 
-    if(req.file){
-        filename = req.file.filename
+    if (req.file) {
+        filename = req.file.filename;
     }
-    const userId = req.body.userId
+    const userId = req.body.userId;
 
     try {
-        const post = new Post({ 
+        const post = new Post({
             message: postMessage,
             media: filename ? filename : null,
-            postedBy: userId
-        })
+            postedBy: userId,
+        });
 
         await post.save();
-        res.status(200).json({message: 'create post successful'});
-    } catch(error){
-        res.status(500).json({message: "create post error", error: error.message})
+        res.status(200).json({ message: "create post successful" });
+    } catch (error) {
+        res.status(500).json({
+            message: "create post error",
+            error: error.message,
+        });
     }
-
 };
 
-
 const postComment = async (req, res) => {
-	const commentText = req.body.commentText
-	const userId = req.body.userId
-	const postId  = req.params.postId
-	// console.log("back-end userid", userId)
+    const commentText = req.body.commentText;
+    const userId = req.body.userId;
+    const postId = req.params.postId;
+    // console.log("back-end userid", userId)
 
-	try {
-	const post = await Post.findOneAndUpdate(
-		{_id: postId},
-		{ $push: { comments: {
-			message: commentText,
-			user: userId
-		}}},
-		{new: true}
-	)
-	res.status(200).json({message: 'post comment successful'});
-
-	} catch(error) {
-		res.status(500).json({message: error.message})
-	}
-
+    try {
+        const post = await Post.findOneAndUpdate(
+            { _id: postId },
+            {
+                $push: {
+                    comments: {
+                        message: commentText,
+                        user: userId,
+                    },
+                },
+            },
+            { new: true }
+        );
+        res.status(200).json({ message: "post comment successful" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
 
 const likePost = async (req, res) => {
@@ -105,45 +105,31 @@ const likePost = async (req, res) => {
     }
 };
 
-// If user ID is not in array
-//     try {
-//         const alreadyLiked = await Post.likes
-//             .findOne({ _id: userID })
-//             .then(() => {
-//                 console.log(alreadyLiked);
-//             });
-//     } catch (error) {
-//         console.error("Error updating post:", error);
-//         res.status(500).json({
-//             message: "An error occurred while updating the likes.",
-//         });
-//         if (!userID) {
-//             try {
-//                 const updatedpost = await Post.findOneAndUpdate(
-//                     { _id: postID },
-//                     { $push: { likes: userID } },
-//                     { new: true }
-//                 );
-//                 res.status(200).json({ message: "Post liked" });
-//             } catch (error) {
-//                 console.error("Error updating post:", error);
-//                 res.status(500).json({
-//                     message: "An error occurred while updating the likes.",
-//                 });
-//             }
-//         }
-//     }
-// };
+const deletePost = async (req, res) => {
+    const postID = req.body.postID;
+    const userID = req.user_id;
+    try {
+        const post = await Post.findOne({ _id: postID, postedBy: userID });
+        if (!post) {
+            return res
+                .status(404)
+                .json({ message: "You are not this post's owner" });
+        }
+        await Post.deleteOne({ _id: postID });
+        res.status(200).json({ message: "Post deleted" });
+    } catch (error) {
+        res.status(500).json({ message: "Error deleting post" });
+    }
+};
 
-// Else remove id from array
-
+const editPost = "SOMETHING";
 
 const PostsController = {
-	getAllPosts: getAllPosts,
-	createPost: createPost,
-	likePost: likePost,
-	postComment: postComment
-
+    getAllPosts: getAllPosts,
+    createPost: createPost,
+    likePost: likePost,
+    postComment: postComment,
+    deletePost: deletePost,
 };
 
 module.exports = PostsController;
