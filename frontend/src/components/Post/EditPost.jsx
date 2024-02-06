@@ -8,10 +8,14 @@ const EditPost = (props) => {
     const [message, setMessage] = useState(props.message);
     const postId = handle.id;
     const [inputField, setInputField] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("");
     const [token, setToken] = useState(window.localStorage.getItem("token"));
 
     const handleUpdate = (event) => {
         event.preventDefault();
+        if (message === "") {
+            setErrorMessage("Post cannot be blank")
+        } else {
             updatePost(postId, message, token)
                 .then((data) => {
                     setToken(data.token);
@@ -22,9 +26,11 @@ const EditPost = (props) => {
                 .catch((err) => {
                     console.log(err);
                 });
+        }   
         } 
 
     const handleEdit = () => {
+        setErrorMessage("")
         setInputField(!inputField)
         setMessage(props.message)
     }
@@ -36,17 +42,18 @@ const EditPost = (props) => {
     const editPostForm = 
         <form onSubmit={handleUpdate}>
             <label htmlFor="postContent">
-                {/* {errorMessage !== "OK" && <p>{errorMessage}</p>} */}
                 <textarea
                     id="postContent"
                     name="postContent"
                     value={message}
+                    placeholder="Update Post Here"
                     onChange={handleMessageChange}
                     rows="4"
                     cols="50"
                 ></textarea>
+                {errorMessage && <p>{errorMessage}</p>}
                 <br></br>
-                <input type="submit" value="Save Changes" />
+                <input type="submit" value="Save Changes" role="button" name="Save Changes" />
             </label>
         </form>
 

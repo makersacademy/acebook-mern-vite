@@ -6,6 +6,7 @@ import {
     createNewPost,
     getSinglePost,
     deletePost,
+    updatePost,
 } from "../../src/services/posts";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -195,3 +196,49 @@ describe("tests delete post service", () => {
         expect(response).toEqual(mockResponse);
     });
 });
+
+describe("tests update post service", () => {
+    it("includes a token with its request", async () => {
+        const mockResponse = {
+            message: "Post was updated",
+            token: "newToken",
+        };
+        fetch.mockResponseOnce(JSON.stringify(mockResponse), {status: 200})
+        const mockPostID = 1
+        await updatePost(mockPostID, "Second Message", "testToken")
+
+        // This is an array of the arguments that were last passed to fetch
+        const fetchArguments = fetch.mock.lastCall;
+        const url = fetchArguments[0];
+        const options = fetchArguments[1];
+
+        expect(url).toEqual(`${BACKEND_URL}/posts/find/${mockPostID}`);
+        expect(options.method).toEqual("POST");
+        expect(options.headers["Authorization"]).toEqual("Bearer testToken");
+    });
+
+    it("rejects with an error if the status is not 200", async () => {
+        const mockResponse = {
+            message: "Post was updated",
+            token: "newToken",
+        };
+        const mockPostID = 1;
+        fetch.mockResponseOnce(JSON.stringify(mockResponse),{ status: 400 });
+
+        try {
+            await updatePost(mockPostID, "New message", "testToken");
+        } catch (err) {
+            expect(err.message).toEqual("Unable to update post")}  
+    });
+
+    it("returns response object on successful fetch", async () => {
+        const mockPostID = 1;
+        const mockResponse = {
+            message: "Post was updated",
+            token: "newToken",
+        };
+        fetch.mockResponseOnce(JSON.stringify(mockResponse), { status: 200 });
+        const response = await updatePost(mockPostID, "token");
+        expect(response).toEqual(mockResponse);
+    });
+})

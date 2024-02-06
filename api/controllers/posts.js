@@ -9,9 +9,19 @@ const getAllPosts = async (req, res) => {
 };
 
 const getSinglePost = async (req, res) => {
+    const user = await User.findOne({ _id: req.user_id });
     const post = await Post.find({ _id: req.params.id });
     const token = generateToken(req.user_id);
-    res.status(200).json({ post: post, token: token });
+    // console.log(post)
+    // console.log("user.username: " + user.username)
+    // console.log("post.username: " + post[0].username)
+    // console.log(user.username)
+    if (user.username != post[0].username) {
+        res.status(200).json({ post: post, token: token, userMatch: false});
+    } else {
+        res.status(200).json({ post: post, token: token, userMatch: true});
+    }
+    
 };
 
 const createPost = async (req, res) => {
@@ -46,7 +56,7 @@ const updatePost = async (req, res) => {
         post.message = newMessage;
         post.save();
         res.status(200).json({
-            message: "Post has been updated",
+            message: "OK",
             token: newToken,
         });
     } else {

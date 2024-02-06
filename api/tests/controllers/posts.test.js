@@ -244,6 +244,31 @@ describe("/posts", () => {
             expect(post[0].message).toEqual("hola!");
         });
 
+        test("userMatch is false when usernames don't match", async () => {
+            const post1 = new Post({ message: "howdy!", username: "testUser" });
+            await post1.save();
+
+            const response = await request(app)
+            .get(`/posts/find/${post1.id}`)
+            .set("Authorization", `Bearer ${token}`);
+
+            const userMatch = response.body.userMatch;
+
+            expect(userMatch).toEqual(false);
+        })
+
+        test("userMatch is true when usernames match", async () => {
+            const post1 = new Post({ message: "howdy!", username: "user123" });
+            await post1.save();
+
+            const response = await request(app)
+            .get(`/posts/find/${post1.id}`)
+            .set("Authorization", `Bearer ${token}`);
+
+            const userMatch = response.body.userMatch;
+
+            expect(userMatch).toEqual(true);
+        })
         test("returns a new token", async () => {
             const post1 = new Post({ message: "First Post!" });
             const post2 = new Post({ message: "Second Post!" });
