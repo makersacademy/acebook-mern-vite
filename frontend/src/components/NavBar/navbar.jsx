@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Navbar.css';
+import './navbar.css';
 import SearchNavItem from './SearchNavItem';
 import HomeNavItem from './HomeNavItem';
 import LogoutNavItem from './LogoutNavItem';
@@ -9,6 +9,7 @@ import SearchResultsDropDown from './SearchResultsDropDown';
 import { Link } from 'react-router-dom';
 import './SearchResultsDropDown.css'
 import UserNavItem from './UserNavItem';
+import './navbar.css'
 
 
 const Navbar = () => {
