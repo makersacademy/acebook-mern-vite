@@ -6,20 +6,20 @@ export default function SearchResultsDropDown( { foundUsers, setShowSearchResult
     const dropdownRef = useRef(null)
 
     useEffect(() => {
-const handleClickOutside = (event) => {
+        const handleClickOutside = (event) => {
 
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowSearchResults(false)
-    }
-}
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setShowSearchResults(false)
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside)
 
-document.addEventListener('mousedown', handleClickOutside)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+            }, [dropdownRef])
 
-return () => {
-    document.removeEventListener('mousedown', handleClickOutside)
-}
-    }, [dropdownRef])
-    
+        
     return (
         <div ref={dropdownRef} className="search-results">
 
@@ -30,9 +30,16 @@ return () => {
             {foundUsers.map((user) => {
                 return ( 
                 <div className="found-user" key={user._id}>
-                    <Link to={`/users/${user.username}`}>
-                        {user.username}     
-                    </Link>
+                    <div className="user-image-container">
+                        <img  className="user-image" src={user.image}></img>
+                    </div>
+                    <div className="user-name-link">
+                        <Link to={`/users/${user.username}`}>
+                            {user.username}     
+                        </Link>
+                    </div>
+                    
+
                 </div>
                 )
             }
