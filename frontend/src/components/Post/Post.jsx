@@ -19,6 +19,16 @@ const Post = (props) => {
         setDeletes(!deletes);
     };
 
+    const user = JSON.parse(window.localStorage.getItem("user"));
+    // console.log(user._id, props.post.postedBy._id, "LOOK HERE");
+    // console.log(props);
+
+    if (props.post.postedBy._id) {
+        console.log(props.post.postedBy._id, "LOOK HERE");
+    }
+
+    const isPostOwner = user._id && props.post.postedBy._id === user._id;
+
     const handleLikeUnlike = () => {
         setLike(!like);
         setLikes(props.post.likes.length);
@@ -81,6 +91,7 @@ const Post = (props) => {
                     postID={props.post._id}
                     handleDelete={handleDelete}
                     onDelete={props.onDelete}
+                    showButton={isPostOwner}
                 />
                 <div className="comments">
                     <p> comments </p>

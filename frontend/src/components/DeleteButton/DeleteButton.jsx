@@ -26,22 +26,21 @@ const DeleteButton = (props) => {
 
     const handleClick = async () => {
         try {
-            console.log("Deleting post...");
             await deleteThePost(props);
             console.log("Post deleted");
 
             // Call the provided onDelete callback to trigger a re-render
             if (props.onDelete) {
-                console.log("Calling onDelete...");
                 props.onDelete();
-                console.log("onDelete called successfully");
             }
         } catch (error) {
             console.error("Error deleting post:", error);
         }
     };
 
-    return <button onClick={handleClick}>Delete</button>;
+    return props.showButton ? (
+        <button onClick={handleClick}>Delete</button>
+    ) : null;
 };
 
 export default DeleteButton;
