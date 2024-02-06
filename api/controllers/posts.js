@@ -45,15 +45,17 @@ const getSinglePost = async (req, res) => {
         }
     }])
 
-    //const user = await User.findOne({ _id: req.user_id });
+    const user = await User.findOne({ _id: req.user_id });
     //const post = await Post.find({ _id: req.params.id });
 
     const token = generateToken(req.user_id);
-    // console.log(post)
+    //console.log("post:")
+    //console.log(post[0])
+    //console.log(post[0].user)
     // console.log("user.username: " + user.username)
     // console.log("post.username: " + post[0].username)
     // console.log(user.username)
-    if (user.username != post[0].username) {
+    if (user.username != post[0].user[0].username) {
         res.status(200).json({ post: post, token: token, userMatch: false});
     } else {
         res.status(200).json({ post: post, token: token, userMatch: true});

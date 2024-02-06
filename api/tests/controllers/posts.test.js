@@ -27,23 +27,27 @@ describe("/posts", () => {
     beforeAll(async() => {
         await User.deleteMany({});
         await Post.deleteMany({});
-    })
-    beforeEach(async () => {
         const user = new User({
             username: "user123",
             email: "post-test@test.com",
             password: "12345678",
         });
         await user.save();
-        await Post.deleteMany({});
         token = createToken(user.id);
-        user_id = user.id;
-    });
-
-    afterAll(async () => {
-        await User.deleteMany({});
+        user_id = user._id;
+        const user2 = new User({
+            username: "user456",
+            email: "post-test@test.com",
+            password: "12345678",
+        });
+        await user2.save();
+        user_id2 = user2._id
+    })
+    beforeEach(async () => {
         await Post.deleteMany({});
-    });
+    })
+
+
 
     describe("POST, when a valid token is present", () => {
         test("responds with a 201", async () => {
@@ -63,6 +67,8 @@ describe("/posts", () => {
             const posts = await Post.find();
             expect(posts.length).toEqual(1);
             expect(posts[0].message).toEqual("Hello World!!");
+            console.log("first post:")
+            console.log(posts)
         });
 
         test("does not create a new post if the message is blank", async () => {
@@ -222,6 +228,7 @@ describe("/posts", () => {
         test("the response code is 200", async () => {
             const post1 = new Post({
                 message: "Test message",
+                user_id: user_id,   
             });
             await post1.save();
 
@@ -233,8 +240,8 @@ describe("/posts", () => {
         });
 
         test("returns single post in the collection", async () => {
-            const post1 = new Post({ message: "howdy!" });
-            const post2 = new Post({ message: "hola!" });
+            const post1 = new Post({ message: "howdy!", user_id: user_id,});
+            const post2 = new Post({ message: "hola!", user_id: user_id});
             await post1.save();
             await post2.save();
 
@@ -249,7 +256,7 @@ describe("/posts", () => {
         });
 
         test("userMatch is false when usernames don't match", async () => {
-            const post1 = new Post({ message: "howdy!", username: "testUser" });
+            const post1 = new Post({ message: "howdy!", user_id: user_id2});
             await post1.save();
 
             const response = await request(app)
@@ -262,7 +269,8 @@ describe("/posts", () => {
         })
 
         test("userMatch is true when usernames match", async () => {
-            const post1 = new Post({ message: "howdy!", username: "user123" });
+            
+            const post1 = new Post({ message: "howdy!", user_id: user_id});
             await post1.save();
 
             const response = await request(app)
@@ -274,8 +282,8 @@ describe("/posts", () => {
             expect(userMatch).toEqual(true);
         })
         test("returns a new token", async () => {
-            const post1 = new Post({ message: "First Post!" });
-            const post2 = new Post({ message: "Second Post!" });
+            const post1 = new Post({ message: "First Post!", user_id: user_id});
+            const post2 = new Post({ message: "Second Post!", user_id: user_id});
             await post1.save();
             await post2.save();
 
@@ -297,7 +305,7 @@ describe("/posts", () => {
 
     describe("GET single post, when token is missing", () => {
         test("the response code is 401", async () => {
-            const post1 = new Post({ message: "howdy!" });
+            const post1 = new Post({ message: "howdy!", user_id: user_id});
             await post1.save();
             const response = await request(app).get(`/posts/find/${post1.id}`);
             expect(response.status).toEqual(401);
@@ -378,6 +386,8 @@ describe("/posts", () => {
         test("the response code is 200", async () => {
             const post1 = new Post({
                 message: "Test message",
+                user_id: user_id,
+                user: [{username: "user123"}] 
             });
             await post1.save();
 
