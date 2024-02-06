@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 // defining the columns of an SQL Database.
 const PostSchema = new mongoose.Schema({
   message: String,
-  username: String,
+  user_id: String,
   reg_time: {type: Date, default: Date.now},
   likes: [Array],
 },{

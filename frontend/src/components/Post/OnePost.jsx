@@ -12,8 +12,9 @@ const createDate = (date) => {
     return `${day}/${month}/${year} ${hours}:${minutes}`;
 };
 
-const Post = (props) => {
+const OnePost = (props) => {
     const post = props.post
+    const user = props.user
     const datetime = new Date(post.reg_time);
     const date = createDate(datetime);
     const [showResults, setShowResults] = React.useState(false)
@@ -26,9 +27,11 @@ const Post = (props) => {
     return (
         <article key={post._id}>
             <p className="message">{post.message}</p>
+            {console.log("user:")}
+            {console.log(user)}
             <p className="messageInfo">
-            <img className="img" src={"data:image/png;base64," + post.user[0].profilePic}/> 
-            {post.user[0].username}</p>
+            <img className="img" src={"data:image/png;base64," + user.profilePic}/> 
+    {user.username}</p>
     <p>{date}</p>
             
             {/*uses coalescing operator to check for whether props.post.likes
@@ -50,4 +53,4 @@ const LikedBy = (props) => {
     </p>
 )}
 
-export default Post;
+export default OnePost;

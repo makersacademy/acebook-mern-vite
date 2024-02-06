@@ -3,13 +3,42 @@ const User = require("../models/user")
 const { generateToken } = require("../lib/token");
 
 const getAllPosts = async (req, res) => {
-    const posts = await Post.find().sort({_id: -1});
+    const posts = await Post.aggregate([
+        {$addFields: {
+            convertedId: {$toObjectId: "$user_id"}
+        }},
+        { $lookup: {
+            from: "users",
+            localField: "convertedId",
+            foreignField: "_id",
+            as: "user"
+        }
+    }
+    ]).sort({_id: -1})
+
+    
     const token = generateToken(req.user_id);
     res.status(200).json({ posts: posts, token: token });
 };
 
 const getSinglePost = async (req, res) => {
-    const post = await Post.find({ _id: req.params.id});
+    const postID = req.params.id
+    const post2 = await Post.find({ _id: req.params.id});
+    const post = await Post.aggregate([
+        {$addFields: {
+            convertedId: {$toObjectId: "$user_id"},
+            convertedPostId: {$toString: "$_id"}
+        }},
+        {$match: {
+            convertedPostId: postID
+        }},
+        { $lookup: {
+            from: "users",
+            localField: "convertedId",
+            foreignField: "_id",
+            as: "user"
+        }
+    }])
     const token = generateToken(req.user_id);
     res.status(200).json({post: post, token: token})
 }
@@ -20,7 +49,7 @@ const createPost = async (req, res) => {
         //console.log(req.user_id)
         //console.log(user)
         //console.log(req.body)
-        req.body.username = user.username
+        req.body.user_id = req.user_id
         const post = new Post(req.body);
         post.save();
 

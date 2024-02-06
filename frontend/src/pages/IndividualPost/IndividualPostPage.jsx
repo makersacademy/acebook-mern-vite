@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Post from "../../components/Post/Post";
+import OnePost from "../../components/Post/OnePost";
 import DeletePostButton from "../../components/Post/DeletePostButton";
 import Comment from "../../components/Comments/Comments";
 import CreateComment from "../../components/Comments/CreateComment";
@@ -14,6 +14,7 @@ export const PostPage = () => {
     const postId = handle.id;
 
     const [post, setPost] = useState([]);
+    const [user, setUser] = useState([]);
     const [comments, setComments] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const navigate = useNavigate();
@@ -23,6 +24,7 @@ export const PostPage = () => {
             getSinglePost(postId, token)
                 .then((data) => {
                     setPost(data.post[0]);
+                    setUser(data.post[0].user[0]);
                     setToken(data.token);
                     //console.log('post details:')
                     //console.log(data.post[0])
@@ -55,7 +57,7 @@ export const PostPage = () => {
         <>
             <div role="postContent">
                 <h2>Post</h2>
-                <Post post={post} key={post._id} />
+                <OnePost post={post} user={user} key={post._id} />
                 <DeletePostButton/>
                 <LikePostButton post={post}/>
             </div>
