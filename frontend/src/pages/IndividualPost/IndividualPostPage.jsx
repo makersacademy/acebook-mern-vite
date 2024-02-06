@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import OnePost from "../../components/Post/OnePost";
 import DeletePostButton from "../../components/Post/DeletePostButton";
+import EditPost from "../../components/Post/EditPost";
 import Comment from "../../components/Comments/Comments";
 import CreateComment from "../../components/Comments/CreateComment";
 import { getSinglePost } from "../../services/posts";
 import { getAllComments } from "../../services/comments";
 import LikePostButton from "../../components/Post/LikePost";
+
 
 export const PostPage = () => {
     const handle = useParams();
@@ -17,7 +19,31 @@ export const PostPage = () => {
     const [user, setUser] = useState([]);
     const [comments, setComments] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
+    // const [currentUsername, setCurrentUsername] = useState([]);
+    const [buttonDisplay, setButtonDisplay] = useState(true);
     const navigate = useNavigate();
+
+    // const handleButtonDisplay = () => {
+    //     getProfile(token)
+    //         .then((data) => {
+    //             setCurrentUsername(data.users[0].username);
+    //         })
+    //         .then(() => {
+    //             if (currentUsername != post.username) {
+    //                 setButtonDisplay(false);
+    //                 // console.log(buttonDisplay)
+    //                 // console.log("current user: " + currentUsername)
+    //                 // console.log("Post user: " + post.username)
+    //             } else {
+    //                 setButtonDisplay(true);
+    //                 // console.log("current user: " + currentUsername)
+    //                 // console.log("Post user: " + post.username)
+    //                 // console.log(buttonDisplay)
+    //             }
+    //         });
+    //     return buttonDisplay;
+    // };
+    // console.log(handleButtonDisplay());
 
     useEffect(() => {
         if (token) {
@@ -26,9 +52,10 @@ export const PostPage = () => {
                     setPost(data.post[0]);
                     setUser(data.post[0].user[0]);
                     setToken(data.token);
-                    //console.log('post details:')
-                    //console.log(data.post[0])
+                    console.log(data.userMatch)
+                    setButtonDisplay(data.userMatch)
                     window.localStorage.setItem("token", data.token);
+                    return buttonDisplay
                 })
                 .catch((err) => {
                     console.log(err);
@@ -53,13 +80,18 @@ export const PostPage = () => {
         return;
     }
     return (
-
         <>
             <div role="postContent">
                 <h2>Post</h2>
+
                 <OnePost post={post} user={user} key={post._id} />
-                <DeletePostButton/>
+
+
+                {buttonDisplay && <EditPost message = {post.message}/>}
+                {buttonDisplay && <DeletePostButton />}
+
                 <LikePostButton post={post}/>
+
             </div>
             <hr></hr>
             <h2>Comments</h2>
