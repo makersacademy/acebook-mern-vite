@@ -86,6 +86,7 @@ return (
 						<AddComment
 							postId={props.post._id}
 							toggleStateChange={props.toggleStateChange}
+							post_userId={props.postedBy._id}
 						/>
 					</div>
 					}

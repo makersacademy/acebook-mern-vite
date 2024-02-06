@@ -12,5 +12,6 @@ router.patch("/:username/edit-bio", UsersController.editBio);
 router.get("/", UsersController.searchUsers)
 router.post("/:username/friends", UsersController.addFriend)
 router.delete("/:username/friends", UsersController.removeFriend)
+router.post("/:username/notifications", UsersController.createNotification)
 
 module.exports = router;

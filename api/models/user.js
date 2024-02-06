@@ -2,6 +2,12 @@ const mongoose = require("mongoose");
 
 const root = "../public/images/";
 
+const NotificationSchema = new mongoose.Schema(
+	{
+		message: String
+	}, {timestamp: true}
+)
+
 
 const UserSchema = new mongoose.Schema(
 	{
@@ -17,11 +23,13 @@ const UserSchema = new mongoose.Schema(
 		// when retrieving a User look to use populate() function to retrieve full documents of friends
 		friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 		posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+		notifications: [NotificationSchema]
 	},
 	{ timestamp: true, toJSON: { getters: true } }
 );
 
 const User = mongoose.model("User", UserSchema);
+const Notification = mongoose.model("Notification", NotificationSchema);
 
 // creates new users for testing purposes
 // TODO: Users are adding to DB with same usernames ?uniqueness not working. ?need to check data exists before seedsing.

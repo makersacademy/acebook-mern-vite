@@ -178,6 +178,31 @@ const removeFriend = async(req, res) => {
 	}
 }
 
+const createNotification = async(req, res) => {
+
+	const user_id = req.body.entity_userId
+	const message = req.body.notificationMessage
+
+
+	try {
+		const updatedUser = await User.findOneAndUpdate(
+			{_id: user_id},
+			{$push: {notifications: {
+				message: message
+			}}},
+			{new:true}
+		)
+		if (!updatedUser) {
+			return res.status(404).json({ message: "User not found" });
+		}
+		res.status(200).json({message: 'notification sent'});	
+
+	} catch (error) {
+		res.status(500).json({message: "error creating notification"})
+	}
+
+}
+
 
 
 const UsersController = {
@@ -187,7 +212,8 @@ const UsersController = {
 	editBio: editBio,
 	searchUsers: searchUsers,
 	addFriend: addFriend,
-	removeFriend: removeFriend
+	removeFriend: removeFriend,
+	createNotification: createNotification,
 };
 
 module.exports = UsersController;
