@@ -27,7 +27,10 @@ export const getSinglePost = async (post_id, token) => {
         },
     };
 
-    const response = await fetch(`${BACKEND_URL}/posts/find/${post_id}`, requestOptions);
+    const response = await fetch(
+        `${BACKEND_URL}/posts/find/${post_id}`,
+        requestOptions
+    );
     // console.log("response is")
     // console.log(response)
     if (response.status !== 200) {
@@ -76,11 +79,51 @@ export const deletePost = async (post_id, token) => {
         headers: {
             Authorization: `Bearer ${token}`,
         },
-    }
+    };
 
-    const response = await fetch(`${BACKEND_URL}/posts/find/${post_id}`, requestOptions)
+    const response = await fetch(
+        `${BACKEND_URL}/posts/find/${post_id}`,
+        requestOptions
+    );
     if (response.status !== 200) {
         throw new Error("Unable to delete post");
+    }
+    const data = await response.json();
+    return data;
+};
+
+export const updatePost = async (post_id, message, token) => {
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ message }),
+    };
+
+    const response = await fetch(
+        `${BACKEND_URL}/posts/find/${post_id}`,
+        requestOptions
+    );
+    if (response.status !== 200) {
+        throw new Error("Unable to update post");
+    }
+    const data = await response.json();
+    return data;
+}
+
+export const likePost = async (post_id, token) => {
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }
+
+    const response = await fetch(`${BACKEND_URL}/posts/find/${post_id}/like`, requestOptions)
+    if (response.status !== 200) {
+        throw new Error("Unable to like post");
     }
     const data = await response.json();
     return data;
