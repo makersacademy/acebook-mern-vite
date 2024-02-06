@@ -26,11 +26,12 @@ const getSinglePost = async (req, res) => {
 
 const createPost = async (req, res) => {
     if (req.body.message !== "") {
-        const user = await User.findOne({ _id: req.user_id });
-        console.log(req.user_id);
-        console.log(user);
-        console.log(req.body);
-        req.body.username = user.username;
+        const user = await User.findOne({_id: req.user_id})
+        //console.log(req.user_id)
+        //console.log(user)
+        //console.log(req.body)
+        req.body.username = user.username
+      
         const post = new Post(req.body);
         post.save();
 
@@ -74,12 +75,23 @@ const deletePost = async (req, res) => {
     res.status(200).json({ message: "Post was deleted", token: newToken });
 };
 
+const likePost = async (req, res) => {
+    const user = await User.findOne({_id: req.user_id})
+    console.log(user)
+    await Post.findOneAndUpdate({_id: req.params.id},{$addToSet:{likes:{user_id: req.user_id, user_name: user.username}}});
+    const newToken = generateToken(req.user_id);
+    res.status(200).json({message: "Post was liked", token: newToken})
+
+}
+
+
 const PostsController = {
     getAllPosts: getAllPosts,
     createPost: createPost,
     getSinglePost: getSinglePost,
     deletePost: deletePost,
     updatePost: updatePost,
+    likePost: likePost
 };
 
 module.exports = PostsController;

@@ -34,8 +34,9 @@ describe("Feed Page", () => {
     render(<FeedPage />);
 
     const post = await screen.findByRole("article");
+    console.log(post.textContent)
 
-    expect(post.textContent).toEqual("Test Post 1user1 01/02/2024 12:29");
+    expect(post.textContent).toEqual("Test Post 1user1 01/02/2024 12:29Likes: 0");
 
   });
 

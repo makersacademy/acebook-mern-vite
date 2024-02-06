@@ -24,6 +24,10 @@ const createToken = (userId) => {
 
 let token;
 describe("/posts", () => {
+    beforeAll(async() => {
+        await User.deleteMany({});
+        await Post.deleteMany({});
+    })
     beforeEach(async () => {
         const user = new User({
             username: "user123",
@@ -37,8 +41,6 @@ describe("/posts", () => {
     });
 
     afterEach(async () => {
-        await User.deleteMany({});
-        await Post.deleteMany({});
     });
 
     describe("POST, when a valid token is present", () => {
@@ -404,5 +406,42 @@ describe("/posts", () => {
             const post = await Post.findOne({ _id: post1._id });
             expect(post.message).toBe("New Test Message");
         });
+    });
+    describe("POST like when a valid token is present", () => {
+        test("the response code is 200", async () => {
+            const post1 = new Post({message: "Test message"});
+            await post1.save();
+            const response = await request(app)
+                .post(`/posts/find/${post1._id}/like`)
+                .set("Authorization", `Bearer ${token}`);
+            expect(response.status).toEqual(200)
+        });
+        test("the length of the array is 1 when 1 user has likes the post", async () => {
+            const post1 = new Post({message: "Test message"});
+            await post1.save();
+            await request(app)
+                .post(`/posts/find/${post1._id}/like`)
+                .set("Authorization", `Bearer ${token}`);
+            response = await request(app)
+                .get(`/posts`)
+                .set("Authorization", `Bearer ${token}`);
+            const posts = response.body.posts;
+            expect(posts[0].likes.length).toEqual(1)
+        });
+        test("the length of the array is still 1 when 1 user has clicked like on the post twice", async () => {
+            const post1 = new Post({message: "Test message"});
+            await post1.save();
+            await request(app)
+                .post(`/posts/find/${post1._id}/like`)
+                .set("Authorization", `Bearer ${token}`);
+            await request(app)
+                .post(`/posts/find/${post1._id}/like`)
+                .set("Authorization", `Bearer ${token}`);
+            response = await request(app)
+                .get(`/posts`)
+                .set("Authorization", `Bearer ${token}`);
+            const posts = response.body.posts;
+            expect(posts[0].likes.length).toEqual(1)
+        })
     });
 });
