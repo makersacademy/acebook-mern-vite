@@ -6,12 +6,22 @@ import { likePost } from "../services/posts";
 import { getAllLikesByPostId } from "../services/posts";
 import CreateNewComment from "./Comment/CreateNewComment";
 import CommentsList from "./Comment/CommentsList";
+import { editPost } from '../services/posts';
+import '../components/Comment/comment.css'
 
-const Post = ({ post, token }) => {
+const Post = ({ post, token, setNewPost }) => {
+  const [showOptions, setShowOptions] = useState(false)
+    const handleOptions = () => {
+        setShowOptions(!showOptions)
+    }
+  
+  const id = window.localStorage.getItem("id")
   const [isLiked, setIsLiked] = useState(false);
   const [numberOfLikes, setNumberOfLikes] = useState(0);
   const [toggleCommentForm, setToggleCommentForm] = useState(false);
+  const [editedPost, setEditedPost] = useState(post.message);
 
+  
   useEffect(() => {
     const fetchLikes = async () => {
       try {
@@ -48,13 +58,42 @@ const Post = ({ post, token }) => {
     setToggleCommentForm(!toggleCommentForm);
   };
 
+
+  const handleEditPost = async () => {
+    try {
+        if (!token) {
+            console.error("Token not found in local storage");
+            return;
+        }
+
+        await editPost(token, post._id, editedPost);
+        console.log("Comment Successfully Edited!")
+        setNewPost(true);
+    } catch (error) {
+        console.error("Error Editing Comment:", error);
+        console.log("Error Editing Comment!")
+    }
+}
+
+
+
+
   // console.log(post.comments)
   return (
     <div className="post" id={post._id}>
       <div className="post-header">
         <img src={post.profile_pic} alt={`Author's avatar`} />
         <h4>{post.full_name}</h4>
+        <button className='options' onClick={handleOptions}>...</button>
+                {showOptions && (
+                    <div className='options-menu'>
+                        <textarea value={editedPost} onChange={(e) => setEditedPost(e.target.value)} />
+                        <button onClick={handleEditPost}>Edit</button>
+                        {/* <button onClick={handleDeletePost}>Delete</button> */}
+                    </div>
+                )}
       </div>
+      
       <div className="post-content">
         <article>{post.message}</article>
         {post.image != undefined ? ( <img src={post.image} className="post-image"/>): null} 

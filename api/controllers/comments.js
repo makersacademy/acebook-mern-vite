@@ -91,8 +91,10 @@ const mongoose = require("mongoose");
         try {
             const commentId = req.params.id
             const commentText = req.body.comment
+
             console.log(commentText)
             console.log(commentId)
+            
             if (!commentId) {
                 return res.status(400).json({ message: "Comment ID is required to edit a comment!"});
             }
