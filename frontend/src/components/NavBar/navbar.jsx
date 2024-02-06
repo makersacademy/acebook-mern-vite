@@ -7,6 +7,7 @@ import LoginNavItem from './LoginNavItem';
 import SignupNavItem from './SignupNavItem';
 import SearchResultsDropDown from './SearchResultsDropDown';
 import { Link } from 'react-router-dom';
+import './SearchResultsDropDown.css'
 
 
 const Navbar = () => {
@@ -31,9 +32,18 @@ const Navbar = () => {
     </div>
 
     <div data-testId="searchItem" className="search-nav-item">
-    <SearchNavItem 
-      handleSearch={handleSearch}
-    />
+      <SearchNavItem 
+        handleSearch={handleSearch}
+      />
+      {showSearchResults && 
+        <div className="search-results-dropdown">
+        <SearchResultsDropDown 
+        setShowSearchResults={setShowSearchResults}
+          foundUsers={foundUsers}
+        />
+      </div>
+      }
+      
     </div>
 
     <div className="home-nav-item">
@@ -56,14 +66,7 @@ const Navbar = () => {
       </>
     }
     </div>
-    {showSearchResults && 
-    <div className="search-results-dropdown">
-      <SearchResultsDropDown 
-      setShowSearchResults={setShowSearchResults}
-        foundUsers={foundUsers}
-      />
-    </div>
-}
+
 
 
 </>

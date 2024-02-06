@@ -143,6 +143,7 @@ const Post = (props) => {
             </article>
         </div>
     );
+
 };
 
 export default Post;

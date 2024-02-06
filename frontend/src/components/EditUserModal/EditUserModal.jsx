@@ -9,7 +9,6 @@ export default function EditUserModal( {username, image, handleImageUpdate, hand
     const [modal, setModal] = useState(false)
     const [editPictureModal, setEditPictureModal] = useState(false)
     const [editBioModal, setEditBioModal] = useState(false)
-    console.log("this is the image", image)
     
     const toggleModal = () => {
         setModal(!modal)

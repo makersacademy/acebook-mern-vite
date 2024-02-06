@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import './SearchResultsDropDown.jsx'
+import './SearchResultsDropDown.css'
 import { useEffect, useRef } from "react"
 
 export default function SearchResultsDropDown( { foundUsers, setShowSearchResults } ) {
