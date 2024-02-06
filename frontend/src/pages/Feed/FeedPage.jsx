@@ -1,38 +1,22 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { getPosts } from "../../services/posts";
-import NewPost from "../../components/Post/NewPost";
+import NewPost from "../../components/Post/NewPost" 
 import Post from "../../components/Post/Post";
 import Navbar from "../../components/NavBar/navbar";
 
 export const FeedPage = () => {
     const [posts, setPosts] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
-
-    const [stateChange, setStateChange] = useState(false);
-    const userID = JSON.parse(window.localStorage.getItem("user"));
-
-    useEffect(() => {
-        if (token) {
-            getPosts(token)
-                .then((data) => {
-                    setPosts(data.posts);
-                    setToken(data.token);
-                    window.localStorage.setItem("token", data.token);
-                })
-                .catch((err) => {
-                    console.err(err);
-                });
-        } else {
-            navigate("/login");
-        }
-    }, []);
-    const toggleStateChange = () => {
-        setStateChange(!stateChange);
-    };
+    const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")))
+    const [stateChange, setStateChange] = useState(false)
 
     const navigate = useNavigate();
+
+    const toggleStateChange = () => {
+      setStateChange(!stateChange)
+    }
+
 
     useEffect(() => {
         if (token) {
@@ -57,28 +41,28 @@ export const FeedPage = () => {
         return;
     }
 
-    return (
-        <div className="feedpage" data-testid="feed-page">
-            <div className="navbar">
-                <Navbar />
-            </div>
-            <h1>Posts</h1>
-            <div className="feed" role="feed">
-                <NewPost token={token} />
-                {posts.map((post) => {
-                    const liked = post.likes.includes(userID._id);
-                    return (
-                        <Post
-                            key={post._id}
-                            post={post}
-                            postedBy={post.postedBy}
-                            toggleStateChange={toggleStateChange}
-                            liked={liked}
-                        />
-                    );
-                })}
-            </div>
-        </div>
-    );
+	return (
+		<div className="feedpage" data-testid="feed-page">
+			<div className="navbar">
+				<Navbar />
+			</div>
+			<h1>Posts</h1>
+			<div className="feed" role="feed">
+      <NewPost 
+      token={token}
+      userId={user._id}
+      toggleStateChange={toggleStateChange}
+      />
 
+				{posts.map((post) => (
+					<Post 
+						key={post._id}
+						post={post}
+						postedBy={post.postedBy}
+						toggleStateChange={toggleStateChange}
+					/>
+				))}
+			</div>
+		</div>
+	);
 };

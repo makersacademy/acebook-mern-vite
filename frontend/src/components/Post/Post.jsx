@@ -12,12 +12,13 @@ const Post = (props) => {
 	const [showMoreComments, setShowMoreComments] = useState(false)
 	const [hideComments, setHideComments] = useState(false)
 
-	console.log("comments", props.post.comments)
+	// console.log("comments", props.post.comments)
+	// console.log("post media url", props.post.media)
 
 	const handleLikeUnlike = () => {
 		setLike(!like);
 		setLikes(props.post.likes.length);
-		console.log("I'm being clicked too");
+		// console.log("I'm being clicked too");
 	};
 	const checkLikes = (props) => {
 		setLikes(props.post.likes.length);
@@ -58,6 +59,13 @@ return (
 			<div className="date-time">
 				{new Date(props.post.createdAt).toLocaleString('en-UK')}
 			</div>
+
+			{props.post.media !== "../public/images/null" && 
+			<>
+			<img src={props.post.media}></img>
+			</>
+			}
+
 			{props.post.message}<br></br>
 			<h5>likes: {props.post.likes.length}</h5>
 			<LikeButton

@@ -5,7 +5,7 @@ import EditProfilePictureModal from "../EditProfilePictureModal/EditProfilePictu
 import EditBioModal from "../EditBioModal/EditBioModal";
 import User from "../User/User";
 
-export default function EditUserModal( {username, image, handleImageUpdate, handleBioUpdate}) { 
+export default function EditUserModal( {username, image, handleImageUpdate, handleBioUpdate, triggerStateChange}) { 
     const [modal, setModal] = useState(false)
     const [editPictureModal, setEditPictureModal] = useState(false)
     const [editBioModal, setEditBioModal] = useState(false)
@@ -57,6 +57,7 @@ export default function EditUserModal( {username, image, handleImageUpdate, hand
                             username={username}
                             toggleEditPictureModal={toggleEditPictureModal}
                             handleImageUpdate={handleImageUpdate}
+                            triggerStateChange={triggerStateChange}
                         /> 
                         <button
                         onClick={toggleEditPictureModal}
@@ -78,6 +79,7 @@ export default function EditUserModal( {username, image, handleImageUpdate, hand
                             username={username}
                             toggleEditBioModal={toggleEditBioModal}
                             handleBioUpdate={handleBioUpdate}
+                            triggerStateChange={triggerStateChange}
                         />
                         <button
                             onClick={toggleEditBioModal}
