@@ -16,10 +16,8 @@ export const FeedPage = () => {
     const navigate = useNavigate();
 
     const toggleStateChange = () => {
-
         setStateChange(!stateChange);
     };
-
 
     const handlePostDelete = () => {
         // Update state or perform any other necessary actions
@@ -49,7 +47,6 @@ export const FeedPage = () => {
         return;
     }
 
-
     return (
         <div className="feedpage" data-testid="feed-page">
             <div className="navbar">
@@ -64,22 +61,21 @@ export const FeedPage = () => {
                 />
 
                 {posts.map((post) => {
-                    const liked = post.likes.includes(user._id)
+                    const liked = post.likes.includes(user._id);
                     return (
-                    <Post
-                        key={post._id}
-                        post={post}
-                        postedBy={post.postedBy}
-                        toggleStateChange={toggleStateChange}
-                        onDelete={handlePostDelete}
-                        loggedInUsername={user.username}
-                        token={token}
-                        liked={liked}
-                    />
-                          )
-                ))}
+                        <Post
+                            key={post._id}
+                            post={post}
+                            postedBy={post.postedBy}
+                            toggleStateChange={toggleStateChange}
+                            onDelete={handlePostDelete}
+                            loggedInUsername={user.username}
+                            token={token}
+                            liked={liked}
+                        />
+                    );
+                })}
             </div>
         </div>
     );
-
 };
