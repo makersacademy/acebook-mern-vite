@@ -6,6 +6,7 @@ import Comment from "../../components/Comments/Comments";
 import CreateComment from "../../components/Comments/CreateComment";
 import { getSinglePost } from "../../services/posts";
 import { getAllComments } from "../../services/comments";
+import LikePostButton from "../../components/Post/LikePost";
 
 export const PostPage = () => {
     const handle = useParams();
@@ -56,6 +57,7 @@ export const PostPage = () => {
                 <h2>Post</h2>
                 <Post post={post} key={post._id} />
                 <DeletePostButton/>
+                <LikePostButton post={post}/>
             </div>
             <hr></hr>
             <h2>Comments</h2>

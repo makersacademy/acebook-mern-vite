@@ -8,5 +8,6 @@ router.get(`/find/:id`, PostsController.getSinglePost)
 router.post("/", PostsController.createPost);
 router.delete(`/find/:id`, PostsController.deletePost)
 router.post(`/find/:id`, PostsController.updatePost)
+router.post(`/find/:id/like`, PostsController.likePost)
 
 module.exports = router;

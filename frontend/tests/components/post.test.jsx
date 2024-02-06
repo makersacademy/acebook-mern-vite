@@ -8,7 +8,7 @@ describe("Post", () => {
         render(<Post post={testPost} />);
 
         const article = screen.getByRole("article");
-        expect(article.textContent).toBe("test messageuser1 01/02/2024 12:29");
+        expect(article.textContent).toBe("test messageuser1 01/02/2024 12:29Likes: 0");
     });
 });
 
