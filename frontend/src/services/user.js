@@ -142,6 +142,10 @@ export const createNotification = async({username, entity_userId, token, notific
         case "post-like":
             notificationMessage = `${username} liked your post`
             break;
+        
+        case "post-unlike":
+            notificationMessage = `${username} un-liked your post`
+            break;
 
         case "post-comment":
             notificationMessage = `${username} commented on your post`

@@ -72,7 +72,7 @@ return (
 			{props.postedBy && 
 			<LikeButton
 				postID={props.post._id}
-				like={like}
+				// like={like}
 				handleLikeUnlike={handleLikeUnlike}
 				clicked={props.clicked}
 				toggleStateChange={props.toggleStateChange}

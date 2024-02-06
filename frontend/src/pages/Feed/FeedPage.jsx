@@ -54,7 +54,9 @@ export const FeedPage = () => {
                 toggleStateChange={toggleStateChange}
                 />
 
-				{posts.map((post) => (
+				{posts.map((post) => {
+                    const liked = post.likes.includes(user._id)
+                    return (
 					<Post 
 						key={post._id}
 						post={post}
@@ -62,8 +64,10 @@ export const FeedPage = () => {
 						toggleStateChange={toggleStateChange}
                         loggedInUsername={user.username}
                         token={token}
+                        liked={liked}
 					/>
-				))}
+                    )
+                    })}
 			</div>
 		</div>
 	);
