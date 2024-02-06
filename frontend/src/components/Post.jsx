@@ -6,11 +6,13 @@ import { likePost } from "../services/posts";
 import { getAllLikesByPostId } from "../services/posts";
 import CreateNewComment from "./Comment/CreateNewComment";
 import CommentsList from "./Comment/CommentsList";
+import { calculateTimeSincePost } from "./dateTimeLogic";
 
 const Post = ({ post, token }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [numberOfLikes, setNumberOfLikes] = useState(0);
   const [toggleCommentForm, setToggleCommentForm] = useState(false);
+  const [date, setDate] = useState('3 d')
 
   useEffect(() => {
     const fetchLikes = async () => {
@@ -48,12 +50,22 @@ const Post = ({ post, token }) => {
     setToggleCommentForm(!toggleCommentForm);
   };
 
+  useEffect(() => {
+    if (post.createdAt != null) {
+      setDate(calculateTimeSincePost(post.createdAt))
+    }
+  })
+  
+
   // console.log(post.comments)
   return (
     <div className="post" id={post._id}>
       <div className="post-header">
         <img src={post.profile_pic} alt={`Author's avatar`} />
-        <h4>{post.full_name}</h4>
+        <div className="date-and-time">
+          <h4>{post.full_name}</h4>
+          <p className="post-time">{date}</p>
+        </div>
       </div>
       <div className="post-content">
         <article>{post.message}</article>

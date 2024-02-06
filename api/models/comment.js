@@ -7,6 +7,10 @@ const CommentSchema = new mongoose.Schema({
   message: String,
   user_id: mongoose.Schema.Types.ObjectId,
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Comment = mongoose.model("comments", CommentSchema);
