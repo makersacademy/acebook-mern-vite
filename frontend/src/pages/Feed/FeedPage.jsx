@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { getPosts } from "../../services/posts";
 import NewPost from "../../components/Post/NewPost" 
 import Post from "../../components/Post/Post";
@@ -10,30 +9,13 @@ export const FeedPage = () => {
     const [posts, setPosts] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")))
-    // const [click, setClick] = useState(false);
     const [stateChange, setStateChange] = useState(false)
 
     const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (token) {
-  //     getPosts(token)
-  //       .then((data) => {
-  //         setPosts(data.posts);
-  //         setToken(data.token);
-  //         window.localStorage.setItem("token", data.token);
-  //       })
-  //       .catch((err) => {
-  //         console.err(err);
-  //       });
-  //   } else {
-  //     navigate("/login");
-  //   }
-  // }, []);
-
-	const toggleStateChange = () => {
-		setStateChange(!stateChange)
-	}
+    const toggleStateChange = () => {
+      setStateChange(!stateChange)
+    }
 
 
     useEffect(() => {

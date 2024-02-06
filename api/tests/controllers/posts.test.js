@@ -4,13 +4,13 @@ const JWT = require("jsonwebtoken");
 const app = require("../../app");
 const Post = require("../../models/post");
 const User = require("../../models/user");
+const { likePost } = require("../../controllers/posts");
 
 require("../mongodb_helper");
 
 const secret = process.env.JWT_SECRET;
 
 const createToken = (userId) => {
-
 	return JWT.sign(
 		{
 			user_id: userId,
@@ -25,9 +25,9 @@ const createToken = (userId) => {
 
 let token;
 describe("/posts", () => {
-
 	beforeAll(async () => {
 		const user = new User({
+			user_id: "1",
 			username: "posttest",
 			email: "post-test@test.com",
 			password: "Dd!12345678",
@@ -193,4 +193,17 @@ describe("/posts", () => {
 		});
 	});
 
+	describe("like post", () => {
+		test("likepost returns array", async () => {
+			const post1 = new Post({ message: "howdy!" });
+			await post1.save();
+
+			const response = await request(app)
+				.get("/posts")
+				.set("Authorization", `Bearer ${token}`)
+				.then((response) => {
+					expect(JSON.parse(response.res.text).posts[0]["likes"]).toEqual([]);
+				});
+		});
+	});
 });
