@@ -45,6 +45,9 @@ export const ProfilePage = () => {
                     </>
                 ))}
             </div>
+            <div className="friends">
+                <Link to ='/addfriends'>Add Friends</Link>
+            </div>
             <div className="profile-edits">
                     <Link to='/profileEdits'>Edit Profile</Link>
                 </div>
