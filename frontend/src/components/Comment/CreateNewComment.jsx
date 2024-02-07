@@ -26,6 +26,7 @@ const CreateNewComment = (props) => {
         submitComment(comment, token)
             .then((data) => {
                 console.log(data)
+                props.setNewComment(true)
             })
             .catch((error) => {
                 console.error(error);

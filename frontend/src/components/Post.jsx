@@ -6,11 +6,13 @@ import { likePost } from "../services/posts";
 import { getAllLikesByPostId } from "../services/posts";
 import CreateNewComment from "./Comment/CreateNewComment";
 import CommentsList from "./Comment/CommentsList";
+import { calculateTimeSincePost } from "./dateTimeLogic";
 
 const Post = ({ post, token }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [numberOfLikes, setNumberOfLikes] = useState(0);
   const [toggleCommentForm, setToggleCommentForm] = useState(false);
+  const [date, setDate] = useState(null)
 
   useEffect(() => {
     const fetchLikes = async () => {
@@ -48,16 +50,26 @@ const Post = ({ post, token }) => {
     setToggleCommentForm(!toggleCommentForm);
   };
 
+  useEffect(() => {
+    if (post.createdAt != null) {
+      setDate(calculateTimeSincePost(post.createdAt))
+    }
+  })
+  
+
   // console.log(post.comments)
   return (
     <div className="post" id={post._id}>
       <div className="post-header">
         <img src={post.profile_pic} alt={`Author's avatar`} />
-        <h4>{post.full_name}</h4>
+        <div className="date-and-time">
+          <h4>{post.full_name}</h4>
+          <p className="post-time">{date}</p>
+        </div>
       </div>
       <div className="post-content">
         <article>{post.message}</article>
-        {post.image != "" ? ( <img src={post.image} className="post-image"/>): null} 
+        {post.image != undefined ? ( <img src={post.image} className="post-image"/>): null} 
       </div>
       <div className="post-actions">
         <div className="like-btn" onClick={handleLikeClick}>
@@ -66,19 +78,16 @@ const Post = ({ post, token }) => {
           <button>{isLiked ? "Unlike" : "Like"}</button>
         </div>
         <div className="comment-btn">
-          <button onClick={handleCommentClick} >Comments</button>
+          <button onClick={handleCommentClick} >Comment</button>
         </div>
       </div>
+      {toggleCommentForm ? 
       <div className="feed" role="feed">
-          {toggleCommentForm ? 
           <div>
-                <CommentsList 
-                postId={post._id}/>
-                
-              <CreateNewComment 
-            post_id={post._id} /> </div> : <></>}
-          
-      </div>
+            <CommentsList 
+            postId={post._id}/>
+          </div>
+      </div> : <></>}
     </div>
   );
 };
