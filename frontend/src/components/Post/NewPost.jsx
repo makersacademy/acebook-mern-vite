@@ -5,7 +5,7 @@ import './NewPost.css'
 
 const NewPost = ( {token, userId, toggleStateChange} ) => {
     const [postMessage, setPostMessage] = useState('');
-    const [file, setFile] = useState()
+    const [file, setFile] = useState(null)
     const [uploadImage, setuploadImage] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
 
@@ -17,7 +17,7 @@ const NewPost = ( {token, userId, toggleStateChange} ) => {
             formData.append('file', file)
         } else {
             if(!postMessage) {
-                return setErrorMessage("cannot post empty comment")
+                return alert("cannot post empty comment")
             }
         }
         if(postMessage){
@@ -32,6 +32,7 @@ const NewPost = ( {token, userId, toggleStateChange} ) => {
                 setPostMessage('')
                 setFile(null)
                 setErrorMessage('')
+                setuploadImage(false)
                 toggleStateChange()
 
             })
@@ -41,8 +42,11 @@ const NewPost = ( {token, userId, toggleStateChange} ) => {
     }
 
     const handleUploadImageClick = () => {
-        // event.stopPropagation();
         setuploadImage(!uploadImage)
+    }
+
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0])
     }
 
     
@@ -60,12 +64,14 @@ const NewPost = ( {token, userId, toggleStateChange} ) => {
             </button>
 
             {uploadImage &&  
-            <input 
-                type="file" 
-                name="file"
-                accept="image/png, image/jpeg" 
-                onChange={e => setFile(e.target.files[0])}
-            />
+                <>
+                <input 
+                    type="file" 
+                    name="file"
+                    accept="image/png, image/jpeg" 
+                    onChange={handleFileChange}
+                />
+                </>
             }
             <br></br>
             <button type='submit'>Post</button>
