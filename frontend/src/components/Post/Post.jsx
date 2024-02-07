@@ -7,6 +7,7 @@ import DeleteButton from "../DeleteButton/DeleteButton";
 import timeFromNow from "../../utils/TimeFromNow";
 
 const Post = (props) => {
+
     const [like, setLike] = useState(false);
     const [likes, setLikes] = useState(props.post.likes.length);
     const [showCommentBox, setShowCommentBox] = useState(false);
@@ -143,6 +144,7 @@ const Post = (props) => {
             </article>
         </div>
     );
+
 };
 
 export default Post;
