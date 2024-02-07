@@ -45,6 +45,10 @@ This project wouldn't have been possible without the collective effort and dedic
 
 - Special Thanks to Claire Castanet (Technical Coach at Makers): Claire's insights and constructive feedback have not only helped us overcome numerous technical challenges but have also contributed significantly to our growth as developers.
 
+## Contributing
+
+<!-- Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us. -->
+
 
 ## Getting Started
 
