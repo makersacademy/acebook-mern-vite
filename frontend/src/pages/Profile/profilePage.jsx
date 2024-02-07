@@ -16,6 +16,12 @@ export const ProfilePage = () => {
     const { userId } = useParams();
     const [posts, setPosts] = useState([]);
     const [isFriend, setIsFriend] = useState(false);
+    const currentUserId = window.localStorage.getItem("id");
+    const myProfilePage = () => {
+        if (userId === currentUserId) {
+            return true
+        }
+    }
 
     useEffect(() => {
         getUser(token, userId)
@@ -52,7 +58,7 @@ export const ProfilePage = () => {
                     <br />
                     {user.about_me && <p>About Me: {user.about_me}</p>}
                 </div>
-                <button className="befriend-unfriend-button">{isFriend ? "Unfriend" : "Add Friend"}</button>
+                {myProfilePage() ? '' : <button className="befriend-unfriend-button">{isFriend ? "Unfriend" : "Add Friend"}</button>}
             </div>
             <div className="posts-by-user">
                 <h2>My posts</h2>
