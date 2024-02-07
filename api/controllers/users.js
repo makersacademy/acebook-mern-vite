@@ -188,9 +188,10 @@ const removeFriend = async(req, res) => {
 
 	const username = req.params.username
 	const requestingUserId = req.body.requestingUserId
+	console.log("BE", username, requestingUserId)
 
 	try {
-		const updatedUser = await User.AndUpdate(
+		const updatedUser = await User.findOneAndUpdate(
 			{username:username},
 			{$pull: {friends: requestingUserId}},
 			{new:true}
