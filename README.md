@@ -1,6 +1,54 @@
-## Acebook web application Tech Stack - MERN 
+## Acebook 
 
-Clone of facebook web application
+Acebook is a full-featured social networking web application inspired by Facebook, built using the MERN stack (MongoDB, Express.js, React, Node.js). It aims to replicate core functionalities of Facebook, providing users with an intuitive platform for connecting and sharing with friends and family.
+
+## Features 
+
+- User Authentication (Sign Up, Log In, Log Out)
+- Profile Customization (Profile Picture, Bio, etc.)
+- Posts (Create, Edit, Delete Posts)
+- Comments & Reactions (Like, Comment on Posts)
+- Friends System (Send Friend Requests, Accept/Reject Requests)
+- Responsive Design for all devices
+<!-- - Real-time Notifications -->
+
+
+## Built With
+
+- MongoDB - Database
+- Express.js - Web Application Framework
+- React - Frontend Library-
+- Node.js - JavaScript Runtime
+
+
+## Authors (Team)
+
+- Demetrius Vissarion - https://github.com/demetriusvissarion
+- Thomas Mazzag - https://github.com/TomMazzag
+- Gabriela Ehrenbrink - 
+- Jehoshua - 
+- Fawaz Tarar - https://github.com/Fawaztarar
+
+
+
+## Acknowledgments
+
+- 
+- 
+- 
+- 
+
+
+## Getting Started
+
+These instructions will help you set up a copy of Acebook running on your local machine for development and testing purposes.
+
+## Prerequisites
+
+- Node.js
+- MongoDB
+- Git
+
 
 ### Important after adding a new module / Check after commits
 
