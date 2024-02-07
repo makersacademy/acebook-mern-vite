@@ -56,6 +56,17 @@
     display: flex;
     flex-direction: column;
     border-radius: 10px;
+    position: relative;
+}
+
+.comment .options-menu textarea {
+    z-index: 1; /* Ensure the textarea is positioned above other elements */
+    background-color: #ffffff; /* Set background color */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 5px; /* Add border radius for a rounded look */
+    padding: 5px; /* Add padding for better appearance */
+    resize: vertical; /* Allow vertical resizing */
+    margin-bottom: 10px; /* Add some space between textarea and buttons */
 }
 .post .options {
     border: none;
@@ -63,7 +74,7 @@
     top: 0px;
     right: 20px;
     width: 25px;
-    height: 25px;
+    height: 50px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -72,11 +83,11 @@
 }
 
 .comment .options:hover {
-    background-color: #ccc;
+    background-color: #fcfcfc;
 }
 
 .post .options:hover {
-    background-color: #ccc;
+    background-color: #f0f0f0;
 }
 
 .post .post-options-menu {
@@ -89,9 +100,29 @@
     display: flex;
     flex-direction: column;
     border-radius: 10px;
+    position: relative;
 }
 
+.post .post-options-menu textarea {
+    z-index: 1; /* Ensure the textarea is positioned above other elements */
+    background-color: #ffffff; /* Set background color */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 5px; /* Add border radius for a rounded look */
+    padding: 5px; /* Add padding for better appearance */
+    resize: vertical; /* Allow vertical resizing */
+    margin-bottom: 10px; /* Add some space between textarea and buttons */
+}
 
+.post .post-options-menu button {
+    border: none; /* Remove the border from the buttons */
+    outline: none; /* Remove button outline */
+    cursor: pointer;
+    padding: 2px;
+}
+
+.post .post-options-menu button:hover {
+    text-decoration: underline;
+}
 
 
 .options-menu button {

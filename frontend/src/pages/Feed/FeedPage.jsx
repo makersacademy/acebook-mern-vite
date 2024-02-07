@@ -40,7 +40,7 @@ export const FeedPage = () => {
     } else {
       navigate("/login");
     }
-  }, [token, navigate, newPost]); //Needed if useEffect is used anywhere else
+  }, [token, navigate]); //Needed if useEffect is used anywhere else
 
   useEffect(() => {
     if (token) {
@@ -73,7 +73,7 @@ export const FeedPage = () => {
       <h2>Posts</h2>
       <div className="feed" role="feed">
       {[...posts].reverse().map((post) => (
-          <Post post={post} key={post._id} token={token} setNewPost={setNewPost}/>
+          <Post post={post} key={post._id} token={token} setNewPost={setPostChanged}/>
         ))}
           </div>
         </div>

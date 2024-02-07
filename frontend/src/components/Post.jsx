@@ -6,6 +6,7 @@ import { likePost } from "../services/posts";
 import { getAllLikesByPostId } from "../services/posts";
 import CreateNewComment from "./Comment/CreateNewComment";
 import CommentsList from "./Comment/CommentsList";
+import { deletePost } from "../services/posts";
 import { editPost } from '../services/posts';
 import '../components/Comment/comment.css'
 
@@ -22,44 +23,58 @@ const Post = ({ post, token, setNewPost }) => {
   const [editedPost, setEditedPost] = useState(post.message);
   // const [newPost, setNewPost] = useState(false)
 
-
+  
   useEffect(() => {
     const fetchLikes = async () => {
       try {
         const likesData = await getAllLikesByPostId(post._id, token);
-
+        
         setIsLiked(likesData.userLiked);
         setNumberOfLikes(likesData.numberOfLikes);
       } catch (error) {
         console.error("Error fetching likes:", error);
       }
     };
-  
+    
     if (token && post._id) {
       fetchLikes();
     }
-  }, [post._id, token, numberOfLikes, isLiked]);
-  
 
+    
+  }, [post._id, token, numberOfLikes, isLiked, setNewPost]);
+  
+  
   // Function to handle liking/unliking a post
   const handleLikeClick = async () => {
     try {
       // Call the likePost function to send the like request to the backend
       await likePost(post._id, token);
-
+      
       // Toggle the like status in the UI
       setIsLiked(!isLiked);
     } catch (error) {
       console.error("Error liking the post:", error.message);
     }
   };
-
+  
   // Function to handle opening of the comment form
   const handleCommentClick = async () => {
     setToggleCommentForm(!toggleCommentForm);
   };
-
-
+  
+  
+  
+  const handleDeletePost = async () => {
+    try {
+        await deletePost(token, post._id);
+        console.log("Post deleted");
+        setNewPost(true)
+    } catch (error) {
+        console.error("Error deleting comment", error);
+    }
+}
+  
+  
   const handleEditPost = async () => {
     try {
         if (!token) {
@@ -69,7 +84,6 @@ const Post = ({ post, token, setNewPost }) => {
 
         await editPost(token, post._id, editedPost);
         console.log("Post Successfully Edited!")
-        console.log(typeof setNewPost)
         setNewPost(true);
     } catch (error) {
         console.error("Error Editing Post:", error);
@@ -87,15 +101,14 @@ const Post = ({ post, token, setNewPost }) => {
         <img src={post.profile_pic} alt={`Author's avatar`} />
         <h4>{post.full_name}</h4>
         <button className='options' onClick={handleOptions}>...</button>
-                {showOptions && (
-                    <div className='post-options-menu'>
-                        <textarea value={editedPost} onChange={(e) => setEditedPost(e.target.value)} />
-                        <button onClick={handleEditPost}>Edit</button>
-                        {/* <button onClick={handleDeletePost}>Delete</button> */}
-                    </div>  
-                )}
+        {showOptions && (
+            <div className='post-options-menu'>
+                <textarea value={editedPost} onChange={(e) => setEditedPost(e.target.value)} />
+                <button onClick={handleEditPost}>Edit</button>
+                <button onClick={handleDeletePost}>Delete</button>
+            </div>  
+        )}
       </div>
-      
       <div className="post-content">
         <article>{post.message}</article>
         {post.image != undefined ? ( <img src={post.image} className="post-image"/>): null} 
@@ -122,5 +135,3 @@ const Post = ({ post, token, setNewPost }) => {
 };
 
 export default Post;
-
-// commit test
