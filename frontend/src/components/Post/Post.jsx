@@ -26,7 +26,7 @@ const Post = (props) => {
         setLike(!like);
         setLikes(props.post.likes.length);
     };
-  
+
     const checkLikes = (props) => {
         setLikes(props.post.likes.length);
     };
@@ -71,19 +71,21 @@ const Post = (props) => {
 
                 {props.post.message}
                 <br></br>
-                <h5>likes: {props.post.likes.length}</h5>
-                <LikeButton
-                    postID={props.post._id}
-                    like={like}
-                    handleLikeUnlike={handleLikeUnlike}
-                    clicked={props.clicked}
-                    toggleStateChange={props.toggleStateChange}
-                    liked={props.liked}
-                    post_userId={props.postedBy._id}
-                    loggedInUsername={props.loggedInUsername}
-                    token={props.token}
-
-                />
+                <br></br>
+                <div className="like-container">
+                    <LikeButton
+                        postID={props.post._id}
+                        like={like}
+                        handleLikeUnlike={handleLikeUnlike}
+                        clicked={props.clicked}
+                        toggleStateChange={props.toggleStateChange}
+                        liked={props.liked}
+                        post_userId={props.postedBy._id}
+                        loggedInUsername={props.loggedInUsername}
+                        token={props.token}
+                    />
+                    <h5>{props.post.likes.length}</h5>
+                </div>
                 <DeleteButton
                     postID={props.post._id}
                     handleDelete={handleDelete}
@@ -141,7 +143,6 @@ const Post = (props) => {
             </article>
         </div>
     );
-
 };
 
 export default Post;
