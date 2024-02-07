@@ -2,7 +2,6 @@
 
 const Friend = require("../models/friend");
 const { generateToken } = require("../lib/token");
-// const Post = require("../models/post");
 const mongoose = require("mongoose");
 
 const befriend = async (req, res) => {
@@ -49,7 +48,7 @@ const unfriend = async (req, res) => {
 
 const getFriendStatus = async (req, res) => {
   try {
-    // console.log("req.params.id:", req.params.id); // This will print the ID to the console
+    // console.log("req.params.id:", req.params.id); // This will print the ID to the terminal
 
     const currentUserId = req.user_id;
     const potentialFriendId = new mongoose.Types.ObjectId(req.params.id);
