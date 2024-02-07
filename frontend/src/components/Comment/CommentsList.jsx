@@ -23,7 +23,7 @@ const CommentsList = (props) => {
     return (
         <>
             {[...comments].map((comment) => (
-                    <Comment key={comment._id} comment_data={comment} setNewComment={setNewComment}/>
+                    <Comment key={comment._id} comment_data={comment} setNewComment={setNewComment} token={token}/>
             ))}
             <CreateNewComment 
             post_id={props.postId} setNewComment={setNewComment}/>
