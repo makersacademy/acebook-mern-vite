@@ -5,6 +5,7 @@ import Profile from "../../components/Profile/Profile";
 import ProfileEdits from "../../components/Profile/ProfileEdits";
 
 
+
 export const ProfileEditsPage = () => {
     const [profile, setProfile] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
@@ -42,11 +43,11 @@ export const ProfileEditsPage = () => {
                 {profile.map((user) => (
                     <>
                         <ProfileEdits user={user} key={user._id} />
-                        <ul className="profile-edits">
-                            <Link to='/profile'>Cancel Edit Profile</Link>
-                        </ul>
                     </>
                 ))}
+                <a className="profile-edits">
+                    <Link to='/profile'>Cancel Edit Profile</Link>
+                </a>
             </div>
         </>
     );

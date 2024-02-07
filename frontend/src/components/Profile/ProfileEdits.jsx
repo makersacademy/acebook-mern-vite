@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { setProfile } from "../../services/Profile";
+import { setProfilePic } from "../../services/Profile";
+import { useNavigate } from "react-router-dom";
+import './ProfileEdits.css'
+import Profile from "../../components/Profile/Profile";
 
 const ProfileEdits = (props) => {
-    // return <article key={props.user._id}>
-    //     Username: {props.user.username}<br></br>
-    //     Email: {props.user.email}</article>;
     const [state, setState] = useState({
         base64TextString: "",
     });
+    const [successMessage, setSuccessMessage] = useState("");
+    const navigate = useNavigate()
 
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
 
     const onChange = (e) => {
 
@@ -41,43 +41,27 @@ const ProfileEdits = (props) => {
         }
     }
 
-    const handleUsernameChange = (event) => {
-        setUsername(event.target.value);
-    }
 
-    const handleEmailChange = (event) => {
-        setEmail(event.target.value);
-    };
-
-    const onSubmit = (e) => {
-        e.preventDefault()
-        const updatedProfile = {};
-
-
-        if (username) {
-            updatedProfile.username = username;
-        }
-
-        if (email) {
-            updatedProfile.email = email;
-        }
-
+    const onSubmit = async (e) => {
+        e.preventDefault();
         if (state.base64TextString) {
-            updatedProfile.base64TextString = state.base64TextString;
-        }
-
-        // Check if there are any non-empty fields before making the change
-        if (Object.keys(updatedProfile).length > 0) {
-            setProfile(props.user._id, updatedProfile.username, updatedProfile.email, updatedProfile.base64TextString, window.localStorage.getItem("token"));
+            try {
+                await setProfilePic(props.user.email, state.base64TextString, window.localStorage.getItem("token"));
+                setSuccessMessage("Profile picture updated successfully!");
+                // Redirect to profile page after a short delay
+                setTimeout(() => navigate("/profile"), 2000);
+            } catch (error) {
+                console.error("Error updating profile picture:", error);
+                // Handle error if needed
+            }
         } else {
             console.log("No changes made.");
         }
-        setProfile(props.user.username, props.user.email, state.base64TextString, window.localStorage.getItem("token"))
-    }
+    };
 
     return (
         <div className="App">
-
+            {successMessage && <div className="success-message">{successMessage}</div>}
             <form onChange={(e) => onChange(e)} onSubmit={(e) => onSubmit(e)}>
 
                 <input
@@ -86,22 +70,11 @@ const ProfileEdits = (props) => {
                     id="file"
                     accept='.jpg, .png, .jpeg' 
                 />
-                <input
-                    name="name"
-                    value={username}
-                    onChange={handleUsernameChange}
-                />
-                <input
-                    name="email"
-                    value={email}
-                    onChange={handleEmailChange}
-                />
-
                 <input type="submit"/>
 
 
             </form>
-            <img alt="nada" id="profile-pic" />
+            <img alt="nada" id="profile-pic" className="preview-image" />
 
         </div>
     );
