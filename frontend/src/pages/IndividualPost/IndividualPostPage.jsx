@@ -22,30 +22,8 @@ export const PostPage = () => {
     const [comments, setComments] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     // const [currentUsername, setCurrentUsername] = useState([]);
-    const [buttonDisplay, setButtonDisplay] = useState(true);
+    const [postButtonDisplay, setPostButtonDisplay] = useState(true);
     const navigate = useNavigate();
-
-    // const handleButtonDisplay = () => {
-    //     getProfile(token)
-    //         .then((data) => {
-    //             setCurrentUsername(data.users[0].username);
-    //         })
-    //         .then(() => {
-    //             if (currentUsername != post.username) {
-    //                 setButtonDisplay(false);
-    //                 // console.log(buttonDisplay)
-    //                 // console.log("current user: " + currentUsername)
-    //                 // console.log("Post user: " + post.username)
-    //             } else {
-    //                 setButtonDisplay(true);
-    //                 // console.log("current user: " + currentUsername)
-    //                 // console.log("Post user: " + post.username)
-    //                 // console.log(buttonDisplay)
-    //             }
-    //         });
-    //     return buttonDisplay;
-    // };
-    // console.log(handleButtonDisplay());
 
     useEffect(() => {
         if (token) {
@@ -55,9 +33,9 @@ export const PostPage = () => {
                     setUser(data.post[0].user[0]);
                     setToken(data.token);
                     console.log(data.userMatch)
-                    setButtonDisplay(data.userMatch)
+                    setPostButtonDisplay(data.userMatch)
                     window.localStorage.setItem("token", data.token);
-                    return buttonDisplay
+                    return postButtonDisplay
                 })
                 .catch((err) => {
                     console.log(err);
@@ -66,6 +44,7 @@ export const PostPage = () => {
 
             getAllComments(postId, token)
                 .then((data) => {
+                    // console.log(data.comments)
                     setComments(data.comments);
                     setToken(data.token);
                     window.localStorage.setItem("token", data.token);
@@ -89,8 +68,8 @@ export const PostPage = () => {
                 <OnePost post={post} user={user} key={post._id} />
 
 
-                {buttonDisplay && <EditPost message = {post.message}/>}
-                {buttonDisplay && <DeletePostButton />}
+                {postButtonDisplay && <EditPost message = {post.message}/>}
+                {postButtonDisplay && <DeletePostButton />}
 
                 <LikePostButton post={post}/>
 
@@ -101,8 +80,8 @@ export const PostPage = () => {
                 {comments.map((comment) => (
                     <div key={comment._id}>
                         <p role="CommentsDisplay"><Comment comment={comment} key={comment._id} /></p>
-                        <EditComment comment = {comment} key={comment._id} message = {comment.message}/>
-                        <DeleteCommentButton comment={comment} key={comment._id}/>
+                        {comment.userMatch && <EditComment comment = {comment} key={"editComment"} message = {comment.message}/>}
+                        {comment.userMatch && <DeleteCommentButton comment={comment} key={"deleteComment"}/>}
                     </div>
                 ))}
             </div>
