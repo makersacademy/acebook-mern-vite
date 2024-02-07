@@ -11,6 +11,7 @@ export const HomePage = () => {
   
   useEffect(()=> {
     if (token) {
+      console.log(token)
       navigate('/posts')
     }
   }, [token, navigate])
