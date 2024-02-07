@@ -1,7 +1,7 @@
 import createFetchMock from "vitest-fetch-mock";
 import { describe, expect, vi, test, it, beforeEach } from "vitest";
 
-import { getAllComments, createComment } from "../../src/services/comments";
+import { getAllComments, createComment, deleteComment } from "../../src/services/comments";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -105,6 +105,49 @@ describe("getAllComments", () => {
         const mockResponse = { id: 1, content: "Hello" };
         fetch.mockResponseOnce(JSON.stringify(mockResponse), { status: 200 });
         const response = await getAllComments("token");
+        expect(response).toEqual(mockResponse);
+    });
+});
+
+describe("tests delete comment service", () => {
+    it("includes a token with its request", async () => {
+        const mockResponse = {
+            message: "Comment was deleted",
+            token: "newToken",
+        };
+        fetch.mockResponseOnce(JSON.stringify(mockResponse), { status: 200 });
+        const mockCommentID = 1;
+        await deleteComment(mockCommentID, "testToken");
+
+        // This is an array of the arguments that were last passed to fetch
+        const fetchArguments = fetch.mock.lastCall;
+        const url = fetchArguments[0];
+        const options = fetchArguments[1];
+
+        expect(url).toEqual(`${BACKEND_URL}/comments/${mockCommentID}`);
+        expect(options.method).toEqual("DELETE");
+        expect(options.headers["Authorization"]).toEqual("Bearer testToken");
+    });
+
+    it("rejects with an error if the status is not 200", async () => {
+        const mockCommentID = 1;
+        fetch.mockResponseOnce(
+            JSON.stringify({ message: "Something went wrong" }),
+            { status: 400 }
+        );
+
+        try {
+            await deleteComment(mockCommentID, "testToken");
+        } catch (err) {
+            expect(err.message).toEqual("Unable to delete comment");
+        }
+    });
+
+    it("returns response object on successful fetch", async () => {
+        const mockCommentID = 1;
+        const mockResponse = { message: "Comment was deleted", token: "newToken" };
+        fetch.mockResponseOnce(JSON.stringify(mockResponse), { status: 200 });
+        const response = await deleteComment(mockCommentID, "token");
         expect(response).toEqual(mockResponse);
     });
 });

@@ -27,9 +27,17 @@ const createComment = async (req, res) => {
     }
 };
 
+const deleteComment = async (req, res) => {
+    await Comment.deleteOne({ _id: req.params.id });
+    const newToken = generateToken(req.user_id);
+    res.status(200).json({ message: "Comment was deleted", token: newToken });
+};
+
+
 const CommentsController = {
     getAllComments: getAllComments,
     createComment: createComment,
+    deleteComment: deleteComment,
 };
 
 module.exports = CommentsController;

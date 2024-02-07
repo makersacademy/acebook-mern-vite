@@ -236,4 +236,62 @@ describe("/comments", () => {
             expect(response.body.token).toEqual(undefined);
         });
     });
+    describe("DELETE single comment, when token is present", () => {
+        test("the response code is 200", async () => {
+            const comment1 = new Comment({
+                message: "howdy!",
+                post_id: "testing",
+            });
+
+            await comment1.save();
+
+            const response = await request(app)
+            .delete(`/comments/${comment1._id}`)
+            .set("Authorization", `Bearer ${token}`)
+
+            expect(response.status).toEqual(200)
+        })
+
+        test("returns single comment when 2 have been added and 1 deleted", async () => {
+            const comment1 = new Comment({ message: "howdy!", post_id: "testing", });
+            const comment2 = new Comment({ message: "hi!", post_id: "testing", });
+            await comment1.save();
+            await comment2.save();
+
+            await request(app)
+                .delete(`/comments/${comment1._id}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            const response = await request(app)
+                .get(`/comments/${postID}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            const comments = response.body.comments;
+
+            expect(comments.length).toEqual(1);
+            expect(comments[0].message).toEqual("hi!");
+        });
+
+        test("returns a new token", async () => {
+            const comment1 = new Comment({ message: "howdy!", post_id: "testing", });
+            const comment2 = new Comment({ message: "hi!", post_id: "testing", });
+            await comment1.save();
+            await comment2.save();
+
+
+            const response = await request(app)
+            .delete(`/comments/${comment1._id}`)
+            .set("Authorization", `Bearer ${token}`);
+
+            const newToken = response.body.token;
+            const newTokenDecoded = JWT.decode(
+                newToken,
+                process.env.JWT_SECRET
+            );
+            const oldTokenDecoded = JWT.decode(token, process.env.JWT_SECRET);
+
+            // iat stands for issued at
+            expect(newTokenDecoded.iat > oldTokenDecoded.iat).toEqual(true);
+        });
+    })
 });

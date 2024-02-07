@@ -5,6 +5,7 @@ import DeletePostButton from "../../components/Post/DeletePostButton";
 import EditPost from "../../components/Post/EditPost";
 import Comment from "../../components/Comments/Comments";
 import CreateComment from "../../components/Comments/CreateComment";
+import DeleteCommentButton from "../../components/Comments/DeleteCommentButton";
 import { getSinglePost } from "../../services/posts";
 import { getAllComments } from "../../services/comments";
 import LikePostButton from "../../components/Post/LikePost";
@@ -95,10 +96,11 @@ export const PostPage = () => {
             </div>
             <hr></hr>
             <h2>Comments</h2>
-            <div className="feed" role="CommentsDisplay">
+            <div className="feed">
                 {comments.map((comment) => (
                     <div key={comment._id}>
-                        <Comment comment={comment} key={comment._id} />
+                        <p role="CommentsDisplay"><Comment comment={comment} key={comment._id} /></p>
+                        <DeleteCommentButton comment={comment} key={comment._id}/>
                     </div>
                 ))}
             </div>
