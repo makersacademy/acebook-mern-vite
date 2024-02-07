@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import AddComment from "../AddComment/AddComment";
 import Comment from "../Comment/Comment";
 import DeleteButton from "../DeleteButton/DeleteButton";
+import timeFromNow from "../../utils/TimeFromNow";
 
 const Post = (props) => {
     const [like, setLike] = useState(false);
@@ -67,7 +68,7 @@ const Post = (props) => {
                     </div>
                 )}
                 <div className="date-time">
-                    {new Date(props.post.createdAt).toLocaleString("en-UK")}
+                    {timeFromNow(props.post.createdAt)}
                 </div>
 
                 {props.post.media !== "../public/images/null" && (

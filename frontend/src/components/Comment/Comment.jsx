@@ -1,8 +1,9 @@
 import './Comment.css'
+import timeFromNow from '../../utils/TimeFromNow'
 
 export default function Comment({key, _id, message, likes, postedBy, postedAt, user}) {
     
-    const date = new Date(postedAt).toLocaleString('en-UK')
+    const date = timeFromNow(postedAt)
     
     return (
 
