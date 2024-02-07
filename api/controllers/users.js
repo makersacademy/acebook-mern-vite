@@ -5,12 +5,14 @@ const create = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
+
     const userWithEmail = await User.findOne({
         email: { $regex: new RegExp(email, "i") },
     });
     const userWithUsername = await User.findOne({
         username: { $regex: new RegExp(username, "i") },
     });
+
 
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 

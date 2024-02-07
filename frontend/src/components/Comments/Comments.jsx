@@ -18,7 +18,7 @@ const Comment = (props) => {
         <article key={props.comment._id}>
             <p className="message">{props.comment.message}</p>
             <p className="messageInfo">
-                {props.comment.username} {date}
+                {props.comment.user[0].username} {date}
             </p>
             <hr></hr>
         </article>

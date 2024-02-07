@@ -42,12 +42,12 @@ const Post = (props) => {
 const LikedBy = (props) => {
     console.log(props)
     return (
-    <p className ="likedBy">Liked by: {props.post.likes.map((user) => (
-        <div key={user.user_id}>
-            {user[0].user_name}
+    <div className ="likedBy">Liked by: {props.post.likeUser.map((user) => (
+        <div key={user._id}>
+            {user.username}
             </div>
     ))}
-    </p>
+    </div>
 )}
 
 export default Post;

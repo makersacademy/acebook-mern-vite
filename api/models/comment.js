@@ -6,7 +6,7 @@ const CommentSchema = new mongoose.Schema(
     {
         post_id: String,
         message: String,
-        username: String,
+        user_id: String,
         reg_time: { type: Date, default: Date.now },
     },
     {

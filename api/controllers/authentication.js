@@ -28,6 +28,7 @@ const createToken = async (req, res) => {
         console.error("Auth Error:", error);
         return res.status(500).json({ message: "Server error" });
     }
+  //Left the below in incase there are any errors with the change
     // const user = await User.findOne({ email: email });
     // if (!user) {
     //     console.log("Auth Error: User not found");
@@ -39,6 +40,7 @@ const createToken = async (req, res) => {
     //     const token = generateToken(user.id);
     //     res.status(201).json({ token: token, message: "OK" });
     // }
+
 };
 
 const AuthenticationController = {
