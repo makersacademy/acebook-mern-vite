@@ -57,3 +57,45 @@ export const createComment = async (message, post_id) => {
         );
     }
 };
+
+export const deleteComment = async (comment_id, token) => {
+    const requestOptions = {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    }
+    const response = await fetch(
+            `${BACKEND_URL}/comments/${comment_id}`,
+            requestOptions
+        );
+
+    if (response.status !== 200) {
+        throw new Error("Unable to delete comment");
+        }
+    const data = await response.json();
+    return data;
+    
+}
+
+export const updateComment = async (comment_id, message, token) => {
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({message}),
+    };
+
+    const response = await fetch(
+        `${BACKEND_URL}/comments/update/${comment_id}`,
+        requestOptions
+    );
+
+    if (response.status !== 200) {
+        throw new Error("Unable to update comment");
+    }
+    const data = await response.json();
+    return data;
+}
