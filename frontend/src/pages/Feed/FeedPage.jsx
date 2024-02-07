@@ -36,6 +36,9 @@ export const FeedPage = () => {
     return (
         <>
             <h2>Posts</h2>
+            <div className="newPost">
+                <CreatePost />
+            </div>
             <hr></hr>
             <div className="feed" role="feed">
                 {posts.map((post) => (
@@ -47,9 +50,7 @@ export const FeedPage = () => {
                     </div>
                 ))}
             </div>
-            <div className="newPost">
-                <CreatePost />
-            </div>
+
         </>
     );
 };

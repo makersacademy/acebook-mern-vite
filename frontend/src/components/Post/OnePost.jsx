@@ -27,12 +27,12 @@ const OnePost = (props) => {
     return (
         <article key={post._id}>
             <p className="message">{post.message}</p>
-            {console.log("user:")}
-            {console.log(user)}
+            {/*{console.log("user:")}
+            {console.log(user)}*/}
             <p className="messageInfo">
             <img className="img" src={"data:image/png;base64," + user.profilePic}/> 
-    {user.username}</p>
-    <p>{date}</p>
+            {user.username}</p>
+            <p>{date}</p>
             
             {/*uses coalescing operator to check for whether props.post.likes
             has a value for length, if so, use that value, else use 0 as default value*/}
@@ -43,14 +43,14 @@ const OnePost = (props) => {
 };
 
 const LikedBy = (props) => {
-    console.log(props)
+    console.log(props.post)
     return (
-    <p className ="likedBy">Liked by: {props.post.likes.map((user) => (
-        <div key={user.user_id}>
-            {user[0].user_name}
+    <div className ="likedBy">Liked by: {props.post.likeUser.map((user) => (
+        <div key={user._id}>
+            {user.username}
             </div>
     ))}
-    </p>
+    </div>
 )}
 
 export default OnePost;

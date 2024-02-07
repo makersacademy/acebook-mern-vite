@@ -1,7 +1,6 @@
 import { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import {likePost} from "../../services/posts";
-import koalathumbsup from "../../assets/koalathumbsup.png"
 import thumbsup from "../../assets/thumbsup.png"
 import './Post.css'
 

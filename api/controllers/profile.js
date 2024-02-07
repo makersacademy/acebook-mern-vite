@@ -27,10 +27,23 @@ const update = async (req, res) => {
     res.status(200).json({message: "ok"});
 };
 
+const getUsers = async (req, res) => {
+    const users = await User.find().sort({username: 1});
+    const token = generateToken(req.user_id);
+    res.status(200).json({users: users, token: token});
+  }
+
+const addFriend = async (req, res) => {
+    await User.findOneAndUpdate({_id: req.user_id},{$addToSet:{friends: req.params.id}});
+    const newToken = generateToken(req.user_id);
+    res.status(200).json({message: "Friend added", token: newToken})
+}
 
 const ProfileController = {
     getUser: getUser,
-    update: update
+    update: update,
+    getUsers: getUsers,
+    addFriend: addFriend
 }
 
 module.exports = ProfileController;
