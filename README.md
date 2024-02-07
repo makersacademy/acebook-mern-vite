@@ -26,7 +26,7 @@ Acebook is a full-featured social networking web application inspired by Faceboo
 - Demetrius Vissarion - https://github.com/demetriusvissarion
 - Thomas Mazzag - https://github.com/TomMazzag
 - Gabriela Ehrenbrink - https://github.com/gabrielaehrenbrink/
-- Jehoshua - 
+- Jehoshua - https://github.com/AVJehoshua
 - Fawaz Tarar - https://github.com/Fawaztarar
 
 
