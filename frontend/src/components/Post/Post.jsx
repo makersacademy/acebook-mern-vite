@@ -81,7 +81,7 @@ const Post = ({ post, token }) => {
         {toggleCommentForm ? 
         <div>
           <CommentsList postId={post._id}/>
-          <CreateNewComment post_id={post._id} /> 
+          {/* <CreateNewComment post_id={post._id} />  */}
         </div> 
         : <></>}
       </div>
