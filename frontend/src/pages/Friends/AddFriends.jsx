@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import { getUsers } from "../../services/profile";
-import Friend from "../../components/Friends/Friends";
+import AllUsers from "../../components/Friends/AllUsers";
 
 export const FriendPage = () => {
     const [friends, setFriends] = useState([]);
@@ -14,7 +14,7 @@ export const FriendPage = () => {
             getUsers(token)
                 .then((data) => {
                     setFriends(data.users);
-                    console.log(data.users)
+                    console.log(data)
                     setToken(data.token)
                     window.localStorage.setItem("token", data.token);
                 })
@@ -38,7 +38,7 @@ export const FriendPage = () => {
             <div className="feed" role="feed">
                 {friends.map((user) => (
                     <div key={user._id}>
-                        <Friend user={user} key={user._id} />
+                        <AllUsers user={user} key={user._id} />
                         </div>
                 ))}   
             </div>     
