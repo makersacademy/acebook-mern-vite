@@ -17,7 +17,7 @@ Acebook is a full-featured social networking web application inspired by Faceboo
 
 - MongoDB - Database
 - Express.js - Web Application Framework
-- React - Frontend Library-
+- React - Frontend Library
 - Node.js - JavaScript Runtime
 
 
