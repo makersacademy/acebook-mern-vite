@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const PostSchema = new mongoose.Schema({
   message: String,
   username: String,
+  postImage: String,
   reg_time: {type: Date, default: Date.now},
   likes: [Array],
 },{
