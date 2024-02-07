@@ -7,7 +7,7 @@ Acebook is a full-featured social networking web application inspired by Faceboo
 - User Authentication (Sign Up, Log In, Log Out)
 - Profile Customization (Profile Picture, name, email, about me)
 - Posts (Create, Edit, Delete Posts)
-- Comments & Reactions (Like, Comment on Posts)
+- Comments & Like (CRUD)
 - Friends System (Send Friend Requests, Accept/Reject Requests)
 - Responsive Design for all devices
 <!-- - Real-time Notifications -->
@@ -33,10 +33,17 @@ Acebook is a full-featured social networking web application inspired by Faceboo
 
 ## Acknowledgments
 
-- 
-- 
-- 
-- 
+This project wouldn't have been possible without the collective effort and dedication of our entire team. Each member brought unique skills and perspectives that enriched the development of Acebook, making it not just a project, but a learning journey for all of us
+
+- Team Spirit: A huge shoutout to every team member for their unwavering commitment
+
+- Collaborative Learning: Special thanks to everyone for creating an environment where learning from one another was not just encouraged but became a part of our daily routine. The shared knowledge has been invaluable.
+
+- Problem-Solving: Kudos to the team for not shying away from challenges. Tackling each obstacle head-on and turning them into opportunities for growth has been inspiring
+
+- Support and Encouragement: Gratitude to each team member for the support and motivation provided throughout the project. Whether it was debugging, design feedback, or just a word of encouragement, it made all the difference.
+
+- Special Thanks to Claire Castanet (Technical Coach at Makers): Claire's insights and constructive feedback have not only helped us overcome numerous technical challenges but have also contributed significantly to our growth as developers.
 
 
 ## Getting Started
