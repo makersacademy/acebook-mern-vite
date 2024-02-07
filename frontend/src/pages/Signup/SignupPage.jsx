@@ -10,16 +10,15 @@ export const SignupPage = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             await signup(username, email, password);
-            console.log("redirecting...:");
+            // Set the signup success flag in local storage
+            localStorage.setItem("signupSuccess", "true");
             navigate("/login");
         } catch (err) {
             console.error(err);
-            alert(err.message)
             navigate("/signup");
         }
     };
