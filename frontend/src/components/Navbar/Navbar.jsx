@@ -74,15 +74,37 @@ export const Navbar = () => {
                     <div className="user-greeting" data-testid="user-greeting">
                         Hi {user.username || "You"}  
                     </div>
-                    <div className="col">
-                    <div className="dropdown">
-                    <img
-                    src={ user.profile_picture || ang }
-                    alt="Profile Picture"
-                    className="img-thumbnail"
-                    style={{ maxWidth: '15%' }}
-                    onClick={handleDropdownToggle}
-                    />
+
+                </div>
+
+                {/* RIGHT INFO  */}
+                <div className="right-header">
+
+                    {/* BUTTONS */}
+                    <button className="btn btn-profile" type="button">
+                        <Link to='/profilepage'>Profile</Link>
+                    </button>
+
+                    <button className="btn btn-account" type="button">
+                        <Link to='/accountpage'>Account</Link>
+                    </button>
+
+                    <button className="btn btn-logout" type="button">
+                        <Link to='/' onClick={logout}>Logout</Link>
+                    </button>
+
+                    {/* PICTURE */}
+                    <div className="photo-profile">
+                        <img
+                            src={profilePicture}
+                            alt="Profile Picture"
+                            className="img-thumbnail"
+                            style={{ maxWidth: '15%' }}
+                            onClick={handleDropdownToggle}
+                        />
+                    </div>
+                    
+                    {/* ?? */}
                     <div
                         className={`dropdown-menu ${isDropdownOpen ? 'show' : ''}`}
                         aria-labelledby="navbarDropdown"
@@ -98,7 +120,6 @@ export const Navbar = () => {
     </body>
     );
 };
-
 
 export default Navbar;
 
