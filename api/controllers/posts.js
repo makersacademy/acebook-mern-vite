@@ -78,7 +78,17 @@ const getSinglePost = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-    if (req.body.message !== "") {
+
+
+    if (req.body.message == "" && req.body.postImage ==""){
+        //message and postimage are both empty
+        const newToken = generateToken(req.user_id);
+        res.status(200).json({
+            message: "posts must not be blank",
+            token: newToken,
+        });
+    }else {
+        //we have atleast one of message and postimage
         const user = await User.findOne({_id: req.user_id})
         //console.log(req.user_id)
         //console.log(user)
@@ -91,13 +101,7 @@ const createPost = async (req, res) => {
 
         const newToken = generateToken(req.user_id);
         res.status(201).json({ message: "OK", token: newToken });
-    } else {
-        const newToken = generateToken(req.user_id);
-        res.status(200).json({
-            message: "posts must not be blank",
-            token: newToken,
-        });
-    }
+    };
 };
 
 const updatePost = async (req, res) => {

@@ -6,6 +6,7 @@ import ProfileEdits from "../../components/Profile/ProfileEdits";
 import Friend from "../../components/Friends/Friends";
 
 
+
 export const ProfilePage = () => {
     const [profile, setProfile] = useState([]);
     const [friends, setFriends] = useState([]);
@@ -39,8 +40,9 @@ export const ProfilePage = () => {
     }
 
     return (
-        <>
+            <>
             <h2>Users</h2>
+
             <div className="profile" role="profile">
                 {console.log("profile")}
                 {console.log(profile)}
@@ -67,5 +69,6 @@ export const ProfilePage = () => {
                 ))}
             </div>
         </>
+
     );
                 };

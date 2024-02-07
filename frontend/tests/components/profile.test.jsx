@@ -1,5 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import React from "react";
 import Profile from "../../src/components/Profile/Profile";
+import { setProfile } from "../../src/services/Profile";
+import '@testing-library/jest-dom';
+
+
 
 describe("Profile", () => {
     test("displays the user as an article", () => {
@@ -8,4 +13,7 @@ describe("Profile", () => {
         const article = screen.getByRole("article");
         expect(article.textContent).toBe(`Username: user1Email: email1@email.com`);
     })
-})
+});
+
+
+

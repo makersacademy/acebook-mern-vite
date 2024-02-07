@@ -41,16 +41,31 @@ export const getSinglePost = async (post_id, token) => {
     return data;
 };
 
-export const createNewPost = async (message) => {
+export const createNewPost = async (message, postImage) => {
     let token = window.localStorage.getItem("token");
+    const formData = new FormData();
+    if (message && postImage) {
+        formData.append('message', message);
+        formData.append('postImage', postImage);
+    }else if (!message && postImage) {
+        formData.append('postImage', postImage);
+    } else if (!postImage && message) {
+        formData.append('message', message);
+    }
+
     if (!token) {
         throw new Error("No token found. User must be logged in.");
     }
-    if (message === "") {
+    
+    if (message === "" && !postImage) {
         return {
             status: 200,
             message: "posts must not be blank",
         };
+    }
+    const payload = {
+        message: message,
+        postImage: postImage
     }
     const requestOptions = {
         method: "POST",
@@ -58,12 +73,12 @@ export const createNewPost = async (message) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify(payload),
     };
 
     const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
     const responseObject = await response.json();
-
+    
     if (response.status === 201) {
         return responseObject;
     } else {

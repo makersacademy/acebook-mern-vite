@@ -9,7 +9,7 @@ export const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [userExists, setUserExists] = useState("")
+  const [userExists, setUserExists] = useState("");
 
   const navigate = useNavigate();
 
