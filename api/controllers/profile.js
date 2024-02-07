@@ -72,11 +72,19 @@ const getUsers = async (req, res) => {
   }
 
 const addFriend = async (req, res) => {
-    console.log("testing")
-    await User.findOneAndUpdate({_id: req.user_id},{$addToSet:{friends: req.params.id}});
+    if (req.user_id != req.params.id) {
+        await User.findOneAndUpdate({_id: req.user_id},{$addToSet: {friends: req.params.id}})
+    
+    //            {if: { 
+    //                $ne: [req.params.id, req.user_idfriends]},
+    //            then: {$addToSet: {friends: req.params.id}},
+    //            else: "$$REMOVE"}
+//);
+
+
     const newToken = generateToken(req.user_id);
     res.status(200).json({message: "Friend added", token: newToken})
-}
+}};
 
 
 const ProfileController = {
