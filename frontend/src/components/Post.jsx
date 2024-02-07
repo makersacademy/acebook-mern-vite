@@ -20,8 +20,9 @@ const Post = ({ post, token, setNewPost }) => {
   const [numberOfLikes, setNumberOfLikes] = useState(0);
   const [toggleCommentForm, setToggleCommentForm] = useState(false);
   const [editedPost, setEditedPost] = useState(post.message);
+  // const [newPost, setNewPost] = useState(false)
 
-  
+
   useEffect(() => {
     const fetchLikes = async () => {
       try {
@@ -67,11 +68,12 @@ const Post = ({ post, token, setNewPost }) => {
         }
 
         await editPost(token, post._id, editedPost);
-        console.log("Comment Successfully Edited!")
+        console.log("Post Successfully Edited!")
+        console.log(typeof setNewPost)
         setNewPost(true);
     } catch (error) {
-        console.error("Error Editing Comment:", error);
-        console.log("Error Editing Comment!")
+        console.error("Error Editing Post:", error);
+        console.log("Error Editing Post!")
     }
 }
 
@@ -86,11 +88,11 @@ const Post = ({ post, token, setNewPost }) => {
         <h4>{post.full_name}</h4>
         <button className='options' onClick={handleOptions}>...</button>
                 {showOptions && (
-                    <div className='options-menu'>
+                    <div className='post-options-menu'>
                         <textarea value={editedPost} onChange={(e) => setEditedPost(e.target.value)} />
                         <button onClick={handleEditPost}>Edit</button>
                         {/* <button onClick={handleDeletePost}>Delete</button> */}
-                    </div>
+                    </div>  
                 )}
       </div>
       
