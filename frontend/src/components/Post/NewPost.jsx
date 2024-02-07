@@ -62,7 +62,8 @@ const NewPost = ( {token, userId, toggleStateChange} ) => {
             {uploadImage &&  
             <input 
                 type="file" 
-                name="file" 
+                name="file"
+                accept="image/png, image/jpeg" 
                 onChange={e => setFile(e.target.files[0])}
             />
             }
