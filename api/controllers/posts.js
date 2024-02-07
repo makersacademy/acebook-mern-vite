@@ -29,6 +29,7 @@ const getAllPosts = async (req, res) => {
           profile_pic: "$userDetails.profile_pic",
           image: 1,
           createdAt: 1,
+          user_id: 1,
         },
       },
     ]);
