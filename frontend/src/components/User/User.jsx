@@ -4,6 +4,7 @@ import './User.css';
 import Post from '../Post/Post.jsx';
 import { addFriend, removeFriend } from '../../services/user.js';
 import Notification from '../Notification/Notification.jsx';
+import Friends from '../Friends/Friends.jsx';
 
 const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId, token, triggerStateChange, notifications }) => {
     const [userPosts, setUserPosts] = useState([])
@@ -20,7 +21,7 @@ const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId,
     }, [posts])
 
     const handleAddFriend = () => {
-        addFriend(username, loggedInUserId, token)
+        addFriend(_id, loggedInUserId, username, token)
             .then(res => {
                 console.log(res)
                 triggerStateChange()
@@ -29,7 +30,7 @@ const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId,
     }
 
     const handleRemoveFriend = () => {
-            removeFriend(username, loggedInUserId, token)
+            removeFriend(_id, loggedInUserId, username, token)
             .then(res => {
                 console.log(res)
                 triggerStateChange()
@@ -80,10 +81,10 @@ const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId,
             <p>Bio: {bio}</p>
             <p>Friends: </p>
             
-            {friends.map((friend) => 
-                friend ? <p key={friend._id}>{friend.username}</p> : null
-            )}
-
+            <Friends 
+            friends={friends}
+            />
+            
             <p>Posts: </p>
 
             {userPosts.map((post) => 
