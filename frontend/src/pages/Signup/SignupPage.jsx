@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./SignupPage.css";
 import { signup } from "../../services/authentication";
 import { updateImage } from "../../services/updateUser";
+import { login } from "../../services/authentication";
 
 export const SignupPage = () => {
   const [username, setUsername] = useState("");
@@ -20,8 +21,11 @@ export const SignupPage = () => {
     try {
       await signup(username, email, password, profile_picture)
       .then(updateImage(profile_picture))
+      const token = await login(email, password);
+      window.localStorage.setItem("token", token);
       console.log("redirecting...:");
-      navigate("/profilepage");
+      navigate("/posts");
+ 
     } catch (err) {
       console.error(err);
       setError(err.cause)
