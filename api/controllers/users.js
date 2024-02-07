@@ -92,6 +92,10 @@ const getUser = async (req, res) => {
 				model: 'User'
 			}
 		})
+		.populate({
+			path: "notifications",
+			model: "Notification"
+		})
     if(!user) {
         return res.status(400).json({ message: "User not found" });
     }  
@@ -102,12 +106,19 @@ const getUser = async (req, res) => {
 
 const searchUsers = async (req, res) => {
 	const searchQuery = req.query.search;
-	const results = await User.find({username: searchQuery})
+	const regex = new RegExp(searchQuery, 'i')
 
-	if(!results) {
-        return res.status(400).json({ message: "No search results" });
+
+	try {
+	const results = await User.find({username: {$regex: regex}})
+	if(!results || results.length === 0) {
+        return res.status(404).json({ message: "no user found" });
     }  
     return res.status(200).json({ result: results} );
+	} catch (error) {
+		return res.status(500).json({ message: "internal server error "})
+	}
+
 }
 
 
@@ -192,6 +203,54 @@ const removeFriend = async(req, res) => {
 	}
 }
 
+const createNotification = async(req, res) => {
+
+	const user_id = req.body.entity_userId
+	const message = req.body.notificationMessage
+
+
+	try {
+		const updatedUser = await User.findOneAndUpdate(
+			{_id: user_id},
+			{$push: {notifications: {
+				message: message
+			}}},
+			{new:true}
+		)
+		if (!updatedUser) {
+			return res.status(404).json({ message: "User not found" });
+		}
+		res.status(200).json({message: 'notification sent'});	
+
+	} catch (error) {
+		res.status(500).json({message: "error creating notification"})
+	}
+
+}
+
+const removeNotification = async(req, res) => {
+	const ObjectId = require('mongoose').Types.ObjectId;
+
+	const username = req.params.username
+	const notificationId = req.body.notificationId
+	const objectIdNotificationId = new ObjectId(notificationId)
+
+	try {
+		console.log("back end", notificationId)
+		const updatedUser = await User.findOneAndUpdate(
+			{username:username},
+			{$pull: {notifications: {_id: objectIdNotificationId}}},
+			{new:true}
+		);
+		if (!updatedUser) {
+			return res.status(404).json({ message: "User not found" });
+		}
+		res.status(200).json({message: 'notification deleted'});	
+	} catch (error) {
+		res.status(500).json({message: "error deleting notification"})
+	}
+
+}
 
 
 const UsersController = {
@@ -201,7 +260,9 @@ const UsersController = {
 	editBio: editBio,
 	searchUsers: searchUsers,
 	addFriend: addFriend,
-	removeFriend: removeFriend
+	removeFriend: removeFriend,
+	createNotification: createNotification,
+	removeNotification: removeNotification
 };
 
 module.exports = UsersController;

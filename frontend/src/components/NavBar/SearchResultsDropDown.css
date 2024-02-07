@@ -1,6 +1,47 @@
-.search-results {
+@import url('https://fonts.googleapis.com/css2?family=Museo+Sans:wght@300;500&display=swap');
+
+
+
+.search-results-dropdown {
     position: absolute;
-    height: 10rem;
-    background-color: grey;
+    background-color: rgb(255, 255, 255);
+    min-width: 230px;
+    min-height: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    top: 10%;
+}
+
+
+.found-user {
+    display: flex;
+    direction: column;
+}
+
+.user-image-container{
+    display: flex;
+    padding: 10px;
+}
+.user-image {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+}
+
+.user-name-link {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    
+}
+
+.user-name-link a {
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    font-family: 'Mueso Sans', sans-serif;
+    color: rgb(0, 0, 0);
+    
 
 }
+

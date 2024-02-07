@@ -11,20 +11,10 @@ export const UserPage = () => {
     const [user, setUser] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const [loggedInUser, setLoggedInUser] = useState(JSON.parse(window.localStorage.getItem("user")))
-    const [profilePicture, setProfilePicture] = useState()
-    const [bio, setBio] = useState("")
     const [stateChange, setStateChange] = useState(false)
     
     const { username } = useParams();
     const navigate = useNavigate();
-
-    const handleImageUpdate = (newImage) => {
-        setProfilePicture(newImage)
-    }
-
-    const handleBioUpdate = (newBio) => {
-        setBio(newBio)
-    }
 
     const triggerStateChange = () => {
         setStateChange(!stateChange)
@@ -37,8 +27,8 @@ export const UserPage = () => {
                 .then((data) => {
                     setUser(data.user);
                     setToken(data.token);
-                    setProfilePicture(data.user.image)
-                    setBio(data.user.bio)
+                    // setProfilePicture(data.user.image)
+                    // setBio(data.user.bio)
                     window.localStorage.setItem("token", data.token);
                 })
                 .catch((err) => {
@@ -72,10 +62,8 @@ export const UserPage = () => {
 
                 <EditUserModal 
                 username={username}
-                // image={user.image}
-                image={profilePicture}
-                handleImageUpdate={handleImageUpdate}
-                handleBioUpdate={handleBioUpdate}
+                image={user.image}
+                triggerStateChange={triggerStateChange}
                 />
 
                 }
@@ -85,10 +73,11 @@ export const UserPage = () => {
                     _id={user._id}
                     username={user.username}
                     email={user.email}
-                    bio={bio}
+                    bio={user.bio}
                     friends={user.friends}
-                    image={profilePicture}
+                    image={user.image}
                     posts={user.posts}
+                    notifications={user.notifications}
                     loggedInUserId={loggedInUser._id}
                     token={token}
                     triggerStateChange={triggerStateChange}

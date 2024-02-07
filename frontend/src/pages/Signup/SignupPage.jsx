@@ -59,7 +59,7 @@ export const SignupPage = () => {
                     onChange={handleEmailChange}
                 />
 
-                <label htmlFor="password">Password:</label>
+                <label htmlFor="password"></label>
                 <input
                     placeholder="Password"
                     id="password"

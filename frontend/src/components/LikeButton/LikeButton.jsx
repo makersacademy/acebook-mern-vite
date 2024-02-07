@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createNotification } from "../../services/user";
 
 const likeThePost = async (props) => {
     try {
@@ -16,44 +17,63 @@ const likeThePost = async (props) => {
         }
     } catch (error) {
         console.error("Error fetching data:", error);
-        // Handle errors appropriately
     }
 };
-// const handleClick = async (props) => {
-//     await likeThePost(props)
-//         .then(() => props.handleLikeUnlike())
-//         .then(() => {
-//             props.clicked();
-//             console.log("Clicked is being clicked");
-//         })
-//     console.log("I'm being clicked");
-// props.handleLikeUnlike();
-// };
 
 const LikeButton = (props) => {
-    const [like, setLike] = useState(false);
-    const handleClick = async (props) => {
-        await likeThePost(props)
-            .then(() => props.handleLikeUnlike())
-            .then(() => {
-                // props.clicked();
-                console.log("Clicked is being clicked");
-                props.toggleStateChange();
-            })
-            .then(() => {
-                setLike(!like);
-                console.log("and me!");
-            });
-        console.log("I'm being clicked");
-        // props.handleLikeUnlike();
-    };
-  
-    return (
-      <button onClick={() => handleClick(props)}>
-          <i className="fa-solid fa-thumbs-up"></i>
-      </button>
-    )
+    const [like, setLike] = useState(props.liked);
 
+    const handleClick = async () => {
+        try {
+            await likeThePost(props);
+            setLike((prevLike) => !prevLike);
+            props.handleLikeUnlike();
+            props.toggleStateChange();
+            if (!like) {
+                try {
+                    const notificationResult = await createNotification({
+                        username: props.loggedInUsername,
+                        entity_userId: props.post_userId,
+                        token: props.token,
+                        notificationType: "post-like",
+                    });
+                    console.log(notificationResult);
+                } catch (error) {
+                    console.log(
+                        "An error occured while creating a notification"
+                    );
+                }
+            } else {
+                try {
+                    const notificationResult = await createNotification({
+                        username: props.loggedInUsername,
+                        entity_userId: props.post_userId,
+                        token: props.token,
+                        notificationType: "post-unlike",
+                    });
+                    console.log(notificationResult);
+                } catch (error) {
+                    console.log(
+                        "An error occured while creating a notification"
+                    );
+                }
+            }
+        } catch (error) {
+            console.error("Error liking/unliking post:", error);
+        }
+    };
+
+    return (
+        <button onClick={handleClick}>
+            {props.liked ? (
+                <i
+                    className="fa-solid fa-thumbs-up"
+                    style={{ color: "red" }}></i>
+            ) : (
+                <i className="fa-regular fa-thumbs-up"></i>
+            )}
+        </button>
+    );
 };
 
 export default LikeButton;

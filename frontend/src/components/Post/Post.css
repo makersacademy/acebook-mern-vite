@@ -1,27 +1,35 @@
 .feed {
-  display: grid;
-  place-items: center;
-  height: 100vh;
+    display: grid;
+    place-items: center;
+    height: 100vh;
 }
 
 article {
-  align-self: center;
-  width: 500px;
-  min-height: 50px;
-  text-align: left;
-  background-color: white;
-  padding: 8px;
-  margin: 10px;
-  border: 5px solid #00843D;
-  border-radius: 20px 20px 20px 20px;
-  box-shadow: 5px 5px 20px grey;
+    align-self: center;
+    width: 500px;
+    min-height: 50px;
+    text-align: left;
+    background-color: white;
+    padding: 8px;
+    margin: 10px;
+    border: 5px solid #00843d;
+    border-radius: 20px 20px 20px 20px;
+    box-shadow: 5px 5px 20px grey;
 }
 
-.post-article   {
+.post-article {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+.post-article img {
+    display: flex;
+    height: 200px;
+    width: 200px;
+    align-items: center;
+    padding: 16px;
 }
 
 .user-info {
@@ -34,9 +42,17 @@ article {
     width: 30px;
     border-radius: 100%;
     margin-right: 10px;
-    
 }
 
 .date-time {
     font-size: 10px;
+}
+
+.like-container {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+}
+
+.like-container h5 {
+    margin-left: 8px; /* Add margin to create space between LikeButton and h5 */
 }
