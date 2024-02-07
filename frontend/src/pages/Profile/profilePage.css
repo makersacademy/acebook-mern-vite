@@ -110,6 +110,10 @@
   background-color: #ff0000;
 }
 
+.success-message {
+  color: green;
+}
+
 .befriend-unfriend-button {
   border: 2px solid;
   color: white;
