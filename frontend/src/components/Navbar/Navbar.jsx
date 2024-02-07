@@ -3,6 +3,7 @@ import {  Link } from "react-router-dom";
 import './Navbar.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import ang from '../../assets/ang_profile.jpeg';
+import { useNavigate } from "react-router-dom";
 
 import { getAllUserInfo } from "../../services/user"
 
@@ -46,43 +47,55 @@ export const Navbar = () => {
             console.error('Error fetching image:', error);
         }
     };
+    
+    const logout = () => {
+        window.localStorage.removeItem("token");
+        useNavigate('/');
+    }
+
 
     return (
-        <div className="container-fluid">
-        <nav className="navbar sticky-top navbar-light">
-                    <div className="col">
-                    <Link className="navbar-brand mb-0 h1" to='/'>Acebook</Link>
-                    </div>
+        <body>
+
+        <div className="nav-box">
+
+            <nav className="navbar-header">
+
+
+                {/* LEFT INFO */}
+                <div className="left-header">
+
+                    {/* ACEBOOK NAME/LOGO */}
+                    <button className="logo-home">
+                        <Link to='/'>Acebook</Link>
+                    </button>
+
+                    {/* GREETING */}
                     <div className="user-greeting" data-testid="user-greeting">
-                    Hi {user.username || "You"}  
+                        Hi {user.username || "You"}  
                     </div>
                     <div className="col">
                     <div className="dropdown">
                     <img
-                    src={profilePicture}
+                    src={ user.profile_picture || ang }
                     alt="Profile Picture"
                     className="img-thumbnail"
                     style={{ maxWidth: '15%' }}
                     onClick={handleDropdownToggle}
                     />
                     <div
-                    className={`dropdown-menu ${isDropdownOpen ? 'show' : ''}`}
-                    aria-labelledby="navbarDropdown"
+                        className={`dropdown-menu ${isDropdownOpen ? 'show' : ''}`}
+                        aria-labelledby="navbarDropdown"
                     >
-                    <button className="dropdown-item" type="button">
-                    <Link to='/profilepage'>Profile</Link>
-                    </button>
-                    <button className="dropdown-item" type="button">
-                    <Link to='/accountpage'>Account</Link>
-                    </button>
-                    <button className="dropdown-item" type="button">
-                        Logout
-                    </button>
                     </div>
-                </div>
-            </div>
-        </nav>
-    </div>
+
+
+                    
+                </div>    
+            </nav>
+        </div>
+
+    </body>
     );
 };
 
