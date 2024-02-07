@@ -38,7 +38,7 @@ describe("/users", () => {
 		test("response code is 400", async () => {
 			const response = await request(app)
 				.post("/users")
-				.send({ email: "skye@email.com" });
+				.send({ username: "scarc", email: "skye@email.com" });
 
 			expect(response.statusCode).toBe(400);
 		});

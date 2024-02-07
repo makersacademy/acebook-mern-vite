@@ -13,28 +13,20 @@ const Post = (props) => {
     const [showMoreComments, setShowMoreComments] = useState(false);
     const [hideComments, setHideComments] = useState(false);
     const [deletes, setDeletes] = useState(false);
-    // console.log("comments", props.post.comments)
-    // console.log("post media url", props.post.media)
 
     const handleDelete = () => {
         setDeletes(!deletes);
     };
 
     const user = JSON.parse(window.localStorage.getItem("user"));
-    // console.log(user._id, props.post.postedBy._id, "LOOK HERE");
-    // console.log(props);
-
-    // if (props.post.postedBy._id) {
-    //     console.log(props.post.postedBy._id, "LOOK HERE");
-    // }
 
     const isPostOwner = user._id && props.post.postedBy._id === user._id;
 
     const handleLikeUnlike = () => {
         setLike(!like);
         setLikes(props.post.likes.length);
-        // console.log("I'm being clicked too");
     };
+  
     const checkLikes = (props) => {
         setLikes(props.post.likes.length);
     };

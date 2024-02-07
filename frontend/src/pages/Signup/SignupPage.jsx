@@ -11,12 +11,12 @@ export const SignupPage = () => {
     const navigate = useNavigate();
     const defaultUserImage = "kangaroo-face.png"
 
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             await signup(username, email, password, defaultUserImage);
-            console.log("redirecting...:");
+            // Set the signup success flag in local storage
+            localStorage.setItem("signupSuccess", "true");
             navigate("/login");
         } catch (err) {
             console.error(err);
