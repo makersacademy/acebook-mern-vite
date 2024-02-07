@@ -18,6 +18,17 @@ const getAllComments = async (req, res) => {
             as: "user"
         }}
     ])
+
+    comments.forEach((comment) =>{
+        // console.log(comment.user_id)
+        // console.log(req.user_id)
+        if(comment.user_id === req.user_id){
+            comment.userMatch = true
+        } else {
+            comment.userMatch = false
+        };
+    });
+    // console.log(comments)
     const token = generateToken(req.user_id);
     res.status(200).json({ comments: comments, token: token });
 };

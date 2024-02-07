@@ -20,17 +20,17 @@ const DeleteCommentButton = (props) => {
                     setToken(data.token);
                     window.localStorage.setItem("token", data.token);
                     console.log("Item Deleted");
-                    navigate(`/posts/find/${postId}`);
+                    
                 })
                 .catch((err) => {
                     console.log(err);
                 });
             console.log("Item Deleted");
-            navigate(`/posts`);
+            navigate(0);
         } else {
             console.log("Item Kept");
         }
-        return;
+        return
     };
 
     // When clicking delete:

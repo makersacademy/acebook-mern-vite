@@ -153,6 +153,7 @@ describe("/comments", () => {
             const comment1 = new Comment({
                 message: "howdy!",
                 post_id: "testing",
+                user_id: user_id,
             });
             const comment2 = new Comment({
                 message: "hola!",
@@ -172,6 +173,54 @@ describe("/comments", () => {
 
             expect(firstComments.message).toEqual("howdy!");
             expect(secondComments.message).toEqual("hola!");
+        });
+
+        test("returns userMatch true when user matches the logged in user", async () => {
+            const comment1 = new Comment({
+                message: "howdy!",
+                post_id: "testing",
+                user_id: user_id,
+            });
+
+            await comment1.save();
+
+            const response = await request(app)
+                .get(`/comments/${postID}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            const comments = response.body.comments;
+
+            const comment = comments[0];
+
+            expect(comment.userMatch).toEqual(true)
+        });
+
+        test("returns userMatch false when user matches the logged in user", async () => {
+            const newUser = new User({
+                username: "123",
+                email: "comment-test@test.com",
+                password: "12345678",
+            });
+            await newUser.save();
+            const newUserId = newUser.id
+            
+            const comment1 = new Comment({
+                message: "howdy!",
+                post_id: "testing",
+                user_id: newUserId,
+            });
+
+            await comment1.save();
+
+            const response = await request(app)
+                .get(`/comments/${postID}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            const comments = response.body.comments;
+
+            const comment = comments[0];
+
+            expect(comment.userMatch).toEqual(false)
         });
 
         test("returns a new token", async () => {
