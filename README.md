@@ -5,7 +5,7 @@ Acebook is a full-featured social networking web application inspired by Faceboo
 ## Features 
 
 - User Authentication (Sign Up, Log In, Log Out)
-- Profile Customization (Profile Picture, Bio, etc.)
+- Profile Customization (Profile Picture, name, email, about me)
 - Posts (Create, Edit, Delete Posts)
 - Comments & Reactions (Like, Comment on Posts)
 - Friends System (Send Friend Requests, Accept/Reject Requests)
@@ -25,7 +25,7 @@ Acebook is a full-featured social networking web application inspired by Faceboo
 
 - Demetrius Vissarion - https://github.com/demetriusvissarion
 - Thomas Mazzag - https://github.com/TomMazzag
-- Gabriela Ehrenbrink - 
+- Gabriela Ehrenbrink - https://github.com/gabrielaehrenbrink/
 - Jehoshua - 
 - Fawaz Tarar - https://github.com/Fawaztarar
 
