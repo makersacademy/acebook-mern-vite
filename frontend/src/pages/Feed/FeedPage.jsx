@@ -17,6 +17,7 @@ export const FeedPage = () => {
   const [postChanged, setPostChanged] = useState(false);
   const navigate = useNavigate();
   const id = window.localStorage.getItem("id")
+  const [newPost, setNewPost] = useState(false)
 
   useEffect(() => {
     if (token) {
@@ -63,7 +64,7 @@ export const FeedPage = () => {
   return (
     <>
       <Navbar />
-     
+    
       <div className="allposts">
       <br></br>
       <br></br>
@@ -72,8 +73,7 @@ export const FeedPage = () => {
       <h2>Posts</h2>
       <div className="feed" role="feed">
       {[...posts].reverse().map((post) => (
-          <Post post={post} key={post._id} token={token} />
-  
+          <Post post={post} key={post._id} token={token} setNewPost={setPostChanged}/>
         ))}
           </div>
         </div>

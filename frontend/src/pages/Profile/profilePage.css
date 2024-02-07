@@ -3,6 +3,7 @@
   height: 200px;
   border-radius: 50%;
   border: 2px solid #1877f2;
+  margin-left: 20px;
 }
 
 .profile {
@@ -15,13 +16,16 @@
 }
 
 .profile .user-details {
-  margin-top: 20px; /* Adjust the top margin as needed */
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 60%;
+  width: 80%;
+  max-width: 210px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 .user-details p {
@@ -29,6 +33,12 @@
   text-align: justify;
   padding-left: 3%;
   padding-right: 3%;
+}
+
+.image-and-details {
+  display: flex;
+  width: 100%;
+  align-items: center;
 }
 
 .posts-by-user {
