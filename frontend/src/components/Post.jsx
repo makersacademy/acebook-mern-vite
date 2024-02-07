@@ -12,7 +12,7 @@ const Post = ({ post, token }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [numberOfLikes, setNumberOfLikes] = useState(0);
   const [toggleCommentForm, setToggleCommentForm] = useState(false);
-  const [date, setDate] = useState('3 d')
+  const [date, setDate] = useState(null)
 
   useEffect(() => {
     const fetchLikes = async () => {

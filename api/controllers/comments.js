@@ -32,6 +32,7 @@ const getAllCommentsByPostID = async (req, res) => {
           full_name: "$userDetails.full_name",
           profile_pic: "$userDetails.profile_pic",
           user_id: 1,
+          createdAt: 1,
         },
       },
     ]);

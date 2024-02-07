@@ -6,6 +6,9 @@ export const calculateTimeSincePost = (inputTimeString) => {
   // Convert milliseconds to seconds
   const timeDifferenceInSeconds = timeDifferenceInMillis / 1000;
   if (timeDifferenceInSeconds < 60) {
+    if (Math.round(timeDifferenceInSeconds) === 0) {
+      return 1 + " s";
+    }
     return Math.round(timeDifferenceInSeconds) + " s";
   }
 

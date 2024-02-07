@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import "./comment.css"
 import { deleteComment } from '../../services/comments';
 import { getAllLikesByCommentId, likeComment } from '../../services/comments';
+import { calculateTimeSincePost } from '../dateTimeLogic';
 
 const Comment = ({ comment_data, setNewComment }) => {
     const [showOptions, setShowOptions] = useState(false)
@@ -14,6 +15,7 @@ const Comment = ({ comment_data, setNewComment }) => {
     const token = window.localStorage.getItem("token")
     const [isLiked, setIsLiked] = useState(false);
     const [numberOfLikes, setNumberOfLikes] = useState(0);
+    const [date, setDate] = useState(null)
 
     const handleDeleteComment = async () => {
         try {
@@ -48,13 +50,22 @@ const Comment = ({ comment_data, setNewComment }) => {
         } catch (error) {
           console.error("Error liking the post:", error.message);
         }
-      };
+    };
+
+    useEffect(() => {
+      if (comment_data.createdAt != null) {
+        setDate(calculateTimeSincePost(comment_data.createdAt))
+      }
+    })
 
     return (
         <div className="comment">
             <div className='comment-user'>
                 <img src={comment_data.profile_pic} alt="" className='profile-pic'/>
-                <h5 className="comment-author">{comment_data.full_name}</h5>
+                <div className='date-and-time-comment'>
+                    <h5 className="comment-author">{comment_data.full_name}</h5>
+                    <p className=''>{date}</p>
+                </div>
                 {comment_data.user_id == id && (
                 <button className='options' onClick={handleOptions}>...</button>
                 )}
