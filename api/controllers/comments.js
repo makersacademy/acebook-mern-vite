@@ -20,8 +20,8 @@ const getAllComments = async (req, res) => {
     ])
 
     comments.forEach((comment) =>{
-        console.log(comment.user_id)
-        console.log(req.user_id)
+        // console.log(comment.user_id)
+        // console.log(req.user_id)
         if(comment.user_id === req.user_id){
             comment.userMatch = true
         } else {
