@@ -78,14 +78,12 @@ const Post = ({ post, token }) => {
         </div>
       </div>
       <div className="feed" role="feed">
-          {toggleCommentForm ? 
-          <div>
-                <CommentsList 
-                postId={post._id}/>
-                
-              <CreateNewComment 
-            post_id={post._id} /> </div> : <></>}
-          
+        {toggleCommentForm ? 
+        <div>
+          <CommentsList postId={post._id}/>
+          <CreateNewComment post_id={post._id} /> 
+        </div> 
+        : <></>}
       </div>
     </div>
   );

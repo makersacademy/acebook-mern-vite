@@ -2,7 +2,7 @@
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export const befriend = async (userId, token) => {
+export const befriend = async (token, userId) => {
     const requestOptions = {
         method: "POST",
         headers: {
@@ -21,7 +21,7 @@ export const befriend = async (userId, token) => {
     return data;
 };
 
-export const unfriend = async (userId, token) => {
+export const unfriend = async (token, userId) => {
     const requestOptions = {
         method: "POST",
         headers: {
@@ -38,4 +38,24 @@ export const unfriend = async (userId, token) => {
 
     const data = await response.json();
     return data;
+};
+
+export const getFriendStatus = async (token, userId) => {
+    const requestOptions = {
+        method: "GET", 
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
+    // console.log("requestOptions: ", requestOptions)
+
+    const response = await fetch(`${BACKEND_URL}/friends/${userId}/friendStatus`, requestOptions);
+
+    if (!response.ok) { 
+        throw new Error("Failed to retrieve friend status.");
+    }
+
+    const data = await response.json();
+    return data; // This will return an object with the isFriend boolean
 };

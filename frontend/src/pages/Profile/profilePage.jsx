@@ -7,6 +7,7 @@ import "./profilePage.css"
 import Post from "../../components/Post/Post.jsx";
 import { getPostsByUser } from "../../services/posts";
 import { useParams } from "react-router-dom";
+import { befriend, unfriend, getFriendStatus} from "../../services/friends";
 
 export const ProfilePage = () => {
     document.title = "Profile Page"
@@ -14,9 +15,9 @@ export const ProfilePage = () => {
     const [user, setUser] = useState({});
     const [token, setToken] = useState(window.localStorage.getItem("token"))
     const { userId } = useParams();
+    const currentUserId = window.localStorage.getItem("id");
     const [posts, setPosts] = useState([]);
     const [isFriend, setIsFriend] = useState(false);
-    const currentUserId = window.localStorage.getItem("id");
     const myProfilePage = () => {
         if (userId === currentUserId) {
             return true
@@ -40,7 +41,28 @@ export const ProfilePage = () => {
             .catch((err) => {
                 console.error(err);
             });
+
+            // console.log('Calling getFriendStatus with token:', token, 'and userId:', userId);
+            getFriendStatus(token, userId)
+                .then((response) => {
+                    // console.log('getFriendStatus response:', response);
+                    setIsFriend(response.isFriend); // Update based on the response from the server
+                })
+                .catch((error) => {
+                    console.error("Failed to retrieve friend status:", error);
+                });
     }, [token, userId])
+
+    const handleFriendshipChange = () => {
+        const action = isFriend ? unfriend : befriend;
+        action(userId, token)
+            .then(() => {
+                setIsFriend(!isFriend); // Toggle the isFriend state
+            })
+            .catch((error) => {
+                console.error(`Failed to ${isFriend ? "remove" : "add"} friend:`, error);
+            });
+    };
     
 
     return (
@@ -58,7 +80,11 @@ export const ProfilePage = () => {
                     <br />
                     {user.about_me && <p>About Me: {user.about_me}</p>}
                 </div>
-                {myProfilePage() ? '' : <button className="befriend-unfriend-button">{isFriend ? "Unfriend" : "Add Friend"}</button>}
+                {!myProfilePage() && (
+                    <button className="befriend-unfriend-button" onClick={handleFriendshipChange}>
+                        {isFriend ? "Unfriend" : "Add Friend"}
+                    </button>
+                )}
             </div>
             <div className="posts-by-user">
                 <h2>My posts</h2>
