@@ -1,10 +1,8 @@
 const Friend = (props) => {
-    return (
-        <article key={props.user._id}>
-            {console.log(props)}
-            <p className="username">{props.user.username}</p>
-        </article>
-    )
-}
+    return <article key={props.friend._id}>
+        <div>{props.friend.username}</div>
+        </article>;
+    
+};
 
 export default Friend;

@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
   profilePic: { type: String, required: false },
-  friends: [String]
+  friends: [mongoose.Schema.Types.ObjectId]
 });
 
 const User = mongoose.model("User", UserSchema);

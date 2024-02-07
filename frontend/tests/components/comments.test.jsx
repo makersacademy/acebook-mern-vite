@@ -7,8 +7,8 @@ describe("Comment", () => {
         const testComment = {
             _id: "123",
             message: "test message",
-            username: "user1",
             reg_time: "2024-02-01T12:29:41.763+00:00",
+            user: [{username: "user1"}]
         };
         render(<Comment comment={testComment} />);
 
