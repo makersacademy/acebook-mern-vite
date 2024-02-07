@@ -6,6 +6,7 @@ import { likePost } from "../services/posts";
 import { getAllLikesByPostId } from "../services/posts";
 import CreateNewComment from "./Comment/CreateNewComment";
 import CommentsList from "./Comment/CommentsList";
+import { calculateTimeSincePost } from "./dateTimeLogic";
 import { deletePost } from "../services/posts";
 import { editPost } from '../services/posts';
 import '../components/Comment/comment.css'
@@ -20,8 +21,8 @@ const Post = ({ post, token, setNewPost }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [numberOfLikes, setNumberOfLikes] = useState(0);
   const [toggleCommentForm, setToggleCommentForm] = useState(false);
+  const [date, setDate] = useState(null)
   const [editedPost, setEditedPost] = useState(post.message);
-  // const [newPost, setNewPost] = useState(false)
 
   
   useEffect(() => {
@@ -61,7 +62,12 @@ const Post = ({ post, token, setNewPost }) => {
   const handleCommentClick = async () => {
     setToggleCommentForm(!toggleCommentForm);
   };
-  
+
+  useEffect(() => {
+    if (post.createdAt != null) {
+      setDate(calculateTimeSincePost(post.createdAt))
+    }
+  })
   
   
   const handleDeletePost = async () => {
@@ -99,7 +105,10 @@ const Post = ({ post, token, setNewPost }) => {
     <div className="post" id={post._id}>
       <div className="post-header">
         <img src={post.profile_pic} alt={`Author's avatar`} />
-        <h4>{post.full_name}</h4>
+        <div className="date-and-time">
+          <h4>{post.full_name}</h4>
+          <p className="post-time">{date}</p>
+        </div>
         <button className='options' onClick={handleOptions}>...</button>
         {showOptions && (
             <div className='post-options-menu'>

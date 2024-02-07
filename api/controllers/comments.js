@@ -3,44 +3,45 @@
 const Comment = require("../models/comment");
 const mongoose = require("mongoose");
 
-    const getAllCommentsByPostID = async (req, res) => {
-    try {
-        const comments = await Comment.aggregate([
-        {
-            $match: {
-            post_id: new mongoose.Types.ObjectId(req.params.postId), // Convert user_id to ObjectId because it's a string
-            },
+const getAllCommentsByPostID = async (req, res) => {
+  try {
+    const comments = await Comment.aggregate([
+      {
+        $match: {
+          post_id: new mongoose.Types.ObjectId(req.params.postId), // Convert user_id to ObjectId because it's a string
         },
-        {
-            $lookup: {
-            from: "users",
-            localField: "user_id",
-            foreignField: "_id",
-            as: "userDetails",
-            },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "user_id",
+          foreignField: "_id",
+          as: "userDetails",
         },
-        {
-            $unwind: {
-            path: "$userDetails",
-            preserveNullAndEmptyArrays: true,
-            },
+      },
+      {
+        $unwind: {
+          path: "$userDetails",
+          preserveNullAndEmptyArrays: true,
         },
-        {
-            $project: {
-            _id: 1,
-            message: 1,
-            full_name: "$userDetails.full_name",
-            profile_pic: "$userDetails.profile_pic",
-            user_id: 1,
-            },
+      },
+      {
+        $project: {
+          _id: 1,
+          message: 1,
+          full_name: "$userDetails.full_name",
+          profile_pic: "$userDetails.profile_pic",
+          user_id: 1,
+          createdAt: 1,
         },
-        ]);
-        res.status(200).json({ comments });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Internal server error" });
-    }
-    };
+      },
+    ]);
+    res.status(200).json({ comments });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
 
     const submitComment = async (req, res) => {
     try {

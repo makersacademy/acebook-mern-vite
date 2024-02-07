@@ -1,8 +1,10 @@
 // frontend/src/components/Comment/Comment.jsx
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./comment.css"
 import { deleteComment } from '../../services/comments';
+import { getAllLikesByCommentId, likeComment } from '../../services/comments';
+import { calculateTimeSincePost } from '../dateTimeLogic';
 import { editComment } from '../../services/comments';
 
 const Comment = ({ comment_data, setNewComment }) => {
@@ -14,6 +16,7 @@ const Comment = ({ comment_data, setNewComment }) => {
     const token = window.localStorage.getItem("token")
     const [isLiked, setIsLiked] = useState(false);
     const [numberOfLikes, setNumberOfLikes] = useState(0);
+    const [date, setDate] = useState(null)
     const [editedComment, setEditedComment] = useState(comment_data.message);
 
 
@@ -26,6 +29,19 @@ const Comment = ({ comment_data, setNewComment }) => {
             console.error("Error deleting comment", error);
         }
     }
+
+    useEffect(() => {
+        const fetchLikes = async () => {
+            try {
+              const likesData = await getAllLikesByCommentId(comment_data._id, token);
+              setIsLiked(likesData.userLiked);
+              setNumberOfLikes(likesData.numberOfLikes);
+            } catch (error) {
+              console.error("Error fetching likes:", error);
+            }
+        };
+        fetchLikes()
+    }, [isLiked])
 
 
     const handleEditComment = async () => {
@@ -48,21 +64,30 @@ const Comment = ({ comment_data, setNewComment }) => {
 
     const handleLikeClick = async () => {
         try {
-        // Call the likePost function to send the like request to the backend
-        //await likePost(post._id, token);
+          // Call the likePost function to send the like request to the backend
+          await likeComment(comment_data._id, token);
     
-        // Toggle the like status in the UI
-        //setIsLiked(!isLiked);
+          // Toggle the like status in the UI
+          setIsLiked(!isLiked);
         } catch (error) {
-        //console.error("Error liking the post:", error.message);
+          console.error("Error liking the post:", error.message);
         }
     };
+
+    useEffect(() => {
+      if (comment_data.createdAt != null) {
+        setDate(calculateTimeSincePost(comment_data.createdAt))
+      }
+    })
 
     return (
         <div className="comment">
             <div className='comment-user'>
                 <img src={comment_data.profile_pic} alt="" className='profile-pic'/>
-                <h5 className="comment-author">{comment_data.full_name}</h5>
+                <div className='date-and-time-comment'>
+                    <h5 className="comment-author">{comment_data.full_name}</h5>
+                    <p className=''>{date}</p>
+                </div>
                 {comment_data.user_id == id && (
                 <button className='options' onClick={handleOptions}>...</button>
                 )}
