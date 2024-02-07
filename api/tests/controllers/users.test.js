@@ -239,6 +239,8 @@ describe("/users", () => {
                 password: "Password1!",
             });
 
+            const users = await User.find({ email: "abc@email.com" });
+            expect(users.length).toEqual(1);
             expect(response.statusCode).toBe(409);
             expect(response.body.message).toBe("Email already exists");
         });
@@ -257,6 +259,7 @@ describe("/users", () => {
             });
 
             const users = await User.find({ username: "USER123" });
+            expect(response.statusCode).toBe(409);
             expect(response.body.message).toBe("Username already exists");
             expect(users.length).toEqual(1);
         });
