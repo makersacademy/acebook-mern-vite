@@ -92,7 +92,9 @@ export const UserPage = () => {
 
                         {loggedInUser._id === user._id && 
                         <div className="notifications-container">
-                            <p>notifications: </p>
+                            <div className="notifications-header">
+                                <p>notifications </p>
+                            </div>
 
                             { user.notifications &&
                                 user.notifications.map((notification) => 
@@ -114,7 +116,9 @@ export const UserPage = () => {
                         </div>
                         }
                         <div className="friends-container">
-                            <p>Friends: </p>
+                            <div className="friends-header">
+                                <p>friends </p>
+                            </div>
                             <Friends 
                                 friends={user.friends}
                             />

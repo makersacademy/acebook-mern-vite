@@ -16,6 +16,7 @@
 }
 
 .notifications-container {
+    font-weight: bold;
     display: flex;
     flex-direction: column;
     border: 5px solid #00843D;
@@ -25,7 +26,13 @@
     box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.454);
 }
 
+.notification-header {
+    font-weight: bold;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.224);
+}
+
 .friends-container {
+    
     display: flex;
     flex-direction: column;
     border: 5px solid #00843D;
@@ -33,6 +40,11 @@
     margin: 10px;
     background-color: white;
     box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.454);
+}
+
+.friends-header {
+    font-weight: bold;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.224);
 }
 
 .user-container {
@@ -51,6 +63,7 @@
 }
 
 .posts-header {
+    font-weight: bold;
     display: flex;
     flex-direction: column;
     border: 5px solid #00843eef;
