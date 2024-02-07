@@ -89,6 +89,8 @@ export const UserPage = () => {
 
                             }
                         </div>
+
+                        {loggedInUser._id === user._id && 
                         <div className="notifications-container">
                             <p>notifications: </p>
 
@@ -110,6 +112,7 @@ export const UserPage = () => {
 
 
                         </div>
+                        }
                         <div className="friends-container">
                             <p>Friends: </p>
                             <Friends 
