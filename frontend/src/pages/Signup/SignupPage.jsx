@@ -21,6 +21,7 @@ export const SignupPage = () => {
         } catch (err) {
             console.error(err);
             navigate("/signup");
+            alert(err);
         }
     };
 
