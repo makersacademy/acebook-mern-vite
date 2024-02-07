@@ -5,6 +5,7 @@ import NewPost from "../../components/Post/NewPost";
 import Post from "../../components/Post/Post";
 import Navbar from "../../components/NavBar/navbar";
 
+
 export const FeedPage = () => {
     const [posts, setPosts] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));

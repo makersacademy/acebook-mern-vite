@@ -57,7 +57,6 @@ export const UserPage = () => {
             <h1>User Page</h1>
             
 
-            
                 {loggedInUser._id === user._id && 
 
                 <EditUserModal 

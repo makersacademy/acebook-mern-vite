@@ -29,11 +29,12 @@ export const login = async (email, password) => {
 	}
 };
 
-export const signup = async (username, email, password) => {
+export const signup = async (username, email, password, defaultUserImage) => {
 	const payload = {
 		username: username,
 		email: email,
 		password: password,
+		defaultUserImage: defaultUserImage
 	};
 
 	const requestOptions = {

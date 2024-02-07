@@ -87,10 +87,6 @@ export default function EditUserModal( {username, image, handleImageUpdate, hand
                     }
 
                 </div>
-
-                
-                
-                
                 <button
                 className="close-modal"
                 onClick={toggleModal}>

@@ -16,6 +16,7 @@ const create = async (req, res) => {
 	const username = req.body.username;
 	const email = req.body.email;
 	const password = req.body.password;
+	const defaultUserImage = req.body.defaultUserImage;
 
 	if (!password || !username || !email) {
 		return res.status(400).json({ message: "Dang! One of the boxes is empty" });
@@ -57,7 +58,7 @@ const create = async (req, res) => {
 		.update(password)
 		.digest("hex");
 
-	const user = new User({ username, email, password: hashedPassword });
+	const user = new User({ username, email, password: hashedPassword, image: defaultUserImage });
 	user
 		.save()
 		.then((user) => {
