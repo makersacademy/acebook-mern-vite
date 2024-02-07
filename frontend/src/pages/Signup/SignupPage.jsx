@@ -9,12 +9,13 @@ export const SignupPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const defaultUserImage = "kangaroo-face.png"
 
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await signup(username, email, password);
+            await signup(username, email, password, defaultUserImage);
             console.log("redirecting...:");
             navigate("/login");
         } catch (err) {
