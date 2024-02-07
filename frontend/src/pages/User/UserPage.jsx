@@ -33,6 +33,7 @@ export const UserPage = () => {
                     // setProfilePicture(data.user.image)
                     // setBio(data.user.bio)
                     window.localStorage.setItem("token", data.token);
+                    window.localStorage.setItem("user", JSON.stringify(data.user))
                 })
                 .catch((err) => {
                     console.error(err);
@@ -62,7 +63,6 @@ export const UserPage = () => {
                     
                     <div className="user-page-left">
                     
-                        
                         <div className="user-container">
                             <User 
                                 key={user._id}

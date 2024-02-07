@@ -6,6 +6,7 @@ import AddComment from "../AddComment/AddComment";
 import Comment from "../Comment/Comment";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import timeFromNow from "../../utils/TimeFromNow";
+import { Link } from "react-router-dom";
 
 const Post = (props) => {
     const [like, setLike] = useState(false);
@@ -27,7 +28,7 @@ const Post = (props) => {
         setLike(!like);
         setLikes(props.post.likes.length);
     };
-  
+
     const checkLikes = (props) => {
         setLikes(props.post.likes.length);
     };
@@ -49,15 +50,17 @@ const Post = (props) => {
         (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
     );
 
-    const revSortedComments = sortedComments.reverse();
-
     return (
         <div key={props.post._id} className="post-article">
             <article>
                 {props.postedBy && (
                     <div className="user-info">
-                        <img src={props.postedBy.image} alt="user image"></img>
-                        <h4>{props.postedBy.username}</h4>
+                        <Link to={`/users/${props.postedBy.username}`} className="post-user-image">
+                            <img src={props.postedBy.image} alt="user image"></img>
+                        </Link>
+                        <Link to={`/users/${props.postedBy.username}`} className="post-username">
+                            <h4>{props.postedBy.username}</h4>
+                        </Link>
                     </div>
                 )}
                 <div className="date-time">
@@ -85,12 +88,14 @@ const Post = (props) => {
                     token={props.token}
 
                 />
+                <div className="delete-post-button">
                 <DeleteButton
                     postID={props.post._id}
                     handleDelete={handleDelete}
                     onDelete={props.onDelete}
                     showButton={isPostOwner}
                 />
+                </div>
                 <div className="comments">
                     <p> comments </p>
                     <button onClick={addCommentClick}>add comment</button>
@@ -105,23 +110,23 @@ const Post = (props) => {
                         </div>
                     )}
                     <ul>
-                        {revSortedComments.length > 0 && (
+                        {sortedComments.length > 0 && (
                             <Comment
-                                _id={revSortedComments[0]._id}
-                                message={revSortedComments[0].message}
-                                likes={revSortedComments[0].likes}
+                                _id={sortedComments[0]._id}
+                                message={sortedComments[0].message}
+                                likes={sortedComments[0].likes}
                                 // postedBy={comment.user.username}
-                                postedAt={revSortedComments[0].createdAt}
-                                user={revSortedComments[0].user}
+                                postedAt={sortedComments[0].createdAt}
+                                user={sortedComments[0].user}
                             />
                         )}
 
-                        {revSortedComments.length > 1 && !showMoreComments && (
+                        {sortedComments.length > 1 && !showMoreComments && (
                             <button onClick={showMoreCommentsClick}>...</button>
                         )}
 
                         {showMoreComments &&
-                            revSortedComments
+                            sortedComments
                                 .slice(1)
                                 .map((comment) => (
                                     <Comment

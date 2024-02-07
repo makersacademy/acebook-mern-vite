@@ -44,6 +44,15 @@ article {
     margin-right: 10px;
 }
 
+.post-username {
+    color: black;
+}
+
+.post-username:hover {
+    color: black;
+    text-decoration: underline;
+}
+
 .date-time {
     font-size: 10px;
 }
@@ -56,3 +65,4 @@ article {
 .like-container h5 {
     margin-left: 8px; /* Add margin to create space between LikeButton and h5 */
 }
+

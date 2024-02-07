@@ -84,6 +84,10 @@ const getUser = async (req, res) => {
 		populate: {
 			path:'comments',
 			model: 'Comment',
+			populate: {
+				path: 'user',
+				model: "User"
+			}
 		}})
 		.populate({
 			path: "posts",
