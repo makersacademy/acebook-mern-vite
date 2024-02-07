@@ -72,12 +72,6 @@ const updateUserInfo = async (req, res) => {
     return res.status(200).json({message: "User updated", user, token});
   };
 
-
-const updateImage = async (req, res) => {
-    new_image = req.profile_picture
-}
-
-
 const updateUsersLikedPost = async (req, res) => {
   const liked_post_id = req.body.post_id
   const status = req.body.status
@@ -114,7 +108,6 @@ const UsersController = {
   getAllUserInfo: getAllUserInfo, 
   updateUserInfo: updateUserInfo,
   clearTestData: clearTestData,
-  updateImage: updateImage, 
   updateUsersLikedPost: updateUsersLikedPost
 };
 

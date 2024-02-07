@@ -16,14 +16,13 @@ export const Navbar = () => {
 
     const [user, setUser] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
-    const [profilePicture, setProfilePicture] = useState(ang);
+    const [profilePicture, setProfilePicture] = useState();
 
     useEffect(() => {
         if (token) {
             getAllUserInfo(token)
                 .then((data) => {
                 setUser(data.user);
-                console.log(data.user)
                 setToken(data.token);
                 window.localStorage.setItem("token", data.token);
                 if (data.user.profile_picture) {

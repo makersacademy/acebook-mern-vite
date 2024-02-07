@@ -10,16 +10,16 @@ export const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [profile_picture, setProfilePicture] = useState();
+
   const [signUpError, setError] = useState();
+  const [imageURL, setImageURL] = useState();
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log("Log before signup is called:", username, email, password, profile_picture)
       await signup(username, email, password, profile_picture)
       .then(updateImage(profile_picture))
-      console.log("2nd user data:", username, email, password, profile_picture)
       console.log("redirecting...:");
       navigate("/profilepage");
     } catch (err) {
@@ -43,8 +43,8 @@ export const SignupPage = () => {
 
   const handleProfilePictureChange = (event) => {
     const file = event.target.files[0];
-    console.log("I am the filename:", file.name)
     setProfilePicture(file);
+    setImageURL(URL.createObjectURL(file));
   };
 
   return (
@@ -106,7 +106,10 @@ export const SignupPage = () => {
                 onChange={handleProfilePictureChange}
                 style={{ display: 'none' }}
               />
+              
               Upload Profile Picture
+              {<img className="input-image" src={imageURL}/>}
+
             </label>
             
 

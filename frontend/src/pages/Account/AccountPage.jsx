@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar/Navbar.jsx";
 import { updateUserInfo } from "../../services/updateUser.js";
 import { getAllUserInfo } from "../../services/user.js";
 import { updateImage } from "../../services/updateUser.js";
+import { useNavigate } from "react-router-dom";
 
 import "./AccountPage.css";
 
@@ -10,7 +11,9 @@ export const AccountPage = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [profile_picture, setProfilePicture] = useState();
+    const [profile_picture, setProfilePicture] = useState(null);
+    const [imageURL, setImageURL] = useState();
+    const navigate = useNavigate();
 
     const [user, setUser] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
@@ -37,6 +40,7 @@ export const AccountPage = () => {
                 await updateUserInfo(username, email, password, profile_picture, token)
                 .then(updateImage(profile_picture))
                 console.log("Details updated!");
+                navigate("/profilepage")
             } catch (err) {
                 console.error(err);
             }
@@ -56,24 +60,24 @@ export const AccountPage = () => {
     
         const handleProfilePictureChange = (event) => {
             const file = event.target.files[0];
-            console.log("I am the filename:", file.name)
             setProfilePicture(file);
+            setImageURL(URL.createObjectURL(file));
         };
     
     return (
         <>
-        <div className="accountpage">
 
             <Navbar />
-                {/* TITLE */}
-                <h1>This is your Account page!</h1>
-            
 
+            <div className="update-account-box">
+                {/* TITLE */}
+                <h2>Update your account details</h2>
+            
             {/* FORM */}
-            <form encType="multipart/form-data" onSubmit={handleSubmit}>
+            <form className="content-signup" encType="multipart/form-data" onSubmit={handleSubmit}>
 
                  {/* USERNAME FORM */}
-                 {/* <label htmlFor="username">Username:</label> */}
+                <label htmlFor="username">Username:</label>
                     <input
                         className="input-sg"
                         id="username"
@@ -83,7 +87,7 @@ export const AccountPage = () => {
                     />
 
                     {/* EMAIL FORM */}
-                    {/* <label htmlFor="email">Email:</label> */}   
+                    <label htmlFor="email">Email:</label>   
                     <input
                         className="input-sg"
                         id="email"
@@ -94,7 +98,7 @@ export const AccountPage = () => {
                     />
 
                     {/* PASSWORD FORM */}
-                    {/* <label htmlFor="password">Password:</label> */}
+                    <label htmlFor="password">Password:</label>
                     <input
                         className="input-sg"
                         id="password"
@@ -117,13 +121,15 @@ export const AccountPage = () => {
                             style={{ display: 'none' }}
                         />
                         Upload Profile Picture
+                        {<img className="update-image" src={imageURL}/>}
+                        
                     </label>
-
 
                      {/* BUTTON SUBMIT */}
                     <input className="btn btn-signup" role="submit-button" id="submit" type="submit" value="Update!" />
 
-            </form>
+                </form>
+            <div/>
         </div>
     </>
     );
