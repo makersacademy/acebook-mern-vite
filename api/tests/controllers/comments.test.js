@@ -294,4 +294,40 @@ describe("/comments", () => {
             expect(newTokenDecoded.iat > oldTokenDecoded.iat).toEqual(true);
         });
     })
+    describe("POST update a single comment, when token is present", () => {
+        test("the response code is 200", async () => {
+            const comment1 = new Comment({message: "howdy!", post_id: "testing"});
+
+            await comment1.save();
+
+            await request(app)
+                .post(`/comments/update/${comment1._id}`)
+                .set("Authorization", `Bearer ${token}`)
+                .send({ _id: comment1.id, message: "Hello World!", post_id: postID });
+
+            const response = await request(app)
+                .get(`/comments/${comment1._id}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            expect(response.status).toEqual(200);
+        });
+
+        test("Updates message of comment", async () => {
+            const comment1 = new Comment({
+                message: "howdy!",
+                post_id: "testing",
+            });
+
+            await comment1.save();
+
+            await request(app)
+                .post(`/comments/update/${comment1._id}`)
+                .set("Authorization", `Bearer ${token}`)
+                .send({ _id: comment1.id, message: "New Test Message"});
+
+            const comment = await Comment.findOne({ _id: comment1.id });
+            expect(comment.message).toBe("New Test Message");
+        });
+    });
+    
 });

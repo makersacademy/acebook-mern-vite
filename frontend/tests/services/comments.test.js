@@ -1,7 +1,7 @@
 import createFetchMock from "vitest-fetch-mock";
 import { describe, expect, vi, test, it, beforeEach } from "vitest";
 
-import { getAllComments, createComment, deleteComment } from "../../src/services/comments";
+import { getAllComments, createComment, deleteComment, updateComment } from "../../src/services/comments";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -151,3 +151,48 @@ describe("tests delete comment service", () => {
         expect(response).toEqual(mockResponse);
     });
 });
+
+describe("tests update post service", () => {
+    it("includes a token with its request", async () => {
+        const mockResponse = {
+            message: "Comment was updated",
+            token: "newToken",
+        };
+        fetch.mockResponseOnce(JSON.stringify(mockResponse), {status: 200})
+        const mockCommentID = 1
+        await updateComment(mockCommentID, "Second Message", "testToken")
+
+        // This is an array of the arguments that were last passed to fetch
+        const fetchArguments = fetch.mock.lastCall;
+        const url = fetchArguments[0];
+        const options = fetchArguments[1];
+
+        expect(url).toEqual(`${BACKEND_URL}/comments/update/${mockCommentID}`);
+        expect(options.method).toEqual("POST");
+        expect(options.headers["Authorization"]).toEqual("Bearer testToken");
+    });
+
+    it("rejects with an error if the status is not 200", async () => {
+        const mockResponse = {
+            message: "Comment was updated",
+            token: "newToken",
+        };
+        fetch.mockResponseOnce(JSON.stringify(mockResponse), {status: 400})
+        const mockCommentID = 1
+        try {
+            await updateComment(mockCommentID, "New message", "testToken");
+        } catch (err) {
+            expect(err.message).toEqual("Unable to update comment")}  
+    });
+
+    it("returns response object on successful fetch", async () => {
+        const mockCommentID = 1;
+        const mockResponse = {
+            message: "Comment was updated",
+            token: "newToken",
+        };
+        fetch.mockResponseOnce(JSON.stringify(mockResponse), { status: 200 });
+        const response = await updateComment(mockCommentID, "token");
+        expect(response).toEqual(mockResponse);
+    });
+})
