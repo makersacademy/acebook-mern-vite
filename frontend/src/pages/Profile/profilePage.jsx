@@ -39,14 +39,17 @@ export const ProfilePage = () => {
         <h1>My Profile</h1>
         
         <div className="profile">
-            <img src={user.profile_pic} alt="profile pic" className="profilePage_user_picture"/>
-            <div className="user-details">
-                <p>Username: {user.full_name}</p>
-                <br />
-                <p>Email: {user.email}</p>
-                <br />
-                {user.about_me && <p>About Me: {user.about_me}</p>}
+            <div className="image-and-details">
+                <img src={user.profile_pic} alt="profile pic" className="profilePage_user_picture"/>
+                <div className="user-details">
+                    <p>Username: {user.full_name}</p>
+                    <br />
+                    <p>Email: {user.email}</p>
+                    <br />
+                    {user.about_me && <p>About Me: {user.about_me}</p>}
+                </div>
             </div>
+            
             <div className="posts-by-user">
                 <h2>My posts</h2>
                 {[...posts].reverse().map((post) => (
