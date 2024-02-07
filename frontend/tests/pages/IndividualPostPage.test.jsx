@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { vi, describe, beforeEach, test, expect } from "vitest";
 import { useParams } from "react-router-dom";
 import { PostPage } from "../../src/pages/IndividualPost/IndividualPostPage";
@@ -38,8 +38,9 @@ describe("Individual Post Page", () => {
             {
                 _id: "12345",
                 message: "Test comment 1",
-                username: "user1",
+                user: [{username: "user1"}],
                 reg_time: "2024-02-01T12:29:41.763+00:00",
+                user: [{username: "user1"}]
             },
         ];
         getSinglePost.mockResolvedValue({ post: mockPost, token: "newToken" });
@@ -64,8 +65,9 @@ describe("Individual Post Page", () => {
             {
                 _id: "12345",
                 message: "Test comment 1",
-                username: "user1",
+                user: [{username: "user1"}],
                 reg_time: "2024-02-01T12:29:41.763+00:00",
+                user: [{username: "user1"}]
             },
         ];
         vi.mocked(useParams).mockReturnValue({ id: "12345" });

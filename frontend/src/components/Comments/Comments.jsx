@@ -13,12 +13,14 @@ const createDate = (date) => {
 const Comment = (props) => {
     const datetime = new Date(props.comment.reg_time);
     const date = createDate(datetime);
+    console.log(props.comment)
+    const username = props.comment.user[0].username
 
     return (
         <article key={props.comment._id}>
             <p className="message">{props.comment.message}</p>
             <p className="messageInfo">
-                {props.comment.username} {date}
+                {username} {date}
             </p>
             <hr></hr>
         </article>

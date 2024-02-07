@@ -43,3 +43,39 @@ export const setProfilePic = async (email, profilePic, token) => {
     const data = await response.json();
     return data;
 };
+
+export const getUsers = async (token) => {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    };
+
+    const response = await fetch(`${BACKEND_URL}/profile/users`, requestOptions);
+
+    if (response.status !== 200) {
+        throw new Error(`Unable to fetch users. Status: ${response.status}, Message: ${data.message || 'Unknown error'}`);
+    }
+
+    const data = await response.json();
+    return data;
+}
+
+export const addFriend = async (user_id, token) => {
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    };
+
+    const response = await fetch(`${BACKEND_URL}/profile/${user_id}/friend`, requestOptions);
+
+    if (response.status !== 200) {
+        throw new Error(`Unable to fetch users. Status: ${response.status}, Message: ${data.message || 'Unknown error'}`);
+    }
+
+    const data = await response.json();
+    return data;
+}

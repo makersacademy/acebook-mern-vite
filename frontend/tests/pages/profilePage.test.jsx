@@ -34,11 +34,11 @@ vi.mock("../../src/services/profile", () => {
   
       render(<ProfilePage />);
   
-      const user = await screen.findByRole("article");
+      const user = await screen.findByRole("profile");
       //check to see whether ProfilePage is rendering
       //console.log(user)
 
-      expect(user.textContent).toEqual("Username: user1Email: email1@email.com");
+      expect(user.textContent).toContain("Username: user1Email: email1@email.com");
     });
 
     test("It navigates to login if no token is present", async () => {

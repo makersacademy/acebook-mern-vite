@@ -12,8 +12,9 @@ const createDate = (date) => {
     return `${day}/${month}/${year} ${hours}:${minutes}`;
 };
 
-const Post = (props) => {
+const OnePost = (props) => {
     const post = props.post
+    const user = props.user
     const datetime = new Date(post.reg_time);
     const date = createDate(datetime);
     const [showResults, setShowResults] = React.useState(false)
@@ -26,17 +27,12 @@ const Post = (props) => {
     return (
         <article key={post._id}>
             <p className="message">{post.message}</p>
-            {props.post.postImage && <img alt="" src={"data:postImage/png;base64," + props.post.postImage} 
-            style={{ 
-                maxWidth:"200px",
-                maxHeight:"200px",
-                objectFit:"cover",
-                display:"inline-block",
-            }} />}
+            {/*{console.log("user:")}
+            {console.log(user)}*/}
             <p className="messageInfo">
-            <img className="img" src={"data:image/png;base64," + post.user[0].profilePic}/> 
-            {post.user[0].username}</p>
-    <p>{date}</p>
+            <img className="img" src={"data:image/png;base64," + user.profilePic}/> 
+            {user.username}</p>
+            <p>{date}</p>
             
             {/*uses coalescing operator to check for whether props.post.likes
             has a value for length, if so, use that value, else use 0 as default value*/}
@@ -47,7 +43,7 @@ const Post = (props) => {
 };
 
 const LikedBy = (props) => {
-    console.log(props)
+    console.log(props.post)
     return (
     <div className ="likedBy">Liked by: {props.post.likeUser.map((user) => (
         <div key={user._id}>
@@ -57,4 +53,4 @@ const LikedBy = (props) => {
     </div>
 )}
 
-export default Post;
+export default OnePost;

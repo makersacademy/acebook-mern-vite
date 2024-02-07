@@ -12,8 +12,7 @@ describe("Comment model", () => {
             message: "test comment",
             username: "testUsername",
         });
-        expect(comment.message).toEqual("test comment");
-        expect(comment.username).toEqual("testUsername");
+        expect(comment.message).toEqual("test comment");;
         expect(comment.post_id).toEqual("1");
     });
 

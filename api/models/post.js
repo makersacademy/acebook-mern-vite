@@ -4,10 +4,10 @@ const mongoose = require("mongoose");
 // defining the columns of an SQL Database.
 const PostSchema = new mongoose.Schema({
   message: String,
-  username: String,
   postImage: String,
+  user_id: String,
   reg_time: {type: Date, default: Date.now},
-  likes: [Array],
+  likes: [mongoose.Schema.Types.ObjectId],
 },{
     versionKey: false // You should be aware of the outcome after set to false
 });

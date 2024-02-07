@@ -153,6 +153,7 @@ describe("/comments", () => {
             const comment1 = new Comment({
                 message: "howdy!",
                 post_id: "testing",
+                user_id: user_id,
             });
             const comment2 = new Comment({
                 message: "hola!",
@@ -172,6 +173,54 @@ describe("/comments", () => {
 
             expect(firstComments.message).toEqual("howdy!");
             expect(secondComments.message).toEqual("hola!");
+        });
+
+        test("returns userMatch true when user matches the logged in user", async () => {
+            const comment1 = new Comment({
+                message: "howdy!",
+                post_id: "testing",
+                user_id: user_id,
+            });
+
+            await comment1.save();
+
+            const response = await request(app)
+                .get(`/comments/${postID}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            const comments = response.body.comments;
+
+            const comment = comments[0];
+
+            expect(comment.userMatch).toEqual(true)
+        });
+
+        test("returns userMatch false when user matches the logged in user", async () => {
+            const newUser = new User({
+                username: "123",
+                email: "comment-test@test.com",
+                password: "12345678",
+            });
+            await newUser.save();
+            const newUserId = newUser.id
+            
+            const comment1 = new Comment({
+                message: "howdy!",
+                post_id: "testing",
+                user_id: newUserId,
+            });
+
+            await comment1.save();
+
+            const response = await request(app)
+                .get(`/comments/${postID}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            const comments = response.body.comments;
+
+            const comment = comments[0];
+
+            expect(comment.userMatch).toEqual(false)
         });
 
         test("returns a new token", async () => {
@@ -236,4 +285,98 @@ describe("/comments", () => {
             expect(response.body.token).toEqual(undefined);
         });
     });
+    describe("DELETE single comment, when token is present", () => {
+        test("the response code is 200", async () => {
+            const comment1 = new Comment({
+                message: "howdy!",
+                post_id: "testing",
+            });
+
+            await comment1.save();
+
+            const response = await request(app)
+            .delete(`/comments/${comment1._id}`)
+            .set("Authorization", `Bearer ${token}`)
+
+            expect(response.status).toEqual(200)
+        })
+
+        test("returns single comment when 2 have been added and 1 deleted", async () => {
+            const comment1 = new Comment({ message: "howdy!", post_id: "testing", });
+            const comment2 = new Comment({ message: "hi!", post_id: "testing", });
+            await comment1.save();
+            await comment2.save();
+
+            await request(app)
+                .delete(`/comments/${comment1._id}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            const response = await request(app)
+                .get(`/comments/${postID}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            const comments = response.body.comments;
+
+            expect(comments.length).toEqual(1);
+            expect(comments[0].message).toEqual("hi!");
+        });
+
+        test("returns a new token", async () => {
+            const comment1 = new Comment({ message: "howdy!", post_id: "testing", });
+            const comment2 = new Comment({ message: "hi!", post_id: "testing", });
+            await comment1.save();
+            await comment2.save();
+
+
+            const response = await request(app)
+            .delete(`/comments/${comment1._id}`)
+            .set("Authorization", `Bearer ${token}`);
+
+            const newToken = response.body.token;
+            const newTokenDecoded = JWT.decode(
+                newToken,
+                process.env.JWT_SECRET
+            );
+            const oldTokenDecoded = JWT.decode(token, process.env.JWT_SECRET);
+
+            // iat stands for issued at
+            expect(newTokenDecoded.iat > oldTokenDecoded.iat).toEqual(true);
+        });
+    })
+    describe("POST update a single comment, when token is present", () => {
+        test("the response code is 200", async () => {
+            const comment1 = new Comment({message: "howdy!", post_id: "testing"});
+
+            await comment1.save();
+
+            await request(app)
+                .post(`/comments/update/${comment1._id}`)
+                .set("Authorization", `Bearer ${token}`)
+                .send({ _id: comment1.id, message: "Hello World!", post_id: postID });
+
+            const response = await request(app)
+                .get(`/comments/${comment1._id}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            expect(response.status).toEqual(200);
+        });
+
+        test("Updates message of comment", async () => {
+            const comment1 = new Comment({
+                message: "howdy!",
+                post_id: "testing",
+            });
+
+            await comment1.save();
+
+            await request(app)
+                .post(`/comments/update/${comment1._id}`)
+                .set("Authorization", `Bearer ${token}`)
+                .send({ _id: comment1.id, message: "New Test Message"});
+
+            const comment = await Comment.findOne({ _id: comment1.id });
+            expect(comment.message).toBe("New Test Message");
+        });
+    });
+    
 });
