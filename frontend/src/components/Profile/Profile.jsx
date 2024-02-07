@@ -1,4 +1,4 @@
-const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Ace_of_spades.svg/1200px-Ace_of_spades.svg.png";
+const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Ace_of_spades.svg/1200px-Ace_of_spades.svg.png"
 
 const Profile = (props) => {
     if (!props.user.profilePic){
