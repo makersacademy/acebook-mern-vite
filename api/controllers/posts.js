@@ -3,28 +3,29 @@ const User = require("../models/user");
 const { generateToken } = require("../lib/token");
 
 const getAllPosts = async (req, res) => {
-
     const posts = await Post.aggregate([
-        {$addFields: {
-            convertedId: {$toObjectId: "$user_id"}
-            
-        }},
-        { $lookup: {
-            from: "users",
-            localField: "convertedId",
-            foreignField: "_id",
-            as: "user"
-        }},
-        { $lookup: {
-            from: "users",
-            localField: "likes",
-            foreignField: "_id",
-            as: "likeUser"
-
-        }}
-    ]).sort({_id: -1})
-
-    
+        {
+            $addFields: {
+                convertedId: { $toObjectId: "$user_id" },
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "convertedId",
+                foreignField: "_id",
+                as: "user",
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "likes",
+                foreignField: "_id",
+                as: "likeUser",
+            },
+        },
+    ]).sort({ _id: -1 });
 
     //const posts = await Post.find().sort({ _id: -1 });
 
@@ -33,31 +34,37 @@ const getAllPosts = async (req, res) => {
 };
 
 const getSinglePost = async (req, res) => {
-
-    const postID = req.params.id
-    const post2 = await Post.find({ _id: req.params.id});
+    const postID = req.params.id;
+    const post2 = await Post.find({ _id: req.params.id });
     const post = await Post.aggregate([
-        {$addFields: {
-            convertedId: {$toObjectId: "$user_id"},
-            convertedPostId: {$toString: "$_id"}
-        }},
-        {$match: {
-            convertedPostId: postID
-        }},
-        { $lookup: {
-            from: "users",
-            localField: "convertedId",
-            foreignField: "_id",
-            as: "user"
-        }},
-        { $lookup: {
-            from: "users",
-            localField: "likes",
-            foreignField: "_id",
-            as: "likeUser"
-
-        }}
-    ])
+        {
+            $addFields: {
+                convertedId: { $toObjectId: "$user_id" },
+                convertedPostId: { $toString: "$_id" },
+            },
+        },
+        {
+            $match: {
+                convertedPostId: postID,
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "convertedId",
+                foreignField: "_id",
+                as: "user",
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "likes",
+                foreignField: "_id",
+                as: "likeUser",
+            },
+        },
+    ]);
 
     const user = await User.findOne({ _id: req.user_id });
     //const post = await Post.find({ _id: req.params.id });
@@ -70,38 +77,37 @@ const getSinglePost = async (req, res) => {
     // console.log("post.username: " + post[0].username)
     // console.log(user.username)
     if (user.username != post[0].user[0].username) {
-        res.status(200).json({ post: post, token: token, userMatch: false});
+        res.status(200).json({ post: post, token: token, userMatch: false });
     } else {
-        res.status(200).json({ post: post, token: token, userMatch: true});
+        res.status(200).json({ post: post, token: token, userMatch: true });
     }
-    
 };
 
 const createPost = async (req, res) => {
-
-
-    if (req.body.message == "" && req.body.postImage ==""){
+    console.log(req.body.message);
+    console.log(req.body.postImage);
+    if (req.body.message == "" && req.body.postImage == undefined) {
         //message and postimage are both empty
         const newToken = generateToken(req.user_id);
         res.status(200).json({
             message: "posts must not be blank",
             token: newToken,
         });
-    }else {
+    } else {
         //we have atleast one of message and postimage
-        const user = await User.findOne({_id: req.user_id})
+        const user = await User.findOne({ _id: req.user_id });
         //console.log(req.user_id)
         //console.log(user)
         //console.log(req.body)
 
-        req.body.user_id = req.user_id
+        req.body.user_id = req.user_id;
 
         const post = new Post(req.body);
         post.save();
 
         const newToken = generateToken(req.user_id);
         res.status(201).json({ message: "OK", token: newToken });
-    };
+    }
 };
 
 const updatePost = async (req, res) => {
@@ -134,14 +140,15 @@ const deletePost = async (req, res) => {
 };
 
 const likePost = async (req, res) => {
-    const user = await User.findOne({_id: req.user_id})
-    console.log(user)
-    await Post.findOneAndUpdate({_id: req.params.id},{$addToSet:{likes: req.user_id}});
+    const user = await User.findOne({ _id: req.user_id });
+    console.log(user);
+    await Post.findOneAndUpdate(
+        { _id: req.params.id },
+        { $addToSet: { likes: req.user_id } }
+    );
     const newToken = generateToken(req.user_id);
-    res.status(200).json({message: "Post was liked", token: newToken})
-
-}
-
+    res.status(200).json({ message: "Post was liked", token: newToken });
+};
 
 const PostsController = {
     getAllPosts: getAllPosts,
@@ -149,7 +156,7 @@ const PostsController = {
     getSinglePost: getSinglePost,
     deletePost: deletePost,
     updatePost: updatePost,
-    likePost: likePost
+    likePost: likePost,
 };
 
 module.exports = PostsController;
