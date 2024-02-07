@@ -112,3 +112,7 @@
 .delete-button:hover {
   background-color: #ff0000;
 }
+
+.success-message {
+  color: green;
+}
