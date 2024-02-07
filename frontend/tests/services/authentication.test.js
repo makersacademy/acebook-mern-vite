@@ -108,7 +108,7 @@ describe("authentication service", () => {
 		test("throws an error if the request failed", async () => {
 			const testUsername = "test";
 			const testEmail = "test@testEmail.com";
-			const testPassword = "12345678";
+			const testPassword = "12345678!Aa";
 
 			fetch.mockResponseOnce(
 				JSON.stringify({ message: "User already exists" }),
