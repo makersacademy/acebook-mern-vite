@@ -37,7 +37,7 @@ export const UserPage = () => {
             } else {
             navigate("/login");
             } 
-        }, [username, triggerStateChange]);
+        }, [username, stateChange]);
     
         if (!token) {
             navigate("/login")

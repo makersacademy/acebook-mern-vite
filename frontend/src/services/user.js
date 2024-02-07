@@ -110,12 +110,11 @@ export const addFriend = async(username, requestingUserId, token) => {
 }
 
 export const removeFriend = async(username, requestingUserId, token) => {
-
     const payload = {
         requestingUserId: requestingUserId
     }
 
-    const requestOptions ={
+    const requestOptions = {
         method: "DELETE",
         headers: {
             Authorization: `Bearer ${token}`,

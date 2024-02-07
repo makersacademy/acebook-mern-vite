@@ -17,18 +17,23 @@ const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId,
             (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
         );
         setUserPosts(sortedPosts.reverse());
-    }, ([posts]))
+    }, [posts])
 
     const handleAddFriend = () => {
         addFriend(username, loggedInUserId, token)
-            .then(res => console.log(res))
-            .then(triggerStateChange())
+            .then(res => {
+                console.log(res)
+                triggerStateChange()
+            });
+                
     }
 
     const handleRemoveFriend = () => {
-        removeFriend(username, loggedInUserId, token)
-            .then(res => console.log(res))
-            .then(triggerStateChange())
+            removeFriend(username, loggedInUserId, token)
+            .then(res => {
+                console.log(res)
+                triggerStateChange()
+            });
     }
     
     
@@ -37,20 +42,20 @@ const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId,
             <img src={image} alt="Profile Picture" /><br></br>
             {/* <p>{_id}</p> */}
             
-            {friendIds.includes(loggedInUserId) ?
+            {loggedInUserId !== _id && (friendIds.includes(loggedInUserId) ?
     
                 <button
                 onClick={handleRemoveFriend}>
                     remove from friends
                 </button>
             
-            : 
+                : 
             
-            <button
-            onClick={handleAddFriend}
-            >Add friend</button> 
+                <button
+                onClick={handleAddFriend}
+                >Add friend</button> 
             
-            }
+            )}
 
             <p>notifications: </p>
 
