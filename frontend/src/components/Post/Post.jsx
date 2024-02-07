@@ -6,6 +6,7 @@ import Comment from "../Comment/Comment";
 import DeleteButton from "../DeleteButton/DeleteButton";
 
 const Post = (props) => {
+
 	const [like, setLike] = useState(false);
 	const [likes, setLikes] = useState(props.post.likes.length);
 	const [showMoreComments, setShowMoreComments] = useState(false);

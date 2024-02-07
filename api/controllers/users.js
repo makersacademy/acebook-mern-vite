@@ -12,19 +12,19 @@ function checkEmail(str) {
 	return emailRegex.test(str);
 }
 
-const create = (req, res) => {
+const create = async (req, res) => {
 	const username = req.body.username;
 	const email = req.body.email;
 	const password = req.body.password;
 
-	if (!password) {
-		return res.status(400).json({ message: "You haven't entered a password" });
+	if (!password || !username || !email) {
+		return res.status(400).json({ message: "Dang! One of the boxes is empty" });
 	}
 
 	if (!checkPassword(password)) {
 		return res.status(400).json({
 			message:
-				"You haven't entered a valid password. Password must contain at least 8 characters, an uppercase letter, a lowercase letter, a number and a special character.",
+				"Ya haven't chucked in a proper password, mate. Gotta be at least 8 characters long, with an uppercase letter, a lowercase letter, a number, and a ripper special character.",
 		});
 	}
 	if (!checkEmail(email)) {
@@ -32,6 +32,25 @@ const create = (req, res) => {
 			message: "You haven't entered a valid email.",
 		});
 	}
+
+	try {
+		const existingUser = await User.findOne({ username });
+		if (existingUser) {
+			return res.status(409).json({ message: "Sorry cobber, but someone's already bagged that username." });
+		}
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ message: "Server error" });	}
+	
+	try {
+		const existingEmail = await User.findOne({ email });
+		if (existingEmail) {
+			return res.status(409).json({ message: "Looks like someone's already snatched up that email address, mate." });
+		}
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ message: "Server error" });	}
+
 	// Hash the password
 	const hashedPassword = crypto
 		.createHash("sha256")
@@ -50,11 +69,6 @@ const create = (req, res) => {
 			res.status(400).json({ message: "Something went wrong" });
 		});
 };
-// 		.catch((err) => {
-//             console.error(err);
-//             res.status(500).json({ message: "Something went wrong" });
-// });
-
 
 const getUser = async (req, res) => {
     const username = req.params.username;
@@ -94,6 +108,7 @@ const searchUsers = async (req, res) => {
 	const searchQuery = req.query.search;
 	const regex = new RegExp(searchQuery, 'i')
 
+
 	try {
 	const results = await User.find({username: {$regex: regex}})
 	if(!results || results.length === 0) {
@@ -121,7 +136,7 @@ const uploadImage = async (req, res) => {
 		
 		return res.status(200).json({message: 'picture uploaded', user:updatedUser, image:updatedUser.image, testMessage:"hello"});
 	} catch (error) {
-		res.status(500).json({ message: 'An error occurred while uploading the picture.' });
+		res.status(500).json({ message: 'Dang! An error occurred while uploading the picture.' });
 	}
 }
 
@@ -138,7 +153,7 @@ const editBio = async (req, res) => {
 		)
 		res.status(200).json({message: 'Bio updated'});
 	} catch (error) {
-		res.status(500).json({ message: 'An error occurred while updating the bio.' });
+		res.status(500).json({ message: 'Dang! An error occurred while updating the bio.' });
 	}
 }
 
@@ -174,7 +189,7 @@ const removeFriend = async(req, res) => {
 	const requestingUserId = req.body.requestingUserId
 
 	try {
-		const updatedUser = await User.findOneAndUpdate(
+		const updatedUser = await User.AndUpdate(
 			{username:username},
 			{$pull: {friends: requestingUserId}},
 			{new:true}
