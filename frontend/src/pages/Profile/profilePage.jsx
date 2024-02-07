@@ -59,10 +59,10 @@ export const ProfilePage = () => {
             .then(() => {
                 setIsFriend(!isFriend); // Toggle the isFriend state
             })
-            .catch((error) => {
-                setIsFriend(currentIsFriend => !currentIsFriend);
-                console.error(`Failed to ${isFriend ? "remove" : "add"} friend:`, error);
-            });
+            // .catch((error) => {
+            //     setIsFriend(currentIsFriend => !currentIsFriend);
+            //     console.error(`Failed to ${isFriend ? "remove" : "add"} friend:`, error);
+            // });
     };
     
 

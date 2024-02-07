@@ -13,7 +13,7 @@ export const befriend = async (token, id) => {
 
     const response = await fetch(`${BACKEND_URL}/friends/${id}/befriend`, requestOptions);
 
-    if (response.status !== 201) {
+    if (response.status !== 200) {
         throw new Error("Unable to befriend user!");
     }
 
