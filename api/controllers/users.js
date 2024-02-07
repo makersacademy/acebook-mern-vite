@@ -5,7 +5,7 @@ const create = async (req, res) => {
   const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
-  const profile_picture = req.body.profile_picture || null;
+  const profile_picture = req.body.profile_picture || null ;
 
   //checks if the email is already in use
   const existingUser = await User.findOne({ email: email });
@@ -15,7 +15,7 @@ const create = async (req, res) => {
   } 
   // creates a new user if the email is not in use 
   else {
-    const newUser = new User({ username, email, password, profile_picture });
+    const newUser = new User({ username, email, password, profile_picture});
     newUser
       .save()
       .then((user) => {
@@ -73,6 +73,11 @@ const updateUserInfo = async (req, res) => {
   };
 
 
+const updateImage = async (req, res) => {
+    new_image = req.profile_picture
+}
+
+
 const clearTestData = async () => {
   await User.deleteMany({})
 }
@@ -83,6 +88,7 @@ const UsersController = {
   getAllUserInfo: getAllUserInfo, 
   updateUserInfo: updateUserInfo,
   clearTestData: clearTestData,
+  updateImage: updateImage, 
 };
 
 

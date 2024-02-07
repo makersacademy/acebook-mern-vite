@@ -15,6 +15,7 @@ export const Navbar = () => {
 
     const [user, setUser] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
+    const [profilePicture, setProfilePicture] = useState(ang);
 
     useEffect(() => {
         if (token) {
@@ -24,6 +25,9 @@ export const Navbar = () => {
                 console.log(data.user)
                 setToken(data.token);
                 window.localStorage.setItem("token", data.token);
+                if (data.user.profile_picture) {
+                    fetchImage(data.user.profile_picture);
+                }
                 })
         .catch((err) => {
             console.error(err);
@@ -31,7 +35,17 @@ export const Navbar = () => {
             });
         }
     }, []);
-
+    
+    const fetchImage = async (imageName) => {
+        try {
+            // this makes a request to the server to fetch the image
+            const response = await fetch(`http://localhost:3000/upload/${imageName}`);
+            const blob = await response.blob();
+            setProfilePicture(URL.createObjectURL(blob));
+        } catch (error) {
+            console.error('Error fetching image:', error);
+        }
+    };
 
     return (
         <div className="container-fluid">
@@ -45,7 +59,7 @@ export const Navbar = () => {
                     <div className="col">
                     <div className="dropdown">
                     <img
-                    src={ user.profile_picture || ang }
+                    src={profilePicture}
                     alt="Profile Picture"
                     className="img-thumbnail"
                     style={{ maxWidth: '15%' }}
