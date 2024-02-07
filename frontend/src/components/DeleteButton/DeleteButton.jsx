@@ -1,5 +1,7 @@
-import './DeleteButton.css'
+import ConfirmDeleteModal from './ConfirmDeleteModal';
+// import './DeleteButton.css'
 import { useState } from 'react';
+import './ConfirmDeleteModal.css'
 
 const DeleteButton = (props) => {
     const [confirmDeleteModal, setConfirmDeleteModal] = useState(false);
@@ -57,22 +59,24 @@ const DeleteButton = (props) => {
         </button>
 
         { confirmDeleteModal && 
-        <>
-        <p> confirm delte post</p>
-        <button
-        type="button"
-        onClick={handleDeletePostTrue}
-        >
-        Yes
-        </button>
-        <button
-        type="button"
-        onClick={handleDeletePostFalse}
-        >
-        No
-        </button>
 
-        </>
+            <div className="confirm-delete-modal">
+
+                <div 
+                    onClick={()=> {setConfirmDeleteModal(false)}}
+                    className="overlay">
+                </div>
+
+                <div className="modal-content">
+    
+                    <ConfirmDeleteModal 
+                    handleDeletePostTrue={handleDeletePostTrue}
+                    handleDeletePostFalse={handleDeletePostFalse}
+                    />
+                </div>
+
+            </div>
+
         
         }
         </>
