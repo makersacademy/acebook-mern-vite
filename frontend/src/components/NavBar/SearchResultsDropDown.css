@@ -38,16 +38,12 @@
     display: flex;
     align-items: center;
     margin-left: 10px;
-    
-}
-
-.user-name-link a {
     font-size: 17px;
     font-weight: 400;
     letter-spacing: 0.5px;
     font-family: 'Mueso Sans', sans-serif;
     color: rgb(0, 0, 0);
     
-
 }
+
 
