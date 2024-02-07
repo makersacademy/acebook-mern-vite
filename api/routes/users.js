@@ -10,9 +10,7 @@ const router = express.Router();
 
 router.post("/", multer.single("profile_pic"), UsersController.create);
 router.get("/:id", UsersController.getUser);
+router.put("/:id", multer.single("profile_pic"), UsersController.updateUser);
 
-/* router.post("/upload", multer.single("profile_pic"), (req, res) => {
-  res.json({ message: "File uploaded successfully." });
-}); */
 
 module.exports = router;

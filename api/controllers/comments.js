@@ -31,6 +31,8 @@ const getAllCommentsByPostID = async (req, res) => {
           message: 1,
           full_name: "$userDetails.full_name",
           profile_pic: "$userDetails.profile_pic",
+          user_id: 1,
+          createdAt: 1,
         },
       },
     ]);
@@ -68,9 +70,27 @@ const submitComment = async (req, res) => {
   }
 };
 
+const deleteComment = async (req, res) => {
+  const { id } = req.params;
+  console.log("Trying to delete: " + id);
+  try {
+    const deletedComment = await Comment.deleteOne({
+      _id: new mongoose.Types.ObjectId(id),
+    });
+    res.json({
+      message: "Comment has been deleted successfully",
+      deletedComment,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error: " + error });
+  }
+};
+
 const CommentsController = {
   submitComment: submitComment,
   getAllCommentsByPostID: getAllCommentsByPostID,
+  deleteComment: deleteComment,
 };
 
 module.exports = CommentsController;
