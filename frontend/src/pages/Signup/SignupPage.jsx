@@ -19,6 +19,7 @@ export const SignupPage = () => {
             navigate("/login");
         } catch (err) {
             console.error(err);
+            alert(err.message)
             navigate("/signup");
         }
     };
