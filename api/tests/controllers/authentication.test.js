@@ -5,7 +5,7 @@ const User = require("../../models/user");
 
 describe("/tokens", () => {
     beforeAll(async () => {
-        console.log("beforeAll");
+
         const user = new User({
             username: "user123",
             email: "auth-test@test.com",
