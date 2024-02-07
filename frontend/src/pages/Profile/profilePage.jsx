@@ -55,11 +55,12 @@ export const ProfilePage = () => {
 
     const handleFriendshipChange = () => {
         const action = isFriend ? unfriend : befriend;
-        action(userId, token)
+        action(token, userId)
             .then(() => {
                 setIsFriend(!isFriend); // Toggle the isFriend state
             })
             .catch((error) => {
+                setIsFriend(currentIsFriend => !currentIsFriend);
                 console.error(`Failed to ${isFriend ? "remove" : "add"} friend:`, error);
             });
     };

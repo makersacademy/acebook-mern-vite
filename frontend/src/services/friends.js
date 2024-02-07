@@ -2,7 +2,7 @@
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export const befriend = async (token, userId) => {
+export const befriend = async (token, id) => {
     const requestOptions = {
         method: "POST",
         headers: {
@@ -11,7 +11,7 @@ export const befriend = async (token, userId) => {
         },
     };
 
-    const response = await fetch(`${BACKEND_URL}/friends/${userId}/befriend`, requestOptions);
+    const response = await fetch(`${BACKEND_URL}/friends/${id}/befriend`, requestOptions);
 
     if (response.status !== 201) {
         throw new Error("Unable to befriend user!");
@@ -21,7 +21,7 @@ export const befriend = async (token, userId) => {
     return data;
 };
 
-export const unfriend = async (token, userId) => {
+export const unfriend = async (token, id) => {
     const requestOptions = {
         method: "POST",
         headers: {
@@ -30,7 +30,7 @@ export const unfriend = async (token, userId) => {
         },
     };
 
-    const response = await fetch(`${BACKEND_URL}/friends/${userId}/unfriend`, requestOptions);
+    const response = await fetch(`${BACKEND_URL}/friends/${id}/unfriend`, requestOptions);
 
     if (response.status !== 200) {
         throw new Error("Unable to unfriend user!");
@@ -40,7 +40,7 @@ export const unfriend = async (token, userId) => {
     return data;
 };
 
-export const getFriendStatus = async (token, userId) => {
+export const getFriendStatus = async (token, id) => {
     const requestOptions = {
         method: "GET", 
         headers: {
@@ -50,7 +50,7 @@ export const getFriendStatus = async (token, userId) => {
 
     // console.log("requestOptions: ", requestOptions)
 
-    const response = await fetch(`${BACKEND_URL}/friends/${userId}/friendStatus`, requestOptions);
+    const response = await fetch(`${BACKEND_URL}/friends/${id}/friendStatus`, requestOptions);
 
     if (!response.ok) { 
         throw new Error("Failed to retrieve friend status.");

@@ -49,7 +49,7 @@ const unfriend = async (req, res) => {
 
 const getFriendStatus = async (req, res) => {
   try {
-    console.log("req.params.id:", req.params.id); // This will print the ID to the console
+    // console.log("req.params.id:", req.params.id); // This will print the ID to the console
 
     const currentUserId = req.user_id;
     const potentialFriendId = new mongoose.Types.ObjectId(req.params.id);
