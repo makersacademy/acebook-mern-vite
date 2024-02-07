@@ -1,5 +1,9 @@
+import './DeleteButton.css'
+import { useState } from 'react';
+
 const DeleteButton = (props) => {
-    // const [like, setLike] = useState(props.liked);
+    const [confirmDeleteModal, setConfirmDeleteModal] = useState(false);
+    
     const deleteThePost = async (props) => {
         try {
             console.log(props);
@@ -24,7 +28,7 @@ const DeleteButton = (props) => {
         }
     };
 
-    const handleClick = async () => {
+    const handleDeletePostTrue = async () => {
         try {
             await deleteThePost(props);
             console.log("Post deleted");
@@ -38,8 +42,40 @@ const DeleteButton = (props) => {
         }
     };
 
+    const handleDeletePost = () => {
+        setConfirmDeleteModal(true)
+    }
+
+    const handleDeletePostFalse = () => {
+        setConfirmDeleteModal(false)
+    }
+
     return props.showButton ? (
-        <button onClick={handleClick}>Delete</button>
+        <>
+        <button onClick={handleDeletePost}>
+            <i className="fa fa-trash" aria-hidden="true"></i>
+        </button>
+
+        { confirmDeleteModal && 
+        <>
+        <p> confirm delte post</p>
+        <button
+        type="button"
+        onClick={handleDeletePostTrue}
+        >
+        Yes
+        </button>
+        <button
+        type="button"
+        onClick={handleDeletePostFalse}
+        >
+        No
+        </button>
+
+        </>
+        
+        }
+        </>
     ) : null;
 };
 
