@@ -27,8 +27,11 @@ export default function EditBioModal(  {username, toggleEditBioModal, triggerSta
         <form onSubmit={handleSubmit}>
             <input type="text" className="bio-text" value={bioText} onChange={handleChange} />
             <br></br>
-            <button 
-            type="submit">Submit</button>
+            <div className="button-container">
+                <button type="submit">
+                    Submit
+                </button>
+            </div>
         </form>
     </div>
     )

@@ -39,26 +39,12 @@ const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId,
     
     
     return (
-        <div className="User" key={_id}>
-            <img src={image} alt="Profile Picture" /><br></br>
-            {/* <p>{_id}</p> */}
-            
-            {loggedInUserId !== _id && (friendIds.includes(loggedInUserId) ?
-    
-                <button
-                onClick={handleRemoveFriend}>
-                    remove from friends
-                </button>
-            
-                : 
-            
-                <button
-                onClick={handleAddFriend}
-                >Add friend</button> 
-            
-            )}
+        <div className="user" key={_id}>
+            <div className="profile-image-container">
+                <img src={image} alt="Profile Picture" className="user-image"/><br></br>
+            </div>
 
-            <p>notifications: </p>
+            {/* <p>notifications: </p>
 
             { notifications &&
                 notifications.map((notification) => 
@@ -74,18 +60,39 @@ const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId,
                     </div>
 
                     : null
-            )}
+            )} */}
+            <div className="user-name">
+                {username}
+            </div>
+            <div className="user-email">
+                <p>Email: {email}</p>
+            </div>
+            <div className="user-bio">
+                <p>Bio:</p>
+                {bio}
+            </div>
 
-            <p>Username: {username}</p>
-            <p>Email: {email}</p>
-            <p>Bio: {bio}</p>
-            <p>Friends: </p>
+            <div className="friend-button-container">
+            {loggedInUserId !== _id && (friendIds.includes(loggedInUserId) ?
+    
+                <button className="friend-button"
+                    onClick={handleRemoveFriend}>
+                        remove from friends
+                </button>
             
-            <Friends 
-            friends={friends}
-            />
+                : 
             
-            <p>Posts: </p>
+                <button className="friend-button"
+                    onClick={handleAddFriend}>
+                        Add friend
+                </button> 
+            
+            )}
+            </div>
+
+            
+            
+            {/* <p>Posts: </p>
 
             {userPosts.map((post) => 
                 post ? 
@@ -111,7 +118,7 @@ const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId,
                     }
                 </div>  
                     : null
-            )}
+            )} */}
         </div>
     )
 

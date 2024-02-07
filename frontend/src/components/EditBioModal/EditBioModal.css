@@ -4,3 +4,7 @@
     height: 100px;
     line-height: 100%;
 }
+
+.button-container {
+    padding: 5px;
+}

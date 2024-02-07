@@ -35,64 +35,84 @@ export default function EditUserModal( {username, image, handleImageUpdate, hand
 
             <div className="modal">
             
-            <div 
-            onClick={toggleModal}
-            className="overlay">
-            </div>
-            
-            <div className="modal-content">
-                <h2>Edit Profile</h2>
+                <div 
+                    onClick={toggleModal}
+                    className="overlay">
+                </div>
                 
-                <div className="profile-picture">
-                    <h3>Profile Picture</h3>
-                    <img src={image} alt="Profile Picture" />
-                    <br></br>
-                    <button
-                        onClick={toggleEditPictureModal}
-                    >edit</button><br></br>
-                    {editPictureModal && 
-                        <div>
-                        <EditProfilePictureModal 
-                            username={username}
-                            toggleEditPictureModal={toggleEditPictureModal}
-                            handleImageUpdate={handleImageUpdate}
-                            triggerStateChange={triggerStateChange}
-                        /> 
-                        <button
-                        onClick={toggleEditPictureModal}
-                        >close</button>
-                        </div>
-                    }
+                <div className="modal-content">
+                    <div className="content-header">
+                        Edit Profile
+                    </div>
                     
-                </div>
-                
-                <div className="profile-picture">
-                    <h3>bio</h3>
-                    <button
-                        onClick={toggleEditBioModal}
-                    >
-                        edit</button>
-                    {editBioModal && 
-                        <div>
-                        <EditBioModal 
-                            username={username}
-                            toggleEditBioModal={toggleEditBioModal}
-                            handleBioUpdate={handleBioUpdate}
-                            triggerStateChange={triggerStateChange}
-                        />
-                        <button
-                            onClick={toggleEditBioModal}
-                            >close</button>
+                    <div className="profile-picture">
+                        <div className="header">
+                        Profile Picture
                         </div>
-                    }
+                        <div className="user-image-container">
+                            <div className="image-container">
+                                <img src={image} alt="Profile Picture" />
+                            </div>
+                            <div className="button-container">
+                            <button className="button"
+                                onClick={toggleEditPictureModal}
+                            >edit</button>
+                            </div>
 
+                            {editPictureModal && 
+                            <div>
+                                <EditProfilePictureModal 
+                                    username={username}
+                                    toggleEditPictureModal={toggleEditPictureModal}
+                                    handleImageUpdate={handleImageUpdate}
+                                    triggerStateChange={triggerStateChange}
+                                /> 
+                                <div className="button-container">
+                                    <button
+                                        onClick={toggleEditPictureModal}
+                                    >close</button>
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    
+                    <div className="bio">
+                        <div className="header">
+                            bio
+                        </div>
+                        <div className="button-container">
+                            <button className="button"
+                                onClick={toggleEditBioModal}
+                            >
+                                edit
+                            </button>
+                        </div>
+
+                        {editBioModal && 
+                            <div>
+                            <EditBioModal 
+                                username={username}
+                                toggleEditBioModal={toggleEditBioModal}
+                                handleBioUpdate={handleBioUpdate}
+                                triggerStateChange={triggerStateChange}
+                            />
+                            
+                            <div className="button-container">
+                                <button onClick={toggleEditBioModal}>
+                                    close
+                                </button>
+                            </div>
+                            </div>
+                        }
+
+                    </div>
+                    <button
+                        className="close-modal"
+                        onClick={toggleModal}>
+                            Close
+                    </button>
                 </div>
-                <button
-                className="close-modal"
-                onClick={toggleModal}>
-                    Close
-                </button>
-            </div>
             </div>
 
         )}

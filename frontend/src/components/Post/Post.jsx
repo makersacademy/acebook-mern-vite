@@ -1,4 +1,5 @@
 import "./Post.css";
+import "../../pages/User/UserPage.css";
 import LikeButton from "../LikeButton/LikeButton";
 import React, { useState } from "react";
 import AddComment from "../AddComment/AddComment";
