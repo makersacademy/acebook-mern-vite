@@ -51,51 +51,72 @@ const Post = (props) => {
     );
 
     return (
-        <div key={props.post._id} className="post-article">
+        <div key={props.post._id} className="post-container">
             <article>
                 {props.postedBy && (
-                    <div className="user-info">
-                        <Link to={`/users/${props.postedBy.username}`} className="post-user-image">
-                            <img src={props.postedBy.image} alt="user image"></img>
-                        </Link>
-                        <Link to={`/users/${props.postedBy.username}`} className="post-username">
-                            <h4>{props.postedBy.username}</h4>
-                        </Link>
+                    <div className="post-header">
+                        <div className="post-user-image-container">
+                            <Link to={`/users/${props.postedBy.username}`} className="post-user-image">
+                                <img src={props.postedBy.image} alt="user image"></img>
+                            </Link>
+                        </div>
+                        <div className="username-time-container">
+                            <div className="post-username">
+                            <Link to={`/users/${props.postedBy.username}`} className="post-username">
+                                <h4>{props.postedBy.username}</h4>
+                            </Link>
+                            </div>
+                            <div className="date-time">
+                                {timeFromNow(props.post.createdAt)}
+                            </div>
+                        </div>
                     </div>
                 )}
-                <div className="date-time">
-                    {timeFromNow(props.post.createdAt)}
-                </div>
+                    <div className="post-body">
+                        <div className="post-image-container">
+                            {props.post.media !== "../public/images/null" && (
+                                <>
+                                    <img src={props.post.media}></img>
+                                </>
+                            )}
+                        </div>
+                        <div className="post-text">
+                            {props.post.message}
+                        </div>
+                    </div>
 
-                {props.post.media !== "../public/images/null" && (
-                    <>
-                        <img src={props.post.media}></img>
-                    </>
-                )}
+                    <div className="post-footer"> 
+                        <div className="like-container">
+                            <div className="like-button-container">
+                            <LikeButton
+                                postID={props.post._id}
+                                like={like}
+                                handleLikeUnlike={handleLikeUnlike}
+                                clicked={props.clicked}
+                                toggleStateChange={props.toggleStateChange}
+                                liked={props.liked}
+                                post_userId={props.postedBy._id}
+                                loggedInUsername={props.loggedInUsername}
+                                token={props.token}
+                            />
+                            </div>
+                            <div className="like-number">
+                                {props.post.likes.length}
+                            </div>
+                        </div>
+                            <div className="delete-post-button-container">
+                                <DeleteButton
+                                    postID={props.post._id}
+                                    handleDelete={handleDelete}
+                                    onDelete={props.onDelete}
+                                    showButton={isPostOwner}
+                                />
+                            </div>
+                        
 
-                {props.post.message}
-                <br></br>
-                <h5>likes: {props.post.likes.length}</h5>
-                <LikeButton
-                    postID={props.post._id}
-                    like={like}
-                    handleLikeUnlike={handleLikeUnlike}
-                    clicked={props.clicked}
-                    toggleStateChange={props.toggleStateChange}
-                    liked={props.liked}
-                    post_userId={props.postedBy._id}
-                    loggedInUsername={props.loggedInUsername}
-                    token={props.token}
+                        
+                    </div>
 
-                />
-                <div className="delete-post-button">
-                <DeleteButton
-                    postID={props.post._id}
-                    handleDelete={handleDelete}
-                    onDelete={props.onDelete}
-                    showButton={isPostOwner}
-                />
-                </div>
                 <div className="comments">
                     <p> comments </p>
                     <button onClick={addCommentClick}>add comment</button>
