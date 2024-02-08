@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #333;
+    background-color: #207A61;
     padding: 15px;
     display: flex;
     justify-content: center;
@@ -24,4 +24,11 @@
   }
   .nav-links a:hover {
     border-bottom: 2px solid white;
+  }
+
+  .navLogo {
+    position: fixed;
+    height: auto;
+    left: 25px;
+    width: 100px;
   }

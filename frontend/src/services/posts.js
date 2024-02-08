@@ -2,6 +2,7 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const getAllPosts = async (token) => {
+
     const requestOptions = {
         method: "GET",
         headers: {
@@ -18,6 +19,7 @@ export const getAllPosts = async (token) => {
     const data = await response.json();
     return data;
 };
+
 
 export const getPostsByUser = async (username, token) => {
     const requestOptions = {
@@ -40,6 +42,7 @@ export const getPostsByUser = async (username, token) => {
     return data;
 
 }
+
 export const getSinglePost = async (post_id, token) => {
     const requestOptions = {
         method: "GET",
@@ -147,7 +150,7 @@ export const updatePost = async (post_id, message, token) => {
     }
     const data = await response.json();
     return data;
-}
+};
 
 export const likePost = async (post_id, token) => {
     const requestOptions = {
@@ -164,4 +167,5 @@ export const likePost = async (post_id, token) => {
     const data = await response.json();
     return data;
 
-}
+};
+

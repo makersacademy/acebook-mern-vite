@@ -1,12 +1,15 @@
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Navbar.css"
-import logo from "../../assets/logo.jpg"
 
-const Navbar = () => {
+
+const NavbarLoggedIn = () => {
+    const navigate = useNavigate();
 
     function handleClick() {
         //alert('hello')
-        window.localStorage.clear();
+        window.localStorage.clear()
+        navigate('/');
+        navigate(0);
     }
 
     function handleClick2() {
@@ -15,12 +18,9 @@ const Navbar = () => {
 
     return (
         <nav className="navbar">
-            <img src={logo} className="navLogo" />
-        <div>   
+        <div>
             <ul className="nav-links">
                 <li><Link to='/'>Homepage</Link></li>
-                <li><Link to='/login'>Login</Link></li>
-                <li><Link to='/signup'>Sign Up</Link></li>
                 <li><Link to='/posts'>Feed</Link></li>
                 <li><Link to='/profile' onClick={handleClick2}>My Profile</Link></li>
                 <li><Link to='/' onClick={handleClick}>Logout</Link></li>
@@ -30,4 +30,4 @@ const Navbar = () => {
     );
 }
 
-export default Navbar;
+export default NavbarLoggedIn;

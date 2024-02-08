@@ -61,7 +61,7 @@ export const SignupPage = () => {
   }
   return (
     <>
-      <h2>Signup</h2>
+      <h2>Sign up</h2>
       <form onSubmit={handleSubmit}>
       <label htmlFor="username">Username: </label>
         <input

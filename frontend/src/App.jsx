@@ -8,19 +8,35 @@ import { FeedPage } from "./pages/Feed/FeedPage";
 import { ProfilePage } from "./pages/Profile/ProfilePage";
 import { ProfileEditsPage }  from "./pages/Profile/ProfileEditsPage";
 import Navbar from "./components/navbar/Navbar";
+import NavbarLoggedIn from "./components/navbar/NavbarLogin";
+import NavbarLoggedOut from "./components/navbar/NavbarLogout";
 import {PostPage} from "./pages/IndividualPost/IndividualPostPage"
 import { FriendPage } from "./pages/Friends/AddFriends";
+import { useState } from "react";
 
 // docs: https://reactrouter.com/en/main/start/overview
 
-const Layout = () => (
-  <>
-  <header>
-    <Navbar />
-  </header>
-  <Outlet />
-  </>
-);
+const Layout = () => {
+  const [token, setToken] = useState(window.localStorage.getItem("token"));
+  if (token) {
+    return (
+    <>
+    <header>
+      <NavbarLoggedIn />
+    </header>
+    <Outlet />
+    </>)}
+  else {
+    return (
+      <>
+    <header>
+      <NavbarLoggedOut />
+    </header>
+    <Outlet />
+    </>
+    )
+  }
+};
 
 const router = createBrowserRouter([
     {

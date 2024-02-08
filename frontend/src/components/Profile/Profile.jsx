@@ -7,7 +7,7 @@ const Profile = (props) => {
             <img
                 src={defaultImage}
                 alt={"image not set yet"}
-                style={{ width: '120px', height: '140px' }} // Set your desired width and height
+                style={{ width: '120px', height: '140px' }} 
             /><br />
             Username: {props.user.username}<br />
             Email: {props.user.email}<br />
@@ -15,11 +15,12 @@ const Profile = (props) => {
         )
     } else {
     return (
+        
         <article key={props.user._id}>
             <img
                 src={"data:image/png;base64," + props.user.profilePic}
                 alt={"image not set yet"}
-                style={{ width: '120px' }} // Set your desired width and height
+                style={{ width: '120px' }} 
             /><br />
             Username: {props.user.username}<br />
             Email: {props.user.email}<br />
