@@ -10,6 +10,7 @@ export default function LoginNavItem() {
     return (
         <button
         type="button"
+        id="login-nav-button"
         onClick={handleClick}
         >
             Login

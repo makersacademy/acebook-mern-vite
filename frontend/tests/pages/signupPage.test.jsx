@@ -50,7 +50,7 @@ describe("Signup Page", () => {
         vi.resetAllMocks();
     });
 
-    test("allows a user to signup", async () => {
+    test("allows a user to sign up", async () => {
         render(<SignupPage />);
 
         await completeSignupForm();

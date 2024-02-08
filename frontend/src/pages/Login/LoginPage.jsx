@@ -45,7 +45,7 @@ export const LoginPage = () => {
             <h2>Login</h2>
             {signupSuccess && (
                 <p className="success-message">
-                    Signup successful! You can now login.
+                    Sign up successful! You can now login.
                 </p>
             )}
             <form onSubmit={handleSubmit}>
