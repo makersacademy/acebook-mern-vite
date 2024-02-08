@@ -26,6 +26,7 @@ export const LoginPage = () => {
             navigate("/posts");
         } catch (err) {
             console.error(err);
+            alert(err);
             navigate("/login");
         }
     };

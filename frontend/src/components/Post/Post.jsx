@@ -9,6 +9,7 @@ import timeFromNow from "../../utils/TimeFromNow";
 import { Link } from "react-router-dom";
 
 const Post = (props) => {
+
     const [like, setLike] = useState(false);
     const [likes, setLikes] = useState(props.post.likes.length);
     const [showCommentBox, setShowCommentBox] = useState(false);
@@ -112,9 +113,6 @@ const Post = (props) => {
                                     showButton={isPostOwner}
                                 />
                             </div>
-                        
-
-                        
                     </div>
 
                 <div className="comments">

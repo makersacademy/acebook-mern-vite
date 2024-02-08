@@ -4,18 +4,17 @@ export default function LogoutNavItem() {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        localStorage.clear();
-        navigate("/login")
-    }
+        const confirmed = window.confirm("Are you sure you want to log out?");
+
+        if (confirmed) {
+            localStorage.clear();
+            navigate("/login");
+        }
+    };
 
     return (
-        <button
-        type="button"
-        id="logout-nav-button"
-        onClick={handleClick}
-        >
+        <button type="button" id="logout-nav-button" onClick={handleClick}>
             Logout
         </button>
-    )
-
+    );
 }
