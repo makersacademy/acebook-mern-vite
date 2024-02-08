@@ -21,6 +21,9 @@ const ProfileEdits = (props) => {
         let file = e.target.files[0];
 
         console.log("file to upload:", file)
+        if (file.size > 102400) {
+            setSuccessMessage("This file is too large. Please chose a file under 102 kb")
+        }
 
         if (file) {
             const reader = new FileReader();

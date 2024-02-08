@@ -22,6 +22,9 @@ const CreatePost = () => {
         console.log("file to upload:", file)
 
         if (file) {
+            if (file.size > 102400) {
+                setErrorMessage("This file is too large. Please choose a file under 102 kb")
+            }
             const reader = new FileReader();
 
             reader.onload = (readerEvt) => {
