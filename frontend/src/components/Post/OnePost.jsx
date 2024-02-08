@@ -30,7 +30,7 @@ const OnePost = (props) => {
             {/*{console.log("user:")}
             {console.log(user)}*/}
             <p className="messageInfo">
-            <img className="img" src={"data:image/png;base64," + user.profilePic}/> 
+            <img className="profilePic" src={"data:image/png;base64," + user.profilePic}/> 
             {user.username}</p>
             <p>{date}</p>
             
