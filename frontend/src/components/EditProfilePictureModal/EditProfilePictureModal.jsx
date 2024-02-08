@@ -30,22 +30,25 @@ export default function EditProfilePictureModal({image, username, toggleEditPict
 
     return (
         <>
-            <div className="profile-picture-modal">
-            <div 
-            onClick={toggleModal}
-            className="">
-            </div>
-            <div className="">
-                <h4>choose profile picture</h4>
-                <input type="file" name="file" onChange={e => setFile(e.target.files[0])}/>
-                <button onClick={handleUpload} >Upload</button>
+            <div className="upload-profile-piture-containter">
+                <div 
+                    onClick={toggleModal}
+                    className="">
+                </div>
+
+            <div className="image-input">
+                {/* <h4>choose profile picture</h4> */}
+                <input 
+                    type="file" 
+                    name="file" 
+                    onChange={e => setFile(e.target.files[0])}
+                    accept="image/jpeg, image/png"
+                    />
+                <div className="upload-button-container">
+                    <button className="upload-button" onClick={handleUpload} >Upload</button>
+                </div>
             </div>
                 
-                {/* <button
-                className=""
-                onClick={toggleModal}>
-                    Close
-                </button> */}
             </div>
 
 

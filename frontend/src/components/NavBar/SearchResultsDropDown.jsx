@@ -29,18 +29,16 @@ export default function SearchResultsDropDown( { foundUsers, setShowSearchResult
             <>
             {foundUsers.map((user) => {
                 return ( 
-                <div className="found-user" key={user._id}>
+                    <Link to={`/users/${user.username}`} className="found-user" key={user._id}>
+                
                     <div className="user-image-container">
                         <img  className="user-image" src={user.image}></img>
                     </div>
                     <div className="user-name-link">
-                        <Link to={`/users/${user.username}`}>
-                            {user.username}     
-                        </Link>
+                            {user.username}
                     </div>
                     
-
-                </div>
+                    </Link>
                 )
             }
             )}

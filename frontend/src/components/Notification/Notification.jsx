@@ -1,3 +1,5 @@
+import './Notification.css'
+
 import { deleteNotification } from "../../services/user"
 
 
@@ -15,13 +17,17 @@ export default function Notification({username, notification, token, triggerStat
     }
 
     return (
-            <>
-            <p>{notification.message}</p> 
-            
-            <button
-            onClick={acknowledgeNotification}
-            >x</button> 
-            </>
+            <div className="notification-container">
+                <div className="notification-message">
+                    <p>{notification.message}</p> 
+                </div>
+                
+                <div className="notification-close-button">
+                    <button onClick={acknowledgeNotification}>
+                        x
+                    </button> 
+                </div>
+            </div>
         )
 
 }

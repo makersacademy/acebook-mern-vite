@@ -1,0 +1,14 @@
+.notification-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+}
+
+.notification-message {
+}
+
+.notification-close-button {
+    padding: 10px
+
+}

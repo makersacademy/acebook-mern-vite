@@ -4,6 +4,9 @@ import { getUser } from "../../services/user";
 import User from "../../components/User/User";
 import EditUserModal from "../../components/EditUserModal/EditUserModal";
 import Navbar from "../../components/NavBar/navbar";
+import Post from "../../components/Post/Post";
+import Friends from "../../components/Friends/Friends";
+import Notification from "../../components/Notification/Notification";
 import "./Userpage.css"
 
 
@@ -30,6 +33,7 @@ export const UserPage = () => {
                     // setProfilePicture(data.user.image)
                     // setBio(data.user.bio)
                     window.localStorage.setItem("token", data.token);
+                    window.localStorage.setItem("user", JSON.stringify(data.user))
                 })
                 .catch((err) => {
                     console.error(err);
@@ -37,7 +41,7 @@ export const UserPage = () => {
             } else {
             navigate("/login");
             } 
-        }, [username, triggerStateChange]);
+        }, [username, stateChange]);
     
         if (!token) {
             navigate("/login")
@@ -54,33 +58,95 @@ export const UserPage = () => {
         return (
             <>
             <Navbar />
-            <h1>User Page</h1>
             
+                <div className="user-page-container">
+                    
+                    <div className="user-page-left">
+                    
+                        <div className="user-container">
+                            <User 
+                                key={user._id}
+                                _id={user._id}
+                                username={user.username}
+                                email={user.email}
+                                bio={user.bio}
+                                friends={user.friends}
+                                image={user.image}
+                                posts={user.posts}
+                                notifications={user.notifications}
+                                loggedInUserId={loggedInUser._id}
+                                token={token}
+                                triggerStateChange={triggerStateChange}
+                            />
 
-                {loggedInUser._id === user._id && 
+                            {loggedInUser._id === user._id && 
 
-                <EditUserModal 
-                username={username}
-                image={user.image}
-                triggerStateChange={triggerStateChange}
-                />
+                            <EditUserModal 
+                                username={username}
+                                image={user.image}
+                                triggerStateChange={triggerStateChange}
+                            />
 
-                }
-                <div className="user-container">
-                <User 
-                    key={user._id}
-                    _id={user._id}
-                    username={user.username}
-                    email={user.email}
-                    bio={user.bio}
-                    friends={user.friends}
-                    image={user.image}
-                    posts={user.posts}
-                    notifications={user.notifications}
-                    loggedInUserId={loggedInUser._id}
-                    token={token}
-                    triggerStateChange={triggerStateChange}
-                />
+                            }
+                        </div>
+
+                        {loggedInUser._id === user._id && 
+                        <div className="notifications-container">
+                            <div className="notifications-header">
+                                <p>notifications </p>
+                            </div>
+
+                            { user.notifications &&
+                                user.notifications.map((notification) => 
+                                    notification ? 
+                                    <div key={notification._id}>
+                                    
+                                    <Notification 
+                                        notification={notification}
+                                        username={username}
+                                        token={token}
+                                        triggerStateChange={triggerStateChange}
+                                    />
+                                    </div>
+
+                                    : null
+                            )}
+
+
+                        </div>
+                        }
+                        <div className="friends-container">
+                            <div className="friends-header">
+                                <p>friends </p>
+                            </div>
+                            <Friends 
+                                friends={user.friends}
+                            />
+                        </div>
+                    </div>
+                    <div className="user-page-right">
+
+                        <div className="posts-header">
+                            <p> posts </p>
+                        </div>
+
+                        <div className="posts">
+                        {user.posts.map((post) => 
+                            post ? 
+                            <div key={post._id}>
+                                <Post 
+                                    key={post._id}
+                                    post={post}
+                                    postedBy={post.postedBy}
+                                
+                                />
+                            </div>  
+                                : null
+                        )}
+                        </div>
+
+    
+                    </div>
                 </div>
             
             </>

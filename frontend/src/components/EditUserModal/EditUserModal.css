@@ -3,9 +3,8 @@ body.active-modal {
 }
 
 .btn-modal {
-    padding: 10px 20px;
-    display: block;
-    margin: 100px auto 0;
+    padding: 8px;
+    margin: 10px;
     font-size: 18px;
 }
 
@@ -22,7 +21,10 @@ body.active-modal {
 .overlay {
     background: rgba(49,49,49,0.8);
 }
+
 .modal-content {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 40%;
     left: 50%;
@@ -33,6 +35,36 @@ body.active-modal {
     border-radius: 3px;
     max-width: 600px;
     min-width: 300px;
+}
+
+.modal-content .content-header {
+    font-size: 20px;
+    padding: 5px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.224);
+}
+
+.modal-content .header {
+    font-size: 15px;
+    padding: 5px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.224);
+}
+
+.user-image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.224);
+}
+
+.bio {
+    padding: 5px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.224);
+}
+
+.button-container {
+    padding: 5px
 }
 
 .close-modal {
@@ -46,6 +78,5 @@ body.active-modal {
     max-height: 100px;
     min-height: 100px;
     border-radius: 100%;
-
-
 }
+

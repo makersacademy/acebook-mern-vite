@@ -18,6 +18,12 @@
     direction: column;
 }
 
+.found-user:hover{
+
+    background-color: #f0f0f0;
+    width: 100%
+}
+
 .user-image-container{
     display: flex;
     padding: 10px;
@@ -32,16 +38,12 @@
     display: flex;
     align-items: center;
     margin-left: 10px;
-    
-}
-
-.user-name-link a {
     font-size: 17px;
     font-weight: 400;
     letter-spacing: 0.5px;
     font-family: 'Mueso Sans', sans-serif;
     color: rgb(0, 0, 0);
     
-
 }
+
 

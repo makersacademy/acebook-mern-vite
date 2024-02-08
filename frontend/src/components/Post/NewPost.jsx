@@ -51,33 +51,40 @@ const NewPost = ( {token, userId, toggleStateChange} ) => {
 
     
     return (
-        <form onSubmit={handleSubmit}>
-            <textarea
-                name="text"
-                value = {postMessage}
-                onChange={(message) => setPostMessage(message.target.value)}
-            >
-            </textarea>
-            <br></br>
-            <button type="button" onClick={handleUploadImageClick}>
-                <i className="fa-solid fa-image"></i>
-            </button>
+        <div className="new-post-container">
+            <form onSubmit={handleSubmit}>
+                <div className="text-area-container">
+                    <textarea
+                        className="new-post-text-area"
+                        name="text"
+                        value = {postMessage}
+                        onChange={(message) => setPostMessage(message.target.value)}
+                    >
+                    </textarea>
+                </div>
 
-            {uploadImage &&  
-                <>
-                <input 
-                    type="file" 
-                    name="file"
-                    accept="image/png, image/jpeg" 
-                    onChange={handleFileChange}
-                />
-                </>
-            }
-            <br></br>
-            <button type='submit'>Post</button>
-            <br></br>
-            {errorMessage && errorMessage}
-        </form>
+                <div className="image-button-container">
+                    <button type="button" onClick={handleUploadImageClick}>
+                        <i className="fa-solid fa-image"></i>
+                    </button>
+                </div>
+
+                {uploadImage &&  
+                    <>
+                    <input 
+                        type="file" 
+                        name="file"
+                        accept="image/png, image/jpeg" 
+                        onChange={handleFileChange}
+                    />
+                    </>
+                }
+                <div className="post-button-container">
+                    <button type='submit' className="post-button">Post</button>
+                </div>
+                {errorMessage && errorMessage}
+            </form>
+        </div>
     )
 
 

@@ -1,10 +1,12 @@
 import "./Post.css";
+import "../../pages/User/UserPage.css";
 import LikeButton from "../LikeButton/LikeButton";
 import React, { useState } from "react";
 import AddComment from "../AddComment/AddComment";
 import Comment from "../Comment/Comment";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import timeFromNow from "../../utils/TimeFromNow";
+import { Link } from "react-router-dom";
 
 const Post = (props) => {
 
@@ -49,50 +51,70 @@ const Post = (props) => {
         (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
     );
 
-    const revSortedComments = sortedComments.reverse();
-
     return (
-        <div key={props.post._id} className="post-article">
+        <div key={props.post._id} className="post-container">
             <article>
                 {props.postedBy && (
-                    <div className="user-info">
-                        <img src={props.postedBy.image} alt="user image"></img>
-                        <h4>{props.postedBy.username}</h4>
+                    <div className="post-header">
+                        <div className="post-user-image-container">
+                            <Link to={`/users/${props.postedBy.username}`} className="post-user-image">
+                                <img src={props.postedBy.image} alt="user image"></img>
+                            </Link>
+                        </div>
+                        <div className="username-time-container">
+                            <div className="post-username">
+                            <Link to={`/users/${props.postedBy.username}`} className="post-username">
+                                <h4>{props.postedBy.username}</h4>
+                            </Link>
+                            </div>
+                            <div className="date-time">
+                                {timeFromNow(props.post.createdAt)}
+                            </div>
+                        </div>
                     </div>
                 )}
-                <div className="date-time">
-                    {timeFromNow(props.post.createdAt)}
-                </div>
+                    <div className="post-body">
+                        <div className="post-image-container">
+                            {props.post.media !== "../public/images/null" && (
+                                <>
+                                    <img src={props.post.media}></img>
+                                </>
+                            )}
+                        </div>
+                        <div className="post-text">
+                            {props.post.message}
+                        </div>
+                    </div>
 
-                {props.post.media !== "../public/images/null" && (
-                    <>
-                        <img src={props.post.media}></img>
-                    </>
-                )}
+                    <div className="post-footer"> 
+                        <div className="like-container">
+                            <div className="like-button-container">
+                            <LikeButton
+                                postID={props.post._id}
+                                like={like}
+                                handleLikeUnlike={handleLikeUnlike}
+                                clicked={props.clicked}
+                                toggleStateChange={props.toggleStateChange}
+                                liked={props.liked}
+                                post_userId={props.postedBy._id}
+                                loggedInUsername={props.loggedInUsername}
+                                token={props.token}
+                            />
+                            </div>
+                            <div className="like-number">
+                                {props.post.likes.length}
+                            </div>
+                        </div>
+                            <div className="delete-post-button-container">
+                                <DeleteButton
+                                    postID={props.post._id}
+                                    handleDelete={handleDelete}
+                                    onDelete={props.onDelete}
+                                    showButton={isPostOwner}
+                                />
+                            </div>
+                    </div>
 
-                {props.post.message}
-                <br></br>
-                <br></br>
-                <div className="like-container">
-                    <LikeButton
-                        postID={props.post._id}
-                        like={like}
-                        handleLikeUnlike={handleLikeUnlike}
-                        clicked={props.clicked}
-                        toggleStateChange={props.toggleStateChange}
-                        liked={props.liked}
-                        post_userId={props.postedBy._id}
-                        loggedInUsername={props.loggedInUsername}
-                        token={props.token}
-                    />
-                    <h5>{props.post.likes.length}</h5>
-                </div>
-                <DeleteButton
-                    postID={props.post._id}
-                    handleDelete={handleDelete}
-                    onDelete={props.onDelete}
-                    showButton={isPostOwner}
-                />
                 <div className="comments">
                     <p> comments </p>
                     <button onClick={addCommentClick}>add comment</button>
@@ -107,23 +129,23 @@ const Post = (props) => {
                         </div>
                     )}
                     <ul>
-                        {revSortedComments.length > 0 && (
+                        {sortedComments.length > 0 && (
                             <Comment
-                                _id={revSortedComments[0]._id}
-                                message={revSortedComments[0].message}
-                                likes={revSortedComments[0].likes}
+                                _id={sortedComments[0]._id}
+                                message={sortedComments[0].message}
+                                likes={sortedComments[0].likes}
                                 // postedBy={comment.user.username}
-                                postedAt={revSortedComments[0].createdAt}
-                                user={revSortedComments[0].user}
+                                postedAt={sortedComments[0].createdAt}
+                                user={sortedComments[0].user}
                             />
                         )}
 
-                        {revSortedComments.length > 1 && !showMoreComments && (
+                        {sortedComments.length > 1 && !showMoreComments && (
                             <button onClick={showMoreCommentsClick}>...</button>
                         )}
 
                         {showMoreComments &&
-                            revSortedComments
+                            sortedComments
                                 .slice(1)
                                 .map((comment) => (
                                     <Comment

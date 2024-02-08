@@ -82,9 +82,10 @@ export const editBio = async(bioText, username) => {
 }
 
 
-export const addFriend = async(username, requestingUserId, token) => {
+export const addFriend = async(receivingUserId, requestingUserId, username, token) => {
 
     const payload = {
+        receivingUserId: receivingUserId,
         requestingUserId: requestingUserId
     }
 
@@ -109,13 +110,13 @@ export const addFriend = async(username, requestingUserId, token) => {
 
 }
 
-export const removeFriend = async(username, requestingUserId, token) => {
-
+export const removeFriend = async(receivingUserId, requestingUserId, username, token) => {
     const payload = {
+        receivingUserId: receivingUserId,
         requestingUserId: requestingUserId
     }
 
-    const requestOptions ={
+    const requestOptions = {
         method: "DELETE",
         headers: {
             Authorization: `Bearer ${token}`,

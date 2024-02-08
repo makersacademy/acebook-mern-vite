@@ -4,6 +4,7 @@ import './User.css';
 import Post from '../Post/Post.jsx';
 import { addFriend, removeFriend } from '../../services/user.js';
 import Notification from '../Notification/Notification.jsx';
+import Friends from '../Friends/Friends.jsx';
 
 const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId, token, triggerStateChange, notifications }) => {
     const [userPosts, setUserPosts] = useState([])
@@ -17,42 +18,33 @@ const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId,
             (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
         );
         setUserPosts(sortedPosts.reverse());
-    }, ([posts]))
+    }, [posts])
 
     const handleAddFriend = () => {
-        addFriend(username, loggedInUserId, token)
-            .then(res => console.log(res))
-            .then(triggerStateChange())
+        addFriend(_id, loggedInUserId, username, token)
+            .then(res => {
+                console.log(res)
+                triggerStateChange()
+            });
+                
     }
 
     const handleRemoveFriend = () => {
-        removeFriend(username, loggedInUserId, token)
-            .then(res => console.log(res))
-            .then(triggerStateChange())
+            removeFriend(_id, loggedInUserId, username, token)
+            .then(res => {
+                console.log(res)
+                triggerStateChange()
+            });
     }
     
     
     return (
-        <div className="User" key={_id}>
-            <img src={image} alt="Profile Picture" /><br></br>
-            {/* <p>{_id}</p> */}
-            
-            {friendIds.includes(loggedInUserId) ?
-    
-                <button
-                onClick={handleRemoveFriend}>
-                    remove from friends
-                </button>
-            
-            : 
-            
-            <button
-            onClick={handleAddFriend}
-            >Add friend</button> 
-            
-            }
+        <div className="user" key={_id}>
+            <div className="profile-image-container">
+                <img src={image} alt="Profile Picture" className="user-image"/><br></br>
+            </div>
 
-            <p>notifications: </p>
+            {/* <p>notifications: </p>
 
             { notifications &&
                 notifications.map((notification) => 
@@ -68,18 +60,39 @@ const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId,
                     </div>
 
                     : null
-            )}
+            )} */}
+            <div className="user-name">
+                {username}
+            </div>
+            <div className="user-email">
+                <p>Email: {email}</p>
+            </div>
+            <div className="user-bio">
+                <p>Bio:</p>
+                {bio}
+            </div>
 
-            <p>Username: {username}</p>
-            <p>Email: {email}</p>
-            <p>Bio: {bio}</p>
-            <p>Friends: </p>
+            <div className="friend-button-container">
+            {loggedInUserId !== _id && (friendIds.includes(loggedInUserId) ?
+    
+                <button className="friend-button"
+                    onClick={handleRemoveFriend}>
+                        remove from friends
+                </button>
             
-            {friends.map((friend) => 
-                friend ? <p key={friend._id}>{friend.username}</p> : null
+                : 
+            
+                <button className="friend-button"
+                    onClick={handleAddFriend}>
+                        Add friend
+                </button> 
+            
             )}
+            </div>
 
-            <p>Posts: </p>
+            
+            
+            {/* <p>Posts: </p>
 
             {userPosts.map((post) => 
                 post ? 
@@ -105,7 +118,7 @@ const User = ({_id, username, email, friends, image, bio, posts, loggedInUserId,
                     }
                 </div>  
                     : null
-            )}
+            )} */}
         </div>
     )
 

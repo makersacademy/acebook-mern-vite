@@ -4,12 +4,14 @@
     height: 100vh;
 }
 
-article {
-    align-self: center;
+
+.post-container {
+    display: flex;
+    flex-direction: column;
     width: 500px;
     min-height: 50px;
     text-align: left;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     padding: 8px;
     margin: 10px;
     border: 5px solid #00843d;
@@ -17,20 +19,98 @@ article {
     box-shadow: 5px 5px 20px grey;
 }
 
-.post-article {
+.post-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.post-user-image-container {
+
+}
+
+.post-user-image img{
+    height: 60px;
+    width: 60px;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.username-time-container {
+
+}
+
+.post-username {
+
+}
+
+.date-time{
+}
+
+.post-body {
+    display: flex;
+    flex-direction: column;
+    padding:10px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.224)
+}
+
+.post-image-container{
+
+}
+
+.post-image-container img{
+    max-width: 100px;
+    max-width: 100px;
+
+}
+
+
+.post-footer {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.224);
+    justify-content: space-between;
+}
+
+.like-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.like-button-container {
+    padding: 10px 5px 10px 10px
+}
+
+.like-number {
+    padding: 0px
+}
+.delete-post-button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 10px;
+
+}
+
+.delete-post-button-container button {
+    padding: 5px;
+}
+
+
+
+/* .post-article {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-}
+} */
 
-.post-article img {
+/* .post-article img {
     display: flex;
     height: 200px;
     width: 200px;
     align-items: center;
     padding: 16px;
-}
+} */
 
 .user-info {
     display: flex;
@@ -42,6 +122,15 @@ article {
     width: 30px;
     border-radius: 100%;
     margin-right: 10px;
+}
+
+.post-username {
+    color: black;
+}
+
+.post-username:hover {
+    color: black;
+    text-decoration: underline;
 }
 
 .date-time {
@@ -56,3 +145,4 @@ article {
 .like-container h5 {
     margin-left: 8px; /* Add margin to create space between LikeButton and h5 */
 }
+

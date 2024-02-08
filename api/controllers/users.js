@@ -84,6 +84,10 @@ const getUser = async (req, res) => {
 		populate: {
 			path:'comments',
 			model: 'Comment',
+			populate: {
+				path: 'user',
+				model: "User"
+			}
 		}})
 		.populate({
 			path: "posts",
@@ -162,6 +166,7 @@ const editBio = async (req, res) => {
 const addFriend = async(req, res) => {
 	const username = req.params.username
 	const requestingUserId = req.body.requestingUserId
+	const receivingUserId = req.body.receivingUserId
 
 	const requestingUser = await User.findById(requestingUserId);
 	if (!requestingUser) {
@@ -169,15 +174,25 @@ const addFriend = async(req, res) => {
 	}
 
 	try {
-		const updatedUser = await User.findOneAndUpdate(
-			{username:username},
-			{$addToSet: {friends: requestingUserId}},
-			{new: true}
-		);
-		if (!updatedUser) {
+		const requestingUserUpdate = await User.findOneAndUpdate(
+			{ _id: requestingUserId },
+			{ $addToSet: { friends: receivingUserId } },
+			{ new: true }
+		).exec();
+
+		const receivingUserUpdate = await User.findOneAndUpdate(
+			{ _id: receivingUserId },
+			{ $addToSet: { friends: requestingUserId } },
+			{ new: true }
+		).exec();
+
+		const [requestingUser, receivingUser] = await Promise.all([requestingUserUpdate, receivingUserUpdate]);
+
+		if (!requestingUser || !receivingUser) {
 			return res.status(404).json({ message: "User not found" });
 		}
-		res.status(200).json({message: 'Friend added to array'});
+	
+		res.status(200).json({message: 'Friends added to array'});
 	} catch (error) {
 		res.status(500).json({message: "error adding friend"})
 	}
@@ -185,23 +200,37 @@ const addFriend = async(req, res) => {
 }
 
 const removeFriend = async(req, res) => {
-
 	const username = req.params.username
 	const requestingUserId = req.body.requestingUserId
+	const receivingUserId = req.body.receivingUserId
+	
 
 	try {
-		const updatedUser = await User.AndUpdate(
-			{username:username},
-			{$pull: {friends: requestingUserId}},
-			{new:true}
-		);
-		if (!updatedUser) {
+
+		const requestingUserUpdate = await User.findOneAndUpdate(
+			{ _id: requestingUserId },
+			{ $pull: { friends: receivingUserId } },
+			{ new: true }
+		).exec();
+
+		const receivingUserUpdate = await User.findOneAndUpdate(
+			{ _id: receivingUserId },
+			{ $pull: { friends: requestingUserId } },
+			{ new: true }
+		).exec();
+
+		const [requestingUser, receivingUser] = await Promise.all([requestingUserUpdate, receivingUserUpdate]);
+
+
+		if (!requestingUser || !receivingUser) {
 			return res.status(404).json({ message: "User not found" });
 		}
-		res.status(200).json({message: 'Friend removed from array'});	
+
+		res.status(200).json({message: 'Friends removed'});
 	} catch (error) {
-		res.status(500).json({message: "error removing friend"})
+		res.status(500).json({message: "error removing friends"})
 	}
+	
 }
 
 const createNotification = async(req, res) => {

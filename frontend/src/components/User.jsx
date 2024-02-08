@@ -6,11 +6,13 @@ const User = ({_id, username, email, friends }) => {
             <p>Friends: </p>
             
             {friends.map((friend) => 
-                friend ? <p key={friend._id}>{friend.username}</p> : null
+                friend ? 
+                <p key={friend._id}>{friend.username}</p> 
+                
+                
+                
+                : null
             )}
-
-        
-
         </div>
     )
 
