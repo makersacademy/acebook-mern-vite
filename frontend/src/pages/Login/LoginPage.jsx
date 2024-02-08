@@ -14,7 +14,8 @@ export const LoginPage = () => {
     try {
       const token = await login(email, password);
       window.localStorage.setItem("token", token);
-      navigate("/posts");
+      navigate("/posts")
+      navigate(0);
     } catch (err) {
       setLoginError(err.message)
       console.error(err);
