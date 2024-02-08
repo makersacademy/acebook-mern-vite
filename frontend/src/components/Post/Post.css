@@ -14,14 +14,17 @@
     display: inline-block;
 }
 
+.message {
+    border: solid;
+    display: flex;
+}
+
 .postMessage {
     width: 50%;
     margin: auto;
     border-style: transparent;
     border-width:  1px;
     display: inline-block
-    
-
 }
 
 .postUser {
@@ -45,6 +48,3 @@
     display: block;
 }
 
-.message {
-    border: solid
-}
