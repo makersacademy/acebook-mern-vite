@@ -89,7 +89,14 @@ const CreatePost = () => {
                 <input type="submit" value="submit" />
             </label>
         </form>
-        <img alt="nada" id="postImage" className="preview-image" />
+        {postImage && (
+            <img 
+                alt="Preview Image" 
+                src={"data:postImage/png;base64," + postImage} 
+                id="postImage" 
+                className="preview-image" 
+            />
+        )}
         </div>
     );
     };
