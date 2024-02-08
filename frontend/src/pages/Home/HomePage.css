@@ -1,4 +1,9 @@
 .home {
   display: flex;
   flex-direction: column;
+  background-color: white;
+}
+
+h1 {
+  color: #207A61 ;
 }
