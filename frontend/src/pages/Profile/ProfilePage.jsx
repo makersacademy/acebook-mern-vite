@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { getProfile } from "../../services/profile";
+import { getPostsByUser } from "../../services/posts";
+
+import Post from "../../components/Post/Post";
+import LikePostButton from "../../components/Post/LikePost";
 import Profile from "../../components/Profile/Profile";
 import ProfileEdits from "../../components/Profile/ProfileEdits";
 import Friend from "../../components/Friends/Friends";
@@ -10,6 +14,7 @@ import Friend from "../../components/Friends/Friends";
 export const ProfilePage = () => {
     const [profile, setProfile] = useState([]);
     const [friends, setFriends] = useState([]);
+    const [posts, setPosts] = useState([]);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const navigate = useNavigate();
 
@@ -23,8 +28,18 @@ export const ProfilePage = () => {
                     window.localStorage.setItem("token", data.token)
                     // testing to working out why test didn't work
                     //console.log(`console log data: ${data.users}`);
-
-                })
+                    
+                    const userName = data.users[0]?.username;
+                    
+                    if (userName) {
+                        getPostsByUser(userName, token)
+                        .then((userPosts) => {
+                            setPosts(userPosts.posts);
+                        })
+                    .catch((error) => {
+                        console.error('Error fetching user posts:', error);
+                    });
+                }})
                 .catch((err) => {
                     console.error(err);
                     navigate("/login")
@@ -32,6 +47,7 @@ export const ProfilePage = () => {
         } else {
             navigate("/login");
         }
+
     },[]);
 
 
@@ -67,6 +83,19 @@ export const ProfilePage = () => {
                         <Friend friend={friend} key={friend._id} />
                     </>
                 ))}
+                </div>
+                <h3>My Posts</h3>
+                <div className="feed" role="feed">
+                {posts.map((post) => (
+                    <div key={post._id}>
+                        <Post post={post} key={post._id} showUserAndPic={false} />
+                        <LikePostButton post={post}/>
+                        <Link to={`/posts/find/${post._id}`}>Post Page</Link>
+                        <hr></hr>
+                    </div>
+                ))}
+                    
+                
             </div>
         </>
 

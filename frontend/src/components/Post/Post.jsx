@@ -14,6 +14,7 @@ const createDate = (date) => {
 
 const Post = (props) => {
     const post = props.post
+    const user = props.user
     const datetime = new Date(post.reg_time);
     const date = createDate(datetime);
     const [showResults, setShowResults] = React.useState(false)
@@ -33,9 +34,10 @@ const Post = (props) => {
                 objectFit:"cover",
                 display:"inline-block",
             }} />}
+            {props.showUserAndPic && 
             <p className="messageInfo">
-            <img className="img" src={"data:image/png;base64," + post.user[0].profilePic}/> 
-            {post.user[0].username}</p>
+            <img className="img" src={"data:image/png;base64," + post.user[0]?.profilePic}/> 
+            {post.user[0]?.username}</p>}
     <p>{date}</p>
             
             {/*uses coalescing operator to check for whether props.post.likes
@@ -56,5 +58,8 @@ const LikedBy = (props) => {
     ))}
     </div>
 )}
+
+
+
 
 export default Post;

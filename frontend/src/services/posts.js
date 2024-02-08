@@ -1,6 +1,7 @@
 // docs: https://vitejs.dev/guide/env-and-mode.html
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
+
 export const getPosts = async (token) => {
     const requestOptions = {
         method: "GET",
@@ -18,6 +19,7 @@ export const getPosts = async (token) => {
     const data = await response.json();
     return data;
 };
+
 
 export const getSinglePost = async (post_id, token) => {
     const requestOptions = {
@@ -126,7 +128,7 @@ export const updatePost = async (post_id, message, token) => {
     }
     const data = await response.json();
     return data;
-}
+};
 
 export const likePost = async (post_id, token) => {
     const requestOptions = {
@@ -143,4 +145,25 @@ export const likePost = async (post_id, token) => {
     const data = await response.json();
     return data;
 
-}
+};
+export const getPostsByUser = async (username, token) => {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
+    const response = await fetch(
+        `${BACKEND_URL}/posts/find/username/${username}`,
+        requestOptions
+    );
+    // console.log("response is")
+    // console.log(response)
+    if (response.status !== 200) {
+        throw new Error("Unable to fetch post");
+    }
+
+    const data = await response.json();
+    return data;
+};
