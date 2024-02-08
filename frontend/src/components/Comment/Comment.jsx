@@ -6,6 +6,7 @@ import { deleteComment } from '../../services/comments';
 import { getAllLikesByCommentId, likeComment } from '../../services/comments';
 import { calculateTimeSincePost } from '../dateTimeLogic';
 import { editComment } from '../../services/comments';
+import LikeButton from "../Buttons/LikeButton/LikeButton.jsx"
 
 const Comment = ({ comment_data, setNewComment }) => {
     const [showOptions, setShowOptions] = useState(false)
@@ -89,7 +90,7 @@ const Comment = ({ comment_data, setNewComment }) => {
                     <p className=''>{date}</p>
                 </div>
                 {comment_data.user_id == id && (
-                <button className='options' onClick={handleOptions}>...</button>
+                    <button className='options' onClick={handleOptions}>...</button>
                 )}
                 {showOptions && (
                     <div className='options-menu'>
@@ -101,10 +102,7 @@ const Comment = ({ comment_data, setNewComment }) => {
             </div>
             <p className="comment-text">{comment_data.message}</p>
             <div className="post-actions">
-                <div className="like-btn" onClick={handleLikeClick}>
-                    <i className={isLiked ? "fas fa-thumbs-up" : "far fa-thumbs-up"}></i>
-                    <span>Likes: {numberOfLikes}</span>
-                </div>
+                <LikeButton handleLikeClick={handleLikeClick} isLiked={isLiked} numberOfLikes={numberOfLikes}></LikeButton>
             </div>
         </div>
     );

@@ -7,6 +7,7 @@ import { getAllLikesByPostId } from "../../services/posts";
 import CreateNewComment from "../Comment/CreateNewComment";
 import CommentsList from "../Comment/CommentsList";
 import { useNavigate } from "react-router-dom";
+import LikeButton from "../Buttons/LikeButton/LikeButton.jsx"
 
 const Post = ({ post, token }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -68,10 +69,7 @@ const Post = ({ post, token }) => {
         {/* <div>user_id: {post.user_id}</div> */}
       </div>
       <div className="post-actions">
-      <div className="like-btn" onClick={handleLikeClick}>
-        <i className={isLiked ? "fas fa-thumbs-up" : "far fa-thumbs-up"}></i>
-        <span>Likes: {numberOfLikes}</span>
-      </div>
+        <LikeButton handleLikeClick={handleLikeClick} isLiked={isLiked} numberOfLikes={numberOfLikes}></LikeButton>
         <div className="comment-btn">
           <button onClick={handleCommentClick} >Comments</button>
         </div>
