@@ -3,7 +3,7 @@ import { describe, expect, vi, test, it, beforeEach } from "vitest";
 
 
 import {
-    getPosts,
+    getAllPosts,
     createNewPost,
     getSinglePost,
     deletePost,
@@ -19,7 +19,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 createFetchMock(vi).enableMocks();
 
 describe("posts service", () => {
-    describe("getPosts", () => {
+    describe("getAllPosts", () => {
         test("includes a token with its request", async () => {
             fetch.mockResponseOnce(
                 JSON.stringify({ posts: [], token: "newToken" }),
@@ -28,7 +28,7 @@ describe("posts service", () => {
                 }
             );
 
-            await getPosts("testToken");
+            await getAllPosts("testToken");
 
             // This is an array of the arguments that were last passed to fetch
             const fetchArguments = fetch.mock.lastCall;
@@ -49,7 +49,7 @@ describe("posts service", () => {
             );
 
             try {
-                await getPosts("testToken");
+                await getAllPosts("testToken");
             } catch (err) {
                 expect(err.message).toEqual("Unable to fetch posts");
             }
