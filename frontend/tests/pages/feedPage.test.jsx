@@ -2,13 +2,13 @@ import { render, screen } from "@testing-library/react";
 import { vi, describe, beforeEach, test, expect } from "vitest";
 
 import { FeedPage } from "../../src/pages/Feed/FeedPage";
-import { getPosts } from "../../src/services/posts";
+import { getAllPosts } from "../../src/services/posts";
 import { useNavigate } from "react-router-dom";
 
 // Mocking the getPosts service
 vi.mock("../../src/services/posts", () => {
-  const getPostsMock = vi.fn();
-  return { getPosts: getPostsMock };
+  const getAllPostsMock = vi.fn();
+  return { getAllPosts: getAllPostsMock };
 });
 
 // Mocking React Router's useNavigate function
@@ -29,7 +29,7 @@ describe("Feed Page", () => {
 
     const mockPosts = [{ _id: "12345", message: "Test Post 1",  user: [{_id: "1234", email: "email1@email.com", password: "123", username: "user1", profilePic: "Pic"}], reg_time: "2024-02-01T12:29:41.763+00:00"}];
 
-    getPosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
+    getAllPosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
 
     render(<FeedPage />);
 

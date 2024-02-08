@@ -4,6 +4,8 @@ const create = async (req, res) => {
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
+    const profilePic = req.body.profilePic;
+
 
 
     const userWithEmail = await User.findOne({
@@ -29,7 +31,7 @@ const create = async (req, res) => {
         console.log("Auth Error: Invalid Email");
         res.status(400).json({ message: "Invalid Email" });
     } else {
-        const user = new User({ username, email, password });
+        const user = new User({ username, email, password, profilePic });
         user.save()
             .then((user) => {
                 console.log("User created, id:", user._id.toString());

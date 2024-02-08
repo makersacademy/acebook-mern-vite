@@ -12,7 +12,7 @@ const AllUsers = (props) => {
                 setToken(data.token)
                 window.localStorage.setItem("token", data.token);
                 console.log("Friend Added")
-                navigate(0)
+                navigate('/profile')
             }).catch((err) => {
                 console.log(err)
             })
@@ -20,7 +20,7 @@ const AllUsers = (props) => {
 
     return (
         <article key={props.user._id}>
-            <p className="username">{props.user.username}
+            <p className="username"><img className="profilePic" src={"data:image/png;base64," + props.user.profilePic}/> {props.user.username}
             <button onClick={handleClick} className="addFriend">Add Friend</button></p>
         </article>
     )

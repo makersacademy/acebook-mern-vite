@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { signup } from "../../src/services/authentication";
 
 import { SignupPage } from "../../src/pages/Signup/SignupPage";
+import koaladrawing from "../../src/assets/koaladrawing64";
+
+const koalaDrawing = koaladrawing;
 
 // Mocking React Router's useNavigate function
 vi.mock("react-router-dom", () => {
@@ -48,7 +51,7 @@ describe("Signup Page", () => {
 
     await completeSignupForm("testUser", "test@email.com", "Password1!", "Password1!");
 
-    expect(signup).toHaveBeenCalledWith("testUser", "test@email.com", "Password1!");
+    expect(signup).toHaveBeenCalledWith("testUser", "test@email.com", "Password1!", koalaDrawing);
   });
 
   test("navigates to /login on successful signup", async () => {

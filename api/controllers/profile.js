@@ -67,8 +67,9 @@ const update = async (req, res) => {
 
 const getUsers = async (req, res) => {
     const users = await User.find().sort({username: 1});
+    const user_id = req.user_id;
     const token = generateToken(req.user_id);
-    res.status(200).json({users: users, token: token});
+    res.status(200).json({users: users, token: token, user_id: user_id});
   }
 
 const addFriend = async (req, res) => {
