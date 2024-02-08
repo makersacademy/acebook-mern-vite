@@ -25,12 +25,15 @@ const Post = (props) => {
         }}
     return (
         <article key={post._id}>
-            <p className="message">{post.message}</p>
-            {props.post.postImage && <img className="postPic" alt="" src={"data:postImage/png;base64," + props.post.postImage} />}
-            <p className="messageInfo">
+            <div className = "message">
+            <div className="postUser">
             <img className="profilePic" src={"data:image/png;base64," + post.user[0].profilePic}/> 
-            {post.user[0].username}</p>
-    <p>{date}</p>
+            {post.user[0].username}</div>
+            <div className="postMessage">{post.message}</div>
+            </div>
+            {props.post.postImage && <img className="postPic" alt="" src={"data:postImage/png;base64," + props.post.postImage} />}
+            
+    <p className="postDate">{`Posted at: ${date}`}</p>
             
             {/*uses coalescing operator to check for whether props.post.likes
             has a value for length, if so, use that value, else use 0 as default value*/}
