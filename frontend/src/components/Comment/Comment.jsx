@@ -102,9 +102,8 @@ const Comment = ({ comment_data, setNewComment }) => {
             <p className="comment-text">{comment_data.message}</p>
             <div className="post-actions">
                 <div className="like-btn" onClick={handleLikeClick}>
-                {/* Display "Like" or "Unlike" based on the isLiked state */}
-                <label>Likes: {numberOfLikes}</label>
-                <button>{isLiked ? "Unlike" : "Like"}</button>
+                    <i className={isLiked ? "fas fa-thumbs-up" : "far fa-thumbs-up"}></i>
+                    <span>Likes: {numberOfLikes}</span>
                 </div>
             </div>
         </div>

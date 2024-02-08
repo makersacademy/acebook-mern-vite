@@ -68,11 +68,10 @@ const Post = ({ post, token }) => {
         {/* <div>user_id: {post.user_id}</div> */}
       </div>
       <div className="post-actions">
-        <div className="like-btn" onClick={handleLikeClick}>
-          {/* Display "Like" or "Unlike" based on the isLiked state */}
-          <label>No. of Likes: {numberOfLikes}</label>
-          <button>{isLiked ? "Unlike" : "Like"}</button>
-        </div>
+      <div className="like-btn" onClick={handleLikeClick}>
+        <i className={isLiked ? "fas fa-thumbs-up" : "far fa-thumbs-up"}></i>
+        <span>Likes: {numberOfLikes}</span>
+      </div>
         <div className="comment-btn">
           <button onClick={handleCommentClick} >Comments</button>
         </div>
