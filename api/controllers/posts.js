@@ -84,9 +84,11 @@ const getSinglePost = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
+
     console.log(req.body.message);
     console.log(req.body.postImage);
     if (req.body.message == "" && req.body.postImage == undefined) {
+
         //message and postimage are both empty
         const newToken = generateToken(req.user_id);
         res.status(200).json({

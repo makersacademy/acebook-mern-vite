@@ -1,6 +1,6 @@
 const Friend = (props) => {
     return <article key={props.friend._id}>
-        <div>{props.friend.username}</div>
+        <div><img className="img" src={"data:image/png;base64," + props.friend.profilePic}/> {props.friend.username}</div>
         </article>;
     
 };

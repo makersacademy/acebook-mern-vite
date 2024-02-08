@@ -19,7 +19,7 @@ const Profile = (props) => {
             <img
                 src={"data:image/png;base64," + props.user.profilePic}
                 alt={"image not set yet"}
-                style={{ width: '120px', height: '140px' }} // Set your desired width and height
+                style={{ width: '120px' }} // Set your desired width and height
             /><br />
             Username: {props.user.username}<br />
             Email: {props.user.email}<br />
