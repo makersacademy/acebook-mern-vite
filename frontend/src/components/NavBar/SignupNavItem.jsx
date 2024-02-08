@@ -11,9 +11,10 @@ export default function LogoutNavItem() {
     return (
         <button
         type="button"
+        id="signup-nav-button"
         onClick={handleClick}
         >
-            Signup
+            Sign up
         </button>
     )
 

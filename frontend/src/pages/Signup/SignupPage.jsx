@@ -40,7 +40,7 @@ export const SignupPage = () => {
     return (
         <>
             <Navbar />
-            <h2>Signup</h2>
+            <h2>Sign up</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="username"></label>
                 <input

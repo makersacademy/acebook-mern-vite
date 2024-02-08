@@ -69,7 +69,7 @@ const Navbar = () => {
       <div className="login-nav-item"> 
         <LoginNavItem />
       </div>
-      <div className="login-nav-item"> 
+      <div className="signup-nav-item"> 
         <SignupNavItem />
       </div>
       

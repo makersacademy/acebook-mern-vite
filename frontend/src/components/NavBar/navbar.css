@@ -42,13 +42,13 @@
     padding:5px;
 }
 
-.home-nav-item {
+.home-nav-item, .login-nav-item {
     display: flex;
     padding:5px;
     margin-left:10px;
 }
 
-#home-nav-button {
+#home-nav-button, #login-nav-button, #signup-nav-button {
     display: flex;
     border: 2px solid #F7D117;
     border-radius: 10px 10px 10px 10px;
