@@ -33,6 +33,46 @@ const getAllPosts = async (req, res) => {
     res.status(200).json({ posts: posts, token: token });
 };
 
+const getPostsByUser = async (req, res) => {
+    const username = req.params.username
+    console.log("in controller")
+    console.log(username)
+    const user = await User.findOne({username: username})
+    console.log(user)
+    const filterUserID = user._id
+    const posts = await Post.aggregate([
+        {
+            $addFields: {
+                convertedId: { $toObjectId: "$user_id" },
+            },
+        },
+        {
+            $match: {
+                convertedId: filterUserID,
+            }
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "convertedId",
+                foreignField: "_id",
+                as: "user",
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "likes",
+                foreignField: "_id",
+                as: "likeUser",
+            },
+        },
+    ]).sort({ _id: -1 });
+    console.log("posts: " + posts)
+    const token = generateToken(req.user_id);
+    res.status(200).json({ posts: posts, token: token });
+};
+
 const getSinglePost = async (req, res) => {
     const postID = req.params.id;
     const post2 = await Post.find({ _id: req.params.id });
@@ -85,8 +125,8 @@ const getSinglePost = async (req, res) => {
 
 const createPost = async (req, res) => {
 
-    console.log(req.body.message);
-    console.log(req.body.postImage);
+    // console.log(req.body.message);
+    // console.log(req.body.postImage);
     if (req.body.message == "" && req.body.postImage == undefined) {
 
         //message and postimage are both empty
@@ -143,7 +183,7 @@ const deletePost = async (req, res) => {
 
 const likePost = async (req, res) => {
     const user = await User.findOne({ _id: req.user_id });
-    console.log(user);
+    // console.log(user);
     await Post.findOneAndUpdate(
         { _id: req.params.id },
         { $addToSet: { likes: req.user_id } }
@@ -156,6 +196,7 @@ const PostsController = {
     getAllPosts: getAllPosts,
     createPost: createPost,
     getSinglePost: getSinglePost,
+    getPostsByUser: getPostsByUser,
     deletePost: deletePost,
     updatePost: updatePost,
     likePost: likePost,
