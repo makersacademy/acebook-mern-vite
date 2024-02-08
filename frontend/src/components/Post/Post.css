@@ -1,9 +1,7 @@
 .feed {
-    display: grid;
-    place-items: center;
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
-
 
 .post-container {
     display: flex;

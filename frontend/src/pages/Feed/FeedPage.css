@@ -1,0 +1,15 @@
+.feedpage {
+    display: flex;
+    flex-direction: column;    
+}
+
+.feedpage-new-post-container {
+    display: flex;
+    justify-content: center;
+}
+
+.feedpage-posts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

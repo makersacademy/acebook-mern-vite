@@ -4,6 +4,7 @@ import { getPosts } from "../../services/posts";
 import NewPost from "../../components/Post/NewPost";
 import Post from "../../components/Post/Post";
 import Navbar from "../../components/NavBar/navbar";
+import './FeedPage.css'
 
 
 export const FeedPage = () => {
@@ -53,13 +54,16 @@ export const FeedPage = () => {
             <div className="navbar">
                 <Navbar />
             </div>
-            <div className="feed" role="feed">
+
+            <div className="feedpage-new-post-container">
                 <NewPost
                     token={token}
                     userId={user._id}
                     toggleStateChange={toggleStateChange}
                 />
+            </div>
 
+            <div className="feedpage-posts-container">
                 {posts.map((post) => {
                     const liked = post.likes.includes(user._id);
                     return (
@@ -76,6 +80,7 @@ export const FeedPage = () => {
                     );
                 })}
             </div>
+            
         </div>
     );
 };
