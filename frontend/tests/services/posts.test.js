@@ -3,12 +3,13 @@ import { describe, expect, vi, test, it, beforeEach } from "vitest";
 
 
 import {
-    getPosts,
+    getAllPosts,
     createNewPost,
     getSinglePost,
     deletePost,
     updatePost,
-    likePost
+    likePost,
+    getPostsByUser
 } from "../../src/services/posts";
 
 
@@ -18,7 +19,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 createFetchMock(vi).enableMocks();
 
 describe("posts service", () => {
-    describe("getPosts", () => {
+    describe("getAllPosts", () => {
         test("includes a token with its request", async () => {
             fetch.mockResponseOnce(
                 JSON.stringify({ posts: [], token: "newToken" }),
@@ -27,7 +28,7 @@ describe("posts service", () => {
                 }
             );
 
-            await getPosts("testToken");
+            await getAllPosts("testToken");
 
             // This is an array of the arguments that were last passed to fetch
             const fetchArguments = fetch.mock.lastCall;
@@ -48,7 +49,7 @@ describe("posts service", () => {
             );
 
             try {
-                await getPosts("testToken");
+                await getAllPosts("testToken");
             } catch (err) {
                 expect(err.message).toEqual("Unable to fetch posts");
             }
@@ -116,6 +117,56 @@ describe("createNewPost service", () => {
         await expect(createNewPost("Hello")).rejects.toThrow(
             "Received status 500 when creating post. Expected 201"
         );
+    });
+});
+
+describe("getPostsByUSer", () => {
+    test("includes a token with its request", async () => {
+        fetch.mockResponseOnce(
+            JSON.stringify({ posts: [], token: "newToken" }),
+            {
+                status: 200,
+            }
+        );
+        const username = "user123"
+        await getPostsByUser(username, "testToken");
+
+        // This is an array of the arguments that were last passed to fetch
+        const fetchArguments = fetch.mock.lastCall;
+        const url = fetchArguments[0];
+        const options = fetchArguments[1];
+
+        expect(url).toEqual(`${BACKEND_URL}/posts/find/username/${username}`);
+        expect(options.method).toEqual("GET");
+        expect(options.headers["Authorization"]).toEqual("Bearer testToken");
+    });
+
+    it("rejects with an error if the status is not 200", async () => {
+        fetch.mockResponseOnce(
+            JSON.stringify({ message: "Something went wrong" }),
+            { status: 400 }
+        );
+
+        try {
+            const username = "user123"
+            await getPostsByUser(username, "testToken");
+        } catch (err) {
+            expect(err.message).toEqual("Unable to fetch posts");
+        }
+    });
+
+    it("returns response object on successful fetch", async () => {
+        const mockResponse = { posts: [], token: "newToken" }
+        fetch.mockResponseOnce(
+            JSON.stringify(mockResponse),
+            {
+                status: 200,
+            }
+        );
+        const username = "user123"
+        const response = await getPostsByUser(username, "testToken");
+
+        expect(response).toEqual(mockResponse);
     });
 });
 
