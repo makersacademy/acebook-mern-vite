@@ -72,7 +72,7 @@ export const FeedPage = () => {
                 <FilterByUser posts={posts} setNewFilterValue = {setNewFilterValue}/>
                 {posts.map((post) => (
                     <div key={post._id}>
-                        <Post post={post} key={post._id} />
+                        <Post post={post} key={post._id} showUserAndPic={true}/>
                         <LikePostButton post={post}/>
                         <Link to={`/posts/find/${post._id}`}>Post Page</Link>
                         <hr></hr>
