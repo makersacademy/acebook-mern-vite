@@ -168,24 +168,4 @@ export const likePost = async (post_id, token) => {
     return data;
 
 };
-export const getPostsByUser = async (username, token) => {
-    const requestOptions = {
-        method: "GET",
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
 
-    const response = await fetch(
-        `${BACKEND_URL}/posts/find/username/${username}`,
-        requestOptions
-    );
-    // console.log("response is")
-    // console.log(response)
-    if (response.status !== 200) {
-        throw new Error("Unable to fetch post");
-    }
-
-    const data = await response.json();
-    return data;
-};
