@@ -35,6 +35,7 @@ describe("/posts", () => {
         await user.save();
         token = createToken(user.id);
         user_id = user._id;
+        username = user.username
         const user2 = new User({
             username: "user456",
             email: "post-test@test.com",
@@ -457,6 +458,61 @@ describe("/posts", () => {
                 .set("Authorization", `Bearer ${token}`);
             const posts = response.body.posts;
             expect(posts[0].likes.length).toEqual(1);
+        });
+    });
+
+    describe("GET posts by user, when token is present", () => {
+        test("the response code is 200", async () => {
+            const post1 = new Post({
+                message: "I love all my children equally",
+                user_id: user_id
+            });
+            const post2 = new Post({ message: "I've never cared for GOB", user_id: user_id2 });
+            await post1.save();
+            await post2.save();
+            console.log(username)
+            const response = await request(app)
+                .get(`/posts/find/username/${username}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            expect(response.status).toEqual(200);
+        });
+
+        test("returns every post in the collection", async () => {
+            const post1 = new Post({ message: "hola!" , user_id: user_id});
+            const post2 = new Post({ message: "howdy!", user_id: user_id2 });
+            await post1.save();
+            await post2.save();
+
+            const response = await request(app)
+                .get(`/posts/find/username/${username}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            const posts = response.body.posts;
+
+            expect(posts.length).toEqual(1);
+            expect(posts[0].message).toEqual("hola!");
+        });
+
+        test("returns a new token", async () => {
+            const post1 = new Post({ message: "hola!" , user_id: user_id});
+            const post2 = new Post({ message: "howdy!", user_id: user_id2 });
+            await post1.save();
+            await post2.save();
+
+            const response = await request(app)
+                .get(`/posts/find/username/${username}`)
+                .set("Authorization", `Bearer ${token}`);
+
+            const newToken = response.body.token;
+            const newTokenDecoded = JWT.decode(
+                newToken,
+                process.env.JWT_SECRET
+            );
+            const oldTokenDecoded = JWT.decode(token, process.env.JWT_SECRET);
+
+            // iat stands for issued at
+            expect(newTokenDecoded.iat > oldTokenDecoded.iat).toEqual(true);
         });
     });
 });
