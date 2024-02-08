@@ -29,13 +29,14 @@ export const login = async (email, password) => {
   }
 };
 
-export const signup = async (username, email, password) => {
+export const signup = async (username, email, password, profilePic) => {
   const payload = {
     username: username,
     email: email,
     password: password,
+    profilePic: profilePic
   };
-
+  console.log(payload)
   const requestOptions = {
     method: "POST",
     headers: {

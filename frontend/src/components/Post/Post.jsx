@@ -26,15 +26,9 @@ const Post = (props) => {
     return (
         <article key={post._id}>
             <p className="message">{post.message}</p>
-            {props.post.postImage && <img alt="" src={"data:postImage/png;base64," + props.post.postImage} 
-            style={{ 
-                maxWidth:"200px",
-                maxHeight:"200px",
-                objectFit:"cover",
-                display:"inline-block",
-            }} />}
+            {props.post.postImage && <img className="postPic" alt="" src={"data:postImage/png;base64," + props.post.postImage} />}
             <p className="messageInfo">
-            <img className="img" src={"data:image/png;base64," + post.user[0].profilePic}/> 
+            <img className="profilePic" src={"data:image/png;base64," + post.user[0].profilePic}/> 
             {post.user[0].username}</p>
     <p>{date}</p>
             

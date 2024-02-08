@@ -6,9 +6,15 @@
 .likes{
     cursor: pointer;
 }
-.img {
+.profilePic {
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 0px;
     width: 100px
+}
+.postPic {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+    display: inline-block;
 }

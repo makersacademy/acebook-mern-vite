@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { signup } from "../../services/authentication";
 import "./SignupPage.css";
+import koaladrawing from '../../assets/koaladrawing64.jsx'
 
 export const SignupPage = () => {
   const [username, setUsername] = useState("");
@@ -10,6 +11,8 @@ export const SignupPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [userExists, setUserExists] = useState("");
+  const profilePic = koaladrawing
+  
 
   const navigate = useNavigate();
 
@@ -31,7 +34,7 @@ export const SignupPage = () => {
     } else {
       event.preventDefault();
     try {
-      await signup(username, email, password);
+      await signup(username, email, password, profilePic);
       console.log("redirecting...:");
       navigate("/login");
     } catch (err) {
