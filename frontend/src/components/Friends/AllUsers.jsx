@@ -20,8 +20,10 @@ const AllUsers = (props) => {
 
     return (
         <article key={props.user._id}>
-            <p className="username"><img className="profilePic" src={"data:image/png;base64," + props.user.profilePic}/> {props.user.username}
-            <button onClick={handleClick} className="addFriend">Add Friend</button></p>
+            <div className="user">
+            <img className="profilePic" src={"data:image/png;base64," + props.user.profilePic}/> {props.user.username}
+            <button onClick={handleClick} className="button" name="addFriend">Add Friend</button>
+            </div>
         </article>
     )
 }
