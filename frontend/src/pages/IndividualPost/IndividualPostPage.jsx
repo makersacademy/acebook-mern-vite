@@ -67,11 +67,11 @@ export const PostPage = () => {
 
                 <OnePost post={post} user={user} key={post._id} />
 
-
+                <LikePostButton post={post}/>
                 {postButtonDisplay && <EditPost message = {post.message}/>}
                 {postButtonDisplay && <DeletePostButton />}
 
-                <LikePostButton post={post}/>
+                
 
             </div>
             <hr></hr>
@@ -82,6 +82,7 @@ export const PostPage = () => {
                         <p role="CommentsDisplay"><Comment comment={comment} key={comment._id} /></p>
                         {comment.userMatch && <EditComment comment = {comment} key={"editComment"} message = {comment.message}/>}
                         {comment.userMatch && <DeleteCommentButton comment={comment} key={"deleteComment"}/>}
+                        <hr />
                     </div>
                 ))}
             </div>

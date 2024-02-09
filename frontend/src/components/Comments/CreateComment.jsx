@@ -31,6 +31,7 @@ const CreateComment = (prop) => {
     };
 
     return (
+        <div className = "thing">
         <form onSubmit={handleSubmit}>
             <label htmlFor="commentContent">
                 <h3>Create A Comment</h3>
@@ -43,11 +44,13 @@ const CreateComment = (prop) => {
                     onChange={handleMessageChange}
                     rows="4"
                     cols="50"
+                    className="textarea"
                 ></textarea>
                 <br></br>
-                <input type="submit" value="submit" />
+                <input type="submit" value="submit" className="button"/>
             </label>
         </form>
+        </div>
     );
 };
 

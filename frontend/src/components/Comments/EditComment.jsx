@@ -39,6 +39,7 @@ const EditComment = (props) => {
     };
 
     const editCommentForm = 
+    <div className="thing">
         <form onSubmit={handleUpdate}>
             <label htmlFor="commentContent">
                 <textarea
@@ -49,17 +50,19 @@ const EditComment = (props) => {
                     onChange={handleMessageChange}
                     rows="4"
                     cols="50"
+                    className="textarea"
                 ></textarea>
                 {errorMessage && <p>{errorMessage}</p>}
                 <br></br>
-                <input type="submit" value="Save Changes" role="button" name="Save Changes" />
+                <input type="submit" value="Save Changes" role="button" name="Save Changes" className="button"/>
             </label>
         </form>
+    </div>
 
     return (
         <>
             {inputField && editCommentForm}
-            <button onClick = {handleEdit} className="editComment" name="edit">
+            <button onClick = {handleEdit} className="button" name="edit">
                 {!inputField ? "Edit" : "Discard Changes"}
             </button>
 

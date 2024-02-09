@@ -1,5 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 import "./Navbar.css"
+import logo from "../../assets/logo.jpg"
 
 
 const NavbarLoggedIn = () => {
@@ -20,6 +21,7 @@ const NavbarLoggedIn = () => {
         <nav className="navbar">
         <div>
             <ul className="nav-links">
+            <img src={logo} className="navLogo" />
                 <li><Link to='/'>Homepage</Link></li>
                 <li><Link to='/posts'>Feed</Link></li>
                 <li><Link to='/profile' onClick={handleClick2}>My Profile</Link></li>

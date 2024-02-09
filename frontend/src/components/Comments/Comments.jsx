@@ -18,11 +18,13 @@ const Comment = (props) => {
 
     return (
         <article key={props.comment._id}>
+            <div className="wrapper">
             <p className="message">{props.comment.message}</p>
+            </div>
             <p className="messageInfo">
-                {username} {date}
+                Comment left by: {username}
+                <div className="date">At: {date}</div>
             </p>
-            <hr></hr>
         </article>
     );
 };

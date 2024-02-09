@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate} from "react-router-dom";
 import { deleteComment } from "../../services/comments";
 
+
 const DeleteCommentButton = (props) => {
     const navigate = useNavigate();
     const commentId = props.comment._id;
@@ -40,7 +41,7 @@ const DeleteCommentButton = (props) => {
 
     return (
         <>
-            <button onClick={handleDelete} className="deleteComment" name="delete">
+            <button onClick={handleDelete} className="button" name="delete">
                 Delete
             </button>
         </>

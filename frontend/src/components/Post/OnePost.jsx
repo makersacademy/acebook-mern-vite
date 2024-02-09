@@ -26,13 +26,15 @@ const OnePost = (props) => {
         }}
     return (
         <article key={post._id}>
-            <p className="message">{post.message}</p>
-            {/*{console.log("user:")}
-            {console.log(user)}*/}
-            <p className="messageInfo">
-            <img className="profilePic" src={"data:image/png;base64," + user.profilePic}/> 
-            {user.username}</p>
-            <p>{date}</p>
+            <div className = "wrapper">
+                <div className = "container1">
+                <img className="profilePic" src={"data:image/png;base64," + user.profilePic}/> 
+                {user.username}
+                </div>
+                <div className = "postMessage">{post.message}</div>
+            </div>
+
+            <p className="postDate">{`Posted at: ${date}`}</p>
             
             {/*uses coalescing operator to check for whether props.post.likes
             has a value for length, if so, use that value, else use 0 as default value*/}

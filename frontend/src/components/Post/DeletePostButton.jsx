@@ -40,7 +40,7 @@ const DeletePostButton = () => {
 
     return (
         <>
-            <button onClick={handleDelete} className="deletePost" name="delete">
+            <button onClick={handleDelete} className="button" name="delete">
                 Delete
             </button>
         </>

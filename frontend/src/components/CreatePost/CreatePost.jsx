@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createNewPost } from "../../services/posts";
+import './wrapper2.css'
 
 
 
@@ -70,7 +71,7 @@ const CreatePost = () => {
 
 
     return (
-        <div className="post-container">
+        <div className="thing">
         <form onChange={(e) => onChange(e)} onSubmit={(e) => handleSubmit(e)}>
             <label htmlFor="postContent">
                 <h3>Create A Post</h3>
@@ -83,13 +84,14 @@ const CreatePost = () => {
                     onChange={handleMessageChange}
                     rows="4"
                     cols="50"
+                    className="textarea"
                 ></textarea>
                         <br/><input type="file"
                                     name="postImage"
                                     id='fileUpload'
                                     accept='.jpg, .png, .jpeg'
                             /><br/>
-                <input type="submit" value="submit" />
+                <input type="submit" value="submit" className="button" />
             </label>
         </form>
         {postImage && (
