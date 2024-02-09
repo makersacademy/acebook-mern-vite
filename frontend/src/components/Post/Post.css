@@ -6,15 +6,59 @@
 .likes{
     cursor: pointer;
 }
+
+
+
+.wrapper {
+    border: solid;
+    display: flex;
+    align-items: center;
+}
+
+.wrapper > div {
+    flex: 1;
+}
+
+.container1 {
+    left: 150px;
+    padding: 0px;
+    width: px;
+    display: flex;
+    align-items:center;
+    vertical-align: middle;
+    }
+
 .profilePic {
     border: 1px solid #ddd;
-    border-radius: 4px;
     padding: 0px;
-    width: 100px
+    width: 50px;
+    border-radius: 25%;
+    }
+
+.container2 {
+    display: inline-block;
+    vertical-align: bottom;
+    align-items: left;
 }
+
 .postPic {
     max-width: 200px;
     max-height: 200px;
     object-fit: cover;
-    display: inline-block;
+    align-items: center;
+    }
+
+.postMessage {
+    width: 100%;
+    margin: auto;
+    border-style: transparent;
+    border-width:  1px;  
+    align-items:flex-end;
+    vertical-align: bottom;      
 }
+
+.postDate {
+    color: grey; 
+    display: block;
+}
+

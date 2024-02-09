@@ -36,13 +36,15 @@ const FilterByUser = (props) => {
 
     return (
         <>
-            <label>Filter by Username</label>
+        <div className = "filterPosts">
+            <label>Filter by User</label>
             <select name="users" id="users" onChange={handleFilterChange}>
                 <option value="All">All</option>
                 {users.map((user) => (
                     <option value={user.username} key={user.username}>{user.username}</option>
                 ))}
             </select>
+            </div>
         </>
     )
 }

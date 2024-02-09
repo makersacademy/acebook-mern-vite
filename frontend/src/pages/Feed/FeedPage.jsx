@@ -1,3 +1,4 @@
+import './FeedPage.css'
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -71,7 +72,7 @@ export const FeedPage = () => {
             <div className="feed" role="feed">
                 <FilterByUser posts={posts} setNewFilterValue = {setNewFilterValue}/>
                 {posts.map((post) => (
-                    <div key={post._id}>
+                    <div key={post._id} id="post">
                         <Post post={post} key={post._id} showUserAndPic={true}/>
                         <LikePostButton post={post}/>
                         <Link to={`/posts/find/${post._id}`}>Post Page</Link>
