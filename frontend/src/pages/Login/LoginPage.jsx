@@ -40,7 +40,10 @@ export const LoginPage = () => {
       <form onSubmit={handleSubmit}>
         <h1>Login</h1>
         <div className="input-box">
-          <input type="text" 
+          <input
+          id = "email"
+          role = "email"
+          type="text"
           placeholder="Email" 
           required
           value={email}
@@ -50,6 +53,8 @@ export const LoginPage = () => {
         </div>
         <div className="input-box">
           <input type="password" 
+          id = "password"
+          role = "password"
           placeholder="Password" 
           required
           value={password}
