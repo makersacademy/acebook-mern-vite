@@ -23,6 +23,8 @@ const createToken = (userId) => {
 };
 
 let token;
+let user_id;
+
 describe("/posts", () => {
   beforeAll(async () => {
     const user = new User({
@@ -31,6 +33,8 @@ describe("/posts", () => {
     });
     await user.save();
     await Post.deleteMany({});
+    user_id = user.id
+    console.log(user_id)
     token = createToken(user.id);
   });
 
@@ -52,11 +56,12 @@ describe("/posts", () => {
       await request(app)
         .post("/posts")
         .set("Authorization", `Bearer ${token}`)
-        .send({ message: "Hello World!!" });
+        .send({ message: "Hello World!!", owner_id: user_id});
 
       const posts = await Post.find();
       expect(posts.length).toEqual(1);
       expect(posts[0].message).toEqual("Hello World!!");
+      expect(posts[0].owner_id).toEqual(user_id);
     });
 
     test("returns a new token", async () => {
@@ -64,7 +69,7 @@ describe("/posts", () => {
       const response = await testApp
         .post("/posts")
         .set("Authorization", `Bearer ${token}`)
-        .send({ message: "hello world" });
+        .send({ message: "hello world", owner_id: user_id});
 
       const newToken = response.body.token;
       const newTokenDecoded = JWT.decode(newToken, process.env.JWT_SECRET);
@@ -79,7 +84,7 @@ describe("/posts", () => {
     test("responds with a 401", async () => {
       const response = await request(app)
         .post("/posts")
-        .send({ message: "hello again world" });
+        .send({ message: "hello again world", owner_id: user_id});
 
       expect(response.status).toEqual(401);
     });
@@ -87,7 +92,7 @@ describe("/posts", () => {
     test("a post is not created", async () => {
       const response = await request(app)
         .post("/posts")
-        .send({ message: "hello again world" });
+        .send({ message: "hello again world", owner_id: user_id });
 
       const posts = await Post.find();
       expect(posts.length).toEqual(0);
@@ -104,8 +109,8 @@ describe("/posts", () => {
 
   describe("GET, when token is present", () => {
     test("the response code is 200", async () => {
-      const post1 = new Post({ message: "I love all my children equally" });
-      const post2 = new Post({ message: "I've never cared for GOB" });
+      const post1 = new Post({ message: "I love all my children equally", owner_id: user_id });
+      const post2 = new Post({ message: "I've never cared for GOB", owner_id: user_id });
       await post1.save();
       await post2.save();
 
@@ -117,8 +122,8 @@ describe("/posts", () => {
     });
 
     test("returns every post in the collection", async () => {
-      const post1 = new Post({ message: "howdy!" });
-      const post2 = new Post({ message: "hola!" });
+      const post1 = new Post({ message: "howdy!", owner_id: user_id });
+      const post2 = new Post({ message: "hola!", owner_id: user_id });
       await post1.save();
       await post2.save();
 
@@ -135,8 +140,8 @@ describe("/posts", () => {
     });
 
     test("returns a new token", async () => {
-      const post1 = new Post({ message: "First Post!" });
-      const post2 = new Post({ message: "Second Post!" });
+      const post1 = new Post({ message: "First Post!", owner_id: user_id });
+      const post2 = new Post({ message: "Second Post!", owner_id: user_id });
       await post1.save();
       await post2.save();
 
@@ -155,8 +160,8 @@ describe("/posts", () => {
 
   describe("GET, when token is missing", () => {
     test("the response code is 401", async () => {
-      const post1 = new Post({ message: "howdy!" });
-      const post2 = new Post({ message: "hola!" });
+      const post1 = new Post({ message: "howdy!", owner_id: user_id });
+      const post2 = new Post({ message: "hola!", owner_id: user_id });
       await post1.save();
       await post2.save();
 
@@ -166,8 +171,8 @@ describe("/posts", () => {
     });
 
     test("returns no posts", async () => {
-      const post1 = new Post({ message: "howdy!" });
-      const post2 = new Post({ message: "hola!" });
+      const post1 = new Post({ message: "howdy!", owner_id: user_id });
+      const post2 = new Post({ message: "hola!", owner_id: user_id });
       await post1.save();
       await post2.save();
 
@@ -177,8 +182,8 @@ describe("/posts", () => {
     });
 
     test("does not return a new token", async () => {
-      const post1 = new Post({ message: "howdy!" });
-      const post2 = new Post({ message: "hola!" });
+      const post1 = new Post({ message: "howdy!", owner_id: user_id });
+      const post2 = new Post({ message: "hola!", owner_id: user_id });
       await post1.save();
       await post2.save();
 

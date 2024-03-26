@@ -8,11 +8,14 @@ const getAllPosts = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-  const post = new Post(req.body);
-  post.save();
+    const { message } = req.body;
+    const owner_id = req.user_id; // Assuming req.user_id holds the ID of the user creating the post
+  
+    const post = new Post({ message, owner_id });
+    await post.save();
 
   const newToken = generateToken(req.user_id);
-  res.status(201).json({ message: "Post created", token: newToken });
+  res.status(201).json({ message: `Post created for id:${owner_id}`, token: newToken });
 };
 
 const PostsController = {
