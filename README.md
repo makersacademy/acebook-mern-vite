@@ -121,3 +121,13 @@ Then, after signing up, you should be able to log in by going to
 
 After logging in, you won't see much but you can create posts using PostMan and
 they should then show up in the browser if you refresh the page.
+
+## Seeding the database
+
+1. In order to seed the database, cd into '/api/models' 
+2. run ' node testseed.js ' 
+3. If you want to see a visual representation 
+   a. install mogodb compass https://www.mongodb.com/products/tools/compass
+   b. connect to local db : mongodb://0.0.0.0/acebook
+   c. the seed will go into acebook_test
+
