@@ -16,6 +16,9 @@ db.once('open', async () => {
     try {
         // Clear existing data (optional)
         await User.deleteMany({});
+        await Post.deleteMany({});
+        await Comment.deleteMany({});
+        await Relationship.deleteMany({});
         
         // Insert the seed data for each model
 
@@ -188,10 +191,10 @@ db.once('open', async () => {
         const insertcomments = await Comment.insertMany(comments);
         const insertrelationships = await Relationship.insertMany(relationships)
 
-        console.log(insertusers)
-        console.log(insertposts)
-        console.log(insertcomments)
-        console.log(insertrelationships)
+        // console.log(insertusers)
+        // console.log(insertposts)
+        // console.log(insertcomments)
+        // console.log(insertrelationships)
         
         console.log('Seed data inserted successfully');
 
