@@ -48,7 +48,7 @@ describe("/posts", () => {
       const response = await request(app)
         .post("/posts")
         .set("Authorization", `Bearer ${token}`)
-        .send({ message: "Hello World!" });
+        .send({ message: "Hello World!", owner_id: user_id });
       expect(response.status).toEqual(201);
     });
 
@@ -104,6 +104,28 @@ describe("/posts", () => {
         .send({ message: "hello again world" });
 
       expect(response.body.token).toEqual(undefined);
+    });
+  });
+
+  describe("POST, when the message is blank", () => {
+    test("responds with a 400 and a helpful message", async () => {
+      const response = await request(app)
+        .post("/posts")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ message: "", owner_id: user_id});
+
+      expect(response.status).toEqual(400);
+      expect(response.body.message).toEqual("No message included");
+    });
+
+    test("a post is not created", async () => {
+      const response = await request(app)
+        .post("/posts")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ message: "", owner_id: user_id });
+
+      const posts = await Post.find();
+      expect(posts.length).toEqual(0);
     });
   });
 
@@ -193,3 +215,4 @@ describe("/posts", () => {
     });
   });
 });
+
