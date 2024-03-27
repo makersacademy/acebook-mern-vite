@@ -23,15 +23,21 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
+/* ------------------------------------------- bg colors ------------------------------------------ */
 .darkest-bg-color {
   background-color: #643579;
-}
-
-.light-text-color {
-  color: rgb(195, 242, 218);
 }
 
 .lightest-bg-color {
   background-color: #9F70B2;
 }
+
+/* -------------------------------------------- text colors --------------------------------------- */
+.lightest-text-color {
+  color: rgb(195, 242, 218);
+}
+
+.light-text-color {
+  color: #bce784;
+}
+
