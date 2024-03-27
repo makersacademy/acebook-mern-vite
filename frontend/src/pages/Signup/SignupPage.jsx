@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { signup } from "../../services/authentication";
+import bcrypt from "bcryptjs-react"; 
 
 export const SignupPage = () => {
   const [email, setEmail] = useState("");
@@ -11,7 +11,8 @@ export const SignupPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await signup(email, password);
+      const hashedPassword = await bcrypt.hash(password, 10); 
+      await signup(email, hashedPassword); 
       console.log("redirecting...:");
       navigate("/login");
     } catch (err) {

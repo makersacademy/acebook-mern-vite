@@ -1,7 +1,10 @@
+
 const app = require("../../app");
 const supertest = require("supertest");
 require("../mongodb_helper");
 const User = require("../../models/user");
+const { decryptPassword } = require("../../controllers/authentication");
+const bcrypt = require('bcrypt');
 
 describe("/tokens", () => {
   beforeAll(async () => {
@@ -10,10 +13,6 @@ describe("/tokens", () => {
       password: "12345678",
     });
 
-    // We need to use `await` so that the "beforeAll" setup function waits for
-    // the asynchronous user.save() to be done before exiting.
-    // Otherwise, the tests belowc ould run without the user actyakkt being
-    // saved, causing tests to fail inconsistently.
     await user.save();
   });
 
@@ -54,3 +53,7 @@ describe("/tokens", () => {
     expect(response.body.message).toEqual("Password incorrect");
   });
 });
+
+
+ 
+

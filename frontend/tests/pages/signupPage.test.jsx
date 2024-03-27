@@ -66,4 +66,15 @@ describe("Signup Page", () => {
 
     expect(navigateMock).toHaveBeenCalledWith("/signup");
   });
+
+  test("displays an error message when signup fails", async () => {
+    render(<SignupPage />);
+
+    signup.mockRejectedValue(new Error("Error signing up"));
+
+    await completeSignupForm();
+
+    const errorMessage = await screen.findByText("Error signing up");
+    expect(errorMessage).toBeInTheDocument();
+  });
 });

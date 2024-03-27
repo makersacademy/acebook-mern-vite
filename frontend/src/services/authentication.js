@@ -32,7 +32,9 @@ export const signup = async (email, password) => {
   const payload = {
     email: email,
     password: password,
+   
   };
+  
 
   const requestOptions = {
     method: "POST",
