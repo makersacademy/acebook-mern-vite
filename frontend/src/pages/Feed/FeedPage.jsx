@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
+import Logout from "../../components/General/Logout";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -20,17 +21,18 @@ export const FeedPage = () => {
           console.error(err);
           navigate("/login");
         });
-    }
+      }
+    else {
+        navigate("/login");
+        return;
+      }
+    
   }, [navigate]);
 
-  const token = localStorage.getItem("token");
-  if (!token) {
-    navigate("/login");
-    return;
-  }
-
   return (
+    // Logout component temporarily implemented here, should be moved to navbar once created
     <>
+      <Logout /> 
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
