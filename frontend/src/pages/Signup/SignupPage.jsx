@@ -4,21 +4,40 @@ import { signup } from "../../services/authentication";
 import bcrypt from "bcryptjs-react"; 
 
 export const SignupPage = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [bio, setBio] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+
   const handleSubmit = async (event) => {
+    
     event.preventDefault();
     try {
+
       const hashedPassword = await bcrypt.hash(password, 10); 
-      await signup(email, hashedPassword); 
+      await signup(firstName, lastName, bio, email, hashedPassword);
+
       console.log("redirecting...:");
       navigate("/login");
     } catch (err) {
       console.error(err);
       navigate("/signup");
     }
+  };
+
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
+
+  const handleBioChange = (event) => {
+    setBio(event.target.value);
   };
 
   const handleEmailChange = (event) => {
@@ -35,6 +54,7 @@ export const SignupPage = () => {
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
         <input
+          placeholder="Email"
           id="email"
           type="text"
           value={email}
@@ -47,6 +67,30 @@ export const SignupPage = () => {
           type="password"
           value={password}
           onChange={handlePasswordChange}
+        />
+        <label htmlFor="firstName">First Name:</label>
+        <input
+          placeholder="First name"
+          id="firstName"
+          type="text"
+          value={firstName}
+          onChange={handleFirstNameChange}
+        />
+        <label htmlFor="lastName">Last Name:</label>
+        <input
+          placeholder="Last name"
+          id="lastName"
+          type="text"
+          value={lastName}
+          onChange={handleLastNameChange}
+        />
+        <label htmlFor="bio">Bio:</label>
+        <input
+          placeholder="Add a bio here"
+          id="bio"
+          type="text"
+          value={bio}
+          onChange={handleBioChange}
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>

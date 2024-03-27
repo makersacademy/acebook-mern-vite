@@ -3,8 +3,10 @@ const { generateToken } = require("../lib/token");
 const bcrypt = require("bcrypt");
 
 const createToken = async (req, res) => {
+
   const email = req.body.email;
   const password = req.body.password;
+
 
   try {
     const user = await User.findOne({ email: email });
@@ -26,6 +28,7 @@ const createToken = async (req, res) => {
   } catch (err) {
     console.error("Login error:", err);
     return res.status(500).json({ message: "Internal server error" });
+
   }
 };
 

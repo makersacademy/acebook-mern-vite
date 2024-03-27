@@ -14,6 +14,7 @@ export const LoginPage = () => {
       const token = await login(email, password);
       localStorage.setItem("token", token);
       navigate("/posts");
+    
     } catch (err) {
       console.error(err);
       navigate("/login");
