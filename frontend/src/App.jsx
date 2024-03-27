@@ -5,7 +5,7 @@ import { HomePage } from "./pages/Home/HomePage";
 import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
-import { Navbar } from "./components/navbar";
+import { Navbar } from "./components/Navbar";
 
 // docs: https://reactrouter.com/en/main/start/overview
 const router = createBrowserRouter([
