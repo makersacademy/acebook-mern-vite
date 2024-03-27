@@ -18,7 +18,7 @@ describe("Comment model", () => {
     });
 
     it("can save a comment", async () => {
-        const post = new Comment({ message: "some message" });
+        const comment = new Comment({ message: "some message" });
 
         await comment.save();
         const comments = await Comment.find();
