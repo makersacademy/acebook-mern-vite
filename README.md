@@ -124,10 +124,12 @@ they should then show up in the browser if you refresh the page.
 
 ## Seeding the database
 
-1. In order to seed the database, cd into '/api/models' 
-2. run ' node testseed.js ' 
+1. In order to seed the database, cd into `/api/models` 
+2. run ` node testseed.js ` 
 3. If you want to see a visual representation 
-   a. install mogodb compass https://www.mongodb.com/products/tools/compass
-   b. connect to local db : mongodb://0.0.0.0/acebook
-   c. the seed will go into acebook_test
+   1. install mogodb compass https://www.mongodb.com/products/tools/compass
+   1. connect to local db : `mongodb://0.0.0.0/acebook`
+   1. the seed will go into acebook_test
 
+## Running tests locally
+After following the steps in [seeding the database](#seeding-the-database) so that there is data in the test table, you can now run `npm run test` from within the api directory.
