@@ -1,37 +1,52 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { getPosts } from "../../services/posts";
+
+import CreatePost from "../../components/Post/CreatePost"
 import Post from "../../components/Post/Post";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      getPosts(token)
+  
+  const getNewPostTrigger = (token) => {
+    getPosts(token)
         .then((data) => {
           setPosts(data.posts);
           localStorage.setItem("token", data.token);
         })
-        .catch((err) => {
-          console.error(err);
-          navigate("/login");
-        });
+  } 
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
     }
+    else {
+      getNewPostTrigger(token);
+      }
   }, [navigate]);
 
-  const token = localStorage.getItem("token");
-  if (!token) {
-    navigate("/login");
-    return;
-  }
+  const handleCreatePost = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      getNewPostTrigger(token);
+    } catch (err) {
+      console.error(err);
+      navigate("/login");
+    }
+  };
 
   return (
     <>
       <h2>Posts</h2>
+      <div>
+      <CreatePost onCreatePost={handleCreatePost}/>
+      </div>
+      <br></br>
+      <h3>All the posts:</h3>
       <div className="feed" role="feed">
         {posts.map((post) => (
           <Post post={post} key={post._id} />
