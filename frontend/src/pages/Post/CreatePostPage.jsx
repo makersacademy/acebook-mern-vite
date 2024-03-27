@@ -8,12 +8,15 @@ export const CreatePostPage = () => {
     const token = localStorage.getItem("token");
 
     const handleSubmit = async (event) => {
+      if(message == "") {
+         alert("message field required")
+      }
+      else {
         event.preventDefault();
         createPosts(token, message)
         localStorage.setItem("token", token);
         navigate('/posts')
-        
-      };
+      }}
         
       const handleMessageChange = (event) => {
         setMessage(event.target.value);
