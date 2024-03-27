@@ -1,10 +1,12 @@
+import { NavButton } from "./Buttons";
+
 export const Navbar = () => {
   return (
     <div className="container-fluid">
-      <div className="row justify-content-center">
-        <nav className="navbar navbar-expand-lg darkest-bg-color">
+      <div className="row">
+        <nav className="navbar navbar-expand-lg darkest-bg-color fixed-top">
           {/* TODO: Replace bavbar brand with logo */}
-          <div className="col-2">
+          <div className="col-3">
             <a className="navbar-brand lightest-text-color" href="#">
               Navbar
             </a>
@@ -21,40 +23,21 @@ export const Navbar = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-
           <div
-            className="collapse navbar-collapse row"
+            className="collapse navbar-collapse col-lg-6 d-lg-none"
             id="navbarSupportedContent"
           >
-            
-              <div className="col-8  mx-auto">
-            <ul className="navbar-nav">
-                <li className="nav-item">
-                  <a className="nav-link lightest-text-color" href="#">
-                    Home
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link lightest-text-color" href="#">
-                    Connections
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link lightest-text-color" href="#">
-                    Profile
-                  </a>
-                </li>
-                </ul>
-              </div>
-
-              <div className="col-2">
-              <ul>
-                <li className="nav-item">
-                  <a className="nav-link lightest-text-color" href="#">Logout
-                  </a>
-                </li>
+            <ul className="navbar-nav w-100 justify-content-around"> {/* Adjusted */}
+            <NavButton linkName="Home" />
+            <NavButton linkName="Profile" />
+            <NavButton linkName="Connections" />
             </ul>
-              </div>
+          </div>
+
+          <div className="col-3 pe-xsm-0 pe-lg-5">
+            <ul className="navbar-nav justify-content-end">
+            <NavButton linkName="Log Out" />
+            </ul>
           </div>
         </nav>
       </div>

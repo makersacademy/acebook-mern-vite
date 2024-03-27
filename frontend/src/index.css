@@ -13,8 +13,7 @@ a:hover {
 }
 
 body {
-  /* margin: 0; */
-  /* display: flex; */
+  margin: 0;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -23,6 +22,11 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+
+.pe-8 {
+  padding-right: 150px !important;
+}
+
 /* ------------------------------------------- bg colors ------------------------------------------ */
 .darkest-bg-color {
   background-color: #643579;
@@ -40,4 +44,5 @@ h1 {
 .light-text-color {
   color: #bce784;
 }
+
 
