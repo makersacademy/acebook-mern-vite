@@ -28,15 +28,15 @@ export const Navbar = () => {
             id="navbarSupportedContent"
           >
             <ul className="navbar-nav w-100 justify-content-around"> {/* Adjusted */}
-            <NavButton linkName="Home" />
-            <NavButton linkName="Profile" />
-            <NavButton linkName="Connections" />
+              <NavButton linkName="Home" />
+              <NavButton linkName="Profile" />
+              <NavButton linkName="Connections" />
             </ul>
           </div>
 
           <div className="col-3 pe-xsm-0 pe-lg-5">
             <ul className="navbar-nav justify-content-end">
-            <NavButton linkName="Log Out" />
+              <NavButton linkName="Log Out" />
             </ul>
           </div>
         </nav>
