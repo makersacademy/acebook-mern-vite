@@ -20,18 +20,25 @@ export const FeedPage = () => {
           console.error(err);
           navigate("/login");
         });
+        if (!token) {
+          navigate("/login");
+          return;
+        }
     }
   }, [navigate]);
 
-  const token = localStorage.getItem("token");
-  if (!token) {
-    navigate("/login");
-    return;
-  }
+    
+  const handleCreatePost = (event) => {
+      
+    event.preventDefault();
+      navigate("/createpost")
 
+    }
+  
   return (
     <>
       <h2>Posts</h2>
+      <button onClick={handleCreatePost}>Create Post</button>
       <div className="feed" role="feed">
         {posts.map((post) => (
           <Post post={post} key={post._id} />
