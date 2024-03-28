@@ -53,3 +53,10 @@ export const signup = async (email, password) => {
     );
   }
 };
+
+export const logout = () => {
+  
+  return localStorage.removeItem("token");
+}
+
+  
