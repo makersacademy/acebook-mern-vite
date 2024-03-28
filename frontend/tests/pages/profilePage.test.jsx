@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import { vi } from "vitest";
-import userEvent from '@testing-library/user-event'
 import { getUser } from "../../src/services/users";
 import { useNavigate } from "react-router-dom";
 import { ProfilePage } from "../../src/pages/Profile/ProfilePage";
