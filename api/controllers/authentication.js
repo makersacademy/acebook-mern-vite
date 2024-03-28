@@ -34,7 +34,7 @@ const createToken = async (req, res) => {
 
 const AuthenticationController = {
   createToken: createToken,
- 
+
 };
 
 module.exports = AuthenticationController;

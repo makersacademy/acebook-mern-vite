@@ -28,6 +28,9 @@ let user_id;
 describe("/posts", () => {
   beforeAll(async () => {
     const user = new User({
+      firstName : "test-name",
+      lastName : "test-lastname",
+      bio : "test-bio",
       email: "post-test@test.com",
       password: "12345678",
     });
