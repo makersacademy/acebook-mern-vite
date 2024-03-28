@@ -27,16 +27,17 @@ export const Navbar = () => {
             className="collapse navbar-collapse col-lg-6 d-lg-none"
             id="navbarSupportedContent"
           >
-            <ul className="navbar-nav w-100 justify-content-around"> {/* Adjusted */}
-              <NavButton linkName="Home" />
-              <NavButton linkName="Profile" />
-              <NavButton linkName="Connections" />
+            <ul className="navbar-nav w-100 justify-content-around fs-5"> {/* Adjusted */}
+              <NavButton linkName="Home" iconId="fa-solid fa-house" />
+              <NavButton linkName="Profile" iconId="fa-solid fa-user" />
+              <NavButton linkName="Connections" iconId="fa-solid fa-user-group" />
+              
             </ul>
           </div>
 
           <div className="col-3 pe-xsm-0 pe-lg-5">
-            <ul className="navbar-nav justify-content-end">
-              <NavButton linkName="Log Out" />
+            <ul className="navbar-nav justify-content-end fs-5">
+              <NavButton linkName="Log Out" iconId="fa-solid fa-right-from-bracket" />
             </ul>
           </div>
         </nav>
