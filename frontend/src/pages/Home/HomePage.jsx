@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ImageCircle } from "../../components/ImageCircle";
-import imageHomepage from "../../assets/friends.jpg"
+import imageHomepage from "../../assets/friends.png"
 
 import "./HomePage.css";
 

@@ -8,8 +8,7 @@ export const Navbar = () => {
         <nav className="navbar navbar-expand-lg darkest-bg-color fixed-top">
           {/* TODO: Replace bavbar brand with logo */}
           <div className="col-3">
-          <img src={acebookLogo} alt="Acebook Logo" width="40" height="40"/>
-          <p>Some text</p>
+          <img src={acebookLogo} alt="Acebook Logo" width="50" height="50"/>
           </div>
 
           <button

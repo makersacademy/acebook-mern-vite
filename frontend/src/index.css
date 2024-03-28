@@ -1,4 +1,4 @@
-  :root {
+:root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   margin-top: 100px;
 }
@@ -34,7 +34,7 @@ h1 {
 }
 
 .lightest-bg-color {
-  background-color: #9F70B2;
+  background-color: #9f70b2;
 }
 
 /* -------------------------------------------- text colors --------------------------------------- */
@@ -47,8 +47,7 @@ h1 {
 }
 
 .image-circle {
-  height: auto;
+  height: 100%;
   width: 100%;
   border-radius: 50%;
 }
-
