@@ -37,7 +37,8 @@ new Comment({
     profilePicture: "https://example.com/profile.jpg",
     message: "Test comment",
     image: "https://example.com/image.jpg",
-    like: 0,
+    liked: false,
+    likeCounter: 0,
     createdAt: new Date()
 }).save();
 module.exports = Comment;
