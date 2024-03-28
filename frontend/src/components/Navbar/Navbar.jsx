@@ -1,4 +1,5 @@
 import { NavButton } from "./Buttons";
+import  acebookLogo from "../../assets/acebook-logo.svg"
 
 export const Navbar = () => {
   return (
@@ -7,9 +8,8 @@ export const Navbar = () => {
         <nav className="navbar navbar-expand-lg darkest-bg-color fixed-top">
           {/* TODO: Replace bavbar brand with logo */}
           <div className="col-3">
-            <a className="navbar-brand lightest-text-color" href="#">
-              Navbar
-            </a>
+          <img src={acebookLogo} alt="Acebook Logo" width="100" height="100"/>
+          <p>Some text</p>
           </div>
 
           <button
