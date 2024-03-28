@@ -20,6 +20,7 @@ describe("CreatePostPage", () => {
     beforeEach(() => {
       window.localStorage.removeItem("token");
     });
+
     test("It navigates to /createpost after clicking the button", async () => {
       window.localStorage.setItem("token", "testToken");
       const mockPosts = [{ _id: "12345", message: "Test Post 1" }];
@@ -30,6 +31,7 @@ describe("CreatePostPage", () => {
       fireEvent.click(button)
       expect(navigateMock).toHaveBeenCalledWith("/createpost");
     });
+    ``
     test("error pops up when message submitted is empty", async () => {
         window.localStorage.setItem("token", "testToken");
         // Render the CreatePostPage component
@@ -48,14 +50,12 @@ describe("CreatePostPage", () => {
         // Find and click the submit button
         const button = screen.getByRole("submit-button", { id: "submit" })
         fireEvent.click(button)
-        // Wait for any asynchronous tasks to complete
-        // await vi.flushPromises();
-        // Assert that window.alert has been called with the expected message
         expect(navigateMock).toHaveBeenCalledWith("/createpost");
         expect(alertMock.calls).toContain('message field required');
         // Restore the original window.alert
         window.alert = originalAlert;
     });
+
     test("error pops up when message submitted is too short", async () => {
         window.localStorage.setItem("token", "testToken");
         // Render the CreatePostPage component
@@ -67,14 +67,9 @@ describe("CreatePostPage", () => {
         const alertMock = (message) => {
             alertMock.calls.push(message);
         };
-
         const user = userEvent.setup();
         const messageInputEL = screen.getByLabelText("Create a Post:")
-   
-        
         await user.type(messageInputEL, "hello") 
-   
-            
         alertMock.calls = [];
         // Save the original window.alert and replace it with the mock
         const originalAlert = window.alert;
@@ -82,14 +77,12 @@ describe("CreatePostPage", () => {
         // Find and click the submit button
         const button = screen.getByRole("submit-button", { id: "submit" })
         fireEvent.click(button)
-        // Wait for any asynchronous tasks to complete
-        // await vi.flushPromises();
-        // Assert that window.alert has been called with the expected message
         expect(navigateMock).toHaveBeenCalledWith("/createpost");
         expect(alertMock.calls).toContain('message is too short');
         // Restore the original window.alert
         window.alert = originalAlert;
     });
+
     test("submits post and redirects back to /posts endpoint", async () => {
         window.localStorage.setItem("token", "testToken");
         // Render the CreatePostPage component
@@ -97,15 +90,9 @@ describe("CreatePostPage", () => {
         const navigateMock = useNavigate();
         // Mock the behavior of createPosts
         createPosts.mockResolvedValue({ message: "", token: "newToken" })
-        // Mock window.alert
-  
-
-        const user = userEvent.setup();
-        const messageInputEL = screen.getByLabelText("Create a Post:")
-        
-       
+          const user = userEvent.setup();
+        const messageInputEL = screen.getByLabelText("Create a Post:")    
         await user.type(messageInputEL, "A post that is long enough to pass") 
-            
         // Find and click the submit button
         const button = screen.getByRole("submit-button", { id: "submit" })
         fireEvent.click(button)
