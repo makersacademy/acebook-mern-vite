@@ -1,24 +1,29 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
-import { useNavigate } from "react-router-dom";
 import CreatePost from "../../src/components/Post/CreatePost"
+import { useNavigate } from "react-router-dom";
 import { createPosts } from "../../src/services/posts";
 import {handleCreatePost} from "../../src/pages/Feed/FeedPage"
 
 const testingInstructions = async () =>{
     const user = userEvent.setup()
     window.localStorage.setItem("token", "testToken");
-    
     const fillMessage = screen.getByTestId('post-message');
     const submitBut = screen.getByRole('submit-button');
-    
     await user.type(fillMessage, 'Test message AF');
-    
     await user.click(submitBut)
 }
 
 /// MOCKS
+
+// Mocking React Router's useNavigate function
+vi.mock("react-router-dom", () => {
+  const navigateMock = vi.fn();
+  const useNavigateMock = () => navigateMock; // Create a mock function for useNavigate
+  return { useNavigate: useNavigateMock };
+});
+
   // Mocking the createPosts service
 vi.mock("../../src/services/posts", () => {
   const createPostsMock = vi.fn();
