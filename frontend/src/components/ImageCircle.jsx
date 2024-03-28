@@ -10,34 +10,47 @@ export const ImageCircle = (props) => {
             aria-label="picture of people on a log eating watermelon"
           />
         </div>
-        <div className="col-7">
-          <form className="row g-3 p-5">
-            <div className="col-auto">
-              <label htmlFor="staticEmail2" className="visually-hidden">
+        <div className="col-2"></div>
+
+        <div className="col-5 d-flex align-items-center">
+          <form className=" p-5 rounded border border-3 border-primary">
+            <div className="row ">
+              <label htmlFor="email" className="form-label col-3 g-3 mb-3">
                 Email
               </label>
-              <input
-                type="text"
-                readOnly
-                className="form-control-plaintext"
-                id="staticEmail2"
-                value="email@example.com"
-              />
+              <div className="col-9">
+                <input
+                  type="email"
+                  className="form-control "
+                  id="email"
+                  placeholder="whoever@wherever.com"
+                ></input>
+              </div>
             </div>
-            <div className="col-auto">
-              <label htmlFor="inputPassword2" className="visually-hidden">
+            <div className="row">
+              <label htmlFor="email" className="form-label col-3 g-3 mb-3">
                 Password
               </label>
-              <input
-                type="password"
-                className="form-control"
-                id="inputPassword2"
-                placeholder="Password"
-              />
+              <div className="col-9">
+                <input
+                  type="email"
+                  className="form-control "
+                  id="email"
+                  placeholder="whoever@wherever.com"
+                ></input>
+              </div>
             </div>
-            <div className="col-auto">
-              <button type="submit" className="btn btn-primary mb-3">
-                Confirm identity
+            <div className="row justify-content-between">
+              <button type="submit" className="btn btn-primary custom-button mb-3 col-5 darkest-bg-color lightest-text-color">
+                Login
+              </button>
+              <button type="submit" className="btn btn-primary custom-button mb-3 col-5 darkest-bg-color lightest-text-color">
+                Forgot password
+              </button>
+            </div>
+            <div className="row">
+              <button type="submit" className="btn btn-primary custom-button mb-3 col-12 darkest-bg-color lightest-text-color">
+                Sign up
               </button>
             </div>
           </form>
