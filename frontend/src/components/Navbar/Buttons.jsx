@@ -1,10 +1,8 @@
 export const NavButton = (props) => {
   return (
-    <li className="nav-item">
-      <i className="display-icon">
-        {props.iconId}
-      </i>
-      <a className="nav-link lightest-text-color" href="#">
+    <li className="nav-item lightest-text-color">
+      <i className={`${props.iconId} fs-3 pt-2`}></i>
+      <a className="nav-link lightest-text-color pt-0" href="#">
         {props.linkName}
       </a>
     </li>
