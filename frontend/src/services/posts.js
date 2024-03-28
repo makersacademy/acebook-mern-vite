@@ -20,18 +20,19 @@ export const getPosts = async (token) => {
 };
 
 export const createPosts = async (token, message) => {
+  // payload contains the data we want to send from frontend to backend. In this case the users post
   const payload = {
     message: message,
   }
   const requestOptions = {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json", // lets backend know data is in JSON format
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(payload),
   }
-    const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
+    const response = await fetch(`${BACKEND_URL}/posts`, requestOptions); // Users post request sent to /api/routes/posts.js and triggers router.post function
    
     if (response.status === 201) {
       let data = await response.json();

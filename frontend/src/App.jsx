@@ -25,6 +25,7 @@ const router = createBrowserRouter([
     path: "/posts",
     element: <FeedPage />,
   },
+  // created new path to host the create post page
   {path: "/createpost",
   element: <CreatePostPage />
   },

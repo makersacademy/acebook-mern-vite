@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
 
@@ -20,6 +19,7 @@ export const FeedPage = () => {
           console.error(err);
           navigate("/login");
         });
+        // extra logic so that if the user does not have a token they will be redirected to the login endpoint
         if (!token) {
           navigate("/login");
           return;
@@ -27,14 +27,11 @@ export const FeedPage = () => {
     }
   }, [navigate]);
 
-    
+    // logic for the create post button. When it is clicked the user is redirected to the createpost endpoint. Create Post button likely to be moved/modified in future PR's
   const handleCreatePost = (event) => {
-      
     event.preventDefault();
       navigate("/createpost")
-
     }
-  
   return (
     <>
       <h2>Posts</h2>
