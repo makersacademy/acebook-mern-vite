@@ -42,7 +42,7 @@ describe("Login Page", () => {
     render(<LoginPage />);
 
     await completeLoginForm();
-
+    console.log(` This is the login mocked function ${login}`)
     expect(login).toHaveBeenCalledWith("test@email.com", "1234");
   });
 

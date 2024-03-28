@@ -11,11 +11,7 @@ vi.mock("../../src/services/posts", () => {
   return { getPosts: getPostsMock };
 });
 
-// // Mocking the createPosts service
-// vi.mock("../../src/services/posts", () => {
-//   const createPostsMock = vi.fn();
-//   return { createPosts: createPostsMock };
-// });
+
 
 // Mocking React Router's useNavigate function
 vi.mock("react-router-dom", () => {
