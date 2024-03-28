@@ -15,7 +15,8 @@ const CommentSchema = new mongoose.Schema({
     profilePicture : {type: String},
     message:{ type: String, required: true },
     image: { type: String, required: false }, 
-    like: { type: Number, required: false },
+    liked: { type: Boolean, default: false },
+    likeCounter: { type: Number, default: 0 },
     createdAt: {
                 type: Date,
                 default: Date.now
