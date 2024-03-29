@@ -1,15 +1,17 @@
 import { NavButton } from "./Buttons";
-import  acebookLogo from "../../assets/acebook-logo.svg"
+import { AcebookLogo } from "../AcebookLogo"
 
 export const Navbar = () => {
   return (
     <div className="container-fluid">
       <div className="row">
         <nav className="navbar navbar-expand-lg darkest-bg-color fixed-top">
-          {/* TODO: Replace bavbar brand with logo */}
           <div className="col-3">
-          <img src={acebookLogo} alt="Acebook Logo" width="50" height="50"/>
+            <i className="lightest-text-color">
+              <AcebookLogo height="50px" width="50px" fillCircle="#c3f2da"/>
+            </i>
           </div>
+
 
           <button
             className="navbar-toggler"
@@ -26,7 +28,7 @@ export const Navbar = () => {
             className="collapse navbar-collapse col-lg-6 d-lg-none"
             id="navbarSupportedContent"
           >
-            <ul className="navbar-nav w-100 justify-content-around fs-5"> {/* Adjusted */}
+            <ul className="navbar-nav w-100 justify-content-around"> 
               <NavButton linkName="Home" iconId="fa-solid fa-house" />
               <NavButton linkName="Profile" iconId="fa-solid fa-user" />
               <NavButton linkName="Connections" iconId="fa-solid fa-user-group" />
@@ -35,7 +37,7 @@ export const Navbar = () => {
           </div>
 
           <div className="col-3 pe-xsm-0 pe-lg-5">
-            <ul className="navbar-nav justify-content-end fs-5">
+            <ul className="navbar-nav justify-content-end">
               <NavButton linkName="Log Out" iconId="fa-solid fa-right-from-bracket" />
             </ul>
           </div>

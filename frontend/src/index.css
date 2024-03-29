@@ -17,6 +17,8 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background: #f3dff0;
+
 }
 
 h1 {
@@ -39,13 +41,15 @@ h1 {
 
 /* -------------------------------------------- text colors --------------------------------------- */
 .lightest-text-color {
-  color: rgb(195, 242, 218);
+  color: #c3f2da;
 }
 
 .light-text-color {
   color: #bce784;
 }
 
+
+/* ------------------------------------- image/icon formatting ------------------------------------- */
 .image-circle {
   height: 100%;
   width: 100%;
