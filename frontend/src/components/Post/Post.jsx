@@ -1,6 +1,6 @@
 import React from "react";
-import Like from "./Like";
-import Comment from "./comment";
+// import Like from "./Like";
+// import Comment from "./comment";
 
 const Post = (props) => {
   return (
@@ -8,12 +8,12 @@ const Post = (props) => {
       <p className="post-message">{props.post.message}</p>
       <p className="post-date">{props.post.date}</p>
       <img className="post-image" src={props.post.image} alt={props.post._id} />
-      <p>
+      {/* <p>
         <Like />
       </p>
       <p>
         <Comment />
-      </p>
+      </p> */}
     </article>
   );
 };
