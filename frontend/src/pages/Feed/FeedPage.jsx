@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
 import CreatePost from "../../components/Post/CreatePost"
+import Navbar from "../../components/Post/Navbar";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -32,6 +33,7 @@ export const FeedPage = () => {
 
   return (
     <>
+      <Navbar />
       <h1>Create a new Post</h1>
       <div className="createpost"role="feed">
         <CreatePost />
