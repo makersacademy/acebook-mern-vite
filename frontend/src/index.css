@@ -66,3 +66,13 @@ h1 {
 .custom-button {
   border-color: rgb(195, 242, 218);
 }
+
+
+/* -------------------------------------------- footer --------------------------------------- */
+
+.footer-custom {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #643579;
+}
