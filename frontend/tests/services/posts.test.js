@@ -1,7 +1,7 @@
 import createFetchMock from "vitest-fetch-mock";
 import { describe, expect, vi } from "vitest";
 
-import { getPosts } from "../../src/services/posts";
+import { getPosts, createNewPost } from "../../src/services/posts";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -38,6 +38,45 @@ describe("posts service", () => {
       } catch (err) {
         expect(err.message).toEqual("Unable to fetch posts");
       }
+    });
+
+    describe("createNewPost", () => {
+      test("includes a token with its request", async () => {
+        const postData = new FormData();
+        postData.append("key", "value");
+
+        fetch.mockResponseOnce(
+          JSON.stringify({ posts: [], token: "newToken" }),
+          {
+            status: 201,
+          }
+        );
+
+        await createNewPost("testToken", postData);
+
+        const fetchArguments = fetch.mock.lastCall;
+        const url = fetchArguments[0];
+        const options = fetchArguments[1];
+
+        expect(url).toEqual(`${BACKEND_URL}/posts`);
+        expect(options.method).toEqual("POST");
+        expect(options.headers["Authorization"]).toEqual("Bearer testToken");
+      });
+
+      test("rejects with an error if the status is not 201", async () => {
+        const postData = new FormData();
+        postData.append("key", "value");
+        fetch.mockResponseOnce(
+          JSON.stringify({ message: "Something went wrong" }),
+          { status: 400 }
+        );
+
+        try {
+          await createNewPost("testToken", postData);
+        } catch (err) {
+          expect(err.message).toEqual("Unable to create post");
+        }
+      });
     });
   });
 });
