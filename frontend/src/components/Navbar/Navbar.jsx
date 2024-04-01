@@ -8,7 +8,7 @@ export const Navbar = () => {
         <nav className="navbar navbar-expand-lg darkest-bg-color fixed-top">
           <div className="col-3">
             <i className="lightest-text-color">
-              <AcebookLogo height="50px" width="50px" fillCircle="#c3f2da"/>
+              <AcebookLogo height="55px" width="55px" fillCircle="#c3f2da"/>
             </i>
           </div>
 
