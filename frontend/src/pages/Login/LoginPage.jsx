@@ -49,7 +49,7 @@ export const LoginPage = () => {
           <form className="p-5 rounded border border-3 custom-border" onSubmit={handleSubmit}>
           <div className="row">
           <h2 className="darkest-text-color text-start">Welcome to Acebook!</h2>
-          <div className="lead darkest-text-color text-start pb-2">Enter details below to sign up or click sign up to create new account</div>
+          <div className="lead darkest-text-color text-start pb-2">Enter details below to log in</div>
           </div>
             <div className="row ">
               <label htmlFor="email" className="form-label col-3 g-3 mb-3">
@@ -91,9 +91,9 @@ export const LoginPage = () => {
               </button>
             </div>
             <div className="row justify-content-center">
-              <button type="submit" className="btn custom-button mb-3 col-11 darkest-bg-color">
-              <Link to="/signup" className="lightest-text-color">Sign Up</Link>
-              </button>
+              <hr />
+            <p className="darkest-text-color">New to Acebook? Click below to create an account!</p>
+              <Link to="/signup" className="btn custom-button mb-3 col-11 darkest-bg-color lightest-text-color">Sign Up</Link>
             </div>
           </form>
         </div>
