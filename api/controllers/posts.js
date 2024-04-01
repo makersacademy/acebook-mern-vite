@@ -1,4 +1,5 @@
 const Post = require("../models/post");
+const User = require("../models/user");
 const { generateToken } = require("../lib/token");
 
 const getAllPosts = async (req, res) => {
@@ -6,7 +7,6 @@ const getAllPosts = async (req, res) => {
   const token = generateToken(req.user_id);
   res.status(200).json({ posts: posts, token: token });
 };
-
 
 const createPost = async (req, res) => {
   try {
@@ -27,6 +27,7 @@ const createPost = async (req, res) => {
     // Save the post
     await post.save();
 
+    
 
     // Send the response
     const newToken = generateToken(req.user_id);
@@ -36,7 +37,6 @@ const createPost = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
