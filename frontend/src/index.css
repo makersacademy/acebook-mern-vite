@@ -17,8 +17,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: #f3dff0;
-
+  background: #edf1ee;
 }
 
 h1 {
@@ -48,10 +47,32 @@ h1 {
   color: #bce784;
 }
 
+.darkest-text-color {
+  color: #643579;
+}
 
-/* ------------------------------------- image/icon formatting ------------------------------------- */
 .image-circle {
   height: 100%;
   width: 100%;
   border-radius: 50%;
+}
+
+.custom-button:hover {
+  background-color:  #9f70b2;
+  color: #5DD39E;
+  border-color: #643579;
+}
+
+.custom-button {
+  border-color: rgb(195, 242, 218);
+}
+
+
+/* -------------------------------------------- footer --------------------------------------- */
+
+.footer-custom {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #643579;
 }
