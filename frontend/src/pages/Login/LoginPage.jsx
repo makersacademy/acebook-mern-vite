@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { login } from "../../services/authentication";
+
+import homepagePhoto from "../../assets/friends.png"
+import { Footer } from "../../components/Footer";
+
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -29,25 +33,71 @@ export const LoginPage = () => {
   };
 
   return (
-    <>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="text"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <input role="submit-button" id="submit" type="submit" value="Submit" />
-      </form>
-    </>
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-5">
+          <img
+            className="image-circle pt-5"
+            src={homepagePhoto}
+            alt="people on a log eating watermelon"
+            aria-label="picture of people on a log eating watermelon"
+          />
+        </div>
+        <div className="col-1"></div>
+
+        <div className="col-6 d-flex align-items-center">
+          <form className="p-5 rounded border border-3 custom-border" onSubmit={handleSubmit}>
+          <div className="row">
+          <h2 className="darkest-text-color text-start">Welcome to Acebook!</h2>
+          <div className="lead darkest-text-color text-start pb-2">Enter details below to sign up or click sign up to create new account</div>
+          </div>
+            <div className="row ">
+              <label htmlFor="email" className="form-label col-3 g-3 mb-3">
+                Email
+              </label>
+              <div className="col-9">
+                <input
+                  type="email"
+                  className="form-control "
+                  id="email"
+                  placeholder="whoever@wherever.com"
+                  onChange={handleEmailChange}
+                  value={email}
+                ></input>
+              </div>
+            </div>
+            <div className="row">
+              <label htmlFor="email" className="form-label col-3 g-3 mb-3">
+                Password
+              </label>
+              <div className="col-9">
+                <input
+                  type="password"
+                  className="form-control "
+                  id="password"
+                  placeholder="yourpassword"
+                  value={password}
+                  onChange={handlePasswordChange}
+                ></input>
+              </div>
+            </div>
+            <div className="row justify-content-center">
+              <button type="submit" className="btn custom-button mb-3 col-5 darkest-bg-color">
+                Login
+              </button>
+              <div className="col-1"></div>
+              <button type="submit" className="btn custom-button mb-3 col-5 darkest-bg-color">
+                Forgot password
+              </button>
+            </div>
+            <div className="row justify-content-center">
+              <button type="submit" className="btn custom-button mb-3 col-11 darkest-bg-color">
+              <Link to="/signup" className="lightest-text-color">Sign Up</Link>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 };

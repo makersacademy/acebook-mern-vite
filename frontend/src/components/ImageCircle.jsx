@@ -1,4 +1,35 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import { login } from "../services/authentication";
+
+
 export const ImageCircle = (props) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const token = await login(email, password);
+      localStorage.setItem("token", token);
+      navigate("/posts");
+    } catch (err) {
+      console.error(err);
+      navigate("/login");
+    }
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -13,7 +44,7 @@ export const ImageCircle = (props) => {
         <div className="col-2"></div>
 
         <div className="col-5 d-flex align-items-center">
-          <form className=" p-5 rounded border border-3 border-primary">
+          <form className=" p-5 rounded border border-3 border-primary" onSubmit={handleSubmit}>
             <div className="row ">
               <label htmlFor="email" className="form-label col-3 g-3 mb-3">
                 Email
@@ -24,6 +55,8 @@ export const ImageCircle = (props) => {
                   className="form-control "
                   id="email"
                   placeholder="whoever@wherever.com"
+                  onChange={handleEmailChange}
+                  value={email}
                 ></input>
               </div>
             </div>
@@ -33,10 +66,12 @@ export const ImageCircle = (props) => {
               </label>
               <div className="col-9">
                 <input
-                  type="email"
+                  type="password"
                   className="form-control "
-                  id="email"
-                  placeholder="whoever@wherever.com"
+                  id="password"
+                  placeholder="yourpassword"
+                  value={password}
+                  onChange={handlePasswordChange}
                 ></input>
               </div>
             </div>
@@ -49,8 +84,8 @@ export const ImageCircle = (props) => {
               </button>
             </div>
             <div className="row">
-              <button type="submit" className="btn btn-primary custom-button mb-3 col-12 darkest-bg-color lightest-text-color">
-                Sign up
+              <button type="submit" className="btn btn-primary custom-button mb-3 col-12 darkest-bg-color">
+              <Link to="/signup" style={{ color: "#c3f2da" }}>Sign Up</Link>
               </button>
             </div>
           </form>

@@ -7,6 +7,7 @@
   import { FeedPage } from "./pages/Feed/FeedPage";
   import { Navbar } from "./components/Navbar/Navbar";
   import { ConnectionsPage } from "./pages/Connections/ConnectionsPage";
+import { Footer } from "./components/Footer";
   
 
   // docs: https://reactrouter.com/en/main/start/overview
@@ -38,6 +39,7 @@
       <>
         <Navbar />
         <RouterProvider router={router} />
+        <Footer />
         <></>
       </>
     );

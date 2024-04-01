@@ -3,6 +3,29 @@
   margin-top: 100px;
 }
 
+
+/* ------------------------------------------- bg colors ------------------------------------------ */
+.darkest-bg-color {
+  background-color: #643579;
+}
+
+.lightest-bg-color {
+  background-color: #9f70b2;
+}
+
+/* -------------------------------------------- text colors --------------------------------------- */
+.lightest-text-color {
+  color: #c3f2da;
+}
+
+.light-text-color {
+  color: #bce784;
+}
+
+.darkest-text-color {
+  color: #643579;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -29,42 +52,25 @@ h1 {
   padding-right: 150px !important;
 }
 
-/* ------------------------------------------- bg colors ------------------------------------------ */
-.darkest-bg-color {
-  background-color: #643579;
-}
-
-.lightest-bg-color {
-  background-color: #9f70b2;
-}
-
-/* -------------------------------------------- text colors --------------------------------------- */
-.lightest-text-color {
-  color: #c3f2da;
-}
-
-.light-text-color {
-  color: #bce784;
-}
-
-.darkest-text-color {
-  color: #643579;
-}
-
 .image-circle {
   height: 100%;
   width: 100%;
   border-radius: 50%;
 }
 
+.custom-button {
+  border-color: #c3f2da;
+  color: #c3f2da 
+}
+
 .custom-button:hover {
-  background-color:  #9f70b2;
+  background-color: #a070b2;
   color: #5DD39E;
   border-color: #643579;
 }
 
-.custom-button {
-  border-color: rgb(195, 242, 218);
+.custom-border {
+  --bs-border-color: #D5CFE3;
 }
 
 

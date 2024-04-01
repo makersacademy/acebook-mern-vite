@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { signup } from "../../services/authentication";
+
+import homepagePhoto from "../../assets/friends.png"
+
 
 export const SignupPage = () => {
   const [email, setEmail] = useState("");
@@ -30,6 +33,7 @@ export const SignupPage = () => {
 
   return (
     <>
+      
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
