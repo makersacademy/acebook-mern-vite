@@ -1,14 +1,15 @@
 
 import { Footer } from "../../components/Footer";
+import profileImage from "../../assets/easterProfilePic.png"; // this is the image for the profile picture
 import { ProfileCircle } from "../../components/ProfileCircle";
-import { profileImage } from "../../assets/profilePicture.jpg";
+import { Connection } from "../../components/Connection";
 import "./ConnectionsPage.css";
 
 export const ConnectionsPage = () => {
   return (
     <div className="connections">
-      <h2 className="darkest-text-color">See your connections below...</h2>
       <ProfileCircle profileImage= {profileImage}/>
+      <Connection/>
       <Footer/>
     </div>
   );

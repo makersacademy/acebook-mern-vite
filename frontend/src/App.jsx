@@ -6,7 +6,7 @@
   import { SignupPage } from "./pages/Signup/SignupPage";
   import { FeedPage } from "./pages/Feed/FeedPage";
   import { Navbar } from "./components/Navbar/Navbar";
-  // import { ConnectionsPage } from "./pages/Connections/ConnectionsPage";
+  import { ConnectionsPage } from "./pages/Connections/ConnectionsPage";
   
 
   // docs: https://reactrouter.com/en/main/start/overview
@@ -27,10 +27,10 @@
       path: "/posts",
       element: <FeedPage />,
     },
-    // {
-    //   path: "/connections",
-    //   element: <ConnectionsPage />,
-    // },
+    {
+      path: "/connections",
+      element: <ConnectionsPage />,
+    },
   ]);
 
   const App = () => {
