@@ -187,4 +187,28 @@ describe("/posts", () => {
       expect(response.body.token).toEqual(undefined);
     });
   });
+  
+  describe("Post - creating new post linked with User", ( )=> {
+    test("When creating Post - pulls FullName from user.fullName", async () => {
+      const user1 = new User({email: "fake@email.com",
+      password: "Abc123",
+      fullName: "Test Name",
+      profilePicture: "awdawd"
+    });
+      await user1.save();
+      console.log(user1)
+      const post1 = new Post({message: "go away",
+      user: user1._id});
+      await post1.save();
+      const response = await request(app).get("/posts").set("Authorization", `Bearer ${token}`).send()
+      console.log("Response body:", response.body);
+
+        // Ensure that the response body contains an array of posts
+      console.log(response.body.posts[0].user.fullName)
+  
+  // Ensure that the first post in the array has the expected fullName
+      expect(response.body.posts[0].user.fullName).toEqual(user1.fullName);
+    })
+})
 });
+
