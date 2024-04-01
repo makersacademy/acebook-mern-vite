@@ -26,14 +26,6 @@ const createPost = async (req, res) => {
     // Save the post
     await post.save();
 
-    // Fetch the saved post with populated user data including full name
-    const savedPost = await Post.findById(post._id).populate({
-      path: 'user',
-      select: 'fullName' // Specify the fields to include from the populated user
-    });
-
-    // Assign the user's full name to the fullName field of the post
-    savedPost.fullName = savedPost.user.fullName;
 
     // Send the response
     const newToken = generateToken(req.user_id);
