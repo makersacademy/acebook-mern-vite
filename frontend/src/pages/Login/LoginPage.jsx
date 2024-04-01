@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "./LoginPage.css"
 import { login } from "../../services/authentication";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -15,17 +17,32 @@ export const LoginPage = () => {
       localStorage.setItem("token", token);
       navigate("/posts");
     } catch (err) {
+      if (err.message === "Email not registered, please sign up.") {
+        setErrorMessage(<p>
+          Email not registered, please{" "}
+          <a href="/signup" style={{ color: "blue" }}>
+            sign up
+          </a>
+          .
+        </p>);
+      } else {
       console.error(err);
       navigate("/login");
-    }
+      console.log(err);
+    }}
   };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+    setErrorMessage("");
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+  };
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword); // Toggle the state
   };
 
   return (
@@ -34,20 +51,30 @@ export const LoginPage = () => {
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
         <input
+          className="forms"
           id="email"
           type="text"
+          placeholder="Email"
+          // required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
           value={email}
           onChange={handleEmailChange}
-        />
+          />
+
         <label htmlFor="password">Password:</label>
         <input
+          className="forms"
           id="password"
-          type="password"
+          type={showPassword ? "text" : "password"} // Conditionally set input type
+          placeholder="Password"
           value={password}
           onChange={handlePasswordChange}
         />
-        <input role="submit-button" id="submit" type="submit" value="Submit" />
-      </form>
+          <button type="button" onClick={handleTogglePassword}>
+          {showPassword ? "Hide Password" : "Show Password"}
+        </button>
+        <input role="submit-button" id="submit" type="submit" value="Log in" />
+        {errorMessage && <p>{errorMessage}</p>}
+        </form>
     </>
   );
 };
