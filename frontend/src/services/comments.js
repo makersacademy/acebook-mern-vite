@@ -1,7 +1,7 @@
 // docs: https://vitejs.dev/guide/env-and-mode.html
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export const getPosts = async (token) => {
+export const getComments = async (postId, token) => {
   const requestOptions = {
     method: "GET",
     headers: {
@@ -9,30 +9,33 @@ export const getPosts = async (token) => {
     },
   };
 
-  const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
+  const response = await fetch(
+    `${BACKEND_URL}/comments?postId=${postId}`,
+    requestOptions
+  );
 
   if (response.status !== 200) {
-    throw new Error("Unable to fetch posts");
+    throw new Error("Unable to fetch comments");
   }
 
   const data = await response.json();
   return data;
 };
 
-export const createNewPost = async (token, postData) => {
+export const createNewComment = async (token, commentData) => {
   const requestOptions = {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(postData),
+    body: JSON.stringify(commentData),
   };
 
-  const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
+  const response = await fetch(`${BACKEND_URL}/comments`, requestOptions);
 
   if (response.status !== 201) {
-    throw new Error("Unable to create post");
+    throw new Error("Unable to create comment");
   }
 
   const data = await response.json();
