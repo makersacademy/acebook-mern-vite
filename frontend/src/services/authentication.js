@@ -32,10 +32,12 @@ export const login = async (email, password) => {
   }
 };
 
-export const signup = async (email, password) => {
+export const signup = async (email, password, fullName, profilePicture) => {
   const payload = {
     email: email,
     password: password,
+    fullName: fullName,
+    profilePicture: profilePicture,
   };
 
   const requestOptions = {
@@ -54,6 +56,26 @@ export const signup = async (email, password) => {
   } else {
     throw new Error(
       `Received status ${response.status} when signing up. Expected 201`
+    );
+  }
+};
+
+export const getUserProfile = async (token) => {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await fetch(`${BACKEND_URL}/users`, requestOptions);
+
+  if (response.status === 200) {
+    const data = await response.json();
+    return data;
+  } else {
+    throw new Error(
+      `Received status ${response.status} when getting user profile. Expected 200`
     );
   }
 };

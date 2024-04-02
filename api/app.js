@@ -10,7 +10,8 @@ const Comment = require('./models/comment')
 
 const commentsRouter = require("./routes/comments");
 
-const Comment = require("./models/comment")
+// const Comment = require("./models/comment")
+const User = require('./models/user')
 
 const app = express();
 
