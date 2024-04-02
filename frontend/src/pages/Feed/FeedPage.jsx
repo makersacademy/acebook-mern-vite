@@ -35,12 +35,18 @@ export const FeedPage = () => {
       navigate("/createpost")
     }
 
+    const handleEditProfile = (event) => {
+      event.preventDefault();
+        navigate("/updateuser")
+      }
+
   return (
     // Logout component temporarily implemented here, should be moved to navbar once created
     <>
       <Logout /> 
       <h2>Posts</h2>
       <button onClick={handleCreatePost}>Create Post</button>
+      <button onClick={handleEditProfile}>Edit Profile</button>
       <div className="feed" role="feed">
         {posts.map((post) => (
           <Post post={post} key={post._id} />

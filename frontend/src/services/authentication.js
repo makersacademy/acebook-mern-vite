@@ -43,7 +43,6 @@ export const signup = async (email, password) => {
   };
 
   let response = await fetch(`${BACKEND_URL}/users`, requestOptions);
-
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
   if (response.status === 201) {
     return;
@@ -51,5 +50,38 @@ export const signup = async (email, password) => {
     throw new Error(
       `Received status ${response.status} when signing up. Expected 201`
     );
+  }
+};
+
+//service for profile page
+export const updateUser = async (token, forename, surname, username, dob, description, location) => {
+  const payload = {
+    forename: forename,
+    surname: surname,
+    username: username,
+    dob: dob,
+    description: description,
+    location: location,
+  };
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(payload),
+  };
+
+  const response = await fetch(`${BACKEND_URL}/update-user`, requestOptions);
+  // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
+  if (response.status === 201) {
+    let data = await response.json();
+   return data.token;
+  console.log('yay')
+  } else {
+    throw new Error(
+      `Received status ${response.status} when editing up. Expected 201, the token --> ${token}`
+      
+.user_id    );
   }
 };
