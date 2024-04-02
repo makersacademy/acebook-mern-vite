@@ -22,6 +22,10 @@ const Comment = ({ postId }) => {
       {commentData.map((comment) => (
         <div className="comment" key={comment._id}>
           <p className="comment-fullName">{comment.user.fullName}</p>
+          <img
+            className="comment-profilePicture"
+            src={comment.user.profilePicture}
+          />
           <p className="comment-text">{comment.comment_text}</p>
           <p className="like-count">{comment.likeCounter}</p>
         </div>
