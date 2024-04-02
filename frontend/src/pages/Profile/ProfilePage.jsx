@@ -20,6 +20,7 @@ export const CreateProfilePage = () => {
       localStorage.setItem("token", token); // handing the user a new token
       console.log("updated");
       navigate('/posts')
+   
     } catch (err) {
       console.error(err);
     }

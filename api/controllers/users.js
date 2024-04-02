@@ -17,7 +17,7 @@ const create = (req, res) => {
     });
 };
 
-const update = (req, res) => {
+const update = async (req, res) => {
   const forename = req.body.forename;
   const surname = req.body.surname;
   const username = req.body.username;
@@ -28,7 +28,7 @@ const update = (req, res) => {
   console.log("this is the id", req.user_id)
 
 // const user = new User({ email, password });
-  User.findOneAndUpdate({ _id: req.user_id }, { forename: forename, surname: surname, username: username, dob: dob, descripton: description, location: location })
+  User.findOneAndUpdate({ _id: req.user_id }, { forename: forename, surname: surname, username: username, dob: dob, descripton: description, location: location }).save()
   // user
   //   .save()
     .then((user) => {

@@ -72,7 +72,7 @@ export const updateUser = async (token, forename, surname, username, dob, descri
     body: JSON.stringify(payload),
   };
 
-  const response = await fetch(`${BACKEND_URL}/update-user`, requestOptions);
+  const response = await fetch(`${BACKEND_URL}/updateuser`, requestOptions);
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
   if (response.status === 201) {
     let data = await response.json();
