@@ -24,8 +24,9 @@ export const login = async (email, password) => {
     let data = await response.json();
     return data.token;
   } else {
+    const errorMessage = await response.json()
     throw new Error(
-      `Received status ${response.status} when logging in. Expected 201`
+      `${errorMessage.message}`
     );
   }
 };
@@ -57,8 +58,9 @@ export const signup = async (firstName, lastName, bio, email, password) => {
   if (response.status === 201) {
     return;
   } else {
+    const errorMessage = await response.json()
     throw new Error(
-      `Received status ${response.status} when signing up. Expected 201`
+      `${errorMessage.message}`
     );
   }
 };

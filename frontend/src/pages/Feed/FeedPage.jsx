@@ -54,6 +54,7 @@ export const FeedPage = () => {
           <Post post={post} key={post._id} />
         ))}
       </div>
+      
     </>
   );
 };

@@ -54,7 +54,7 @@ const createPosts = async (token, messageField) => {
   let response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
 
   if (response.status !== 201) {
-    throw new Error("Unable to create post");
+    throw new Error("You're not a politician, please stop with the empty words.");
   }
 
   const data = await response.json();

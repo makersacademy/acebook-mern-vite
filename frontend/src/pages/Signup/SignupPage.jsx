@@ -8,21 +8,25 @@ export const SignupPage = () => {
   const [bio, setBio] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [error, setError] = useState([])
 
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     
     event.preventDefault();
     try {
 
-       
+      setError([]);
+
       await signup(firstName, lastName, bio, email, password);
 
       console.log("redirecting...:");
       navigate("/login");
     } catch (err) {
       console.error(err);
+      setError([err.message])
+      
       navigate("/signup");
     }
   };
@@ -92,7 +96,12 @@ export const SignupPage = () => {
           onChange={handleBioChange}
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
+        
       </form>
+      <div>
+         <p>{error}</p>
+        </div>
+      {/* {error.length > 0 && <ErrorMessage errMsg={error} />} */}
     </>
   );
 };

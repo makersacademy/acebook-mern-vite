@@ -14,14 +14,17 @@ const createToken = async (req, res) => {
       console.log("Auth Error: User not found");
       return res.status(401).json({ message: "User not found" });
     }
-
     
+
+ 
+
     const secret = "Awe5some$!";
     const isPasswordValid = await bcrypt.compare(password + secret, user.password );
     if (!isPasswordValid) {
       console.log("Auth Error: Passwords do not match");
       return res.status(401).json({ message: "Password incorrect" });
     }
+
 
     
     const token = generateToken(user.id);

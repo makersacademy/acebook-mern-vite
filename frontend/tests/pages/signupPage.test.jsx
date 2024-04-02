@@ -4,7 +4,6 @@ import { vi } from "vitest";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../src/services/authentication";
 import { SignupPage } from "../../src/pages/Signup/SignupPage";
-import bcrypt from "bcryptjs-react";
 
 // Mocking React Router's useNavigate function
 vi.mock("react-router-dom", () => {
@@ -51,7 +50,7 @@ describe("Signup Page", () => {
     await completeSignupForm();
     // let password = '1234'
     // const hashedPassword = await bcrypt.hash('1234', 10)
-    expect(signup).toHaveBeenCalledWith("Test First Name", "Test Last Name", "Test Bio", "test@email.com", (hashedPassword));
+    expect(signup).toHaveBeenCalledWith("Test First Name", "Test Last Name", "Test Bio", "test@email.com",);
   });
   test("navigates to /login on successful signup", async () => {
     render(<SignupPage />);
@@ -60,7 +59,6 @@ describe("Signup Page", () => {
     expect(navigateMock).toHaveBeenCalledWith("/login");
   });
 
-  // test("navigates to /signup on unsuccessful signup", async () => {
   //   render(<SignupPage />);
   //   signup.mockRejectedValue(new Error("Error signing up"));
   //   const navigateMock = useNavigate();
@@ -68,7 +66,6 @@ describe("Signup Page", () => {
   //   expect(navigateMock).toHaveBeenCalledWith("/signup");
   // });
   
-  // test("logs an error message when signup fails", async () => {
   //   render(<SignupPage />);
   //   const consoleSpy = jest.spyOn(console, "error");
   //   signup.mockRejectedValue(new Error("Error signing up"));

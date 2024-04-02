@@ -7,6 +7,8 @@ export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [error, setError] = useState([])
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,8 +18,9 @@ export const LoginPage = () => {
       navigate("/posts");
     
     } catch (err) {
-      console.error(err);
-      navigate("/login");
+        console.error(err);
+        setError([err.message])
+        navigate("/login");
     }
   };
 
@@ -49,6 +52,9 @@ export const LoginPage = () => {
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
+      <div>
+                <p>{error}</p>
+        </div>
     </>
   );
 };
