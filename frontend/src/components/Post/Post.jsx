@@ -1,4 +1,4 @@
-const Post = (props) => {
+export const Post = (props) => {
   return (
   <div className="container">
     <div className="row">
@@ -20,10 +20,8 @@ const Post = (props) => {
       <article key={props.post._id}>{props.post.likes}</article>
       </div>
     </div>
+    <hr />
   </div>
   );
 };
 
-
-
-export default Post;
