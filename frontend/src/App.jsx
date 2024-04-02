@@ -5,6 +5,7 @@ import { HomePage } from "./pages/Home/HomePage";
 import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
+import { CreatePostPage } from "./pages/Post/CreatePostPage";
 
 // docs: https://reactrouter.com/en/main/start/overview
 const router = createBrowserRouter([
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/posts",
     element: <FeedPage />,
+  },
+  // created new path to host the create post page
+  {path: "/createpost",
+  element: <CreatePostPage />
   },
 ]);
 
