@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 // import { getUserProfile } from "../../services/authentication";
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
-import CreatePost from "../../components/Post/CreatePost"
+import CreatePost from "../../components/Post/CreatePost";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -49,7 +49,7 @@ export const FeedPage = () => {
       {/* <h1>Hello {fullName}</h1>
       {profilePicture && <img src={profilePicture} alt="Profile" />} */}
       <h1>Create a new Post</h1>
-      <div className="createpost"role="feed">
+      <div className="createpost" role="feed">
         <CreatePost />
       </div>
       <h2>Posts</h2>
