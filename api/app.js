@@ -8,6 +8,10 @@ const authenticationRouter = require("./routes/authentication");
 const tokenChecker = require("./middleware/tokenChecker");
 const Comment = require('./models/comment')
 
+const commentsRouter = require("./routes/comments");
+
+const Comment = require("./models/comment")
+
 const app = express();
 
 // Allow requests from any client
@@ -21,6 +25,7 @@ app.use(bodyParser.json());
 // API Routes
 app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);
+app.use("/comments", tokenChecker, commentsRouter);
 app.use("/tokens", authenticationRouter);
 
 // 404 Handler
