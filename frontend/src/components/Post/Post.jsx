@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import "../../css/post.css"
 
 const Post = (props) => {
 
@@ -28,7 +29,7 @@ const Post = (props) => {
       }
     }
 
-  return <article key={props.post._id}>
+  return <article className= "post" key={props.post._id}>
     <p data-testid = "message"> {props.post.message}</p>
     
     <p data-testid = "time-ago">{howLongAgo()}</p>

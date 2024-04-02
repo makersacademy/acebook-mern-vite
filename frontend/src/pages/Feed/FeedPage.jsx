@@ -13,7 +13,9 @@ export const FeedPage = () => {
   const getNewPostTrigger = (token) => {
     getPosts(token)
         .then((data) => {
-          setPosts(data.posts);
+          const allPosts = data.posts
+          allPosts.sort((a, b) => new Date(b.post_date) - new Date(a.post_date));
+          setPosts(allPosts);
           localStorage.setItem("token", data.token);
         })
   } 
