@@ -19,6 +19,24 @@ const getPosts = async (token) => {
   return data;
 };
 
+const getProfilePosts = async (token) => {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await fetch(`${BACKEND_URL}/posts/profile`, requestOptions);
+
+  if (response.status !== 200) {
+    throw new Error("Unable to fetch posts");
+  }
+
+  const data = await response.json();
+  return data;
+};
+
 const createPosts = async (token, messageField) => {
   const payload = {
     message: messageField,
@@ -44,4 +62,4 @@ const createPosts = async (token, messageField) => {
 }
 
 
-export { getPosts, createPosts };
+export { getPosts, createPosts, getProfilePosts };

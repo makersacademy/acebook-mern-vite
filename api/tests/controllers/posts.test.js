@@ -164,6 +164,38 @@ describe("/posts", () => {
       expect(secondPost.message).toEqual("hola!");
     });
 
+    test("returns post belonging to specific user", async () => {
+      // create new user for second post
+      const user2 = new User({
+        firstName : "test-name2",
+        lastName : "test-lastname2",
+        bio : "test-bio2",
+        email: "post-test@test.com",
+        password: "12345678",
+      });
+      await user2.save();
+      user_id_2 = user2.id
+
+      // create posts
+      const post1 = new Post({ message: "howdy!", owner_id: user_id });
+      const post2 = new Post({ message: "hola!", owner_id: user_id_2 });
+      const post3 = new Post({ message: "present!", owner_id: user_id });
+      await post1.save();
+      await post2.save();
+      await post3.save();
+
+      const response = await request(app)
+        .get("/posts/profile")
+        .set("Authorization", `Bearer ${token}`);
+
+      const posts = response.body.posts;
+      const firstPost = posts[0];
+      const secondPost = posts[1];
+
+      expect(firstPost.message).toEqual("howdy!");
+      expect(secondPost.message).toEqual("present!");
+    });
+
     test("returns a new token", async () => {
       const post1 = new Post({ message: "First Post!", owner_id: user_id });
       const post2 = new Post({ message: "Second Post!", owner_id: user_id });

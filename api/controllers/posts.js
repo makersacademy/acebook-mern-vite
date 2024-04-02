@@ -7,6 +7,12 @@ const getAllPosts = async (req, res) => {
   res.status(200).json({ posts: posts, token: token });
 };
 
+const getProfilePosts = async (req, res) => {
+  const posts = await Post.find({ owner_id: req.user_id });
+  const token = generateToken(req.user_id);
+  res.status(200).json({ posts: posts, token: token });
+};
+
 const createPost = async (req, res) => {
     const { message } = req.body;
     const owner_id = req.user_id; // Assuming req.user_id holds the ID of the user creating the post
@@ -24,6 +30,7 @@ const createPost = async (req, res) => {
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
+  getProfilePosts: getProfilePosts
 };
 
 module.exports = PostsController;
