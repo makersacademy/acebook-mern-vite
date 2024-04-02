@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 // import { getUserProfile } from "../../services/authentication";
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
-import CreatePost from "../../components/Post/CreatePost";
+import CreatePost from "../../components/Post/CreatePost"
+import Navbar from "../../components/Post/Navbar";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -46,6 +47,7 @@ export const FeedPage = () => {
 
   return (
     <>
+      <Navbar />
       {/* <h1>Hello {fullName}</h1>
       {profilePicture && <img src={profilePicture} alt="Profile" />} */}
       <h1>Create a new Post</h1>
