@@ -6,7 +6,7 @@ const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
 const authenticationRouter = require("./routes/authentication");
 const tokenChecker = require("./middleware/tokenChecker");
-const Comment = require('./models/comment')
+
 
 const commentsRouter = require("./routes/comments");
 

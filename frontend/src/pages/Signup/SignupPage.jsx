@@ -6,6 +6,7 @@ import { signup } from "../../services/authentication";
 export const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -28,12 +29,17 @@ export const SignupPage = () => {
     setPassword(event.target.value);
   };
 
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
   return (
     <>
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
         <input
+          placeholder="Email"
           id="email"
           type="text"
           value={email}
@@ -46,6 +52,14 @@ export const SignupPage = () => {
           type="password"
           value={password}
           onChange={handlePasswordChange}
+        />
+        <label htmlFor="username">Full name:</label>
+        <input
+          placeholder="Full name"
+          id="username"
+          type="text"
+          value={username}
+          onChange={handleUsernameChange}
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
