@@ -1,3 +1,5 @@
+import { ToggleLike } from "./like";
+
 export const Post = (props) => {
   return (
   <div className="container">
@@ -6,18 +8,15 @@ export const Post = (props) => {
       <div className="col-6">
       <article key={props.post._id}>{props.post.user} posted at {props.post.createdDate}</article>
       </div>
+      <div className="col-1" aria-label="Number of likes">
+        <ToggleLike isLiked={false} />
+        <article key={props.post._id}>{props.post.likes}</article>
+      </div>
     </div>
     <div className="row">
       <div className="col-3"></div>
       <div className="col-6 ">
       <article key={props.post._id}>{props.post.message}</article>
-      </div>
-    </div>
-    <div className="row">
-    <div className="col-6"></div>
-      <div className="col-6">
-        <div className="p">Likes:</div>
-      <article key={props.post._id}>{props.post.likes}</article>
       </div>
     </div>
     <hr />
