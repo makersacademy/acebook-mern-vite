@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
+import { Footer } from "../../components/Footer";
 
 import "./HomePage.css";
+import { LoginPage } from "../Login/LoginPage";
 
 export const HomePage = () => {
   return (
     <div className="home">
-      <h1>Welcome to Acebook!</h1>
-      <Link to="/signup">Sign Up</Link>
-      <Link to="/login">Log In</Link>
+      <LoginPage />
+      <Footer/>
     </div>
   );
 };

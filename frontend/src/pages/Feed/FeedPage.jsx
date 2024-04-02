@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
-import Post from "../../components/Post/Post";
+import { Post } from "../../components/Post/Post";
 import Logout from "../../components/General/Logout";
+
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
