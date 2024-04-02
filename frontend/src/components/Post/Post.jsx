@@ -15,10 +15,14 @@ const Post = (props) => {
       const timeDifferenceHours = Math.round(timeDifferenceMins /60);
       if (timeDifferenceSeconds < 60 ) {
         return "Less than a minute ago"
-      } else if (timeDifferenceMins < 60) {
+      } else if (timeDifferenceMins > 1 && timeDifferenceMins < 60) {
         return `${timeDifferenceMins} minutes ago`
-      } else if (timeDifferenceHours < 24) {
+      } else if (timeDifferenceMins === 1) {
+        return `${timeDifferenceMins} minute ago`
+      } else if (timeDifferenceHours > 1 && timeDifferenceHours < 24) {
         return `${timeDifferenceHours} hours ago`
+      } else if (timeDifferenceHours === 1) {
+        return `${timeDifferenceHours} hour ago`
       } else {
         return formatedPostDateTime;
       }

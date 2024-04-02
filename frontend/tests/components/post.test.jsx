@@ -24,19 +24,38 @@ describe("Post", () => {
 
   test("displays the post date 10 minutes ago", () => {
     const dateNow  = new Date();
-    const thirtySecsAgo = sub(dateNow, {minutes: 10});
-    const testPost = { _id: "123", message: "test message", post_date: thirtySecsAgo };
+    const tenMinsAgo = sub(dateNow, {minutes: 10});
+    const testPost = { _id: "123", message: "test message", post_date: tenMinsAgo };
     render(<Post post={testPost} />);
     const timeAgo = screen.getByTestId("time-ago");
     expect(timeAgo.textContent).toBe("10 minutes ago");
   });
+
+  test("displays the post date 1 minute ago", () => {
+    const dateNow  = new Date();
+    const oneMinAgo = sub(dateNow, {minutes: 1});
+    const testPost = { _id: "123", message: "test message", post_date: oneMinAgo };
+    render(<Post post={testPost} />);
+    const timeAgo = screen.getByTestId("time-ago");
+    expect(timeAgo.textContent).toBe("1 minute ago");
+  });
+
   test("displays the post date 10 hours ago", () => {
     const dateNow  = new Date();
-    const thirtySecsAgo = sub(dateNow, {hours: 10});
-    const testPost = { _id: "123", message: "test message", post_date: thirtySecsAgo };
+    const tenHoursAgo = sub(dateNow, {hours: 10});
+    const testPost = { _id: "123", message: "test message", post_date: tenHoursAgo };
     render(<Post post={testPost} />);
     const timeAgo = screen.getByTestId("time-ago");
     expect(timeAgo.textContent).toBe("10 hours ago");
+  });
+
+  test("displays the post date 1 hour ago", () => {
+    const dateNow  = new Date();
+    const oneHourAgo = sub(dateNow, {hours: 1});
+    const testPost = { _id: "123", message: "test message", post_date: oneHourAgo };
+    render(<Post post={testPost} />);
+    const timeAgo = screen.getByTestId("time-ago");
+    expect(timeAgo.textContent).toBe("1 hour ago");
   });
 
   test("displays a specific post date over a day ago", () => {
