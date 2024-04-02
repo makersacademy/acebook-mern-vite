@@ -1,5 +1,7 @@
 import { NavButton } from "./Buttons";
 import { AcebookLogo } from "../AcebookLogo"
+import { Link } from "react-router-dom";
+
 
 export const Navbar = () => {
   return (
@@ -7,9 +9,11 @@ export const Navbar = () => {
       <div className="row">
         <nav className="navbar navbar-expand-lg darkest-bg-color fixed-top">
           <div className="col-3">
-            <i className="lightest-text-color">
-              <AcebookLogo height="55px" width="55px" fillCircle="#c3f2da"/>
-            </i>
+            {/* TODO: Make this work */}
+            {/* <i className="lightest-text-color">
+              <Link to="/" component={<AcebookLogo height="55px" width="55px" fillCircle="#c3f2da"}/>
+            </i> */}
+            <AcebookLogo height="55px" width="55px" fillCircle="#c3f2da" />
           </div>
 
 

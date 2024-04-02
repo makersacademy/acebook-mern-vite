@@ -6,7 +6,7 @@ export const Post = (props) => {
     <div className="row">
       <div className="col-3"></div>
       <div className="col-6">
-      <article key={props.post._id}>{props.post.user} posted at {props.post.createdDate}</article>
+      <article aria-label="Post Header" key={props.post._id}>{props.post.user} posted at {props.post.createdDate}</article>
       </div>
       <div className="col-1" aria-label="Number of likes">
         <ToggleLike isLiked={false} />
@@ -16,11 +16,10 @@ export const Post = (props) => {
     <div className="row">
       <div className="col-3"></div>
       <div className="col-6 ">
-      <article key={props.post._id}>{props.post.message}</article>
+      <article aria-label="Post text" key={props.post._id}>{props.post.message}</article>
       </div>
     </div>
     <hr />
   </div>
   );
 };
-

@@ -51,7 +51,7 @@ export const SignupPage = () => {
           <div className="lead darkest-text-color text-start pb-2">Enter details below to sign up</div>
           </div>
             <div className="row ">
-              <label htmlFor="email" className="form-label col-3 g-3 mb-3">
+              <label aria-label="Email:" htmlFor="email" className="form-label col-3 g-3 mb-3">
                 Email
               </label>
               <div className="col-9">
@@ -66,7 +66,7 @@ export const SignupPage = () => {
               </div>
             </div>
             <div className="row">
-              <label htmlFor="email" className="form-label col-3 g-3 mb-3">
+              <label aria-label="Password:" htmlFor="email" className="form-label col-3 g-3 mb-3">
                 Password
               </label>
               <div className="col-9">

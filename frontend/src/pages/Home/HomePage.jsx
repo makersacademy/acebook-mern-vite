@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { ImageCircle } from "../../components/ImageCircle";
 import { Footer } from "../../components/Footer";
 
 import "./HomePage.css";
