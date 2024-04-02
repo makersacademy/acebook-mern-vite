@@ -16,7 +16,8 @@ const createToken = async (req, res) => {
     }
 
     
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const secret = "Awe5some$!";
+    const isPasswordValid = await bcrypt.compare(password + secret, user.password );
     if (!isPasswordValid) {
       console.log("Auth Error: Passwords do not match");
       return res.status(401).json({ message: "Password incorrect" });

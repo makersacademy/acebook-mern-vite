@@ -5,6 +5,7 @@ import { getPosts } from "../../services/posts";
 
 import CreatePost from "../../components/Post/CreatePost"
 import Post from "../../components/Post/Post";
+import Navbar from "../../components/Navbar";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -41,6 +42,7 @@ export const FeedPage = () => {
 
   return (
     <>
+      <Navbar /><br /><br />
       <h2>Posts</h2>
       <div>
       <CreatePost onCreatePost={handleCreatePost}/>

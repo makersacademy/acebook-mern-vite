@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { getUser } from "../../services/users";
 import User from "../../components/User/User";
+import Navbar from "../../components/Navbar";
 
 import { getProfilePosts } from "../../services/posts";
 import CreatePost from "../../components/Post/CreatePost"
@@ -66,6 +67,7 @@ export const ProfilePage = () => {
 
   return (
     <>
+      <Navbar />
       <h2>Profile</h2>
       <div className="profile" role="profile">
         
