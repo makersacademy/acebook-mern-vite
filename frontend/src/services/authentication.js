@@ -21,6 +21,10 @@ export const login = async (email, password) => {
   if (response.status === 201) {
     let data = await response.json();
     return data.token;
+  } else if (response.status === 401) {
+    throw new Error(
+      `Email not registered, please sign up.`
+    );
   } else {
     throw new Error(
       `Received status ${response.status} when logging in. Expected 201`
@@ -46,8 +50,8 @@ export const signup = async (email, password, fullName, profilePicture) => {
 
   let response = await fetch(`${BACKEND_URL}/users`, requestOptions);
 
-  // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
-  if (response.status === 201) {
+  // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201 //If status is 201, user is successfully logged in
+  if (response.status === 201) { 
     return;
   } else {
     throw new Error(

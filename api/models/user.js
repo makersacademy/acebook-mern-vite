@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const UserSchema = new mongoose.Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
-  fullName: { type: String, required: true },
+  fullName: { type: String},
   profilePicture: { type: String, required: false },
 });
 
@@ -17,6 +17,3 @@ new User({
 }).save();
 
 module.exports = User;
-
-
-//const User = require('./models/user')
