@@ -8,9 +8,13 @@ const Post = (props) => {
   return (
     <article className="post" key={props.post._id}>
       <p className="post-message">{props.post.message}</p>
+      <img className="post-image" src={props.post.image} />
       <p className="post-date">{props.post.createdAt}</p>
-      <p className="post-user-fullName">{props.post.user?.fullName}</p>
-      <img className="post-image" src={props.post.user.profilePicture} />
+      <p className="post-user-fullName">{props.post.user.fullName}</p>
+      <img
+        className="post-user-profile-picture"
+        src={props.post.user.profilePicture}
+      />
       <div className="comments">
         <Comment postId={props.post._id} token={token} />
       </div>
