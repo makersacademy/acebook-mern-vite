@@ -1,5 +1,6 @@
   import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+
   import "./App.css";
   import { HomePage } from "./pages/Home/HomePage";
   import { LoginPage } from "./pages/Login/LoginPage";
@@ -7,7 +8,8 @@
   import { FeedPage } from "./pages/Feed/FeedPage";
   import { Navbar } from "./components/Navbar/Navbar";
   import { ConnectionsPage } from "./pages/Connections/ConnectionsPage";
-import { Footer } from "./components/Footer";
+  import { Footer } from "./components/Footer";
+  import { CreatePostPage } from "./pages/Post/CreatePostPage";
   
 
   // docs: https://reactrouter.com/en/main/start/overview
@@ -31,6 +33,10 @@ import { Footer } from "./components/Footer";
     {
       path: "/connections",
       element: <ConnectionsPage />,
+    },
+    {
+      path: "/createpost",
+      element: <CreatePostPage />
     },
   ]);
 
