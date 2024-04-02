@@ -25,9 +25,9 @@ const Post = (props) => {
     }
 
   return <article key={props.post._id}>
-    <p data-testId = "message"> {props.post.message}</p>
+    <p data-testid = "message"> {props.post.message}</p>
     
-    <p data-testId = "time-ago">{howLongAgo()}</p>
+    <p data-testid = "time-ago">{howLongAgo()}</p>
   </article>;
 
 };
