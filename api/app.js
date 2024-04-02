@@ -16,7 +16,7 @@ const app = express();
 app.use(cors());
 
 // Parse JSON request bodies, made available on `req.body`
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "15MB" }));
 
 // API Routes
 app.use("/users", usersRouter);

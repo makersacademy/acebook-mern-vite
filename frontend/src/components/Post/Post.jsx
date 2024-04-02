@@ -10,7 +10,7 @@ const Post = (props) => {
       <p className="post-message">{props.post.message}</p>
       <p className="post-date">{props.post.createdAt}</p>
       <p className="post-user-fullName">{props.post.user?.fullName}</p>
-      <img className="post-image" src={props.post.image} />
+      <img className="post-image" src={props.post.user.profilePicture} />
       <div className="comments">
         <Comment postId={props.post._id} token={token} />
       </div>
