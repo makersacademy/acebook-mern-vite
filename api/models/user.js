@@ -9,11 +9,11 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
-new User({
-  email: "tester@test.com",
-  password: "test123",
-  fullName: "Tester",
-  profilePicture: "/path/picture",
-}).save();
+// new User({
+//   email: "tester@test.com",
+//   password: "test123",
+//   fullName: "Tester",
+//   profilePicture: "/path/picture",
+// }).save();
 
 module.exports = User;
