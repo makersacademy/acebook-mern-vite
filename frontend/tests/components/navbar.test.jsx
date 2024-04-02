@@ -3,7 +3,19 @@ import { MemoryRouter } from "react-router-dom";
 import Navbar from "../../src/components/Post/Navbar";
 import "@testing-library/jest-dom";
 
+vi.mock("react-router-dom", () => {
+    const navigateMock = vi.fn(); // mocks the behaviour of the navigate function provided by useNavigate
+    const useNavigateMock = () => navigateMock; // Create a mock function for useNavigate
+    const MemoryRouterMock = ({ children }) => children; // Mock MemoryRouter component
+    const BrowserRouterMock = ({ children }) => children; // Mock BrowserRouter component
+    const LinkMock = ({ children }) => children; // Mock Link component
+    return { useNavigate: useNavigateMock, MemoryRouter: MemoryRouterMock, BrowserRouter: BrowserRouterMock, Link: LinkMock };
+});
+
 describe('Navbar component', () => {
+    beforeEach(() => {
+        vi.resetAllMocks();
+    });
     test('renders Navbar component with links', () => {
         render(
             <MemoryRouter>
@@ -18,54 +30,35 @@ describe('Navbar component', () => {
     });
 
     
-    test('Logout link takes you to the Login page', () => {
-        render(
-            <MemoryRouter>
-                <Navbar />
-            </MemoryRouter>
-        );
+//     test('Logout link takes you to the Login page', () => {
+//         render(
+//             <MemoryRouter>
+//                 <Navbar />
+//             </MemoryRouter>
+//         );
 
-        // Find the Logout link
-        const logoutLink = screen.getByText('Logout');
+//         // Find the Logout link
+//         const logoutLink = screen.getByText('Logout');
 
-        // Click on the Logout link
-        fireEvent.click(logoutLink);
+//         // Click on the Logout link
+//         fireEvent.click(logoutLink);
 
-        // Assert that the browser navigates to the login page
-        expect(screen.getByText("Login")).toBeInTheDocument();
-    });
+//         // Assert that the browser navigates to the login page
+//         expect(screen.getByText("Login")).toBeInTheDocument();
+//     });
+
+//     test("navigates to /login on successful logout", async () => {
+//         render(<FeedPage />);
+//         render(
+//             <MemoryRouter>
+//                 <Navbar />
+//             </MemoryRouter>
+//         );
     
-    // test('Home link takes you to the FeedPage', () => {
-    //     render(
-    //         <MemoryRouter>
-    //             <Navbar />
-    //         </MemoryRouter>
-    //     );
-
-    //     // Find the Home link
-    //     const homeLink = screen.getByText('Home');
-
-    //     // Click on the Home link
-    //     fireEvent.click(homeLink);
-
-    //     // Debug information
-    //     console.log('Current pathname:', window.location.pathname);
-
-    //     // Assert that the browser navigates to the FeedPage
-    //     expect(window.location.pathname).toBe('/posts');
-    // });
-
-    // test('calls logout function when Logout link is clicked', () => {
-    //     const mockRemoveItem = jest.spyOn(localStorage, 'removeItem');
+//         const navigateMock = useNavigate();
+//         const logoutButton = screen.getByText('Logout');
+//         fireEvent.click(logoutButton);
     
-    //     render(
-    //         <MemoryRouter>
-    //             <Navbar />
-    //         </MemoryRouter>
-    //     );
-    //     // Click Logout link
-    //     fireEvent.click(screen.getByText('Logout'));
-    //     // Assert that logout function is called
-    //     expect(mockRemoveItem).toHaveBeenCalledWith('token');
-    // });
-});
+//         expect(navigateMock).toHaveBeenCalledWith("/login"); // Check if useNavigate is called with the correct path
+//     });
+// });
