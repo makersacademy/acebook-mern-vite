@@ -3,8 +3,6 @@ const mongoose = require("mongoose");
 // A Schema defines the "shape" of entries in a collection. This is similar to
 // defining the columns of an SQL Database.
 const CommentSchema = new mongoose.Schema({
-  // fullName : {type: String, required: true},
-  // profilePicture: { type: String },
   comment_text: { type: String, required: true },
   image: { type: String, required: false },
   liked: { type: Boolean, default: false },
