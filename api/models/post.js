@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const PostSchema = new mongoose.Schema({
   message: String,
   owner_id: String,
+  post_date: { type: Date, default: Date.now },
 });
 
 // We use the Schema to create the Post model. Models are classes which we can
