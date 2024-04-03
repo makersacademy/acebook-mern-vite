@@ -40,8 +40,8 @@ export const CreatePost = () => {
           <img
             className="pt-5 rounded-circle"
             src={profilePicture}
-            alt="people on a log eating watermelon"
-            aria-label="picture of people on a log eating watermelon"
+            alt="Your profile picture"
+            aria-label="Your profile picture"
             style={{
               maxWidth: "150px", // Set maximum width to fill its container
               maxHeight: "150px", // Set maximum height
