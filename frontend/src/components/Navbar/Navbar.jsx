@@ -47,11 +47,13 @@ export const Navbar = () => {
               <NavButton linkName="Feed" iconId="fa-solid fa-newspaper-o" onClick={navigateToPostFeed}/>
               <NavButton linkName="Profile" iconId="fa-solid fa-user"/>
               <NavButton linkName="Connections" iconId="fa-solid fa-user-group"/>
-              
+              <div className="d-lg-none">
+              <NavButton linkName="Logout" iconId="fa-solid fa-right-from-bracket" onClick={handleLogout} />
+              </div>              
             </ul>
           </div>
 
-          <div className="col-3 pe-xsm-0 pe-lg-5">
+          <div className="col-3 d-none d-lg-block pe-lg-5">
             <ul className="navbar-nav justify-content-end">
               <NavButton linkName="Logout" iconId="fa-solid fa-right-from-bracket" onClick={handleLogout}/>
             </ul>
