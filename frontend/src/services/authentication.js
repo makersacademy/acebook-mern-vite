@@ -22,9 +22,14 @@ export const login = async (email, password) => {
     let data = await response.json();
     return data.token;
   } else if (response.status === 401) {
-    throw new Error(
-      `Email not registered, please sign up.`
-    );
+    let errorData = await response.json();
+    if (errorData.message === "User not found") {
+      throw new Error(`Email not registered, please sign up.`);
+    } else if (errorData.message === "Password incorrect") {
+      throw new Error(`Incorrect password. Please try again.`);
+    } else {
+      throw new Error(`Authentication error: ${errorData.message}`);
+    }
   } else {
     throw new Error(
       `Received status ${response.status} when logging in. Expected 201`
