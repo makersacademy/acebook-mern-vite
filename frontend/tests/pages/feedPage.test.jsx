@@ -41,4 +41,18 @@ describe("Feed Page", () => {
     const navigateMock = useNavigate();
     expect(navigateMock).toHaveBeenCalledWith("/login");
   });
+
+  test("It displays posts from newest first", async () => {
+    window.localStorage.setItem("token", "testToken");
+
+    const mockPosts = [{ _id: "12345", message: "Test Post 1", createdDate: new Date("2024-04-01T12:00:00Z") }, { _id: "1245", message: "Test Post 2", createdDate: new Date("2025-04-01T12:00:00Z") }];
+
+    getPosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
+
+    render(<FeedPage />);
+
+    const articles = await screen.findAllByRole("article");
+    const post = articles[0]
+    expect(post.textContent).toBe("Test Post 2");
+  });
 });

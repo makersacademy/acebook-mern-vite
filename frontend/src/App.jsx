@@ -1,5 +1,4 @@
-  import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+  import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
   import "./App.css";
   import { HomePage } from "./pages/Home/HomePage";
@@ -13,44 +12,58 @@
   import { CreateProfilePage } from "./pages/Profile/ProfilePage";
   
 
+
+const Layout = () => {
+
+  return (
+    <>
+    <Navbar />
+    <Outlet />
+    <Footer />
+    </>
+  );
+}
   // docs: https://reactrouter.com/en/main/start/overview
   const router = createBrowserRouter([
     {
-      path: "/",
-      element: <HomePage />,
-    },
-    {
-      path: "/login",
-      element: <LoginPage />,
-    },
-    {
-      path: "/signup",
-      element: <SignupPage />,
-    },
-    {
-      path: "/posts",
-      element: <FeedPage />,
-    },
-    {
-      path: "/connections",
-      element: <ConnectionsPage />,
-    },
-    {
-      path: "/createpost",
-      element: <CreatePostPage />
-    },
-    {
+      element: <Layout />,
+      children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "/signup",
+        element: <SignupPage />,
+      },
+      {
+        path: "/posts",
+        element: <FeedPage />,
+      },
+      {
+        path: "/connections",
+        element: <ConnectionsPage />,
+      },
+      {
+        path: "/createpost",
+        element: <CreatePostPage />
+      },
+      {
       path: "/updateuser",
       element: <CreateProfilePage/>
-    },
+      },
+    ]
+    }  
   ]);
 
   const App = () => {
     return (
       <>
-        <Navbar />
         <RouterProvider router={router} />
-        <Footer />
         <></>
       </>
     );
