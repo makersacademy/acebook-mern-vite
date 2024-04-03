@@ -10,6 +10,7 @@
   import { ConnectionsPage } from "./pages/Connections/ConnectionsPage";
   import { Footer } from "./components/Footer";
   import { CreatePostPage } from "./pages/Post/CreatePostPage";
+  import { ProfilePage } from "./pages/Profile/ProfilePage";
   
 
   // docs: https://reactrouter.com/en/main/start/overview
@@ -37,6 +38,10 @@
     {
       path: "/createpost",
       element: <CreatePostPage />
+    },
+    {
+      path: "/profile",
+      element: <ProfilePage />
     },
   ]);
 
