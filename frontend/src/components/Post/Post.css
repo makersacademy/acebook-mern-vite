@@ -17,12 +17,7 @@
   width: 100%; /* Set the width to 100% */
 }
 
-.post_image {
-  width: 200px; /* Adjust size as needed */
-  height: 200px;
-}
-
-.post-profile_picture {
+.post-image {
   width: 50px; /* Adjust size as needed */
   height: 50px; /* Adjust size as needed */
   border-radius: 50%;

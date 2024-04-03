@@ -19,21 +19,20 @@ const create = (req, res) => {
     });
 };
 
-const getProfile = async (req, res) => {
+const getProfile = (req, res) => {
+  const userId = req.user.id; // Assuming you have implemented authentication middleware to attach the user object to the request
 
-  console.log(req.user_id);
-  const user_id = req.user_id;
-
-  const user = await User.findById({ _id: user_id })
+  User.findById(userId)
+    .then((user) => {
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-      res.status(200).json( { user });
-    
-    // .catch((err) => {
-    //   console.error(err);
-    //   res.status(500).json({ message: "Internal server error" });
-    // });
+      res.status(200).json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ message: "Internal server error" });
+    });
 };
 
 
