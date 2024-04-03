@@ -8,7 +8,6 @@ export const HomePage = () => {
   return (
     <div className="home">
       <LoginPage />
-      <Footer/>
     </div>
   );
 };

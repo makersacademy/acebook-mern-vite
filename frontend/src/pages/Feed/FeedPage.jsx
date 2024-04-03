@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
 import { Post } from "../../components/Post/Post";
-import Logout from "../../components/General/Logout";
-
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -38,7 +36,6 @@ export const FeedPage = () => {
   return (
     // Logout component temporarily implemented here, should be moved to navbar once created
     <>
-      <Logout /> 
       <h2>Posts</h2>
       <button onClick={handleCreatePost}>Create Post</button>
       <div className="feed" role="feed">
