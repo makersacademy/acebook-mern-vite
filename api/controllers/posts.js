@@ -1,10 +1,16 @@
 const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
+const { getAllComments, createComment } = require("./comment");
 
 const getAllPosts = async (req, res) => {
-  const posts = await Post.find();
-  const token = generateToken(req.user_id);
-  res.status(200).json({ posts: posts, token: token });
+  try {
+    const posts = await Post.find();
+    const token = generateToken(req.user_id);
+    res.status(200).json({ posts: posts, token: token });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 const getProfilePosts = async (req, res) => {
@@ -14,22 +20,30 @@ const getProfilePosts = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-    const { message } = req.body;
-    const owner_id = req.user_id; // Assuming req.user_id holds the ID of the user creating the post
-    if (message != "") {  
-      const post = new Post({ message, owner_id });
-      await post.save();
-      const newToken = generateToken(req.user_id);
-      res.status(201).json({ message: `Post created for id:${owner_id}`, token: newToken });
+  const { message } = req.body;
+  const owner_id = req.user_id; // Assuming req.user_id holds the ID of the user creating the post
+
+  try {
+    if (!message) {
+      return res.status(400).json({ message: 'No message included' });
     }
-    else {
-      res.status(400).json({message: 'No message included'});
-    }
+
+    const post = new Post({ message, owner_id });
+    await post.save();
+    const newToken = generateToken(req.user_id);
+    res.status(201).json({ message: `Post created for id:${owner_id}`, token: newToken });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
+
+
 
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
+
   getProfilePosts: getProfilePosts
 };
 
