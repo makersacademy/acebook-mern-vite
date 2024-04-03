@@ -5,8 +5,8 @@
 
 .post-entry-box {
   width: 800%;
-  min-height: 100px;
   scroll-behavior: smooth;
+  resize:none; 
 }
 
 

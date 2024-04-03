@@ -32,9 +32,8 @@ export const FeedPage = () => {
 
   return (
     <>
-      <h2>Posts</h2>
       <CreatePost />
-      <div className="feed" role="feed">
+      <div className="feed py-3" role="feed">
         {posts.map((post) => (
           <Post post={post} key={post._id} />
         ))}

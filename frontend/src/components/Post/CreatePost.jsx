@@ -38,20 +38,20 @@ export const CreatePost = () => {
       <div className="row justify-content-center">
         <div className="col-1 d-none d-md-block">
           <img
-            className="pt-5 rounded-circle"
+            className="rounded-circle"
             src={profilePicture}
             alt="Your profile picture"
             aria-label="Your profile picture"
             style={{
-              maxWidth: "150px", // Set maximum width to fill its container
-              maxHeight: "150px", // Set maximum height
+              maxWidth: "100px", // Set maximum width to fill its container
+              maxHeight: "100px", // Set maximum height
               height: "auto" // Ensure aspect ratio is maintained
             }}
           />
         </div>
-        <div className="col-1"></div>
+        <div className="col-1 d-none d-md-block"></div>
 
-        <div className="col-6 align-items-center border border-3">
+        <div className="col-md-9 col-lg-6 align-items-center border border-3">
           <form onSubmit={handleSubmit} className="p-2">
             <div className="row">
               <label htmlFor="message"></label>
@@ -65,7 +65,7 @@ export const CreatePost = () => {
               />
             </div>
             <div className="row">
-              <input className="btn custom-button mb-0 darkest-bg-color" role="submit-button" id="submit" type="submit" value="Submit" />
+              <input className="btn custom-button darkest-bg-color" role="submit-button" id="submit" type="submit" value="Submit" />
             </div>
           </form>
         </div>
