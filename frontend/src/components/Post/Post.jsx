@@ -1,10 +1,9 @@
-
 import React, { useState } from "react";
 import { likePost } from "../../services/like";
 // import Like from "./Like";
 import CreateComment from "../Comment/CreateComment";
 import Comment from "../Comment/Comments";
-import "./Post.css"
+import "./Post.css";
 
 const LikeButton = ({ postId, userId, isLiked, updatePost }) => {
   const [liked, setLiked] = useState(isLiked);
@@ -33,27 +32,30 @@ const Post = ({ post, userId }) => {
     // Update the state of the post
     setLiked(liked);
   };
-  
+
   const token = localStorage.getItem("token");
   return (
     <article className="post" key={post._id}>
       <div className="post-header-container">
-      {post.user && post.user.image && ( // Check if post.user and post.user.image exist
-          <img className="post-image" src={post.user.image} alt="Profile" />
-        )}
-        <p className="post-user-fullName">{post.user?.fullName}</p>
+        <img
+          className="post-profile_picture"
+          src={post.user.profilePicture}
+          alt="Profile"
+        />
+        <p className="post-user-fullName">{post.user.fullName}</p>
         <p className="post-date">{post.createdAt}</p>
       </div>
       <div className="post-message">
         <p>{post.message}</p>
+        <img className="post_image" src={post.image}></img>
       </div>
-        <p className="like-counter">{(post.likedBy).length}</p>
-        <LikeButton
+      <p className="like-counter">{post.likedBy.length}</p>
+      <LikeButton
         postId={post._id}
         userId={userId}
         isLiked={liked}
         updatePost={updatePost}
-        />
+      />
       <div className="comments">
         <Comment postId={post._id} token={token} />
       </div>
@@ -63,6 +65,5 @@ const Post = ({ post, userId }) => {
     </article>
   );
 };
-
 
 export default Post;

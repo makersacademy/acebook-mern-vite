@@ -7,7 +7,6 @@ export const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
   const [fullName, setFullName] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
   const [passwordError, setPasswordError] = useState("");
@@ -29,10 +28,13 @@ export const SignupPage = () => {
     } else {
       setEmailError(""); // Clear the email error if the format is valid
     }
-  
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
     if (!passwordRegex.test(password)) {
-      setPasswordError("Password must contain at least 8 characters, including one uppercase letter and one special character.");
+      setPasswordError(
+        "Password must contain at least 8 characters, including one uppercase letter and one special character."
+      );
       return; // Stop form submission if password format is invalid
     } else {
       setPasswordError(""); // Clear the password error if the format is valid
@@ -74,14 +76,12 @@ export const SignupPage = () => {
     setPassword(event.target.value);
   };
 
-
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   const handleFullName = (event) => {
-    const fullName = event.target.value.replace(/^\s+/, ''); // Remove leading spaces
+    const fullName = event.target.value.replace(/^\s+/, ""); // Remove leading spaces
     setFullName(fullName);
   };
 
@@ -98,10 +98,9 @@ export const SignupPage = () => {
       const base64Image = reader.result;
       setProfilePicture(base64Image);
     };
-  reader.readAsDataURL(file); //Payload is still profilePicture: {}
-  console.log("Selected file:", file); //WORKED!! Stored in DB
+    reader.readAsDataURL(file); //Payload is still profilePicture: {}
+    console.log("Selected file:", file); //WORKED!! Stored in DB
   };
-
 
   return (
     <>
@@ -129,10 +128,11 @@ export const SignupPage = () => {
           required
           pattern="^(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$"
           title="Password must contain at least 8 characters, including one uppercase letter and one special character (!@#$%^&*()_+)."
-        />{formSubmitted && passwordError && <p>{passwordError}</p>}
+        />
+        {formSubmitted && passwordError && <p>{passwordError}</p>}
         <button type="button" onClick={togglePasswordVisibility}>
-            {showPassword ? "Hide" : "Show"}
-          </button>
+          {showPassword ? "Hide" : "Show"}
+        </button>
         <label htmlFor="fullName">Enter your name:</label>
         <input
           id="fullName"
@@ -140,21 +140,14 @@ export const SignupPage = () => {
           placeholder="Enter your name"
           value={fullName}
           onChange={handleFullName}
-        />{formSubmitted && fullNameError && <p>{fullNameError}</p>}
+        />
+        {formSubmitted && fullNameError && <p>{fullNameError}</p>}
         <label htmlFor="profilePicture">Profile Picture:</label>
         <input
           id="profilePicture"
           type="file"
           accept="image/*"
           onChange={handleProfilePictureChange}
-        />
-        <label htmlFor="username">Full name:</label>
-        <input
-          placeholder="Full name"
-          id="username"
-          type="text"
-          value={username}
-          onChange={handleUsernameChange}
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>

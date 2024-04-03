@@ -17,10 +17,18 @@
   width: 100%; /* Set the width to 100% */
 }
 
-.post-image {
+.post-profile_picture {
   width: 50px; /* Adjust size as needed */
   height: 50px; /* Adjust size as needed */
   border-radius: 50%;
+  outline: 2px solid #eceaea; /* Add outline */
+  margin-left: 20px; /* Add margin between image and text */
+  margin-top: 10px;
+}
+
+.post_image {
+  width: 500px; /* Adjust size as needed */
+  height: 350px; /* Adjust size as needed */
   outline: 2px solid #eceaea; /* Add outline */
   margin-left: 20px; /* Add margin between image and text */
   margin-top: 10px;
