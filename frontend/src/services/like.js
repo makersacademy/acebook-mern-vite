@@ -18,20 +18,20 @@ export const likePost = async (postId) => {
   }
 };
 
-// export const likeComment = async (commentId) => {
-//   const token = localStorage.getItem("token");
-//   const requestOptions = {
-//     method: "POST",
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({ commentId }), // Send both postId and userId in the request body
-//   };
+export const likeComment = async (commentId) => {
+  const token = localStorage.getItem("token");
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ commentId }), // Send both postId and userId in the request body
+  };
 
-//   const response = await fetch(`${BACKEND_URL}/comments/like`, requestOptions);
+  const response = await fetch(`${BACKEND_URL}/comments/like`, requestOptions);
 
-//   if (!response.ok) {
-//     throw new Error("Failed to like/unlike post");
-//   }
-// };
+  if (!response.ok) {
+    throw new Error("Failed to like/unlike post");
+  }
+};
