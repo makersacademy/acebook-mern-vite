@@ -5,13 +5,6 @@ const createToken = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-//checking for duplicates
-const existingUser = await User.findOne({ email: email });
-if (existingUser) {
-  console.log("Auth Error: Email already in use");
-  res.status(409).json().json({ message: "Email already in use" });
-}
-
   const user = await User.findOne({ email: email });
   if (!user) {
     console.log("Auth Error: User not found");
