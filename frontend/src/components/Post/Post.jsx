@@ -9,12 +9,13 @@ const Post = (props) => {
   return (
     <article className="post" key={props.post._id}>
       <div className="post-header-container">
-        <img className="post-image" src={props.post.user.profilePicture} alt="Profile" />
+        <img className="post-profile_picture" src={props.post.user.profilePicture} alt="Profile" />
         <p className="post-user-fullName">{props.post.user?.fullName}</p>
         <p className="post-date">{props.post.createdAt}</p>
       </div>
       <div className="post-message">
         <p>{props.post.message}</p>
+        <img className="post_image" src={props.post.image}></img>
       </div>
       <div className="comments">
         <Comment postId={props.post._id} token={token} />
