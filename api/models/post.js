@@ -4,8 +4,7 @@ const mongoose = require("mongoose");
 // defining the columns of an SQL Database.
 const PostSchema = new mongoose.Schema({
   message: { type: String, required: true },
-  liked: { type: Boolean, default: false },
-  likeCounter: { type: Number, default: 0 },
+  likedBy: [{ type: String }],
   image: {type: String},
   createdAt:{type: Date, default:Date.now},
   user:{
@@ -23,8 +22,6 @@ const Post = mongoose.model("Post", PostSchema);
 const dateTimeString = new Date().toLocaleString("en-GB");
 new Post({ 
           message: 'update model post',
-          liked: true,
-          likeCounter: 1,
           image:"https://example.com/image.jpg",
           user: "66018bc48a87746692806ab5",
           createdAt: new Date()
