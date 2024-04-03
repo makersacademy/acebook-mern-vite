@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
 import { Post } from "../../components/Post/Post";
+import { CreatePost } from "../../components/Post/CreatePost";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -26,18 +27,10 @@ export const FeedPage = () => {
     }
   }, [navigate]);
 
-
-
-    // logic for the create post button. When it is clicked the user is redirected to the createpost endpoint. Create Post button likely to be moved/modified in future PR's
-  const handleCreatePost = (event) => {
-    event.preventDefault();
-      navigate("/createpost")
-    }
-
   return (
     <>
       <h2>Posts</h2>
-      <button onClick={handleCreatePost}>Create Post</button>
+      <CreatePost />
       <div className="feed" role="feed">
         {posts.map((post) => (
           <Post post={post} key={post._id} />

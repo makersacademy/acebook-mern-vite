@@ -47,10 +47,10 @@ const Layout = () => {
         path: "/connections",
         element: <ConnectionsPage />,
       },
-      {
-        path: "/createpost",
-        element: <CreatePostPage />
-      },
+      // {
+      //   path: "/createpost",
+      //   element: <CreatePostPage />
+      // },
     ]
     }  
   ]);
