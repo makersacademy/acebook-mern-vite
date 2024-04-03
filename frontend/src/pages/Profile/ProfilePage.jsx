@@ -2,12 +2,14 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { updateUser } from "../../services/authentication";
 import homepagePhoto from "../../assets/friends.png"
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export const CreateProfilePage = () => {
   const [forename, setForename] = useState("");
   const [surname, setSurname] = useState("");
   const [username, setUsername] = useState("");
-  const [dob, setDob] = useState("");
+  const [dob, setDob] = useState(null);
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const navigate = useNavigate();
@@ -18,8 +20,10 @@ export const CreateProfilePage = () => {
     try {
       await updateUser(token, forename, surname, username, dob, description, location)
       localStorage.setItem("token", token); // handing the user a new token
-      console.log("updated");
-      navigate('/posts')
+
+      console.log("updated prolife");
+      await alert("Your profile has been update!")
+      // navigate('/posts')
    
     } catch (err) {
       console.error(err);
@@ -38,8 +42,8 @@ export const CreateProfilePage = () => {
     setUsername(event.target.value);
   };
 
-  const handleDobChange = (event) => {
-    setDob(event.target.value);
+  const handleDobChange = (date) => {
+    setDob(date);
   };
 
   const handleDescriptionChange = (event) => {
@@ -117,17 +121,18 @@ export const CreateProfilePage = () => {
               <label aria-label="dob:" htmlFor="dob" className="form-label col-3 g-3 mb-3">
                 DOB
               </label>
-              <div className="col-9">
-                <input
-                  type="dob"
-                  className="form-control "
+                <div className="col-9">
+                  <DatePicker
+                  className="form-control"
                   id="dob"
-                  placeholder="7th April 2000"
-                  value={dob}
+                  placeholderText="Select DOB"
+                  selected={dob}
                   onChange={handleDobChange}
-                ></input>
-              </div>
-            </div>          
+                  dateFormat="dd MMMM yyyy" // You can customize the date format
+                  />
+                </div>
+            </div>
+         
             <div className="row ">
               <label aria-label="description:" htmlFor="description" className="form-label col-3 g-3 mb-3">
                 Description
