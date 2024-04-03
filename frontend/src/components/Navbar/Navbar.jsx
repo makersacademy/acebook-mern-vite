@@ -1,9 +1,25 @@
 import { NavButton } from "./Links";
 import { AcebookLogo } from "../AcebookLogo"
+import { useNavigate } from "react-router-dom";
+import { FeedPage } from "../../pages/Feed/FeedPage";
 
 
 export const Navbar = () => {
+  const navigate = useNavigate();
 
+  const handleLogout = (event) => {
+    event.preventDefault();
+    localStorage.removeItem("token");
+    navigate("/login");
+    console.log("Logout")
+  };
+
+  const navigateToPostFeed = (event) => {
+    event.preventDefault()
+    navigate("/Posts")
+  }
+
+  
   return (
     <div className="container-fluid">
       <div className="row">
@@ -28,7 +44,7 @@ export const Navbar = () => {
             id="navbarSupportedContent"
           >
             <ul className="navbar-nav w-100 justify-content-around"> 
-              <NavButton linkName="Feed" iconId="fa-solid fa-newspaper-o"/>
+              <NavButton linkName="Feed" iconId="fa-solid fa-newspaper-o" onClick={navigateToPostFeed}/>
               <NavButton linkName="Profile" iconId="fa-solid fa-user"/>
               <NavButton linkName="Connections" iconId="fa-solid fa-user-group"/>
               
@@ -37,7 +53,7 @@ export const Navbar = () => {
 
           <div className="col-3 pe-xsm-0 pe-lg-5">
             <ul className="navbar-nav justify-content-end">
-              <NavButton linkName="Logout" iconId="fa-solid fa-right-from-bracket"/>
+              <NavButton linkName="Logout" iconId="fa-solid fa-right-from-bracket" onClick={handleLogout}/>
             </ul>
           </div>
         </nav>
