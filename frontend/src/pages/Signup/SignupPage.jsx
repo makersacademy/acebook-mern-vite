@@ -51,7 +51,12 @@ export const SignupPage = () => {
       navigate("/login");
     } catch (err) {
       console.error(err);
-      navigate("/signup");
+      if (err.message === "Email already in use") {
+        setEmailError("Email already in use. Please use a different email address.");
+        navigate("/signup");
+      } else {
+        setEmailError("An error occurred while signing up. Please try again later.");
+      }
     }
   };
 
