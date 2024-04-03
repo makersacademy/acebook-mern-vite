@@ -64,7 +64,7 @@ export const updateUser = async (token, forename, surname, username, dob, descri
     location: location,
   };
   const requestOptions = {
-    method: "POST",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -72,12 +72,11 @@ export const updateUser = async (token, forename, surname, username, dob, descri
     body: JSON.stringify(payload),
   };
 
-  const response = await fetch(`${BACKEND_URL}/updateuser`, requestOptions);
+  const response = await fetch(`${BACKEND_URL}/users`, requestOptions);
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
   if (response.status === 201) {
     let data = await response.json();
    return data.token;
-  console.log('yay')
   } else {
     throw new Error(
       `Received status ${response.status} when editing up. Expected 201, the token --> ${token}`
