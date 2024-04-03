@@ -6,6 +6,8 @@ import { signup } from "../../services/authentication";
 export const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+
   const [fullName, setFullName] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
   const [passwordError, setPasswordError] = useState("");
@@ -72,6 +74,8 @@ export const SignupPage = () => {
     setPassword(event.target.value);
   };
 
+
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -105,6 +109,7 @@ export const SignupPage = () => {
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
         <input
+          placeholder="Email"
           id="email"
           type="text"
           value={email}
@@ -142,6 +147,14 @@ export const SignupPage = () => {
           type="file"
           accept="image/*"
           onChange={handleProfilePictureChange}
+        />
+        <label htmlFor="username">Full name:</label>
+        <input
+          placeholder="Full name"
+          id="username"
+          type="text"
+          value={username}
+          onChange={handleUsernameChange}
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
