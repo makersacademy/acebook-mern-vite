@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { vi } from "vitest";
-import userEvent from '@testing-library/user-event'
+// import userEvent from '@testing-library/user-event'
 import { FeedPage } from "../../src/pages/Feed/FeedPage";
 import { getPosts } from "../../src/services/posts";
 import { useNavigate } from "react-router-dom";
@@ -17,19 +17,20 @@ vi.mock("../../src/services/posts", () => {
 vi.mock("react-router-dom", () => {
   const navigateMock = vi.fn();
   const useNavigateMock = () => navigateMock; // Create a mock function for useNavigate
-  return { useNavigate: useNavigateMock };
+  const linkMock = vi.fn();
+  return { useNavigate: useNavigateMock, Link: linkMock};
 });
 
 // Reusable function for filling out create post form
-  const completePost = async () => {
-    const user = userEvent.setup();
+  // const completePost = async () => {
+  //   const user = userEvent.setup();
 
-    const messageInputEl = screen.getByTestId("post-message")
-    const submitButtonEl = screen.getByRole("submit-button");
+  //   const messageInputEl = screen.getByTestId("post-message")
+  //   const submitButtonEl = screen.getByRole("submit-button");
 
-    await user.type(messageInputEl, "test message");
-    await user.click(submitButtonEl);
-  }
+  //   await user.type(messageInputEl, "test message");
+  //   await user.click(submitButtonEl);
+  // }
 
 describe("Feed Page", () => {
   beforeEach(() => {
@@ -59,7 +60,7 @@ describe("Feed Page", () => {
   
     getPosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
     // Render the component with the articles
-    const { getByText } = render(<FeedPage />);
+    render(<FeedPage />);
   
     // Find the list items by text content
     const post1 = await screen.findByText('Test 1');
@@ -83,7 +84,7 @@ describe("Feed Page", () => {
     expect(screen.getByTestId('create-post-component')).to.exist;
   })
 
-  // test("There is an input field for message and you can click a submit button", async () =>{
+  //("There is an input field for message and you can click a submit button", async () =>{
   //   render (<FeedPage />);
   //   await completePost();
   //   const post = await screen.findByRole("article");

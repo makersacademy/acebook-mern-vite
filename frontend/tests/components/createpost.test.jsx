@@ -2,7 +2,6 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
 import CreatePost from "../../src/components/Post/CreatePost"
-import { useNavigate } from "react-router-dom";
 import { createPosts } from "../../src/services/posts";
 import {handleCreatePost} from "../../src/pages/Feed/FeedPage"
 

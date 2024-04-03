@@ -31,6 +31,17 @@ UserSchema.pre('save', async function(next) {
     throw new Error ('Please enter a bio.')
   }
   next();
+  try {
+    if (!this.isModified('password')) {
+      return next();
+    }
+    const secret = "Awe5some$!";
+    const hashedPassword = await bcrypt.hash(this.password + secret, 10);
+    this.password = hashedPassword
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 const User = mongoose.model("User", UserSchema);

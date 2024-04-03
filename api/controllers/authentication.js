@@ -7,7 +7,6 @@ const createToken = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-
   try {
     const user = await User.findOne({ email: email });
     if (!user) {
@@ -15,18 +14,13 @@ const createToken = async (req, res) => {
       return res.status(401).json({ message: "User not found" });
     }
     
-
- 
-
     const secret = "Awe5some$!";
     const isPasswordValid = await bcrypt.compare(password + secret, user.password );
+    console.log(isPasswordValid)
     if (!isPasswordValid) {
       console.log("Auth Error: Passwords do not match");
       return res.status(401).json({ message: "Password incorrect" });
     }
-
-
-    
     const token = generateToken(user.id);
     return res.status(201).json({ token: token, message: "OK" });
   } catch (err) {

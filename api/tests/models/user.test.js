@@ -22,7 +22,7 @@ describe("User model", () => {
       lastName: "Del Rey",
       bio: "I am a singer.",
       email: "someone@example.com",
-      password: "password",
+      password: "Abcde1234!",
     });
     expect(user.firstName).toEqual("Lana");
   });
@@ -33,7 +33,7 @@ describe("User model", () => {
       lastName: "Del Rey",
       bio: "I am a singer.",
       email: "someone@example.com",
-      password: "password",
+      password: "Abcde1234!",
     });
     expect(user.lastName).toEqual("Del Rey");
   });
@@ -44,7 +44,7 @@ describe("User model", () => {
       lastName: "Del Rey",
       bio: "I am a singer.",
       email: "someone@example.com",
-      password: "password",
+      password: "Abcde1234!",
     });
     expect(user.bio).toEqual("I am a singer.");
   });
@@ -55,7 +55,7 @@ describe("User model", () => {
       lastName: "Del Rey",
       bio: "I am a singer.",
       email: "someone@example.com",
-      password: "password",
+      password: "Abcde1234!",
     });
     expect(user.email).toEqual("someone@example.com");
   });
@@ -66,9 +66,9 @@ describe("User model", () => {
       lastName: "Del Rey",
       bio: "I am a singer.",
       email: "someone@example.com",
-      password: "password",
+      password: "Abcde1234!",
     });
-    expect(user.password).toEqual("password");
+    expect(user.password).toEqual("Abcde1234!");
   });
 
   it("can list all users", async () => {
@@ -82,7 +82,7 @@ describe("User model", () => {
       lastName: "Del Rey",
       bio: "I am a singer.",
       email: "someone@example.com",
-      password: "password",
+      password: "Abcde1234!",
     });
 
     await user.save();
@@ -92,7 +92,7 @@ describe("User model", () => {
     expect(users[0].lastName).toEqual("Del Rey");
     expect(users[0].bio).toEqual("I am a singer.");
     expect(users[0].email).toEqual("someone@example.com");
-    expect(users[0].password).toEqual("password");
+    expect(users[0].password).toEqual("Abcde1234!");
 
   });
 });

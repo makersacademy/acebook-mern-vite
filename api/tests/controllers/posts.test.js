@@ -32,7 +32,7 @@ describe("/posts", () => {
       lastName : "test-lastname",
       bio : "test-bio",
       email: "post-test@test.com",
-      password: "12345678",
+      password: "Abcd1235678!",
     });
     await user.save();
     await Post.deleteMany({});
@@ -171,7 +171,7 @@ describe("/posts", () => {
         lastName : "test-lastname2",
         bio : "test-bio2",
         email: "post-test@test.com",
-        password: "12345678",
+        password: "Abcde1234!",
       });
       await user2.save();
       user_id_2 = user2.id

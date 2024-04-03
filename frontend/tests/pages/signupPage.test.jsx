@@ -18,11 +18,11 @@ vi.mock("../../src/services/authentication", () => {
   return { signup: signupMock };
 });
 
-// Mocking the signup service
-vi.mock("../../src/services/authentication", () => {
-  const passwordMock = vi.fn();
-  return { password: passwordMock };
-});
+// Removing this mock as clashed
+// vi.mock("../../src/services/authentication", () => {
+//   const passwordMock = vi.fn();
+//   return { password: passwordMock };
+// });
 
 // Reusable function for filling out signup form
 const completeSignupForm = async () => {
@@ -50,7 +50,7 @@ describe("Signup Page", () => {
     await completeSignupForm();
     // let password = '1234'
     // const hashedPassword = await bcrypt.hash('1234', 10)
-    expect(signup).toHaveBeenCalledWith("Test First Name", "Test Last Name", "Test Bio", "test@email.com",);
+    expect(signup).toHaveBeenCalledWith("Test First Name", "Test Last Name", "Test Bio", "test@email.com", "1234");
   });
   test("navigates to /login on successful signup", async () => {
     render(<SignupPage />);

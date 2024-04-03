@@ -57,7 +57,7 @@ describe("authentication service", () => {
         await login(testEmail, testPassword);
       } catch (err) {
         expect(err.message).toEqual(
-          "Received status 403 when logging in. Expected 201"
+          "Wrong Password"
         );
       }
     });
@@ -117,7 +117,7 @@ describe("authentication service", () => {
         await signup(testEmail, testPassword);
       } catch (err) {
         expect(err.message).toEqual(
-          "Received status 400 when signing up. Expected 201"
+          "User already exists"
         );
       }
     });

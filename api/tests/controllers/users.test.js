@@ -21,7 +21,7 @@ describe("/users", () => {
     test("the response code is 201", async () => {
       const response = await request(app)
         .post("/users")
-        .send({ firstName: 'Lana', lastName: 'Del Rey', bio: 'I am a singer.', email: "poppy@email.com", password: "1234" });
+        .send({ firstName: 'Lana', lastName: 'Del Rey', bio: 'I am a singer.', email: "poppy@email.com", password: "Abcde1234!" });
     
       expect(response.statusCode).toBe(201);
     });
@@ -29,7 +29,7 @@ describe("/users", () => {
     test("a user is created", async () => {
       await request(app)
         .post("/users")
-        .send({ firstName: 'Lana', lastName: 'Del Rey', bio: 'I am a singer.', email: "poppy@email.com", password: "1234" });
+        .send({ firstName: 'Lana', lastName: 'Del Rey', bio: 'I am a singer.', email: "poppy@email.com", password: "Abcde1234!" });
 
       const users = await User.find();
       const newUser = users[users.length - 1];

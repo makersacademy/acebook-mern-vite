@@ -30,7 +30,7 @@ export const ProfilePage = () => {
     }
   }, [navigate]);
     
-    const getNewPostTrigger = (token) => {
+    const getNewPostTrigger = async (token) => {
       getProfilePosts(token)
           .then((data) => {
             setPosts(data.posts);
