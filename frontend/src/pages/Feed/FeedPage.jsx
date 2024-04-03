@@ -5,9 +5,11 @@ import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
 import CreatePost from "../../components/Post/CreatePost"
 import Navbar from "../../components/Post/Navbar";
+import "./FeedPage.css";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
+  const [fullName, setFullName] = useState("");
   // const [fullName, setFullName] = useState("");
   // const [profilePicture, setProfilePicture] = useState("");
 
@@ -15,6 +17,7 @@ export const FeedPage = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log("token");
     if (token) {
 
       // getUserProfile(token)
@@ -48,18 +51,19 @@ export const FeedPage = () => {
   return (
     <>
       <Navbar />
-      {/* <h1>Hello {fullName}</h1>
-      {profilePicture && <img src={profilePicture} alt="Profile" />} */}
-      <h1>Create a new Post</h1>
-      <div className="createpost" role="feed">
-        <CreatePost />
-      </div>
-      <h2>Posts</h2>
-      <div className="feed" role="feed">
-        {posts.map((post) => (
-          <Post post={post} key={post._id} />
-        ))}
-      </div>
+        <div className="feed-page">
+          {/* <h1>Hello {fullName}</h1> */}
+          <h2>Your feed</h2>
+          <div className="createpost" role="feed">
+            <CreatePost />
+          </div>
+          {/* <h2>Posts</h2> */}
+          <div className="post_list" role="feed">
+            {posts.map((post) => (
+              <Post post={post} key={post._id} />
+            ))}
+          </div>
+        </div>  
     </>
   );
 };
