@@ -8,7 +8,6 @@
   import { Navbar } from "./components/Navbar/Navbar";
   import { ConnectionsPage } from "./pages/Connections/ConnectionsPage";
   import { Footer } from "./components/Footer";
-  import { CreatePostPage } from "./pages/Post/CreatePostPage";
   import { CreateProfilePage } from "./pages/Profile/ProfilePage";
   
 
