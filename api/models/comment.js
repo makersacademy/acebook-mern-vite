@@ -27,8 +27,6 @@ const Comment = mongoose.model("Comment", CommentSchema);
 
 // const dateTimeString = new Date().toLocaleString("en-GB");
 // new Comment({
-//   // fullName: "Test User",
-//   // profilePicture: "https://example.com/profile.jpg",
 //   comment_text: "Test comment",
 //   image: "https://example.com/image.jpg",
 //   liked: false,

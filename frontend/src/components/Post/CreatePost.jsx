@@ -3,29 +3,36 @@ import { createNewPost } from "../../services/posts";
 
 const CreatePost = () => {
   const [newPost, setNewPost] = useState("");
-  const [imagePath, setImagePath] = useState("");
+  const [postImage, setPostImage] = useState("");
 
-  const handleChange = (event) => {
+  const handlePostChange = (event) => {
     setNewPost(event.target.value);
   };
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    setImagePath(URL.createObjectURL(file));
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64Image = reader.result;
+      setPostImage(base64Image);
+    };
+    reader.readAsDataURL(file);
+    console.log("Selected file:", file); //WORKED!! Stored in DB
   };
 
   const handleSubmit = () => {
     const token = localStorage.getItem("token");
     const postData = {
       message: newPost,
-      image: imagePath,
+      image: postImage,
     };
 
     createNewPost(token, postData)
       .then(() => {
         console.log("Post created successfully");
         setNewPost("");
-        setImagePath("");
+        setPostImage("");
       })
       .catch((error) => {
         console.error("Error creating post:", error);
@@ -37,7 +44,7 @@ const CreatePost = () => {
       <input
         type="text"
         value={newPost}
-        onChange={handleChange}
+        onChange={handlePostChange}
         placeholder="Type your post message here"
       />
       <input type="file" accept="image/*" onChange={handleImageChange} />
