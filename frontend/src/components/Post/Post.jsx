@@ -38,13 +38,14 @@ const Post = ({ post, userId }) => {
   return (
     <article className="post" key={post._id}>
       <div className="post-header-container">
-        <img className="post-profile_picture" src={post.user.profilePicture} alt="Profile" />
+      {post.user && post.user.image && ( // Check if post.user and post.user.image exist
+          <img className="post-image" src={post.user.image} alt="Profile" />
+        )}
         <p className="post-user-fullName">{post.user?.fullName}</p>
         <p className="post-date">{post.createdAt}</p>
       </div>
       <div className="post-message">
         <p>{post.message}</p>
-        <img className="post_image" src={props.post.image}></img>
       </div>
         <p className="like-counter">{(post.likedBy).length}</p>
         <LikeButton
