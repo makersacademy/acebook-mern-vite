@@ -21,7 +21,7 @@ export const CreatePost = () => {
       event.preventDefault(); // Error handling. 
       createPosts(token, message) // passes to backend. Definition in frontend/src/services/posts.js
       localStorage.setItem("token", token); // handing the user a new token
-      navigate('/posts') // redirecting user back to posts endpoint to view full posts feed
+      window.location.reload() // redirecting user back to posts endpoint to view full posts feed
       setMessage("") // Sets the message back to a blank value when submitted
     }}
       // sets message to users' input
