@@ -1,0 +1,49 @@
+.post {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column; /* Arrange elements vertically */
+}
+
+.post-header-container {
+  display: flex;
+  align-items: left;
+  margin-bottom: 10px; /* Add margin to separate from message */
+  margin-left: 10px;
+  outline: 2px solid #d3d3d3;
+  width: 100%; /* Set the width to 100% */
+}
+
+.post-image {
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
+  border-radius: 50%;
+  outline: 2px solid #eceaea; /* Add outline */
+  margin-left: 20px; /* Add margin between image and text */
+  margin-top: 10px;
+}
+
+.post-details {
+  flex-grow: 1;
+}
+
+.post-user-fullName {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.post-date {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.post-message {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  align-items: left;
+}
