@@ -1,5 +1,11 @@
+
 import React, { useState } from "react";
 import { likePost } from "../../services/like";
+import React from "react";
+// import Like from "./Like";
+import CreateComment from "../Comment/CreateComment";
+import Comment from "../Comment/Comments";
+import "./Post.css"
 
 const LikeButton = ({ postId, userId, isLiked, updatePost }) => {
   const [liked, setLiked] = useState(isLiked);
@@ -31,20 +37,30 @@ const Post = ({ post, userId }) => {
 
   return (
     <article className="post" key={post._id}>
-      <p className="post-message">{post.message}</p>
-      <p className="post-date">{post.date}</p>
-      <p className="post-user-fullName">{post.user?.fullName}</p>
-      <p className="like-counter">{(post.likedBy).length}</p>
-      <img className="post-image" src={post.image} alt={post._id} />
-
-      <LikeButton
+      <div className="post-header-container">
+        <img className="post-image" src={post.user.profilePicture} alt="Profile" />
+        <p className="post-user-fullName">{post.user?.fullName}</p>
+        <p className="post-date">{post.createdAt}</p>
+      </div>
+      <div className="post-message">
+        <p>{post.message}</p>
+      </div>
+        <p className="like-counter">{(post.likedBy).length}</p>
+        <LikeButton
         postId={post._id}
         userId={userId}
         isLiked={liked}
         updatePost={updatePost}
-      />
+        />
+      <div className="comments">
+        <Comment postId={post._id} token={token} />
+      </div>
+      <div className="create-comment">
+        <CreateComment postId={post._id} />
+      </div>
     </article>
   );
 };
+
 
 export default Post;

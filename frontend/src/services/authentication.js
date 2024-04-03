@@ -22,9 +22,14 @@ export const login = async (email, password) => {
     let data = await response.json();
     return data.token;
   } else if (response.status === 401) {
-    throw new Error(
-      `Email not registered, please sign up.`
-    );
+    let errorData = await response.json();
+    if (errorData.message === "User not found") {
+      throw new Error(`Email not registered, please sign up.`);
+    } else if (errorData.message === "Password incorrect") {
+      throw new Error(`Incorrect password. Please try again.`);
+    } else {
+      throw new Error(`Authentication error: ${errorData.message}`);
+    }
   } else {
     throw new Error(
       `Received status ${response.status} when logging in. Expected 201`
@@ -32,10 +37,12 @@ export const login = async (email, password) => {
   }
 };
 
-export const signup = async (email, password) => {
+export const signup = async (email, password, fullName, profilePicture) => {
   const payload = {
     email: email,
     password: password,
+    fullName: fullName,
+    profilePicture: profilePicture,
   };
 
   const requestOptions = {
@@ -54,6 +61,26 @@ export const signup = async (email, password) => {
   } else {
     throw new Error(
       `Received status ${response.status} when signing up. Expected 201`
+    );
+  }
+};
+
+export const getUserProfile = async (token) => {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await fetch(`${BACKEND_URL}/users`, requestOptions);
+
+  if (response.status === 200) {
+    const data = await response.json();
+    return data;
+  } else {
+    throw new Error(
+      `Received status ${response.status} when getting user profile. Expected 200`
     );
   }
 };

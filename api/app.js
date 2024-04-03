@@ -4,13 +4,9 @@ const cors = require("cors");
 
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
+const commentsRouter = require("./routes/comments");
 const authenticationRouter = require("./routes/authentication");
 const tokenChecker = require("./middleware/tokenChecker");
-
-
-const commentsRouter = require("./routes/comments");
-
-const Comment = require("./models/comment")
 
 const app = express();
 
@@ -20,7 +16,7 @@ const app = express();
 app.use(cors());
 
 // Parse JSON request bodies, made available on `req.body`
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "15MB" }));
 
 // API Routes
 app.use("/users", usersRouter);

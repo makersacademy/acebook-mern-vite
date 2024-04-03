@@ -4,7 +4,7 @@ const Like = require("../models/like");
 const { generateToken } = require("../lib/token");
 
 const getAllPosts = async (req, res) => {
-  const posts = await Post.find().populate('user').sort({createdAt: -1});
+  const posts = await Post.find().populate("user").sort({ createdAt: -1 });
   const token = generateToken(req.user_id);
   res.status(200).json({ posts: posts, token: token });
 };
@@ -28,11 +28,11 @@ const createPost = async (req, res) => {
     // Save the post
     await post.save();
 
-    
-
     // Send the response
     const newToken = generateToken(req.user_id);
-    res.status(201).json({ message: "Post created successfully", token: newToken, post: savedPost });
+    res
+      .status(201)
+      .json({ message: "Post created successfully", token: newToken });
   } catch (error) {
     console.error("Error creating post:", error);
     res.status(500).json({ message: "Internal server error" });

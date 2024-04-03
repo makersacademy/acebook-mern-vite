@@ -19,8 +19,25 @@ const create = (req, res) => {
     });
 };
 
+const getProfile = (req, res) => {
+  const userId = req.user.id; // Assuming you have implemented authentication middleware to attach the user object to the request
+
+  User.findById(userId)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.status(200).json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ message: "Internal server error" });
+    });
+};
+
+
 const UsersController = {
-  create: create,
+  create: create, getProfile: getProfile,
 };
 
 module.exports = UsersController;

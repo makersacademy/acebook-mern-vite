@@ -24,8 +24,12 @@ export const LoginPage = () => {
             sign up
           </a>
           .
-        </p>);
+        </p>)
+      } else if (err.message === "Incorrect password. Please try again.") {
+        setErrorMessage("Incorrect password. Please try again.");
       } else {
+      console.log('TEST CASE:');
+      console.log(setErrorMessage);
       console.error(err);
       navigate("/login");
       console.log(err);
@@ -59,7 +63,6 @@ export const LoginPage = () => {
           value={email}
           onChange={handleEmailChange}
           />
-
         <label htmlFor="password">Password:</label>
         <input
           className="forms"
@@ -73,7 +76,9 @@ export const LoginPage = () => {
           {showPassword ? "Hide Password" : "Show Password"}
         </button>
         <input role="submit-button" id="submit" type="submit" value="Log in" />
-        {errorMessage && <p>{errorMessage}</p>}
+
+        {errorMessage && <p> {errorMessage} </p>}
+
         </form>
     </>
   );
