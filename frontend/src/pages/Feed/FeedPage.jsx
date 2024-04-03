@@ -17,8 +17,11 @@ export const FeedPage = () => {
     if (token) {
       getPosts(token)
         .then((data) => {
-          setPosts(data.posts);
+          const sorted_posts = data.posts.sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate));
+
+          setPosts(sorted_posts);
           localStorage.setItem("token", data.token);
+        
         })
         .catch((err) => {
           console.error(err);

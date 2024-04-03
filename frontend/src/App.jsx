@@ -9,6 +9,9 @@
   import { ConnectionsPage } from "./pages/Connections/ConnectionsPage";
   import { Footer } from "./components/Footer";
   import { CreatePostPage } from "./pages/Post/CreatePostPage";
+  import { CreateProfilePage } from "./pages/Profile/ProfilePage";
+  
+
 
 const Layout = () => {
 
@@ -20,8 +23,6 @@ const Layout = () => {
     </>
   );
 }
-
-
   // docs: https://reactrouter.com/en/main/start/overview
   const router = createBrowserRouter([
     {
@@ -47,10 +48,10 @@ const Layout = () => {
         path: "/connections",
         element: <ConnectionsPage />,
       },
-      // {
-      //   path: "/createpost",
-      //   element: <CreatePostPage />
-      // },
+      {
+      path: "/updateuser",
+      element: <CreateProfilePage/>
+      },
     ]
     }  
   ]);
