@@ -3,6 +3,19 @@
   margin-top: 100px;
 }
 
+.post-entry-box {
+  width: 800%;
+  min-height: 100px;
+  scroll-behavior: smooth;
+}
+
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #edf1ee;
+}
 
 /* ------------------------------------------- bg colors ------------------------------------------ */
 .darkest-bg-color {
@@ -15,7 +28,7 @@
 
 /* -------------------------------------------- text colors --------------------------------------- */
 .lightest-text-color {
-  color: #c3f2da;
+  color: rgb(195, 242, 218);
 }
 
 .light-text-color {
@@ -34,20 +47,6 @@ a {
 
 a:hover {
   color: #535bf2;
-}
-
-.post-entry-box {
-  width: 800%;
-  min-height: 100px;
-  scroll-behavior: smooth;
-}
-
-
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background: #edf1ee;
 }
 
 h1 {
