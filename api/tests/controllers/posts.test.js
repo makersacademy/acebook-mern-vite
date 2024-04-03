@@ -67,6 +67,19 @@ describe("/posts", () => {
       expect(posts[0].owner_id).toEqual(user_id);
     });
 
+    test("creates a new post with a pic", async () => {
+      await request(app)
+        .post("/posts")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ message: "Hello World!!", owner_id: user_id, image: 'testimage'});
+
+      const posts = await Post.find();
+      expect(posts.length).toEqual(1);
+      expect(posts[0].message).toEqual("Hello World!!");
+      expect(posts[0].owner_id).toEqual(user_id);
+      expect(posts[0].image).toEqual('testimage');
+    });
+
     test("returns a new token", async () => {
       const testApp = request(app);
       const response = await testApp

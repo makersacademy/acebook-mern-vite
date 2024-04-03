@@ -10,6 +10,11 @@ import CreatePost from "../../components/Post/CreatePost"
 import Post from "../../components/Post/Post";
 
 
+import { getProfilePosts } from "../../services/posts";
+import CreatePost from "../../components/Post/CreatePost"
+import Post from "../../components/Post/Post";
+
+
 export const ProfilePage = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
@@ -31,6 +36,7 @@ export const ProfilePage = () => {
   }, [navigate]);
     
     const getNewPostTrigger = async (token) => {
+
       getProfilePosts(token)
           .then((data) => {
             setPosts(data.posts);

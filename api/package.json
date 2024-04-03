@@ -11,6 +11,7 @@
   "author": "Makers Academy",
   "license": "CC-BY-NC-SA-4.0",
   "dependencies": {
+    "@cloudinary/url-gen": "^1.19.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",

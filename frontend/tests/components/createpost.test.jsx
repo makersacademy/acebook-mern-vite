@@ -4,15 +4,9 @@ import { vi } from "vitest";
 import CreatePost from "../../src/components/Post/CreatePost"
 import { createPosts } from "../../src/services/posts";
 import {handleCreatePost} from "../../src/pages/Feed/FeedPage"
+import { UploadWidget } from "../../src/components/Post/UploadWidget"
+import { useNavigate } from "react-router-dom";
 
-const testingInstructions = async () =>{
-    const user = userEvent.setup()
-    window.localStorage.setItem("token", "testToken");
-    const fillMessage = screen.getByTestId('post-message');
-    const submitBut = screen.getByRole('submit-button');
-    await user.type(fillMessage, 'Test message AF');
-    await user.click(submitBut)
-}
 
 /// MOCKS
 
@@ -23,16 +17,32 @@ vi.mock("react-router-dom", () => {
   return { useNavigate: useNavigateMock };
 });
 
+// Mock the upload widget
+vi.mock("../../src/components/Post/UploadWidget", () => {
+  const UploadWidgetMock = vi.fn();
+  return { UploadWidget: UploadWidgetMock };
+});
+
   // Mocking the createPosts service
 vi.mock("../../src/services/posts", () => {
   const createPostsMock = vi.fn();
   return { createPosts: createPostsMock };
 });
+
   // Mocking the handleCreatePost service
 vi.mock("../../src/pages/Feed/FeedPage", () => {
   const handleCreatePostMock = vi.fn();
   return { handleCreatePost: handleCreatePostMock };
 });
+
+const testingInstructions = async () =>{
+  const user = userEvent.setup()
+  window.localStorage.setItem("token", "testToken");
+  const fillMessage = screen.getByTestId('post-message');
+  const submitBut = screen.getByRole('submit-button');
+  await user.type(fillMessage, 'Test message AF');
+  await user.click(submitBut)
+}
 
 // window.localStorage.setItem("token", "testToken"); //SET NEW TOKEN
 describe("Create Post Test Suite", () => {

@@ -1,11 +1,17 @@
 import { format } from 'date-fns';
 import "../../css/post.css"
+import {Cloudinary} from "@cloudinary/url-gen";
+import {AdvancedImage} from '@cloudinary/react';
+import {fill} from "@cloudinary/url-gen/actions/resize";
+const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME
 
 const Post = (props) => {
 
+  const cld = new Cloudinary({cloud: {cloudName: CLOUD_NAME}});
 
-  
-   
+  const imageLocation = props.post.image;
+  const myImage = cld.image(imageLocation);
+  myImage.resize(fill().width(250).height(250));  
   
     const howLongAgo = () => {
       const postDateTime = new Date(props.post.post_date);
@@ -31,7 +37,7 @@ const Post = (props) => {
 
   return <article className= "post" key={props.post._id}>
     <p data-testid = "message"> {props.post.message}</p>
-    
+    {props.post.image && <div><AdvancedImage cldImg={myImage} /></div>}
     <p data-testid = "time-ago">{howLongAgo()}</p>
   </article>;
 

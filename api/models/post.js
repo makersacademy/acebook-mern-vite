@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const PostSchema = new mongoose.Schema({
   message: String,
   owner_id: String,
+  image: { type: String, required: false }
   post_date: { type: Date, default: Date.now },
 });
 

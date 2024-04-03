@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { vi } from "vitest";
 import { getUser } from "../../src/services/users";
 import { getProfilePosts } from "../../src/services/posts";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ProfilePage } from "../../src/pages/Profile/ProfilePage";
 
 vi.mock("react-router-dom", () => {
@@ -50,6 +50,7 @@ describe("Profile Page", () => {
 
     const post = await screen.findByRole("article");
     expect(post.textContent).toContain("Test Post 1");
+
   });
 
   test("It navigates to login if no token is present", async () => {

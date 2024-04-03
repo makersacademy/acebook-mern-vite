@@ -15,6 +15,11 @@ describe("Post model", () => {
     expect(post.message).toEqual("some message");
   });
 
+  it("has a photo", () => {
+    const post = new Post({ message: "some message", image: 'testimage'});
+    expect(post.image).toEqual("testimage");
+  });
+
   it("has a owner_id", () => {
     const post = new Post({ message: "", owner_id: "testid1234"});
     expect(post.owner_id).toEqual("testid1234");
