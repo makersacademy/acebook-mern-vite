@@ -9,6 +9,10 @@ export const FeedPage = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      console.log("Redirected to login, no token found")
+    }
     if (token) {
       getPosts(token)
         .then((data) => {
@@ -19,13 +23,10 @@ export const FeedPage = () => {
           console.error(err);
           navigate("/login");
         });
-        // extra logic so that if the user does not have a token they will be redirected to the login endpoint
-        if (!token) {
-          navigate("/login");
-          return;
-        }
     }
   }, [navigate]);
+
+
 
     // logic for the create post button. When it is clicked the user is redirected to the createpost endpoint. Create Post button likely to be moved/modified in future PR's
   const handleCreatePost = (event) => {
@@ -34,7 +35,6 @@ export const FeedPage = () => {
     }
 
   return (
-    // Logout component temporarily implemented here, should be moved to navbar once created
     <>
       <h2>Posts</h2>
       <button onClick={handleCreatePost}>Create Post</button>
