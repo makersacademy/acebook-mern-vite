@@ -1,7 +1,6 @@
 
 import React, { useState } from "react";
 import { likePost } from "../../services/like";
-import React from "react";
 // import Like from "./Like";
 import CreateComment from "../Comment/CreateComment";
 import Comment from "../Comment/Comments";
@@ -34,11 +33,14 @@ const Post = ({ post, userId }) => {
     // Update the state of the post
     setLiked(liked);
   };
-
+  
+  const token = localStorage.getItem("token");
   return (
     <article className="post" key={post._id}>
       <div className="post-header-container">
-        <img className="post-image" src={post.user.profilePicture} alt="Profile" />
+      {post.user && post.user.image && ( // Check if post.user and post.user.image exist
+          <img className="post-image" src={post.user.image} alt="Profile" />
+        )}
         <p className="post-user-fullName">{post.user?.fullName}</p>
         <p className="post-date">{post.createdAt}</p>
       </div>
