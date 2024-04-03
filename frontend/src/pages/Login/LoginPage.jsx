@@ -17,7 +17,7 @@ export const LoginPage = () => {
       localStorage.setItem("token", token);
       navigate("/posts");
     } catch (err) {
-      if (err.message === "Email not registered, please sign up.") {
+      if (err.message === "User not found") {
         setErrorMessage(<p>
           Email not registered, please{" "}
           <a href="/signup" style={{ color: "blue" }}>
@@ -25,6 +25,8 @@ export const LoginPage = () => {
           </a>
           .
         </p>);
+      } else if (err.message === "Password incorrect") {
+        setErrorMessage("Incorrect password. Please try again.");
       } else {
       console.error(err);
       navigate("/login");
