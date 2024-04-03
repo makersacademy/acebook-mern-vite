@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { login } from "../../services/authentication";
-
-import homepagePhoto from "../../assets/friends.png"
-import { Footer } from "../../components/Footer";
+import { login } from "../services/authentication";
 
 
-export const LoginPage = () => {
+export const ImageCircle = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -38,19 +36,15 @@ export const LoginPage = () => {
         <div className="col-5">
           <img
             className="image-circle pt-5"
-            src={homepagePhoto}
+            src={props.image}
             alt="people on a log eating watermelon"
             aria-label="picture of people on a log eating watermelon"
           />
         </div>
-        <div className="col-1"></div>
+        <div className="col-2"></div>
 
-        <div className="col-6 d-flex align-items-center">
-          <form className="p-5 rounded border border-3 custom-border" onSubmit={handleSubmit}>
-          <div className="row">
-          <h2 className="darkest-text-color text-start">Welcome to Acebook!</h2>
-          <div className="lead darkest-text-color text-start pb-2">Enter details below to log in</div>
-          </div>
+        <div className="col-5 d-flex align-items-center">
+          <form className=" p-5 rounded border border-3 border-primary" onSubmit={handleSubmit}>
             <div className="row ">
               <label htmlFor="email" className="form-label col-3 g-3 mb-3">
                 Email
@@ -81,19 +75,18 @@ export const LoginPage = () => {
                 ></input>
               </div>
             </div>
-            <div className="row justify-content-center">
-              <button type="submit" className="btn custom-button mb-3 col-5 darkest-bg-color">
+            <div className="row justify-content-between">
+              <button type="submit" className="btn btn-primary custom-button mb-3 col-5 darkest-bg-color lightest-text-color">
                 Login
               </button>
-              <div className="col-1"></div>
-              <button type="submit" className="btn custom-button mb-3 col-5 darkest-bg-color">
+              <button type="submit" className="btn btn-primary custom-button mb-3 col-5 darkest-bg-color lightest-text-color">
                 Forgot password
               </button>
             </div>
-            <div className="row justify-content-center">
-              <hr />
-            <p className="darkest-text-color">New to Acebook? Click below to create an account!</p>
-              <Link to="/signup" className="btn custom-button mb-3 col-11 darkest-bg-color lightest-text-color">Sign Up</Link>
+            <div className="row">
+              <button type="submit" className="btn btn-primary custom-button mb-3 col-12 darkest-bg-color">
+              <Link to="/signup" style={{ color: "#c3f2da" }}>Sign Up</Link>
+              </button>
             </div>
           </form>
         </div>

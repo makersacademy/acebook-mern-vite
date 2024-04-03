@@ -32,7 +32,7 @@ describe("Feed Page", () => {
 
     render(<FeedPage />);
 
-    const post = await screen.findByRole("article");
+    const post = await screen.findByLabelText("Post text");
     expect(post.textContent).toEqual("Test Post 1");
   });
 
