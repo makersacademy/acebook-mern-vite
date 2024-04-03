@@ -58,6 +58,8 @@ export const signup = async (email, password, fullName, profilePicture) => {
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201 //If status is 201, user is successfully logged in
   if (response.status === 201) { 
     return;
+  } else if (response.status === 409) { //response to our duplicate user error(status 409)
+    throw new Error("Email already in use");
   } else {
     throw new Error(
       `Received status ${response.status} when signing up. Expected 201`

@@ -6,18 +6,27 @@ const create = (req, res) => {
   const fullName = req.body.fullName;
   const profilePicture = req.body.profilePicture;
 
-  const user = new User({ email, password, fullName, profilePicture });
-  user
-    .save()
-    .then((user) => {
-      console.log("User created, id:", user._id.toString());
-      res.status(201).json({ message: "OK" });
-    })
-    .catch((err) => {
+  //Check if the email provider already exists
+  User.findOne({ email: email })
+    .then(existingUser => {
+      if (existingUser) {
+        // User with the provided email already exists, respond with 409 conflict
+        return res.status(409).json({ message: "Email already in use" });
+      }
+  
+      const user = new User({ email, password, fullName, profilePicture });
+      user
+      .save()
+      .then((user) => {
+        console.log("User created, id:", user._id.toString());
+        res.status(201).json({ message: "OK" });
+        })
+      .catch((err) => {
       console.error(err);
       res.status(400).json({ message: "Something went wrong" });
-    });
-};
+      });
+  })
+}
 
 const getProfile = async (req, res) => {
 
