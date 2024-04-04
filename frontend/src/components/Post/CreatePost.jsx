@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { createPosts } from "../../services/posts";
+import LikeDislike from "../Likes/LikeCounter"
 import UploadWidget from './UploadWidget';
-
  
 const CreatePost = (props) => {
     const token = localStorage.getItem("token")
@@ -45,9 +45,10 @@ const CreatePost = (props) => {
           <input role="submit-button" id="submit" type="submit" value="Submit" />
         </form>
         <div>
-         <p>{error}</p>
+        <p>{error}</p>
         </div>
         </div>
+        
     )
 }
 

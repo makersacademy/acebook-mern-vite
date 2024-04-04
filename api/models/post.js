@@ -9,6 +9,7 @@ const PostSchema = new mongoose.Schema({
   owner_id: String,
   image: { type: String, required: false },
   post_date: { type: Date, default: Date.now },
+  likes: { type: Number, default: 0 },
 });
 
 // We use the Schema to create the Post model. Models are classes which we can

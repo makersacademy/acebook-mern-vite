@@ -1,7 +1,8 @@
 import { format } from 'date-fns';
 import "../../css/post.css"
-import { useState, useEffect } from "react";
+import LikeDislike from "../Likes/LikeCounter"
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import {Cloudinary} from "@cloudinary/url-gen";
 import { getComments } from "../../services/posts";
 import {AdvancedImage} from '@cloudinary/react';
@@ -10,6 +11,7 @@ import CreateComment from './CreateComment';
 const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME
 
 const Post = (props) => {
+ const [likes,setLikes] = useState(props.post.likes)
 
   const cld = new Cloudinary({cloud: {cloudName: CLOUD_NAME}});
 
@@ -82,9 +84,16 @@ const Post = (props) => {
           <div key={comment._id}>{comment.message}</div>
         ))}
       </div>
+    <p data-testid = "count"> {likes} </p>
     </div>
   </article>
 
+    <LikeDislike setLikes={setLikes} likes={likes} postId={props.post._id} />
+  </article>
+  </div>
+  
+ 
+)
 };
 
 export default Post;

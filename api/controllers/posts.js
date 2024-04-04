@@ -46,11 +46,33 @@ const createPost = async (req, res) => {
 };
 
 
+const likeDislikePost = async (req, res) => {
+  const { _id } = req.body;
+  const { action } = req.body;
+  
+  if (action) {  
+    const updatedCount = await Post.findOneAndUpdate(
+      { _id: _id }, 
+      { $inc: { likes: 1 } }
+    )
+    const newToken = generateToken(req.user_id);
+    res.status(201).json({ message: `A new token is created`, token: newToken });
+  }
+  else {
+    const updatedCount = await Post.findOneAndUpdate(
+      { _id: _id }, 
+      { $inc: { likes: -1 } }
+    )
+    const newToken = generateToken(req.user_id);
+    res.status(201).json({ message: `A new token is created`, token: newToken });
+  }
+};
 
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
-  getProfilePosts: getProfilePosts
+  getProfilePosts: getProfilePosts,
+  likeDislikePost: likeDislikePost
 };
 
 module.exports = PostsController;

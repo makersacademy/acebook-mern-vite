@@ -78,7 +78,6 @@ const createPosts = async (token, messageField, imageField=false) => {
   if (response.status !== 201) {
     throw new Error("You're not a politician, please stop with the empty words.");
   }
-
   const data = await response.json();
   return data;
 }
@@ -104,5 +103,29 @@ const createComment = async (token, postId, messageField) => {
   return data;
 }
 
+const likeDislikePosts = async (token, postId, action) => {
+  const payload = {
+    _id: postId,  
+    action: action
+  }
+  const requestOptions = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(payload),
+  };
+  
 
-export { getPosts, createPosts, getProfilePosts, getComments, createComment };
+  let response = await fetch(`${BACKEND_URL}/posts/like`, requestOptions);
+
+  if (response.status !== 201) {
+    throw new Error("You're not a politician, please stop with the empty words.PATCH");
+  }
+
+  const data = await response.json();
+  return data;
+}
+
+export { getPosts, createPosts, getProfilePosts, getComments, createComment, likeDislikePosts  };
