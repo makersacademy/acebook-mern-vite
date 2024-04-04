@@ -13,10 +13,10 @@ const getUser = async (req, res) => {
 
 
 const create = async (req, res) => {
-  const { firstName, lastName, bio, email, password } = req.body;
+  const { firstName, lastName, bio, email, password, image } = req.body;
 
   try {
-    const user = new User({ firstName, lastName, bio, email, password });
+    const user = new User({ firstName, lastName, bio, email, password, image });
     await user.save();
 
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../services/authentication";
+import UploadWidget from "../../components/Post/UploadWidget";
 
 export const SignupPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -8,6 +9,7 @@ export const SignupPage = () => {
   const [bio, setBio] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [imageField, setImageField] = useState("")
   const [error, setError] = useState([])
 
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ export const SignupPage = () => {
 
       setError([]);
 
-      await signup(firstName, lastName, bio, email, password);
+      await signup(firstName, lastName, bio, email, password, imageField);
 
       console.log("redirecting...:");
       navigate("/login");
@@ -50,6 +52,11 @@ export const SignupPage = () => {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
+
+  const handleImageUpload = (imageLocation) => {
+    console.log('IM IN HANDLE IMAGE UPLOAD')
+    setImageField(imageLocation)
+}
 
   return (
     <>
@@ -95,6 +102,7 @@ export const SignupPage = () => {
           value={bio}
           onChange={handleBioChange}
         />
+        <UploadWidget folder={'profiles'} buttonText = {'Upload a profile pic'} handleImageUpload={handleImageUpload}/>
         <input role="submit-button" id="submit" type="submit" value="Submit" />
         
       </form>

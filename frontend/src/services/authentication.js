@@ -31,17 +31,30 @@ export const login = async (email, password) => {
   }
 };
 
-export const signup = async (firstName, lastName, bio, email, password) => {
-  
-  const payload = {
-    firstName: firstName,
-    lastName: lastName,
-    bio: bio,
-    email: email,
-    password: password
+export const signup = async (firstName, lastName, bio, email, password, image) => {
 
-  };
-  
+  let payload = {}
+
+  if (image != "") {
+    payload = {
+      firstName: firstName,
+      lastName: lastName,
+      bio: bio,
+      email: email,
+      password: password,
+      image: image
+    };
+  }
+  else {
+    payload = {
+      firstName: firstName,
+      lastName: lastName,
+      bio: bio,
+      email: email,
+      password: password,
+      image: 'profiles/ieofjhaisofjaios'
+    };
+  }
 
   const requestOptions = {
     method: "POST",

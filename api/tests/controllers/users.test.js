@@ -29,12 +29,13 @@ describe("/users", () => {
     test("a user is created", async () => {
       await request(app)
         .post("/users")
-        .send({ firstName: 'Lana', lastName: 'Del Rey', bio: 'I am a singer.', email: "poppy@email.com", password: "Abcde1234!" });
+        .send({ firstName: 'Lana', lastName: 'Del Rey', bio: 'I am a singer.', email: "poppy@email.com", password: "Abcde1234!", image:"testpic" });
 
       const users = await User.find();
       const newUser = users[users.length - 1];
       expect(newUser.email).toEqual("poppy@email.com");
       expect(newUser.lastName).toEqual("Del Rey");
+      expect(newUser.image).toEqual("testpic");
     });
   });
 
