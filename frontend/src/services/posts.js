@@ -31,27 +31,14 @@ const getProfilePosts = async (token) => {
 
   if (response.status !== 200) {
     throw new Error("Unable to fetch posts");
-
   }
-
   const data = await response.json();
   return data;
 };
 
-const createPosts = async (token, messageField) => {
-  const payload = {
-    message: messageField,
-
-  }
-
-  const data = await response.json();
-  return data;
-};
 
 const createPosts = async (token, messageField, imageField=false) => {
-
   let payload = ''
-
   if (imageField) {
     payload = {
       message: messageField,
@@ -64,7 +51,6 @@ const createPosts = async (token, messageField, imageField=false) => {
     }
   }
 
-  console.log('IM IN CREATEPOSTS')
   console.log(payload)
   const requestOptions = {
     method: "POST",

@@ -43,9 +43,7 @@ describe("Profile Page", () => {
     window.localStorage.setItem("token", "testToken");
 
     const mockPosts = [{ _id: "12345", message: "Test Post 1", post_date: '2024-04-01T09:40:18.010Z' }];
-
     getProfilePosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
-
     render(<ProfilePage />);
 
     const post = await screen.findByRole("article");

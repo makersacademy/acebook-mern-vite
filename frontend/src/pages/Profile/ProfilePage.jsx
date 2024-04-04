@@ -1,19 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { getUser } from "../../services/users";
 import User from "../../components/User/User";
 import Navbar from "../../components/Navbar";
-
 import { getProfilePosts } from "../../services/posts";
 import CreatePost from "../../components/Post/CreatePost"
 import Post from "../../components/Post/Post";
-
-
-import { getProfilePosts } from "../../services/posts";
-import CreatePost from "../../components/Post/CreatePost"
-import Post from "../../components/Post/Post";
-
 
 export const ProfilePage = () => {
   const [users, setUsers] = useState([]);
@@ -36,8 +28,7 @@ export const ProfilePage = () => {
   }, [navigate]);
     
     const getNewPostTrigger = async (token) => {
-
-      getProfilePosts(token)
+      return getProfilePosts(token)
           .then((data) => {
             setPosts(data.posts);
             localStorage.setItem("token", data.token);
