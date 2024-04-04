@@ -28,7 +28,7 @@ const createComment = async (req, res) => {
 const getAllComments = async (req, res) => {
   const { postId } = req.params;  
   try {
-      const comments = await Comment.find({postId: postId});
+      const comments = await Comment.find({postId: postId}).populate('user').exec();
       const token = generateToken(req.user_id);
       res.status(200).json({ comments: comments, token: token });
     } catch (error) {

@@ -100,28 +100,34 @@ const seedDatabase = async () => {
             const firstPost = await posts [0]
             const secondPost = await posts [1]
             const thirdPost = await posts [2]
-            const fourthPost = await posts [3]                 
+            const fourthPost = await posts [3] 
+            const dateNow  = new Date();                
             await Comment.deleteMany({});
             await Comment.create([
                 {
                     postId: firstPost._id,
                     message: "This a reply to mr testingson",
                     owner_id: janeUser._id,
+                    user: janeUser,
+                    createdAt: sub(dateNow, {minutes: 10})
                 },
                 {
                     postId: secondPost._id,
                     message: "I think you are marvellous",
                     owner_id: janeUser._id,
+                    user: janeUser
                 },
                 {
                     postId: secondPost._id,
                     message: "So do I!",
                     owner_id: janeUser._id,
+                    user: janeUser
                 },
                 {
                     postId: thirdPost._id,
                     message: "Oh do take me out for tea sometime",
                     owner_id: janeUser._id,
+                    user: janeUser
                 },
             ]);
             console.log('Comments inserted successfully');
