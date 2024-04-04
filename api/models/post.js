@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const Schema = mongoose.Schema;
 
 
 // A Schema defines the "shape" of entries in a collection. This is similar to
@@ -7,10 +7,13 @@ const mongoose = require("mongoose");
 const PostSchema = new mongoose.Schema({
   message: String,
   owner_id: String,
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
   image: { type: String, required: false },
   post_date: { type: Date, default: Date.now },
   likes: { type: Number, default: 0 },
 });
+
+
 
 // We use the Schema to create the Post model. Models are classes which we can
 // use to construct entries in our Database.

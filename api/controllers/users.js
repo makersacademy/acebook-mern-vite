@@ -11,7 +11,6 @@ const getUser = async (req, res) => {
 
 
 
-
 const create = async (req, res) => {
   const { firstName, lastName, bio, email, password, image } = req.body;
 

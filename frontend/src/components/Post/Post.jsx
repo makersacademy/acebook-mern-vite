@@ -8,11 +8,20 @@ import { getComments } from "../../services/posts";
 import {AdvancedImage} from '@cloudinary/react';
 import {fill} from "@cloudinary/url-gen/actions/resize";
 import CreateComment from './CreateComment';
+import { getUser } from "../../services/users";
+import Username from "../../components/User/Username";
+
 const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME
 
 const Post = (props) => {
- const [likes,setLikes] = useState(props.post.likes)
-
+  console.log(props);
+  const [likes,setLikes] = useState(props.post.likes)
+  const user = props.post.user;
+  console.log(user.firstName);
+  if (user != undefined) {
+    const firstName = user.firstName;
+    const lastName = user.lastName;
+  }
   const cld = new Cloudinary({cloud: {cloudName: CLOUD_NAME}});
 
   const imageLocation = props.post.image;
@@ -23,6 +32,7 @@ const Post = (props) => {
   const [comments, setComments] = useState([]);
   const navigate = useNavigate();
   
+
   const getNewCommentsTrigger = (postId, token) => {
     getComments(postId, token)
         .then((data) => {
@@ -71,19 +81,26 @@ const Post = (props) => {
         return formatedPostDateTime;
       }
     }
+   
 
   return <article className= "post" key={props.post._id}>
     <div>
     <p data-testid = "message"> {props.post.message}</p>
     {props.post.image && <div><AdvancedImage cldImg={myImage} /></div>}
-    <p data-testid = "time-ago">{howLongAgo()}</p>
     <div>
-    <CreateComment postId={props.post._id} onCreateComment={handleCreateComment} />
-    Comments:
+   
+    <div className="profile" role="profile">
+        {user && <div>Posted by: {user.firstName} {user.lastName}</div>}
+        <div data-testid = "time-ago">{howLongAgo()}</div>
+      </div>
+      
+      <CreateComment postId={props.post._id} onCreateComment={handleCreateComment} />
+   Comments:
     {comments.map((comment) => (
           <div key={comment._id}>{comment.message}</div>
         ))}
       </div>
+      
     <p data-testid = "count"> {likes} </p>
     <LikeDislike setLikes={setLikes} likes={likes} postId={props.post._id} />
     </div>

@@ -1,12 +1,17 @@
+const User = require('../models/user')
 const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
+const mongoose = require('mongoose');
 
 const getAllPosts = async (req, res) => {
-  try {
-    const posts = await Post.find();
+    try {
+      // Find all posts and populate the 'user' field with user information
+      const posts = await Post.find().populate('user').exec();
+      console.log(posts);
+      
     const token = generateToken(req.user_id);
     res.status(200).json({ posts: posts, token: token });
-  } catch (error) {
+      } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
@@ -24,14 +29,21 @@ const createPost = async (req, res) => {
     const { image } = req.body;
     // console.log(image)
     const owner_id = req.user_id; // Assuming req.user_id holds the ID of the user creating the post
+    
+    const user = await User.findById(owner_id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+
     if (message != "" && image != "") {  
-      const post = new Post({ message, owner_id, image });
+      const post = new Post({ message, owner_id, user, image});
       await post.save();
       const newToken = generateToken(req.user_id);
       return res.status(201).json({ message: `Post created for id:${owner_id}`, token: newToken });
     }
     else if (message != "") {  
-      const post = new Post({ message, owner_id });
+      const post = new Post({ message, owner_id, user});
       await post.save();
       const newToken = generateToken(req.user_id);
       return res.status(201).json({ message: `Post created for id:${owner_id}`, token: newToken });
@@ -44,6 +56,7 @@ const createPost = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
 
 
 const likeDislikePost = async (req, res) => {

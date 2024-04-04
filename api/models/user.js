@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-
 const UserSchema = new mongoose.Schema({
   email: {type: String},
   password: { type: String},
@@ -10,7 +9,6 @@ const UserSchema = new mongoose.Schema({
   image: { type: String},
 });
 
-
 UserSchema.pre('save', async function(next) {
   const pattern = /^(?=.*[A-Z])(?=.*[!@$%&])(?=.*[a-z]).{8,}$/ // has to have one of these symbols, !@$%& and at least 8 charachters and a capital letter
   const user = await User.findOne({ email: this.email });
@@ -18,7 +16,8 @@ UserSchema.pre('save', async function(next) {
     if (this.isModified('password') || this.isNew){
       if (user) {
         throw new Error ('User already exists.')
-      } 
+      }
+
       if (!this.email) {
         throw new Error ('Please enter an email.')
       }
@@ -45,5 +44,4 @@ UserSchema.pre('save', async function(next) {
 );
 
 const User = mongoose.model("User", UserSchema);
-
 module.exports = User;
