@@ -7,10 +7,8 @@ const getAllPosts = async (req, res) => {
     try {
       // Find all posts and populate the 'user' field with user information
       const posts = await Post.find().populate('user').exec();
-      console.log(posts);
-      
-    const token = generateToken(req.user_id);
-    res.status(200).json({ posts: posts, token: token });
+      const token = generateToken(req.user_id);
+      res.status(200).json({ posts: posts, token: token });
       } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
