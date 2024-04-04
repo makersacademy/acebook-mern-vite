@@ -20,7 +20,7 @@ const create = (req, res) => {
 
 
 const getUserProfile = async (req, res) =>{
-  const users = await User.find();
+  const users = await User.find({_id: req.user_id});
   const token = generateToken(req.user_id);
   res.status(200).json({ users:users, token:token });
 };

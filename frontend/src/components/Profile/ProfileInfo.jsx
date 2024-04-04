@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchProfileData } from "../../services/profileService";
+import { User } from "./UserProfile"
 
 
 // imports the fetch request from services...
@@ -14,47 +15,20 @@ export const ProfileInfo = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const fetchProfile = async (token) => {
-      try {
-        const data = await fetchProfileData(token); // Fetch profile data from backend API
-        setProfileData(data.users); // Update the state with fetched data
-      } catch (error) {
+    if (token){fetchProfileData(token)
+    .then((data) => {
+  setProfileData(data.users);
+  localStorage.setItem("token", data.token);
+})
+    // const fetchProfile = async (token) => {
+    //   try {
+    //     const data = await fetchProfileData(token); // Fetch profile data from backend API
+        // setProfileData(data.users); // Update the state with fetched data
+.catch((error) => {
         console.error('Error fetching profile data:', error); // tell the user if there's an issue.
       }
-    };
-
-    fetchProfile(token); // Call fetchProfile function when component mounts
-  }, []);
-
-
-
-
-  // useEffect(() => {
-  //   // const token = localStorage.getItem("token");
-  //   if (token) {
-  //     getPosts(token)
-  //       .then((data) => {
-  //         setPosts(data.posts);
-  //         localStorage.setItem("token", data.token);
-  //       })
-  //       .catch((err) => {
-  //         console.error(err);
-  //         navigate("/login");
-  //       });
-  //       // extra logic so that if the user does not have a token they will be redirected to the login endpoint
-  //       if (!token) {
-  //         navigate("/login");
-  //         return;
-  //       }
-  //   }
-  // }, [navigate]);
-
-
-
-
-
-
-
+    ) // Call fetchProfile function when component mounts
+  }}, []);
 
     return (
     <div className="container">
@@ -70,15 +44,28 @@ export const ProfileInfo = () => {
             /> */}
         </div>
         <div className="col-8 mt-5 d-flex align-items-center justify-contents-center">
+        <div className="feed" role="feed">
+        {profileData.map((user) => (
+          <User user={user} key={user._id} />
+        ))}
+      </div>
+       
+       
+       <li>
+        {/* key={user.id} */}
+               {/* <p>Username: {Object.values(profileData[0])[0]}</p>
+                 <p>Location: {Object.values(profileData[0])[7]}</p>
+                  <p>Description: {Object.values(profileData[0])[6]}</p> */}
+               </li>
 
-          { profileData.users.map((user) => (
-            <ProfileInfo user={user} key={user._id} />))  };
+          {/* { profileData[0])[0]};  */}
+          {/* this get's to a specific array item */}
 
 
-            <h2 className="fw-light">
-                {/* {profileData.username} */} what is going on?
-            </h2>
-            <p>{profileData}</p>
+            {/* <h2 className="fw-light">
+                {profileData.username} what is going on?
+            </h2> */}
+            {/* <p>{profileData.username}</p> */}
             {/* <p>{profileData.surname}</p>
             <p>{profileData.dob}</p>
             <p>{profileData.description}</p>
@@ -89,7 +76,14 @@ export const ProfileInfo = () => {
     );
 };
 
- <div className="feed" role="feed">
-        {profileData.users.map((user) => (
-          <Post post={post} key={post._id} />
-        ))} 
+// <ul>
+//             {profileData.users.map((user) => {
+//               return (
+//                 <li key={user.id}>
+//                   <p>Username: {user.username}</p>
+//                   <p>Location: {user.location}</p>
+//                   <p>Description: {user.description}</p>
+//                 </li>
+//               );
+//             })}
+//           </ul>

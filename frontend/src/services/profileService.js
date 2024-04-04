@@ -28,7 +28,6 @@ export const fetchProfileData = async (token) => {
   }
 
   const profileData = await response.json();
-  console.log(profileData)
   return profileData;
 };
 
