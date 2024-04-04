@@ -1,0 +1,68 @@
+.neon-background {
+  background: linear-gradient(to right, #711c91, #ea00d9, #0abdc6, #78a8ec, #618de0);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .container {
+    padding: 20px;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .feed {
+    margin-top: 20px;
+  }
+  
+  .feed .post {
+    border: 0px solid #ccc;
+    background: rgba(37, 37, 6, 0.477); /* Yellow color with 50% opacity */
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 15px rgba(7, 155, 235, 1); /* Box shadow with similar color and opacity */
+}
+  
+  .feed .post h4 {
+    margin-bottom: 5px;
+  }
+  
+  .feed .post p {
+    margin-bottom: 10px;
+  }
+  
+  .feed .post .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .feed .post .actions button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .feed .post .actions button:hover {
+    background-color: #0056b3;
+  }
+  
+
+  

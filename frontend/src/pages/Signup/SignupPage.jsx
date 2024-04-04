@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../services/authentication";
+import '../../css/LoginPageBackground.css'
+import { Link } from "react-router-dom";
 import UploadWidget from "../../components/Post/UploadWidget";
 
 export const SignupPage = () => {
@@ -59,57 +61,91 @@ export const SignupPage = () => {
 }
 
   return (
-    <>
-      <h2>Signup</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          placeholder="Email"
-          id="email"
-          type="text"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          placeholder="Password"
-          id="password"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <label htmlFor="firstName">First Name:</label>
-        <input
-          placeholder="First name"
-          id="firstName"
-          type="text"
-          value={firstName}
-          onChange={handleFirstNameChange}
-        />
-        <label htmlFor="lastName">Last Name:</label>
-        <input
-          placeholder="Last name"
-          id="lastName"
-          type="text"
-          value={lastName}
-          onChange={handleLastNameChange}
-        />
-        <label htmlFor="bio">Bio:</label>
-        <input
-          placeholder="Add a bio here"
-          id="bio"
-          type="text"
-          value={bio}
-          onChange={handleBioChange}
-        />
-        <UploadWidget folder={'profiles'} buttonText = {'Upload a profile pic'} handleImageUpload={handleImageUpload}/>
-        <input role="submit-button" id="submit" type="submit" value="Submit" />
-        
-      </form>
-      <div>
-         <p>{error}</p>
+    <div className="container-fluid p-0 neon-background">
+      <div className="row m-0">
+        <div className="col-md-12 p-0">
+          <div className="neon-background d-flex align-items-center justify-content-center vh-100 vw-100">
+            <div className="container">
+              <div className="row justify-content-center">
+              <div className="row justify-content-center"><img src="../../src/assets/Neonbook_logo.png" alt="Logo" style={{ display: 'flex', maxWidth: '20%', height: 'auto' }} /></div>
+                <div className="col-md-4">
+                  <div className="card-body">
+                    <h2 className="card-title text-center mb-4">Sign Up</h2>
+                    <div></div>
+                    <form onSubmit={handleSubmit}>
+                      <div className="form-group mb-4">
+                        <label htmlFor="email">Email:</label>
+                        <input
+                          placeholder="Email"
+                          id="email" 
+                          className="form-control"
+                          type="text"
+                          value={email}
+                          onChange={handleEmailChange}
+                        />
+                      </div>
+                      <div className="form-group mb-4">
+                        <label htmlFor="password">Password:</label>
+                        <input
+                          placeholder="Password"
+                          id="password"
+                          className="form-control"
+                          type="password"
+                          value={password}
+                          onChange={handlePasswordChange}
+                        />
+                      </div>
+                      <div className="form-group mb-4">
+                        <label htmlFor="firstName">First Name:</label>
+                        <input
+                          placeholder="First name"
+                          id="firstName"
+                          className="form-control"
+                          type="text"
+                          value={firstName}
+                          onChange={handleFirstNameChange}
+                        />
+                      </div>
+                      <div className="form-group mb-4">
+                        <label htmlFor="lastName">Last Name:</label>
+                        <input
+                          placeholder="Last name"
+                          id="lastName"
+                          className="form-control"
+                          type="text"
+                          value={lastName}
+                          onChange={handleLastNameChange}
+                        />
+                      </div>
+                      <div className="form-group mb-4">
+                        <label htmlFor="bio">Bio:</label>
+                        <input
+                          placeholder="Add a bio here"
+                          id="bio"
+                          className="form-control"
+                          type="text"
+                          value={bio}
+                          onChange={handleBioChange}
+                        />
+                      </div>
+                      <UploadWidget folder={'profiles'} buttonText = {'Upload a profile pic'} handleImageUpload={handleImageUpload}/>
+                      <button className="btn btn-primary btn-block neon-button mt-3" type="submit">Submit</button>
+                    </form>
+                    {error.length > 0 && (
+                      <div style={{ color: 'white', marginTop: '0.5rem' }}>
+                        {error}
+                      </div>
+                    )}
+                  </div>
+                  <div className="mt-3">
+                    <Link to="/login" className="btn btn-primary signup-button">Already have an account? Log in here.</Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      {/* {error.length > 0 && <ErrorMessage errMsg={error} />} */}
-    </>
+      </div>
+    </div>
   );
 };

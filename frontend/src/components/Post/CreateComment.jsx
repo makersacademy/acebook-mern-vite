@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { createComment } from "../../services/posts";
+import '../../css/LoginPageBackground.css'
 
 const CreateComment = (props) => {
     const token = localStorage.getItem("token")
@@ -33,7 +34,7 @@ const CreateComment = (props) => {
         <form onSubmit={handleSubmit}>
         <label>Add your comment:</label>
             <input data-testid="comment-message" type='text' value={messageField} onChange={handleMessageChange}></input>
-            <input role="submit-button" id="submit" type="submit" value="Submit" />
+            <input className="neon-button" role="submit-button" id="submit" type="submit" value="Submit" />
         </form>
         <div>
             <p>{error}</p>

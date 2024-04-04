@@ -1,8 +1,7 @@
 
-import React from 'react';
 import { likeDislikePosts } from "../../services/posts";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import '../../css/LoginPageBackground.css'
 
 
 
@@ -52,8 +51,8 @@ const LikeDislike = (props) => {
 return (
     <>
     
-    <button onClick={handleClickLike}>Like</button>
-    <button onClick={handleClickDislike}>Dislike</button>
+    <button className="like-button" onClick={handleClickLike}>Like</button>
+    <button className="dislike-button" onClick={handleClickDislike}>Dislike</button>
     </>
 )
 }

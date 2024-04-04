@@ -1,4 +1,27 @@
 .home {
+  background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home h1 {
+  font-size: 3rem;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+.home a {
+  color: #fff;
+  font-size: 1.5rem;
+  text-decoration: none;
+  margin: 0.5rem;
+}
+
+.home a:hover {
+  text-decoration: underline;
 }

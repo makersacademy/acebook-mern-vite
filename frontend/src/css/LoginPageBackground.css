@@ -1,0 +1,86 @@
+.card-body {
+  font-family: 'Poppins', sans-serif;
+  color: #711c91; /* Updated color */
+}
+
+.neon-background {
+  background: linear-gradient(to right, #711c91, #ea00d9, #0abdc6, #133e7c, #091833); /* Updated background */
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.signup-button {
+  border: none;
+  color: #fff;
+  background-color: #0abdc6; /* Updated background */
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 20px #0abdc6; /* Updated box-shadow */
+}
+
+.signup-button:hover {
+  background-color: #133e7c; /* Updated hover background color */
+  box-shadow: 0 0 40px #133e7c; /* Updated hover box-shadow */
+}
+
+.neon-button {
+  border: none;
+  color: #fff;
+  background-color: #711c91; /* Updated background */
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 20px #711c91; /* Updated box-shadow */
+}
+
+.neon-button:hover {
+  background-color: #ea00d9; /* Updated hover background color */
+  box-shadow: 0 0 40px #ea00d9; /* Updated hover box-shadow */
+}
+body {
+  padding-top:42.0px; /* Adjust this value to match the height of your navbar */
+}
+
+
+.like-button {
+    border: none;
+    color: #fff;
+    background-color: #0abdc6; /* Updated background */
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 20px #711c91; /* Updated box-shadow */
+  }
+  
+  .like-button:hover {
+    background-color: #ea00d9; /* Updated hover background color */
+    box-shadow: 0 0 40px #ea00d9; /* Updated hover box-shadow */
+  }
+
+  .dislike-button {
+    border: none;
+    color: #fff;
+    background-color: #711c91; /* Updated background */
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 20px #133e7c; /* Updated box-shadow */
+  }
+  
+  .dislike-button:hover {
+    background-color: #ea00d9; /* Updated hover background color */
+    box-shadow: 0 0 40px #ea00d9; /* Updated hover box-shadow */
+  }
