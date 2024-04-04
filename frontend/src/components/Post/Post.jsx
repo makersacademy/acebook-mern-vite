@@ -24,9 +24,13 @@ const Post = (props) => {
   }
   const cld = new Cloudinary({cloud: {cloudName: CLOUD_NAME}});
 
-  const imageLocation = props.post.image;
-  const myImage = cld.image(imageLocation);
-  myImage.resize(fill().width(250).height(250));  
+  const profileImageLocation = user.image;
+  const profileImage = cld.image(profileImageLocation);
+  profileImage.resize(fill().width(50).height(50));  
+
+  const postImageLocation = props.post.image;
+  const postImage = cld.image(postImageLocation);
+  postImage.resize(fill().width(250).height(250)); 
   
   const postId = props.post._id
   const [comments, setComments] = useState([]);
@@ -86,14 +90,15 @@ const Post = (props) => {
   return <article className= "post" key={props.post._id}>
     <div>
     <p data-testid = "message"> {props.post.message}</p>
-    {props.post.image && <div><AdvancedImage cldImg={myImage} /></div>}
+    {props.post.image && <div><AdvancedImage cldImg={postImage} /></div>}
     <div>
    
     <div className="profile" role="profile">
+        {}
         {user && <div>Posted by: {user.firstName} {user.lastName}</div>}
         <div data-testid = "time-ago">{howLongAgo()}</div>
       </div>
-      
+      <AdvancedImage cldImg={profileImage} style = {{borderRadius: '50%'}}/>
       <CreateComment postId={props.post._id} onCreateComment={handleCreateComment} />
    Comments:
     {comments.map((comment) => (
