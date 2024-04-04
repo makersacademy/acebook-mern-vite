@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginPage.css"
 import { login } from "../../services/authentication";
+import socialmedia1 from "../../static/img/socialmedia1.jpg";
+import socialmedia2 from "../../static/img/socialmedia2.jpg";
+
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -51,35 +54,82 @@ export const LoginPage = () => {
 
   return (
     <>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          className="forms"
-          id="email"
-          type="text"
-          placeholder="Email"
-          // required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-          value={email}
-          onChange={handleEmailChange}
-          />
-        <label htmlFor="password">Password:</label>
-        <input
-          className="forms"
-          id="password"
-          type={showPassword ? "text" : "password"} // Conditionally set input type
-          placeholder="Password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-          <button type="button" onClick={handleTogglePassword}>
+<section>
+  <div className="imgBox">
+    <img src={socialmedia1} />
+    <div className="text-overlay">
+        <h1>Welcome to Acebook</h1>
+        <p>Connect, Share, Acebook!</p>
+    </div>
+  </div>
+
+  <div className='contentBox'>
+    <div className="formBox">
+    <h2>Login</h2>
+
+      {/* <div className="inputBox"> */}
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label className="input-text" htmlFor="email">Email:</label>
+          </div>
+            <input
+              className="inputBox"
+              id="email"
+              type="text"
+              placeholder="Email"
+              value={email}
+              onChange={handleEmailChange}
+            />
+        </form>
+      {/* </div> */}
+
+      {/* <div className="inputBox"> */}
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label className="input-text" htmlFor="password">Password:</label>
+          </div>
+            <input
+              className="inputBox"
+              id="password"
+              type={showPassword ? "text" : "password"} // Conditionally set input type
+              placeholder="Password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+        </form>
+
+      {/* </div> */}
+
+      <div className="remember">
+        <label><input type = "checkbox" name ="" /> Remember me</label>
+      </div>
+
+      <div className="passwordShow">
+        <button className="showPassword"type="button" onClick={handleTogglePassword}>
           {showPassword ? "Hide Password" : "Show Password"}
         </button>
-        <input role="submit-button" id="submit" type="submit" value="Log in" />
+      </div>
 
-        {errorMessage && <p> {errorMessage} </p>}
-
+      
+        <form onSubmit={handleSubmit}>
+          <input className="inputBox submit" role="submit-button" id="submit" type="submit" value="Log in" />
         </form>
+      
+
+      <div className="sign-up">
+        <p>Don't have an account? <a href="/signup">Sign up</a></p>
+      </div>
+
+      <div>
+        {errorMessage && <p> {errorMessage} </p>}
+      </div>
+
+    </div>
+
+    </div>
+        
+</section>
     </>
+
   );
 };

@@ -1,37 +1,192 @@
-#root {
-    margin: 0 auto;
+
+section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display:flex;
+}
+
+section .imgBox {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    z-index: 0;
+}
+
+section .imgBox::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(225deg, #e91e63, #03a9f4);
+    z-index: 1;
+    mix-blend-mode: screen;
+}
+
+section .imgBox img {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+section .imgBox .text-overlay {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
     text-align: center;
+    z-index: 2; 
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
 }
 
-/* Testing Style Button */
-form [role="submit-button"] {
-    background-color: #007bff; /* Blue background color */
-    color: white; /* Text color */
-    padding: 10px 20px; /* Padding */
-    font-size: 16px; /* Font size */
-    border: none; /* Remove border */
-    border-radius: 4px; /* Rounded corners */
-    cursor: pointer; /* Change cursor to pointer on hover */
+section .imgBox .text-overlay h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
 }
 
-form [role="submit-button"]:hover {
-    background-color: #0056b3; /* Darker blue background color on hover */
+section .imgBox .text-overlay p {
+    font-size: 2em;
 }
 
-/* Testing style Forms */
+section .contentBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:50%;
+    height:100%;
+}
 
-.forms {
-    background-color: transparent; /* Blue background color */
-    color: rgb(0, 0, 0); /* Text color */
-    padding: 10px 20px; /* Padding */
-    font-size: 16px; /* Font size */
-    border: none; /* Remove border */
-    border-radius: 4px; /* Rounded corners */
-    margin-bottom: 10px; /* Add spacing between input fields */
-  }
-  
-  .forms:focus {
-    outline: none; /* Remove default focus outline */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add shadow when focused */
-  }
+section .contentBox .formBox {
+    width: 50%;
+}
 
+section .contentBox .formBox h2 {
+    color: #187794;
+    font-weight: 600;
+    font-size: 1.75em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    border-bottom: 4px solid #1B83A4;
+    letter-spacing: 2px;
+}
+
+.inputBox {
+    width: calc(100% - 40px);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    outline: none;
+    font-weight: 400;
+    border: 1px solid #187794;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #187794;
+    background: transparent;
+    border-radius: 30px;
+}
+
+.input-text{
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #187794;
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.input-box-align {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.submit {
+    width: calc(100% - 40px); /* Same width as inputBox */
+    padding: 10px 20px; /* Same padding as inputBox */
+    background-color: #1B83A4;
+    margin-top: 50px;
+    color: floralwhite;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    margin: 20px auto 30px auto; 
+
+}
+
+.submit:hover {
+    background:#166f8a;
+}
+
+.showPassword{
+    width: 15em; 
+    padding: 5px 10px; 
+    background-color: #1B83A4;
+    color: floralwhite;
+    outline: none;
+    border: none;
+    font-weight: 250;
+    cursor: pointer;
+    display: flex;
+    margin: 20px auto 30px auto; 
+    margin-bottom: 30px;
+    margin-top: 20px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    border-radius: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.showPassword:hover{
+    background:#166f8a; 
+}
+section .contentBox .formBox .remember {
+    margin-bottom: 10px;
+    color: #187794;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+section .contentBox .formBox .sign-up p,
+section .contentBox .formBox p {
+    color: #187794;
+}
+
+
+@media (max-width:768px){
+    section .imgBox
+    {
+        position: absolute;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100%;
+    }
+    section .contentBox{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+    section .formBox{
+        width: 100%;
+        padding: 40px;
+        background: rgb(255 255 255 / 0.9);
+        margin: 50px;
+    }
+}
