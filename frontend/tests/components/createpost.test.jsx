@@ -4,8 +4,8 @@ import { vi } from "vitest";
 import CreatePost from "../../src/components/Post/CreatePost"
 import { createPosts } from "../../src/services/posts";
 import {handleCreatePost} from "../../src/pages/Feed/FeedPage"
-import { UploadWidget } from "../../src/components/Post/UploadWidget"
-import { useNavigate } from "react-router-dom";
+// import { UploadWidget } from "../../src/components/Post/UploadWidget"
+// import { useNavigate } from "react-router-dom";
 
 
 /// MOCKS

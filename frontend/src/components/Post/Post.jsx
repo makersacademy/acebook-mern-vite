@@ -1,8 +1,12 @@
 import { format } from 'date-fns';
 import "../../css/post.css"
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {Cloudinary} from "@cloudinary/url-gen";
+import { getComments } from "../../services/posts";
 import {AdvancedImage} from '@cloudinary/react';
 import {fill} from "@cloudinary/url-gen/actions/resize";
+import CreateComment from './CreateComment';
 const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME
 
 const Post = (props) => {
@@ -12,6 +16,37 @@ const Post = (props) => {
   const imageLocation = props.post.image;
   const myImage = cld.image(imageLocation);
   myImage.resize(fill().width(250).height(250));  
+  
+  const postId = props.post._id
+  const [comments, setComments] = useState([]);
+  const navigate = useNavigate();
+  
+  const getNewCommentsTrigger = (postId, token) => {
+    getComments(postId, token)
+        .then((data) => {
+          setComments(data.comments);
+          localStorage.setItem("token", data.token);
+        })
+  } 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+    else {
+      getNewCommentsTrigger(postId, token);
+      }
+  }, [navigate]);
+
+  const handleCreateComment = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      getNewCommentsTrigger(postId, token);
+    } catch (error) {
+      console.error('Error creating comment:', error);
+    }
+  };
   
     const howLongAgo = () => {
       const postDateTime = new Date(props.post.post_date);
@@ -36,10 +71,19 @@ const Post = (props) => {
     }
 
   return <article className= "post" key={props.post._id}>
+    <div>
     <p data-testid = "message"> {props.post.message}</p>
     {props.post.image && <div><AdvancedImage cldImg={myImage} /></div>}
     <p data-testid = "time-ago">{howLongAgo()}</p>
-  </article>;
+    <div>
+    <CreateComment postId={props.post._id} onCreateComment={handleCreateComment} />
+    Comments:
+    {comments.map((comment) => (
+          <div key={comment._id}>{comment.message}</div>
+        ))}
+      </div>
+    </div>
+  </article>
 
 };
 

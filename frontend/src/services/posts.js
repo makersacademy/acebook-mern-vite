@@ -8,9 +8,23 @@ const getPosts = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-
   const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
+  if (response.status !== 200) {
+    throw new Error("Unable to fetch posts");
+  }
 
+  const data = await response.json();
+  return data;
+};
+
+const getComments = async (postId, token) => {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await fetch(`${BACKEND_URL}/posts/${postId}/comment`, requestOptions);
   if (response.status !== 200) {
     throw new Error("Unable to fetch posts");
   }
@@ -26,32 +40,17 @@ const getProfilePosts = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-
   const response = await fetch(`${BACKEND_URL}/posts/profile`, requestOptions);
-
   if (response.status !== 200) {
     throw new Error("Unable to fetch posts");
-
   }
-
   const data = await response.json();
   return data;
 };
 
-const createPosts = async (token, messageField) => {
-  const payload = {
-    message: messageField,
-
-  }
-
-  const data = await response.json();
-  return data;
-};
 
 const createPosts = async (token, messageField, imageField=false) => {
-
   let payload = ''
-
   if (imageField) {
     payload = {
       message: messageField,
@@ -64,7 +63,6 @@ const createPosts = async (token, messageField, imageField=false) => {
     }
   }
 
-  console.log('IM IN CREATEPOSTS')
   console.log(payload)
   const requestOptions = {
     method: "POST",
@@ -74,7 +72,6 @@ const createPosts = async (token, messageField, imageField=false) => {
     },
     body: JSON.stringify(payload),
   };
-  
 
   let response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
 
@@ -86,5 +83,26 @@ const createPosts = async (token, messageField, imageField=false) => {
   return data;
 }
 
+const createComment = async (token, postId, messageField) => {
+  const payload = {
+      message: messageField,
+    }
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(payload),
+  };
+  let response = await fetch(`${BACKEND_URL}/posts/${postId}/comment`, requestOptions);
 
-export { getPosts, createPosts, getProfilePosts };
+  if (response.status !== 201) {
+    throw new Error("You're not a politician, please stop with the empty words.");
+  }
+  const data = await response.json();
+  return data;
+}
+
+
+export { getPosts, createPosts, getProfilePosts, getComments, createComment };

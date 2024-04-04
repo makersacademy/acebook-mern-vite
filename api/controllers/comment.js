@@ -1,5 +1,4 @@
 const Comment = require('../models/comment');
-const Post = require('../models/post');
 const { generateToken } = require("../lib/token");
 
 const createComment = async (req, res) => {
