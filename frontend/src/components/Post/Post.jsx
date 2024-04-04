@@ -34,6 +34,14 @@ const Post = ({ post, userId }) => {
   };
 
   const token = localStorage.getItem("token");
+  const formattedDate = new Date(post.createdAt).toLocaleString("en-GB", {
+    year: "numeric",
+    day: "numeric",
+    month: "short",
+    hour: "numeric",
+    minute: "numeric",
+  });
+  
   return (
     
       <article className="post" key={post._id}>
@@ -44,7 +52,7 @@ const Post = ({ post, userId }) => {
             alt="Profile"
           />
           <p className="post-user-fullName">{post.user ? post.user.fullName : ""}</p>
-          <p className="post-date">{post.createdAt}</p>
+          <p className="post-date">{formattedDate}</p>
         </div>
         <div className="post-message">
           <p>{post.message}</p>
