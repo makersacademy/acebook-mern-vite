@@ -8,8 +8,6 @@ import { getComments } from "../../services/posts";
 import {AdvancedImage} from '@cloudinary/react';
 import {fill} from "@cloudinary/url-gen/actions/resize";
 import CreateComment from './CreateComment';
-import { getUser } from "../../services/users";
-import Username from "../../components/User/Username";
 
 const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME
 
@@ -17,11 +15,6 @@ const Post = (props) => {
   console.log(props);
   const [likes,setLikes] = useState(props.post.likes)
   const user = props.post.user;
-  console.log(user.firstName);
-  if (user != undefined) {
-    const firstName = user.firstName;
-    const lastName = user.lastName;
-  }
   const cld = new Cloudinary({cloud: {cloudName: CLOUD_NAME}});
 
   const imageLocation = props.post.image;
