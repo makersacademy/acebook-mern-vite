@@ -16,8 +16,19 @@ export const Navbar = () => {
 
   const navigateToPostFeed = (event) => {
     event.preventDefault()
-    navigate("/Posts")
-  }
+    navigate("/posts")
+  };
+
+  const navigateToProfile = (event) => {
+    event.preventDefault()
+    navigate("/profile")
+  };
+
+  const navigateToConnections = (event) => {
+    event.preventDefault()
+    navigate("/connections")
+  };
+
 
   
   return (
@@ -45,8 +56,8 @@ export const Navbar = () => {
           >
             <ul className="navbar-nav w-100 justify-content-around"> 
               <NavButton linkName="Feed" iconId="fa-solid fa-newspaper-o" onClick={navigateToPostFeed}/>
-              <NavButton linkName="Profile" iconId="fa-solid fa-user"/>
-              <NavButton linkName="Connections" iconId="fa-solid fa-user-group"/>
+              <NavButton linkName="Profile" iconId="fa-solid fa-user" onClick={navigateToProfile}/>
+              <NavButton linkName="Connections" iconId="fa-solid fa-user-group"   onClick={navigateToConnections}/>
               <div className="d-lg-none">
               <NavButton linkName="Logout" iconId="fa-solid fa-right-from-bracket" onClick={handleLogout} />
               </div>              

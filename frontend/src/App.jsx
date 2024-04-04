@@ -9,7 +9,7 @@
   import { ConnectionsPage } from "./pages/Connections/ConnectionsPage";
   import { Footer } from "./components/Footer";
   import { ProfilePage } from "./pages/Profile/ProfilePage";
-  import { CreateProfilePage } from "./pages/Profile/ProfilePage";
+  import { EditProfilePage } from "./pages/Profile/EditProfilePage";
 
   
 
@@ -50,8 +50,8 @@ const Layout = () => {
         element: <ConnectionsPage />,
       },
       {
-      path: "/updateuser",
-      element: <CreateProfilePage/>
+      path: "/editprofile",
+      element: <EditProfilePage/>
       },
       {
       path: "/profile",

@@ -45,3 +45,24 @@ export const createPosts = async (token, message) => {
 
   };
 
+
+  // gets the posts specific to one user in order to load this info onto their profile page.
+
+export const getUserPosts = async (token) => {
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  
+    const response = await fetch(`${BACKEND_URL}/posts/getUserPosts`, requestOptions);
+  
+    if (response.status !== 200) {
+      throw new Error("Unable to fetch your posts");
+    }
+  
+    const data = await response.json();
+    return data;
+  };
+
