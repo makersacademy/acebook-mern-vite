@@ -8,4 +8,6 @@ const router = express.Router();
 router.post("/", UsersController.create);
 router.patch("/", tokenChecker, UsersController.update);
 
+router.get("/", UsersController.getUserProfile);
+
 module.exports = router;

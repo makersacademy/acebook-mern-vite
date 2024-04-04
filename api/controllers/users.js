@@ -19,6 +19,15 @@ const create = (req, res) => {
     });
 };
 
+
+
+const getUserProfile = async (req, res) =>{
+  const users = await User.find({_id: req.user_id});
+  const token = generateToken(req.user_id);
+  res.status(200).json({ users:users, token:token });
+};
+
+
 const update = async (req, res) => {
   const { forename, surname, username, dob, description, location } = req.body;
 
@@ -48,9 +57,6 @@ const update = async (req, res) => {
   }
 };
 
-
-
-
     // // const user = new User({ email, password });
 //   User.findOneAndUpdate({ _id: req.user_id }, { forename: forename, surname: surname, username: username, dob: dob, descripton: description, location: location }).save()
 //   // user
@@ -70,6 +76,6 @@ const update = async (req, res) => {
 const UsersController = {
   create: create,
   update: update,
+  getUserProfile: getUserProfile,
 };
-
 module.exports = UsersController;

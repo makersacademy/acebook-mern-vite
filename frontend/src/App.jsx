@@ -8,7 +8,9 @@
   import { Navbar } from "./components/Navbar/Navbar";
   import { ConnectionsPage } from "./pages/Connections/ConnectionsPage";
   import { Footer } from "./components/Footer";
+  import { ProfilePage } from "./pages/Profile/ProfilePage";
   import { CreateProfilePage } from "./pages/Profile/ProfilePage";
+
   
 
 
@@ -50,6 +52,10 @@ const Layout = () => {
       {
       path: "/updateuser",
       element: <CreateProfilePage/>
+      },
+      {
+      path: "/profile",
+      element: <ProfilePage />
       },
     ]
     }  
