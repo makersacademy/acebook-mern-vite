@@ -34,13 +34,19 @@ const Post = ({ post, userId }) => {
   };
 
   const token = localStorage.getItem("token");
-  const formattedDate = new Date(post.createdAt).toLocaleString("en-GB", {
-    year: "numeric",
-    day: "numeric",
-    month: "short",
-    hour: "numeric",
-    minute: "numeric",
-  });
+  const addOrdinalSuffix = (day) => {
+    if (day === 1 || day === 21 || day === 31) return day + "st";
+    if (day === 2 || day === 22) return day + "nd";
+    if (day === 3 || day === 23) return day + "rd";
+    return day + "th";
+  };
+  
+  const date = new Date(post.createdAt);
+  const day = addOrdinalSuffix(date.getDate());
+  const month = date.toLocaleString("en-GB", { month: "short" });
+  const time = date.toLocaleString("en-GB", { hour: "numeric", minute: "numeric" });
+  
+  const formattedDate = `${day} ${month} ${date.getFullYear()} at ${time}`;
   
   return (
     
