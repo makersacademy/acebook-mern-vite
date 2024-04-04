@@ -29,16 +29,4 @@ const UsersController = {
   create: create,
   getUserProfile: getUserProfile
 };
-
-
-// need to write a function so that a user can be retrieved...
-// also need to extract the token id...
 module.exports = UsersController;
-
-
-
-// const getAllPosts = async (req, res) => {   // req = information sent to the backend from the frontend (request options)
-//   const posts = await Post.find();          // res = response from the database
-//   const token = generateToken(req.user_id);
-//   res.status(200).json({ posts: posts, token: token });
-// };
