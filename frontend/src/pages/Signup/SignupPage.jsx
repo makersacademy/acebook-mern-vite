@@ -16,7 +16,7 @@ export const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
-
+ 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setFormSubmitted(true);

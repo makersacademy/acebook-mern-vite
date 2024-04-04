@@ -65,7 +65,7 @@ export const signup = async (email, password, fullName, profilePicture) => {
       `Received status ${response.status} when signing up. Expected 201`
     );
   }
-};
+}; 
 
 export const getUserProfile = async (token) => {
   const requestOptions = {
