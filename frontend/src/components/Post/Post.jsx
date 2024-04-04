@@ -35,21 +35,25 @@ const Post = ({ post, userId }) => {
 
   const token = localStorage.getItem("token");
   return (
-    <article className="post" key={post._id}>
-      <div className="post-header-container">
-        <img
-          className="post-profile_picture"
-          src={post.user.profilePicture}
-          alt="Profile"
-        />
-        <p className="post-user-fullName">{post.user.fullName}</p>
-        <p className="post-date">{post.createdAt}</p>
-      </div>
-      <div className="post-message">
-        <p>{post.message}</p>
-        <img className="post_image" src={post.image}></img>
-      </div>
-      <p className="like-counter">{post.likedBy.length}</p>
+    
+      <article className="post" key={post._id}>
+        <div className="post-header-container">
+          <img
+            className="post-profile_picture"
+            src={post.user ? post.user.profilePicture : ""}
+            alt="Profile"
+          />
+          <p className="post-user-fullName">{post.user ? post.user.fullName : ""}</p>
+          <p className="post-date">{post.createdAt}</p>
+        </div>
+        <div className="post-message">
+          <p>{post.message}</p>
+          {post.image && <img className="postgit_image" src={post.image} alt="Post" />}
+        </div>
+        <p className="like-counter">{post.likedBy.length}</p>
+        {/* Rest of your component */}
+      
+    
       <LikeButton
         postId={post._id}
         userId={userId}
