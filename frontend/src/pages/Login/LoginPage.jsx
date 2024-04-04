@@ -35,17 +35,17 @@ export const LoginPage = () => {
   return (
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-5">
+        <div className="col-5 d-none d-lg-block">
           <img
-            className="image-circle pt-5"
+            className="image-circle pt-5 "
             src={homepagePhoto}
             alt="people on a log eating watermelon"
             aria-label="picture of people on a log eating watermelon"
           />
         </div>
-        <div className="col-1"></div>
+        <div className="col-1 d-none d-lg-block"></div>
 
-        <div className="col-6 d-flex align-items-center">
+        <div className="col-lg-6 d-flex align-items-center justify-content-center">
           <form className="p-5 rounded border border-3 custom-border" onSubmit={handleSubmit}>
           <div className="row">
           <h2 className="darkest-text-color text-start">Welcome to Acebook!</h2>
