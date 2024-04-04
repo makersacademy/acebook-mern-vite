@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { createPosts } from "../../services/posts";
-import LikeDislike from "../Likes/LikeCounter"
+// import LikeDislike from "../Likes/LikeCounter"
 import UploadWidget from './UploadWidget';
  
 const CreatePost = (props) => {
