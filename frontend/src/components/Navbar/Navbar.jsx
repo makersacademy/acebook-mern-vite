@@ -1,21 +1,32 @@
-import { NavButton } from "./Buttons";
+import { NavButton } from "./Links";
 import { AcebookLogo } from "../AcebookLogo"
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { FeedPage } from "../../pages/Feed/FeedPage";
 
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = (event) => {
+    event.preventDefault();
+    localStorage.removeItem("token");
+    navigate("/login");
+    console.log("Logout")
+  };
+
+  const navigateToPostFeed = (event) => {
+    event.preventDefault()
+    navigate("/Posts")
+  }
+
+  
   return (
     <div className="container-fluid">
       <div className="row">
         <nav className="navbar navbar-expand-lg darkest-bg-color fixed-top">
           <div className="col-3">
-            {/* TODO: Make this work */}
-            {/* <i className="lightest-text-color">
-              <Link to="/" component={<AcebookLogo height="55px" width="55px" fillCircle="#c3f2da"}/>
-            </i> */}
             <AcebookLogo height="55px" width="55px" fillCircle="#c3f2da" />
           </div>
-
 
           <button
             className="navbar-toggler"
@@ -33,16 +44,16 @@ export const Navbar = () => {
             id="navbarSupportedContent"
           >
             <ul className="navbar-nav w-100 justify-content-around"> 
-              <NavButton linkName="Home" iconId="fa-solid fa-house" />
-              <NavButton linkName="Profile" iconId="fa-solid fa-user" />
-              <NavButton linkName="Connections" iconId="fa-solid fa-user-group" />
+              <NavButton linkName="Feed" iconId="fa-solid fa-newspaper-o" onClick={navigateToPostFeed}/>
+              <NavButton linkName="Profile" iconId="fa-solid fa-user"/>
+              <NavButton linkName="Connections" iconId="fa-solid fa-user-group"/>
               
             </ul>
           </div>
 
           <div className="col-3 pe-xsm-0 pe-lg-5">
             <ul className="navbar-nav justify-content-end">
-              <NavButton linkName="Log Out" iconId="fa-solid fa-right-from-bracket" />
+              <NavButton linkName="Logout" iconId="fa-solid fa-right-from-bracket" onClick={handleLogout}/>
             </ul>
           </div>
         </nav>
@@ -51,26 +62,3 @@ export const Navbar = () => {
   );
 };
 
-// dropdown code:
-// <a className="nav-link dropdown-toggle lightest-text-color" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-//                     Profile
-//                 </a>
-//                 <ul className="dropdown-menu lightest-bg-color">
-//                     <li><a className="dropdown-item" href="#">See friends posts!</a></li>
-//                     <li><a className="dropdown-item" href="#">See posts!</a></li>
-//                     <li><hr className="dropdown-divider"></hr></li>
-//                     <li><a className="dropdown-item" href="#">See all posts!</a></li>
-//                 </ul>
-//                 </li>
-
-// disabled button code:
-// <li className="nav-item">
-//                 <a className="nav-link disabled" aria-disabled="true">Disabled</a>
-//                 </li>
-
-// search for a friend
-
-// <form className="d-flex" role="search">
-//                 <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-//                 <button className="btn btn-outline-success" type="submit">Search</button>
-//             </form>
