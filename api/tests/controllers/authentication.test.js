@@ -7,14 +7,12 @@ const bcrypt = require('bcrypt');
 
 describe("/tokens", () => {
   beforeAll(async () => {
-    const secret = "Awe5some$!";
-    const hashedPassword = await bcrypt.hash("Abcde1234!" + secret, 10);
     const user = new User({
       firstName : "auth-test-name",
       lastName : "test-lastname",
       bio : "test-bio",
       email: "auth-test@test.com",
-      password: hashedPassword,
+      password: "Abcde1234!",
     });
 
     await user.save();

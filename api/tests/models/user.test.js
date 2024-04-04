@@ -2,6 +2,7 @@ const dotenv = require("dotenv")
 dotenv.config({ path: "./api/.env.test" });
 require("../mongodb_helper");
 const User = require("../../models/user");
+const bcrypt = require("bcrypt");
 
 
 describe("User model", () => {
@@ -68,6 +69,7 @@ describe("User model", () => {
       email: "someone@example.com",
       password: "Abcde1234!",
     });
+    
     expect(user.password).toEqual("Abcde1234!");
   });
 
@@ -77,12 +79,13 @@ describe("User model", () => {
   });
 
   it("can save a user", async () => {
+    const plaintextPassword = "Abcde1234!"
     const user = new User({
       firstName: "Lana",
       lastName: "Del Rey",
       bio: "I am a singer.",
       email: "someone@example.com",
-      password: "Abcde1234!",
+      password: plaintextPassword,
     });
 
     await user.save();
@@ -92,7 +95,23 @@ describe("User model", () => {
     expect(users[0].lastName).toEqual("Del Rey");
     expect(users[0].bio).toEqual("I am a singer.");
     expect(users[0].email).toEqual("someone@example.com");
-    expect(users[0].password).toEqual("Abcde1234!");
+  });
+  it("can save a user with a hashed password", async () => {
+    const plaintextPassword = "Abcde1234!"
+    const user = new User({
+      firstName: "Lana",
+      lastName: "Del Rey",
+      bio: "I am a singer.",
+      email: "someone@example.com",
+      password: plaintextPassword,
+    });
 
+    await user.save();
+    const users = await User.find();
+    console.log (users[0].password)
+    const secret = "Awe5some$!";
+    const isPasswordValid = await bcrypt.compare(plaintextPassword + secret, users[0].password);
+    console.log(isPasswordValid)
+    expect(isPasswordValid).toBe(true);
   });
 });
