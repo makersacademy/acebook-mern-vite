@@ -85,15 +85,9 @@ const Post = (props) => {
         ))}
       </div>
     <p data-testid = "count"> {likes} </p>
+    <LikeDislike setLikes={setLikes} likes={likes} postId={props.post._id} />
     </div>
   </article>
-
-    <LikeDislike setLikes={setLikes} likes={likes} postId={props.post._id} />
-  </article>
-  </div>
-  
- 
-)
 };
 
 export default Post;
