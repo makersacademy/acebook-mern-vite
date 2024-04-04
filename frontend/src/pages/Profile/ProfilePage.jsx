@@ -16,7 +16,8 @@ export const ProfilePage = () => {
         {/* want to display the image and info associated with the user */}
         <ProfilePageImage profileImage = {profileImage} />
         {/* create another component that just holds the circular image */}
-        <ProfileInfo/>
+        
+        <ProfileInfo/> </div>)};
 
 export const CreateProfilePage = () => {
   const [forename, setForename] = useState("");
