@@ -12,7 +12,7 @@ const create = (req, res) => {
       // User with the provided email already exists, respond with 409 conflict
       return res.status(409).json({ message: "Email already in use" });
     }
-
+ 
     const user = new User({ email, password, fullName, profilePicture });
     user
       .save()

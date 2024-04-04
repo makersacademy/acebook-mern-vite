@@ -16,7 +16,7 @@ export const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
-
+ 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setFormSubmitted(true);
@@ -30,7 +30,7 @@ export const SignupPage = () => {
     }
 
     const passwordRegex =
-      /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+      /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+?ñÑ]{8,}$/;
     if (!passwordRegex.test(password)) {
       setPasswordError(
         "Password must contain at least 8 characters, including one uppercase letter and one special character."
