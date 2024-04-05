@@ -23,7 +23,7 @@ the application works.
 
 ### Card wall
 
-REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
+[Link to trello](https://trello.com/b/rvPCXwe7/acebook-neon)
 
 ### Quickstart
 

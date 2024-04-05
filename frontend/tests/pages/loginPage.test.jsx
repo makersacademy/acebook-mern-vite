@@ -42,7 +42,6 @@ describe("Login Page", () => {
     render(<LoginPage />);
 
     await completeLoginForm();
-
     expect(login).toHaveBeenCalledWith("test@email.com", "1234");
   });
 

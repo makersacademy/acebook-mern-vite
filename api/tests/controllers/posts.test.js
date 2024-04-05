@@ -23,14 +23,21 @@ const createToken = (userId) => {
 };
 
 let token;
+let user_id;
+
 describe("/posts", () => {
   beforeAll(async () => {
     const user = new User({
+      firstName : "test-name",
+      lastName : "test-lastname",
+      bio : "test-bio",
       email: "post-test@test.com",
-      password: "12345678",
+      password: "Abcd1235678!",
     });
     await user.save();
     await Post.deleteMany({});
+    user_id = user.id
+    console.log(user_id)
     token = createToken(user.id);
   });
 
@@ -44,7 +51,7 @@ describe("/posts", () => {
       const response = await request(app)
         .post("/posts")
         .set("Authorization", `Bearer ${token}`)
-        .send({ message: "Hello World!" });
+        .send({ message: "Hello World!", owner_id: user_id });
       expect(response.status).toEqual(201);
     });
 
@@ -52,11 +59,25 @@ describe("/posts", () => {
       await request(app)
         .post("/posts")
         .set("Authorization", `Bearer ${token}`)
-        .send({ message: "Hello World!!" });
+        .send({ message: "Hello World!!", owner_id: user_id});
 
       const posts = await Post.find();
       expect(posts.length).toEqual(1);
       expect(posts[0].message).toEqual("Hello World!!");
+      expect(posts[0].owner_id).toEqual(user_id);
+    });
+
+    test("creates a new post with a pic", async () => {
+      await request(app)
+        .post("/posts")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ message: "Hello World!!", owner_id: user_id, image: 'testimage'});
+
+      const posts = await Post.find();
+      expect(posts.length).toEqual(1);
+      expect(posts[0].message).toEqual("Hello World!!");
+      expect(posts[0].owner_id).toEqual(user_id);
+      expect(posts[0].image).toEqual('testimage');
     });
 
     test("returns a new token", async () => {
@@ -64,7 +85,7 @@ describe("/posts", () => {
       const response = await testApp
         .post("/posts")
         .set("Authorization", `Bearer ${token}`)
-        .send({ message: "hello world" });
+        .send({ message: "hello world", owner_id: user_id});
 
       const newToken = response.body.token;
       const newTokenDecoded = JWT.decode(newToken, process.env.JWT_SECRET);
@@ -79,7 +100,7 @@ describe("/posts", () => {
     test("responds with a 401", async () => {
       const response = await request(app)
         .post("/posts")
-        .send({ message: "hello again world" });
+        .send({ message: "hello again world", owner_id: user_id});
 
       expect(response.status).toEqual(401);
     });
@@ -87,7 +108,7 @@ describe("/posts", () => {
     test("a post is not created", async () => {
       const response = await request(app)
         .post("/posts")
-        .send({ message: "hello again world" });
+        .send({ message: "hello again world", owner_id: user_id });
 
       const posts = await Post.find();
       expect(posts.length).toEqual(0);
@@ -102,10 +123,32 @@ describe("/posts", () => {
     });
   });
 
+  describe("POST, when the message is blank", () => {
+    test("responds with a 400 and a helpful message", async () => {
+      const response = await request(app)
+        .post("/posts")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ message: "", owner_id: user_id});
+
+      expect(response.status).toEqual(400);
+      expect(response.body.message).toEqual("No message included");
+    });
+
+    test("a post is not created", async () => {
+      const response = await request(app)
+        .post("/posts")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ message: "", owner_id: user_id });
+
+      const posts = await Post.find();
+      expect(posts.length).toEqual(0);
+    });
+  });
+
   describe("GET, when token is present", () => {
     test("the response code is 200", async () => {
-      const post1 = new Post({ message: "I love all my children equally" });
-      const post2 = new Post({ message: "I've never cared for GOB" });
+      const post1 = new Post({ message: "I love all my children equally", owner_id: user_id });
+      const post2 = new Post({ message: "I've never cared for GOB", owner_id: user_id });
       await post1.save();
       await post2.save();
 
@@ -117,8 +160,8 @@ describe("/posts", () => {
     });
 
     test("returns every post in the collection", async () => {
-      const post1 = new Post({ message: "howdy!" });
-      const post2 = new Post({ message: "hola!" });
+      const post1 = new Post({ message: "howdy!", owner_id: user_id });
+      const post2 = new Post({ message: "hola!", owner_id: user_id });
       await post1.save();
       await post2.save();
 
@@ -134,9 +177,41 @@ describe("/posts", () => {
       expect(secondPost.message).toEqual("hola!");
     });
 
+    test("returns post belonging to specific user", async () => {
+      // create new user for second post
+      const user2 = new User({
+        firstName : "test-name2",
+        lastName : "test-lastname2",
+        bio : "test-bio2",
+        email: "post-test@test.com",
+        password: "Abcde1234!",
+      });
+      await user2.save();
+      user_id_2 = user2.id
+
+      // create posts
+      const post1 = new Post({ message: "howdy!", owner_id: user_id });
+      const post2 = new Post({ message: "hola!", owner_id: user_id_2 });
+      const post3 = new Post({ message: "present!", owner_id: user_id });
+      await post1.save();
+      await post2.save();
+      await post3.save();
+
+      const response = await request(app)
+        .get("/posts/profile")
+        .set("Authorization", `Bearer ${token}`);
+
+      const posts = response.body.posts;
+      const firstPost = posts[0];
+      const secondPost = posts[1];
+
+      expect(firstPost.message).toEqual("howdy!");
+      expect(secondPost.message).toEqual("present!");
+    });
+
     test("returns a new token", async () => {
-      const post1 = new Post({ message: "First Post!" });
-      const post2 = new Post({ message: "Second Post!" });
+      const post1 = new Post({ message: "First Post!", owner_id: user_id });
+      const post2 = new Post({ message: "Second Post!", owner_id: user_id });
       await post1.save();
       await post2.save();
 
@@ -155,8 +230,8 @@ describe("/posts", () => {
 
   describe("GET, when token is missing", () => {
     test("the response code is 401", async () => {
-      const post1 = new Post({ message: "howdy!" });
-      const post2 = new Post({ message: "hola!" });
+      const post1 = new Post({ message: "howdy!", owner_id: user_id });
+      const post2 = new Post({ message: "hola!", owner_id: user_id });
       await post1.save();
       await post2.save();
 
@@ -166,8 +241,8 @@ describe("/posts", () => {
     });
 
     test("returns no posts", async () => {
-      const post1 = new Post({ message: "howdy!" });
-      const post2 = new Post({ message: "hola!" });
+      const post1 = new Post({ message: "howdy!", owner_id: user_id });
+      const post2 = new Post({ message: "hola!", owner_id: user_id });
       await post1.save();
       await post2.save();
 
@@ -177,8 +252,8 @@ describe("/posts", () => {
     });
 
     test("does not return a new token", async () => {
-      const post1 = new Post({ message: "howdy!" });
-      const post2 = new Post({ message: "hola!" });
+      const post1 = new Post({ message: "howdy!", owner_id: user_id });
+      const post2 = new Post({ message: "hola!", owner_id: user_id });
       await post1.save();
       await post2.save();
 
@@ -188,3 +263,4 @@ describe("/posts", () => {
     });
   });
 });
+
