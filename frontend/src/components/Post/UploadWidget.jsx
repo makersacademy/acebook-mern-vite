@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME
 const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET
+
+
 
 const UploadWidget = ( { folder, buttonText, handleImageUpload }) => {
     const cloudinaryRef = useRef();
@@ -27,8 +30,8 @@ const UploadWidget = ( { folder, buttonText, handleImageUpload }) => {
         widgetRef.current.open()
     }
     return (
-        <button onClick={widgetClick}>
-            {buttonText}
+        <button className="btn btn-primary btn-block neon-button mt-3" onClick={widgetClick}>
+            <CloudUploadIcon /> {      buttonText}
         </button>
     )
 }

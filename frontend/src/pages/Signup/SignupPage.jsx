@@ -64,7 +64,7 @@ export const SignupPage = () => {
     <div className="container-fluid p-0 neon-background">
       <div className="row m-0">
         <div className="col-md-12 p-0">
-          <div className="neon-background d-flex align-items-center justify-content-center vh-100 vw-100">
+          <div className="neon-background d-flex align-items-center justify-content-center vh-200 vw-100">
             <div className="container">
               <div className="row justify-content-center">
               <div className="row justify-content-center"><img src="../../src/assets/Neonbook_logo.png" alt="Logo" style={{ display: 'flex', maxWidth: '20%', height: 'auto' }} /></div>
@@ -74,7 +74,7 @@ export const SignupPage = () => {
                     <div></div>
                     <form onSubmit={handleSubmit}>
                       <div className="form-group mb-4">
-                        <label htmlFor="email">Email:</label>
+                        <label htmlFor="email" style={{ marginBottom: '10px',fontWeight: 'bold' }}>Email:</label>
                         <input
                           placeholder="Email"
                           id="email" 
@@ -85,7 +85,7 @@ export const SignupPage = () => {
                         />
                       </div>
                       <div className="form-group mb-4">
-                        <label htmlFor="password">Password:</label>
+                        <label style={{ marginBottom: '10px',fontWeight: 'bold' }} htmlFor="password">Password:</label>
                         <input
                           placeholder="Password"
                           id="password"
@@ -96,7 +96,7 @@ export const SignupPage = () => {
                         />
                       </div>
                       <div className="form-group mb-4">
-                        <label htmlFor="firstName">First Name:</label>
+                        <label style={{ marginBottom: '10px',fontWeight: 'bold' }} htmlFor="firstName">First Name:</label>
                         <input
                           placeholder="First name"
                           id="firstName"
@@ -107,7 +107,7 @@ export const SignupPage = () => {
                         />
                       </div>
                       <div className="form-group mb-4">
-                        <label htmlFor="lastName">Last Name:</label>
+                        <label style={{ marginBottom: '10px',fontWeight: 'bold' }} htmlFor="lastName">Last Name:</label>
                         <input
                           placeholder="Last name"
                           id="lastName"
@@ -118,7 +118,7 @@ export const SignupPage = () => {
                         />
                       </div>
                       <div className="form-group mb-4">
-                        <label htmlFor="bio">Bio:</label>
+                        <label style={{ marginBottom: '10px',fontWeight: 'bold' }} htmlFor="bio">Bio:</label>
                         <input
                           placeholder="Add a bio here"
                           id="bio"
@@ -128,8 +128,9 @@ export const SignupPage = () => {
                           onChange={handleBioChange}
                         />
                       </div>
+                      
                       <UploadWidget folder={'profiles'} buttonText = {'Upload a profile pic'} handleImageUpload={handleImageUpload}/>
-                      <button className="btn btn-primary btn-block neon-button mt-3" type="submit">Submit</button>
+                      <button style={{ marginLeft: '15px' }} className="btn btn-primary btn-block neon-button mt-3" type="submit">Submit</button>
                     </form>
                     {error.length > 0 && (
                       <div style={{ color: 'white', marginTop: '0.5rem' }}>

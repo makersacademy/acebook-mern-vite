@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { createPosts } from "../../services/posts";
 // import LikeDislike from "../Likes/LikeCounter"
 import UploadWidget from './UploadWidget';
+import '../../css/CreatePost.css'
  
 const CreatePost = (props) => {
     const token = localStorage.getItem("token")
@@ -38,11 +39,11 @@ const CreatePost = (props) => {
     return (
         <div data-testid='create-post-component'>
         <form onSubmit={handleSubmit}>
-          <label>Create your post!</label>
+          <label>Tell us what's on your mind!</label>
 
           <input data-testid="post-message" type='text' value={messageField} onChange={handleMessageChange}></input>
           <UploadWidget folder={'posts'} buttonText = {'Add a photo'} handleImageUpload={handleImageUpload}/>
-          <input role="submit-button" id="submit" type="submit" value="Submit" />
+          <input className="post-button" role="submit-button" id="submit" type="submit" value="Submit" />
         </form>
         <div>
         <p>{error}</p>

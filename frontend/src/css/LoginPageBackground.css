@@ -1,11 +1,18 @@
 .card-body {
   font-family: 'Poppins', sans-serif;
-  color: #711c91; /* Updated color */
+  color: #470b53; /* Updated color */
+  margin-bottom: 40px;
+  
+    background: rgba(37, 37, 6, 0.100); /* Yellow color with 50% opacity */
+    border-radius: 40px;
+    padding: 10px;
+    margin-bottom: 40px;
+    box-shadow: 0 0 100px rgba(7, 155, 235, 0.100); /* Box shadow with similar color and opacity */
 }
 
 .neon-background {
-  background: linear-gradient(to right, #711c91, #ea00d9, #0abdc6, #133e7c, #091833); /* Updated background */
-  background-size: 400% 400%;
+  background: linear-gradient(to right, #711c91, #ea00d9, #0abdc6, #133e7c, #091833); 
+  background-size: 500% 500%;
   animation: gradient 10s ease infinite;
 }
 
@@ -50,37 +57,12 @@
   background-color: #ea00d9; /* Updated hover background color */
   box-shadow: 0 0 40px #ea00d9; /* Updated hover box-shadow */
 }
-body {
-  padding-top:42.0px; /* Adjust this value to match the height of your navbar */
-}
 
 
-.like-button {
-    border: none;
-    color: #fff;
-    background-color: #0abdc6; /* Updated background */
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border-radius: 0.25rem;
-    box-shadow: 0 0 20px #711c91; /* Updated box-shadow */
-  }
-  
-  .like-button:hover {
-    background-color: #ea00d9; /* Updated hover background color */
-    box-shadow: 0 0 40px #ea00d9; /* Updated hover box-shadow */
-  }
 
-  .dislike-button {
-    border: none;
-    color: #fff;
-    background-color: #711c91; /* Updated background */
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border-radius: 0.25rem;
-    box-shadow: 0 0 20px #133e7c; /* Updated box-shadow */
-  }
-  
-  .dislike-button:hover {
-    background-color: #ea00d9; /* Updated hover background color */
-    box-shadow: 0 0 40px #ea00d9; /* Updated hover box-shadow */
+
+
+  .card {
+    background: none; /* Removes the background */
+    border: none; /* Removes the border */
   }

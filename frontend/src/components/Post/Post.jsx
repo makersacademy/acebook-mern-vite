@@ -3,7 +3,7 @@ import "../../css/post.css"
 import LikeDislike from "../Likes/LikeCounter"
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {Cloudinary} from "@cloudinary/url-gen";
+import { Cloudinary} from "@cloudinary/url-gen";
 import { getComments } from "../../services/posts";
 import {AdvancedImage} from '@cloudinary/react';
 import {fill} from "@cloudinary/url-gen/actions/resize";
@@ -80,29 +80,39 @@ const Post = (props) => {
     }
    
 
-  return <article className= "post" key={props.post._id}>
-    <div>
-    <p data-testid = "message"> {props.post.message}</p>
-    {props.post.image && <div><AdvancedImage cldImg={postImage} /></div>}
-    <div>
-   
-    <div className="profile" role="profile">
-        {}
-        {user && <div>Posted by: {user.firstName} {user.lastName}</div>}
-        <div data-testid = "time-ago">{howLongAgo()}</div>
+  return <article className="post" key={props.post._id} style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
+  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+    <AdvancedImage className='profile-pic' cldImg={profileImage} style={{ borderRadius: '50%' }} />
+    {/* MAIN TEXT and IMG */}
+    <div className="main-content">
+      <p data-testid="message">{props.post.message}</p>
+      {props.post.image && <div><AdvancedImage cldImg={postImage} /></div>}
+      <div className="profile" role="profile">
+        {user && (
+          <div className="user-info">
+            <div>
+              Posted by: {user.firstName} {user.lastName}
+            </div>
+            <div data-testid="time-ago">{howLongAgo()}</div>
+            <p data-testid="totalLikes">{likes}</p>
+          </div>
+        )}
       </div>
-      <AdvancedImage cldImg={profileImage} style = {{borderRadius: '50%'}}/>
-      <CreateComment postId={props.post._id} onCreateComment={handleCreateComment} />
-   Comments:
-    {comments.map((comment) => (
-          <div key={comment._id}>{comment.message}</div>
-        ))}
-      </div>
-      
-    <p data-testid = "count"> {likes} </p>
+      <div style={{ alignSelf: 'flex-end' }}>
+    {/* Like/Dislike Buttons */}
     <LikeDislike setLikes={setLikes} likes={likes} postId={props.post._id} />
+    
+  </div>
+      <CreateComment postId={props.post._id} onCreateComment={handleCreateComment} />
+      Comments:
+      {comments.map((comment) => (
+        <div key={comment._id}>{comment.message}</div>
+      ))}
     </div>
-  </article>
+  </div>
+  
+</article>
+
 };
 
 export default Post;

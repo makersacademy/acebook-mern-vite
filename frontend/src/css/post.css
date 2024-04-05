@@ -5,3 +5,33 @@
     border-radius: 10px;
    
 }
+
+.user-info {
+    display: flex;
+    justify-content: space-around; /* Align children to the start and end of the container */
+    --neon: #0c3b6a;
+    --neon-glow: #8523ab;
+    background: linear-gradient(to right, var(--neon), var(--neon-glow)); /* Neon color gradient */
+    color: white; /* Set text color to white */
+    text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white; /* Add text shadow for glowing effect */
+  }
+  
+  .user-info > div:first-child {
+    text-align: right; /* Align the "Posted by" text and user's name to the right */
+  }
+ 
+
+
+  .post-content {
+    display: flex;
+  }
+  
+  .profile-pic {
+    flex: 0 0 auto; /* Ensure the profile pic doesn't grow or shrink */
+    margin-right: 10px; /* Add spacing between profile pic and main content */
+  }
+  
+  .main-content {
+    flex: 1; /* Allow the main content to grow and take up remaining space */
+  }
+

@@ -66,3 +66,37 @@
   
 
   
+  .like-button {
+    border: none;
+    color: #fff;
+    background-color: #0abdc6; /* Updated background */
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 20px #711c91; /* Updated box-shadow */
+  }
+  
+  .like-button:hover {
+    background-color: #ea00d9; /* Updated hover background color */
+    box-shadow: 0 0 40px #ea00d9; /* Updated hover box-shadow */
+  }
+
+  .dislike-button {
+    border: none;
+    color: #fff;
+    background-color: #711c91; /* Updated background */
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 20px #133e7c; /* Updated box-shadow */
+  }
+  
+  .dislike-button:hover {
+    background-color: #ea00d9; /* Updated hover background color */
+    box-shadow: 0 0 40px #ea00d9; /* Updated hover box-shadow */
+  }
+
+
+  body {
+    padding-top:0px; /* navbar distance */
+  }
