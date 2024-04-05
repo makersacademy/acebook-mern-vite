@@ -130,7 +130,7 @@ export const SignupPage = () => {
                       </div>
                       
                       <UploadWidget folder={'profiles'} buttonText = {'Upload a profile pic'} handleImageUpload={handleImageUpload}/>
-                      <button style={{ marginLeft: '15px' }} className="btn btn-primary btn-block neon-button mt-3" type="submit">Submit</button>
+                      <button style={{ marginLeft: '15px' }} className="btn btn-primary btn-block neon-button mt-3" type="submit">Create Account</button>
                     </form>
                     {error.length > 0 && (
                       <div style={{ color: 'white', marginTop: '0.5rem' }}>

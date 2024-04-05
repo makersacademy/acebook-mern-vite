@@ -51,8 +51,8 @@ const LikeDislike = (props) => {
 return (
     <>
     
-    <button className="like-button" onClick={handleClickLike}>Like</button>
-    <button className="dislike-button" onClick={handleClickDislike}>Dislike</button>
+    <button className="like-button mt-3 mb-2" onClick={handleClickLike}>Like</button>
+    <button className="dislike-button mt-3 mb-2" onClick={handleClickDislike}>Dislike</button>
     </>
 )
 }

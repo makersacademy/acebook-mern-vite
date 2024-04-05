@@ -88,26 +88,38 @@ const Post = (props) => {
       {props.post.image && <div><AdvancedImage cldImg={postImage} /></div>}
       <div className="profile" role="profile">
         {user.firstName && (
-          <div className="user-info">
+          <div className="user-info mt-3">
             <div>
               Posted by: {user.firstName} {user.lastName}
             </div>
             <div data-testid="time-ago">{howLongAgo(postDateTime)}</div>
-            <p data-testid="totalLikes">{likes}</p>
+            <p data-testid="totalLikes" style={{ color: 'white' }}>{likes}</p>
           </div>
         )}
       </div>
       <div style={{ alignSelf: 'flex-end' }}>
     {/* Like/Dislike Buttons */}
     <LikeDislike setLikes={setLikes} likes={likes} postId={props.post._id} />
-    
-  </div>
-      <CreateComment postId={props.post._id} onCreateComment={handleCreateComment} />
+    <CreateComment postId={props.post._id} onCreateComment={handleCreateComment} />
       Comments:
       {comments.map((comment) => (
-        <div key={comment._id}>{comment.user.firstName}: {comment.message} - {howLongAgo(comment.createdAt)}</div>
+        <div key={comment._id} className="comments" >
+          <p>
+          <em>{comment.user.firstName} says</em>: <br />
+          <strong>{comment.message}</strong> <br/> <em>{howLongAgo(comment.createdAt)}</em>
+        </p>
+        <span className="top"></span>
+        <span className="bottom"></span>
+        <span className="right"></span>
+        <span className="left"></span>
+          
+          
+          
+          </div>
       ))}
     </div>
+  </div>
+      
   </div>
   
 </article>

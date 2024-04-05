@@ -9,18 +9,18 @@ const User = (props) => {
   const cld = new Cloudinary({cloud: {cloudName: CLOUD_NAME}});
   const imageLocation = props.user.image;
   const myImage = cld.image(imageLocation);
+  const fullName = `${props.user.firstName}  ${props.user.lastName}`
 
-  myImage.resize(fill().width(80).height(80)); 
+  myImage.resize(fill().width(120).height(120)); 
 
   return (
-    <div className="user-container" key={props.user._id}>
-      {/* Apply glowing circle effect around the image */}
+    <div className="user-container mt-5" key={props.user._id}>
+      {/* Apply glowing circle effect around the image */}      
       <div className="glowing-circle">
-        <AdvancedImage cldImg={myImage} style={{ borderRadius: "50%" }} />
+        <AdvancedImage  cldImg={myImage} style={{ borderRadius: "50%", paddingBottom: '20px' }} />
       </div>
-      <div data-testid="profileFirstName" className="profileFirstName">{props.user.firstName}</div>
-      <div data-testid="profileLastName" className="profileLastName">{props.user.lastName}</div>
-      <div data-testid="profileBio" className="profileBio">{props.user.bio}</div>
+      <div style={{ paddingBottom: '5px', paddingTop: '88px' }} data-testid="profileFirstName" className="profileFirstName">{props.user.firstName}'s Posts</div>
+      <div style={{ paddingTop: '10px' }} data-testid="profileBio" className="profileBio">{props.user.bio}</div>
     </div>
   );
 };

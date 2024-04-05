@@ -1,0 +1,17 @@
+.neon-background {
+    background: linear-gradient(to right, #711c91, #ea00d9, #0abdc6, #78a8ec, #618de0);
+      background-size: 400% 400%;
+      animation: gradient 10s ease infinite;
+    }
+    
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }

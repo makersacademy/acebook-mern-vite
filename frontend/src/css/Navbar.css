@@ -10,6 +10,7 @@ nav {
     top: 0;
     left: 0;
     max-width: 100%;
+    z-index: 1000;
   }
 
   .me-auto {

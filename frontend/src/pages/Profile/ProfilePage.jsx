@@ -6,6 +6,8 @@ import Navbar from "../../components/Navbar";
 import { getProfilePosts } from "../../services/posts";
 import CreatePost from "../../components/Post/CreatePost"
 import Post from "../../components/Post/Post";
+import "../../css/FeedPage.css";
+
 
 export const ProfilePage = () => {
   const [users, setUsers] = useState([]);
@@ -65,29 +67,29 @@ export const ProfilePage = () => {
   }
 
   return (
-    <>
+    <div className="container-fluid p-0 neon-background vh-50 vw-100">
       <Navbar />
-      <h2>Profile</h2>
-      <div className="profile" role="profile">
-        
-        {users.map((user) => (
-          <User user={user} key={user._id} />
-        ))}
+      <div className="row justify-content-center">
+        <div className="col-md-7 ">
+          <div className="profile" role="profile">
+            {users.map((user) => (
+              <User user={user} key={user._id} />
+            ))}
+          </div>
+          <>
+            
+            <div>
+              <CreatePost onCreatePost={handleCreatePost} />
+            </div>
+
+            <div className="feed" role="feed">
+              {posts.map((post) => (
+                <Post post={post} key={post._id} />
+              ))}
+            </div>
+          </>
+        </div>
       </div>
-      {/* <div><FeedPage/></div> */}
-      <>
-      <h2>Posts</h2>
-      <div>
-      <CreatePost onCreatePost={handleCreatePost}/>
-      </div>
-      <br></br>
-      <h3>All my posts:</h3>
-      <div className="feed" role="feed">
-        {posts.map((post) => (
-          <Post post={post} key={post._id} />
-        ))}
-      </div>
-    </>
-    </>
+    </div>
   );
 };

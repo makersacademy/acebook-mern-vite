@@ -37,20 +37,40 @@ const CreatePost = (props) => {
     };
 
     return (
-        <div data-testid='create-post-component'>
-        <form onSubmit={handleSubmit}>
-          <label>Tell us what's on your mind!</label>
-
-          <input data-testid="post-message" type='text' value={messageField} onChange={handleMessageChange}></input>
-          <UploadWidget folder={'posts'} buttonText = {'Add a photo'} handleImageUpload={handleImageUpload}/>
-          <input className="post-button" role="submit-button" id="submit" type="submit" value="Submit" />
-        </form>
-        <div>
-        <p>{error}</p>
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-md-12">
+              <div className="card">
+                <div className="card-body">
+                  <h2 className="card-title text-center mb-4">Create Post</h2>
+                  <form onSubmit={handleSubmit}>
+                    <div className="form-group ">
+                      <label htmlFor="post-message">Tell us what's on your mind!</label>
+                      <textarea
+                        id="post-message"
+                        className="form-control custom-input"
+                        type="text"
+                        value={messageField}
+                        onChange={handleMessageChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <UploadWidget folder={'posts'} buttonText={'Add a photo'} handleImageUpload={handleImageUpload}/>
+                    </div>
+                    <button className="post-btn mt-3" type="submit">Post</button>
+                  </form>
+                  {error.length > 0 && (
+                      <div style={{ color: 'white', marginTop: '0.5rem' }}>
+                        {error}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        </div>
-        
-    )
+      );
+      
 }
 
 export default CreatePost;

@@ -2,25 +2,18 @@
     border: 1px solid gray;
     padding: 10px;
     margin: 10px;
-    border-radius: 10px;
-   
+    border-radius: 10px;  
 }
 
 .user-info {
     display: flex;
     justify-content: space-around; /* Align children to the start and end of the container */
-    --neon: #0c3b6a;
-    --neon-glow: #8523ab;
-    background: linear-gradient(to right, var(--neon), var(--neon-glow)); /* Neon color gradient */
     color: white; /* Set text color to white */
-    text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white; /* Add text shadow for glowing effect */
   }
   
   .user-info > div:first-child {
     text-align: right; /* Align the "Posted by" text and user's name to the right */
   }
- 
-
 
   .post-content {
     display: flex;
@@ -34,4 +27,171 @@
   .main-content {
     flex: 1; /* Allow the main content to grow and take up remaining space */
   }
+  .comments{
+    background: rgba(255, 255, 255, 0.7);
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    text-align: centre;
+  }
 
+  .comments {
+    position: relative;
+    width: 100%;
+    height: flex;
+    color: #fff;
+    background: transparent;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.3);
+    border-top: 1px solid rgba(8, 177, 234, 0.5);
+    border-right: 1px solid rgba(0, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(7, 173, 228, 0.5);
+    border-left: 1px solid rgba(234, 52, 216, 0.5);
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1em;
+    border-radius: 20px;
+  }
+  
+  p {
+    font-size: 0.95rem;
+    text-align: center;
+  }
+  
+  span {
+    position: absolute;
+    border-radius: 100vmax;
+  }
+  
+  .top {
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 10px;
+    background: linear-gradient(
+      90deg,
+      transparent 50%,
+      rgba(6, 235, 235, 0.5),
+      rgb(216, 51, 211)
+    );
+  }
+  
+  .bottom {
+    right: 0;
+    bottom: 0;
+    height: 10px;
+    background: linear-gradient(
+      90deg,
+      rgb(5, 221, 233),
+      rgba(8, 82, 222, 0.5),
+      transparent 50%
+    );
+  }
+  
+  .right {
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 0;
+    background: linear-gradient(
+      180deg,
+      transparent 30%,
+      rgba(15, 95, 174, 0.5),
+      rgb(0, 255, 255)
+    );
+  }
+  
+  .left {
+    left: 0;
+    bottom: 0;
+    width: 10px;
+    height: 0;
+    background: linear-gradient(
+      180deg,
+      rgb(7, 158, 204),
+      rgba(242, 126, 232, 0.5),
+      transparent 70%
+    );
+  }
+  
+  .top {
+    animation: animateTop 3s ease-in-out infinite;
+  }
+  
+  .bottom {
+    animation: animateBottom 3s ease-in-out infinite;
+  }
+  
+  .right {
+    animation: animateRight 3s ease-in-out infinite;
+  }
+  
+  .left {
+    animation: animateLeft 3s ease-in-out infinite;
+  }
+  
+  @keyframes animateTop {
+    25% {
+      width: 100%;
+      opacity: 1;
+    }
+  
+    30%,
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  @keyframes animateBottom {
+    0%,
+    50% {
+      opacity: 0;
+      width: 0;
+    }
+  
+    75% {
+      opacity: 1;
+      width: 100%;
+    }
+  
+    76%,
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  @keyframes animateRight {
+    0%,
+    25% {
+      opacity: 0;
+      height: 0;
+    }
+  
+    50% {
+      opacity: 1;
+      height: 100%;
+    }
+  
+    55%,
+    100% {
+      height: 100%;
+      opacity: 0;
+    }
+  }
+  
+  @keyframes animateLeft {
+    0%,
+    75% {
+      opacity: 0;
+      bottom: 0;
+      height: 0;
+    }
+  
+    100% {
+      opacity: 1;
+      height: 100%;
+    }
+  }
+  

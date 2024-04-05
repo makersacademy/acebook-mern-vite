@@ -30,17 +30,26 @@ const CreateComment = (props) => {
     };
 
     return (
-        <div data-testid='create-comment-component'>
-        <form onSubmit={handleSubmit}>
-        <label>Add your comment:</label>
-            <input data-testid="comment-message" type='text' value={messageField} onChange={handleMessageChange}></input>
-            <input className="neon-button" role="submit-button" id="submit" type="submit" value="Submit" />
-        </form>
-        <div>
+        <div data-testid=' create-comment-component '>
+          <form onSubmit={handleSubmit} className="mb-2">
+            <div className="form-group">
+              <label htmlFor="comment-message" className="mb-1 mt-2">Add your comment:</label>
+              <textarea
+                id="comment-message"
+                className="form-control"
+                type='text'
+                value={messageField}
+                onChange={handleMessageChange}
+              />
+            </div>
+            <button className="neon-button mt-3" type="submit">Comment</button>
+          </form>
+          <div>
             <p>{error}</p>
+          </div>
         </div>
-        </div>
-    )
+      );
+      
 }
 
 export default CreateComment;
