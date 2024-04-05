@@ -30,7 +30,9 @@ export const ProfilePage = () => {
     const getNewPostTrigger = async (token) => {
       return getProfilePosts(token)
           .then((data) => {
-            setPosts(data.posts);
+            const allPosts = data.posts
+            allPosts.sort((a, b) => new Date(b.post_date) - new Date(a.post_date));
+            setPosts(allPosts);
             localStorage.setItem("token", data.token);
           })
     } 
@@ -79,7 +81,7 @@ export const ProfilePage = () => {
       <CreatePost onCreatePost={handleCreatePost}/>
       </div>
       <br></br>
-      <h3>All the posts:</h3>
+      <h3>All my posts:</h3>
       <div className="feed" role="feed">
         {posts.map((post) => (
           <Post post={post} key={post._id} />

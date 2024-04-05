@@ -16,7 +16,7 @@ const Post = (props) => {
   const [likes,setLikes] = useState(props.post.likes)
   const user = props.post.user;
   const cld = new Cloudinary({cloud: {cloudName: CLOUD_NAME}});
-
+  const postDateTime = new Date(props.post.post_date);
   const profileImageLocation = user.image;
   const profileImage = cld.image(profileImageLocation);
   profileImage.resize(fill().width(50).height(50));  
@@ -57,11 +57,10 @@ const Post = (props) => {
     }
   };
   
-    const howLongAgo = () => {
-      const postDateTime = new Date(props.post.post_date);
-      const formatedPostDateTime = format(postDateTime, "do MMMM yyyy, HH:mm");
+    let howLongAgo = (timeIn) => {
+      const dateTime = new Date(timeIn)
       const now = new Date();
-      const timeDifferenceSeconds = (now.getTime() - postDateTime.getTime())/1000;
+      const timeDifferenceSeconds = (now.getTime() - dateTime.getTime())/1000;
       const timeDifferenceMins = Math.round(timeDifferenceSeconds /60);
       const timeDifferenceHours = Math.round(timeDifferenceMins /60);
       if (timeDifferenceSeconds < 60 ) {
@@ -75,7 +74,7 @@ const Post = (props) => {
       } else if (timeDifferenceHours === 1) {
         return `${timeDifferenceHours} hour ago`
       } else {
-        return formatedPostDateTime;
+        return format(dateTime, "do MMMM yyyy, HH:mm");
       }
     }
    
@@ -88,12 +87,12 @@ const Post = (props) => {
       <p data-testid="message">{props.post.message}</p>
       {props.post.image && <div><AdvancedImage cldImg={postImage} /></div>}
       <div className="profile" role="profile">
-        {user && (
+        {user.firstName && (
           <div className="user-info">
             <div>
               Posted by: {user.firstName} {user.lastName}
             </div>
-            <div data-testid="time-ago">{howLongAgo()}</div>
+            <div data-testid="time-ago">{howLongAgo(postDateTime)}</div>
             <p data-testid="totalLikes">{likes}</p>
           </div>
         )}
@@ -106,7 +105,7 @@ const Post = (props) => {
       <CreateComment postId={props.post._id} onCreateComment={handleCreateComment} />
       Comments:
       {comments.map((comment) => (
-        <div key={comment._id}>{comment.message}</div>
+        <div key={comment._id}>{comment.user.firstName}: {comment.message} - {howLongAgo(comment.createdAt)}</div>
       ))}
     </div>
   </div>
@@ -116,3 +115,4 @@ const Post = (props) => {
 };
 
 export default Post;
+
