@@ -6,7 +6,7 @@ import UploadWidget from './UploadWidget';
 import '../../css/CreatePost.css'
 import { Cloudinary} from "@cloudinary/url-gen";
 import {AdvancedImage} from '@cloudinary/react';
-import {fill} from "@cloudinary/url-gen/actions/resize";
+
 const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME
 
  

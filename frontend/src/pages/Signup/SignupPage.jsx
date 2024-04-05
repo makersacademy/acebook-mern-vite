@@ -4,6 +4,10 @@ import { signup } from "../../services/authentication";
 import '../../css/LoginPageBackground.css'
 import { Link } from "react-router-dom";
 import UploadWidget from "../../components/Post/UploadWidget";
+import { Cloudinary} from "@cloudinary/url-gen";
+import {AdvancedImage} from '@cloudinary/react';
+
+const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME
 
 export const SignupPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -13,6 +17,9 @@ export const SignupPage = () => {
   const [password, setPassword] = useState("");
   const [imageField, setImageField] = useState("")
   const [error, setError] = useState([])
+  const cld = new Cloudinary({cloud: {cloudName: CLOUD_NAME}});
+  const [imagePreview, setImagePreview] = useState('')
+
 
   const navigate = useNavigate();
 
@@ -58,7 +65,9 @@ export const SignupPage = () => {
   const handleImageUpload = (imageLocation) => {
     console.log('IM IN HANDLE IMAGE UPLOAD')
     setImageField(imageLocation)
+    setImagePreview(cld.image(imageLocation));
 }
+
 
   return (
     <div className="container-fluid p-0 neon-background">
@@ -128,7 +137,7 @@ export const SignupPage = () => {
                           onChange={handleBioChange}
                         />
                       </div>
-                      
+                      {imagePreview && <AdvancedImage style={{ height: "150px", width: "150px", objectFit: "cover", borderRadius: '50%'}} cldImg={imagePreview} />}
                       <UploadWidget folder={'profiles'} buttonText = {'Upload a profile pic'} handleImageUpload={handleImageUpload}/>
                       <button style={{ marginLeft: '15px' }} className="btn btn-primary btn-block neon-button mt-3" type="submit">Submit</button>
                     </form>
