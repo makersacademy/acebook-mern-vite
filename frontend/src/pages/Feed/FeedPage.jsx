@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
+import { NavBar } from "../../components/NavBar";
+import PostForm from "../../components/Post/PostForm";
+import { postNewPost } from "../../services/posts";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -23,6 +25,22 @@ export const FeedPage = () => {
     }
   }, [navigate]);
 
+  const handleNewPost = async (text) => {
+    if (text.trim() !== '') {
+      const formattedText = `{"message": "${text}"}`
+      await postNewPost(token, JSON.parse(formattedText));
+      getPosts(token)
+        .then((data) => {
+          setPosts(data.posts);
+          localStorage.setItem("token", data.token);
+        })
+        .catch((err) => {
+          console.error(err);
+          navigate("/login");
+        });
+    }
+  }
+
   const token = localStorage.getItem("token");
   if (!token) {
     navigate("/login");
@@ -31,12 +49,13 @@ export const FeedPage = () => {
 
   return (
     <>
+    <NavBar />
+    <PostForm handleNewPost={handleNewPost}/>
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
-          <Post post={post} key={post._id} />
+          <Post post={post} key={post._id} token={token} />
         ))}
       </div>
     </>
-  );
-};
+)};

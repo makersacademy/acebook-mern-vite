@@ -6,16 +6,19 @@ import { login } from "../../services/authentication";
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("")
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const token = await login(email, password);
+      const [token, userId] = await login(email, password);
       localStorage.setItem("token", token);
+      localStorage.setItem("userId", userId)
       navigate("/posts");
     } catch (err) {
       console.error(err);
+      setErrorMessage("Invalid email or password. Please try again.")
       navigate("/login");
     }
   };
@@ -31,6 +34,7 @@ export const LoginPage = () => {
   return (
     <>
       <h2>Login</h2>
+      
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
         <input
@@ -48,6 +52,7 @@ export const LoginPage = () => {
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
+      <p style={{color: "red"}}>{errorMessage}</p>
     </>
   );
 };
