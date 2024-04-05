@@ -1,0 +1,16 @@
+.custom-border-profile-pic {
+    --bs-border-color: #643579;
+  }
+
+
+  .edit-button {
+    border-color: #c3f2da;
+    background-color: #643579;
+    color: #c3f2da; 
+  }
+  
+  .edit-button:hover {
+    background-color: #a070b2;
+    color: #5DD39E;
+    border-color: #643579;
+  }

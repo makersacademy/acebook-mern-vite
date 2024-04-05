@@ -1,26 +1,43 @@
 
+
 export const User = (props) => {
   return (
-  <div className="container">
-    <div className="row">
-      <div className="col-3"></div>
-      <div className="col-6">
-      <article aria-label="User Header" key={props.user._id}>{props.user.forename} {props.user.surname} Username: {props.user.username}</article>
+    <div className="card-body darkest-text-color">
+      <div className="row">
+        <div className="col-sm-3 fw-bold">
+          <p className="mb-0">Username:</p>
+        </div>
+        <div className="col-sm-9">
+          <p className="text-muted mb-0">{props.user.username}</p>
+        </div>
       </div>
-      <div className="col-7" aria-label="User description">
-        <article key={props.user._id}>Description:{props.user.description}</article>
+      <hr />
+      <div className="row">
+        <div className="col-sm-3  fw-bold">
+          <p className="mb-0">Description:</p>
+        </div>
+        <div className="col-sm-9">
+          <p className="text-muted mb-0">{props.user.description}</p>
+        </div>
+      </div>
+      <hr />
+      <div className="row">
+        <div className="col-sm-3 fw-bold">
+          <p className="mb-0">DOB:</p>
+        </div>
+        <div className="col-sm-9">
+          <p className="text-muted mb-0">{props.user.dob}</p>
+        </div>
+      </div>
+      <hr />
+      <div className="row">
+        <div className="col-sm-3 fw-bold">
+          <p className="mb-0">Location:</p>
+        </div>
+        <div className="col-sm-9">
+          <p className="text-muted mb-0">{props.user.location}</p>
+        </div>
       </div>
     </div>
-    <div className="row">
-      <div className="col-3"></div>
-      <div className="col-7 ">
-      <article aria-label="User text" key={props.user._id}>Location: {props.user.location}</article>
-      </div>
-    </div>
-    <div className="col-7" aria-label="User description">
-        <article key={props.user._id}>date of birth: {props.user.dob}</article>
-      </div>
-    <hr />
-  </div>
   );
 };

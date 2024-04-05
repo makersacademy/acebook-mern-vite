@@ -1,37 +1,28 @@
-import { useNavigate } from "react-router-dom";
-
+// import { useNavigate } from "react-router-dom";
+// import { ProfileEditButton } from "./ProfileEditButton";
 
 
 export const ProfilePageImage = (props) => {
-  const navigate = useNavigate()
-  const navigateToEditProfile = (event) => {
-    event.preventDefault()
-    navigate("/editprofile")
-  };
+  // const navigate = useNavigate()
+  // const navigateToEditProfile = (event) => {
+  //   event.preventDefault()
+  //   navigate("/editprofile")
+  // };
 
     return (
-      <div className="container">
-        <div className="row justify-content-start">
-          <div className="col-4">
             <img
-              className="image-circle-smaller mt-5"
+              className="image-circle-smaller p-2 mt-5 border border-1 custom-border-profile-pic"
               src={props.profileImage}
               alt="profile picture"
               aria-label="circular picture of profile picture"
             />
-            <div className="row justify-content-center">
-              <div className="col-4 pt-3">
-                <button id="editProfileButton" onClick={navigateToEditProfile}>Edit profile</button>
-              </div>
-            </div>
-            </div>
-          </div>
-        </div>
-        
+
         )
   };
   
 
  
 
- 
+
+  
+  
