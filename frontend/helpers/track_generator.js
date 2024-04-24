@@ -1,6 +1,7 @@
 import {shuffle} from "../helpers/shuffle.js"
 import { randomArtists } from "./artist_generator.js";
 
+
 const BACKEND_URL = 'https://api.deezer.com';
 
 console.log("Artist list:", randomArtists)
