@@ -8,7 +8,7 @@ export const getGenres = async () => {
     const response = await fetch(`${BACKEND_URL}/music/genre`, requestOptions);
 
     if (response.status !== 200) {
-        throw new Error("Unable to fetch tracks");
+        throw new Error("Unable to fetch genres");
     }
 
     const data = await response.json();
