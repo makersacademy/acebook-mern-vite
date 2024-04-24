@@ -24,7 +24,7 @@ const AudioButton = ( {trackPreview} ) => {
       <button className={`play-button ${isPlaying ? 'pulsate' : ''}`} onClick={handleClick}>
         <span className="icon">{isPlaying ? "❚❚" : "▶"}</span> 
       </button>
-        <audio id="ASong" src={trackPreview} hidden />
+        <audio id="ASong" src={trackPreview} loop hidden />
       </div>
   );
 }
