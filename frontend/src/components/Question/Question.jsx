@@ -5,9 +5,7 @@ const Question = ({
 }) => {
   return (
     <>
-      <div className="question">
-        <p>{generatedQuestion}</p>
-      </div>
+      <div className="question">{generatedQuestion}</div>
     </>
   );
 };
