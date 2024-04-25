@@ -1,7 +1,7 @@
 import AudioButton from "../../components/AudioButton/AudioButton";
 import Question from "../../components/Question/Question";
 
-export const QuizPage = () => {
+export const QuizPage = () => (
   <>
     <div>
       <AudioButton />
@@ -9,5 +9,5 @@ export const QuizPage = () => {
     <div>
       <Question questionType="artist" />
     </div>
-  </>;
-};
+  </>
+);
