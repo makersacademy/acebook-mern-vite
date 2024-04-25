@@ -1,7 +1,8 @@
 import { vi } from "vitest";
 import { randomArtists } from "../..//helpers/artist_generator.js";
+
 // Mocking the getArtists service
-vi.mock("../../src/services/getArtist", () => {
+vi.mock("../../src/services/deezerService", () => {
     const getArtistsMock = vi.fn();
     getArtistsMock.mockResolvedValue([
     { id: 1, name: "Artist 1" },
@@ -11,7 +12,7 @@ vi.mock("../../src/services/getArtist", () => {
     { id: 5, name: "Artist 5" }
     ]);
     return {
-    getArtists: getArtistsMock,
+    getArtistsForGenre: getArtistsMock,
     };
 });
 vi.mock("../../helpers/shuffle", () => ({

@@ -1,7 +1,9 @@
 import { vi } from "vitest";
 import { randomTrack } from "../../helpers/track_generator.js";
+
+
 // Mocking the getArtists service
-vi.mock("../../src/services/getTrack", () => {
+vi.mock("../../src/services/deezerService", () => {
     const getTrackMock = vi.fn();
     getTrackMock.mockResolvedValue([
         { id: 45, title: "Title 45", artist: {name: "Artist 1"}, album: {title:"Album 1"}, preview: "Track Preview" },
@@ -12,7 +14,7 @@ vi.mock("../../src/services/getTrack", () => {
         { id: 6, title: "Title 6", artist: "Artist 6", album: "Album 6" },
     ]);
 return {
-    getTrack: getTrackMock,
+    getTopTracksForArtist: getTrackMock,
     };
 });
 vi.mock("../../helpers/shuffle", () => ({

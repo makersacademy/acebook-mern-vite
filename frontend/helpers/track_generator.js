@@ -1,14 +1,9 @@
 import { shuffle } from "../helpers/shuffle.js";
-import { getTrack } from "../src/services/getTrack.js";
+import { getTopTracksForArtist } from "../src/services/deezerService.js";
 
-// Call getTrack function
-getTrack().catch(error => {
-  console.error("Error fetching track:", error);
-});
-
-export const randomTrack = async () => {
+export const randomTrack = async (artistID) => {
   try {
-    const data = await getTrack();
+    const data = await getTopTracksForArtist(artistID);
 
     const trackList = data.map(track => ({
       id: track.id,

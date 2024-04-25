@@ -33,9 +33,8 @@ vi.mock("../../helpers/track_generator", () => {
         const answers = await artistAnswers();
         const expectedAnswers =
         {"selectedTrack": {id: 45, title: "Title 45", artist: "Artist 45", album: "Album 1" },
-        "shuffledArtistAnswerList":
-            ["Artist 45", "Artist 2", "Artist 3", "Artist 4"]}
-            ;
+        "shuffledArtistAnswerList": ["Artist 45", "Artist 2", "Artist 3", "Artist 4"]
+    };
             expect(answers).toEqual(expectedAnswers);
         });
     });
