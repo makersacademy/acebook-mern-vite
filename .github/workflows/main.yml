@@ -20,14 +20,12 @@ jobs:
         with:
           node-version: 20.x
 
-      # Move to frontend directory
-      - name: Move to frontend
-        run: cd frontend
-        
-      # This step installs dependencies
-      - name: Install dependencies
-        run: npm install
-      
+      # Move to frontend directory and install dependencies
+      - name: Move to frontend and install dependencies
+        run: |
+          cd frontend
+          npm install
+
       # Test React app
       - name: Test
         run: npm run test
