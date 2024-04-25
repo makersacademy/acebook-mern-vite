@@ -1,5 +1,5 @@
 # The name of the workflow
-name: Test
+name: Frontend Test
 
 # This workflow will run on any push to the repository
 on: push
@@ -18,11 +18,15 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 20.x
 
       # This step installs dependencies
       - name: Install dependencies
         run: npm install
+
+      # Move to frontend directory
+      - name: Move to frontend
+        run: cd frontend
       
       # Test React app
       - name: Test
