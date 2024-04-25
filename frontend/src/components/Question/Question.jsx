@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
 
-const Question = ({
-  generatedQuestion = "What is the name of the artist?",
-}) => {
+const Question = ({ questionType }) => {
   return (
     <>
-      <div className="question">{generatedQuestion}</div>
+      <div className="question">
+        {`What is the name of the ${questionType}?`}
+      </div>
     </>
   );
 };
