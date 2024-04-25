@@ -8,8 +8,6 @@ const selectedArtists = await randomArtists()
 const correctAnswerArtistID = selectedArtists[0]["id"]; // Get the first randomly selected artist ID
 
 
-console.log("Correct Artist ID:", correctAnswerArtistID)
-
 export const getTrack = async () => {
     const requestOptions = {
         method: "GET"

@@ -14,10 +14,9 @@ export const randomTrack = async () => {
       id: track.id,
       title: track.title,
       artist: track.artist.name,
-      album: track.album.title
+      album: track.album.title,
+      preview: track.preview
     }));
-
-    console.log(trackList);
 
     const shuffledTrack = shuffle(trackList); // Shuffle the array of IDs
     const selectedTrack = shuffledTrack[0]; // Select the first track

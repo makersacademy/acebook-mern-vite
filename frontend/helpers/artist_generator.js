@@ -10,11 +10,8 @@ export const randomArtists = async () => {
           id: artist.id
         }));
         
-  console.log(artistList)
-
   const shuffledArtists = shuffle(artistList); // Shuffle the array of artists
   const selectedArtists = shuffledArtists.slice(0, 4); // Select the first 4 artists
-  console.log(selectedArtists)
   return selectedArtists
 }catch (error) {
   console.error("Error fetching artists:", error);
@@ -22,4 +19,3 @@ export const randomArtists = async () => {
 }
 };
 
-randomArtists();
