@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import AudioButton from "../../components/AudioButton/AudioButton";
 import Question from "../../components/Question/Question";
 // import { getTrack } from "../../services/deezerService";
@@ -15,7 +15,7 @@ export const QuizPage = () => {
         <AudioButton />
       </div>
       <div>
-        <Question />
+        <Question questionType="artist" />
       </div>
     </>
   );
