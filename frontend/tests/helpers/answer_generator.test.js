@@ -32,7 +32,9 @@ vi.mock("../../helpers/track_generator", () => {
         test('Returns first artist from tracks and other artists from artist list', async () => {
         const answers = await artistAnswers();
         const expectedAnswers =
-            ["Artist 45", "Artist 2", "Artist 3", "Artist 4"]
+        {"selectedTrack": {id: 45, title: "Title 45", artist: "Artist 45", album: "Album 1" },
+        "shuffledArtistAnswerList":
+            ["Artist 45", "Artist 2", "Artist 3", "Artist 4"]}
             ;
             expect(answers).toEqual(expectedAnswers);
         });
