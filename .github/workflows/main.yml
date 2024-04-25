@@ -1,5 +1,5 @@
 # The name of the workflow
-name: Frontend Test
+name: Run All Tests
 
 # This workflow will run on any push to the repository
 on: push
@@ -31,3 +31,17 @@ jobs:
         run: |
             cd frontend
             npm run test
+
+      # Move to backend directory and install dependencies
+      - name: Move to backend and install dependencies
+        run: |
+          cd api
+          npm install
+
+      # Test React app
+      - name: Move to backend and Test
+        run: |
+            cd api
+            npm run test
+
+
