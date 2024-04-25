@@ -27,5 +27,7 @@ jobs:
           npm install
 
       # Test React app
-      - name: Test
-        run: npm run test
+      - name: Move to frontend and Test
+        run: |
+            cd frontend
+            npm run test
