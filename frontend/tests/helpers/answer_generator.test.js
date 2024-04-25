@@ -38,15 +38,3 @@ vi.mock("../../helpers/track_generator", () => {
             expect(answers).toEqual(expectedAnswers);
         });
     });
-
-
-
-
-
-
-
-
-
-
-
-

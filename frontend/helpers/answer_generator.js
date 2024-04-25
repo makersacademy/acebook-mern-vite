@@ -1,5 +1,5 @@
 import { randomArtists } from "./artist_generator.js";
-import { randomTrack} from "./track_generator.js";
+import { randomTrack } from "./track_generator.js";
 import {shuffle} from "../helpers/shuffle.js"
 
 const genreID = 464;
@@ -25,6 +25,3 @@ export const artistAnswers = async () => {
   return {selectedTrack, shuffledArtistAnswerList}
 
     };
-
-artistAnswers().then((output) => 
-(console.log(output)));
