@@ -1,5 +1,4 @@
 import { screen, render, fireEvent } from "@testing-library/react";
-// import { BrowserRouter } from "react-router-dom";
 import { QuizPage } from "../../src/pages/Quiz/QuizPage";
 
 describe("Audio button component", () => {
