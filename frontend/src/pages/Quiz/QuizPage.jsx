@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import AudioButton from "../../components/AudioButton/AudioButton";
 import Question from "../../components/Question/Question";
-import Answer from "../../components/Answer/answer";
+import Answer from "../../components/Answer/Answer";
 import { artistAnswers } from "../../../helpers/answer_generator";  
 
 export const QuizPage = () => {
