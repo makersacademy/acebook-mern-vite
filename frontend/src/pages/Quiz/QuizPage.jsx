@@ -18,15 +18,18 @@ export const QuizPage = () => {
   
   return (
     <>
-      <div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
+      <div style={{ padding: '20px' }}>
         <AudioButton trackPreview={selectedTrack.preview}/>
       </div>
-      <div>
+      <div style={{ padding: '20px', fontSize: '24px' }}>
         <Question questionType="artist" />
       </div>
-      <div>
+      <div style={{ padding: '20px' }}>
         <Answer shuffledArtistAnswerList={shuffledArtistAnswerList} selectedTrack={selectedTrack} />
+      </div>
       </div>
     </>
   );
+ 
 };
