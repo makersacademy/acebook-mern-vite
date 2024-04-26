@@ -5,17 +5,13 @@ import { vi } from "vitest";
 
 beforeAll(() => {
     vi.mock("../../helpers/answer_generator", () => {
-        const mockShuffledArtistAnswerList = vi.fn();
-        mockShuffledArtistAnswerList.mockResolvedValue([
-            { artistName: 'Artist 1', isCorrect: true },
-            { artistName: 'Artist 2', isCorrect: false },
-            { artistName: 'Artist 3', isCorrect: false },
-        ]);
+        const mockArtistAnswers = vi.fn();
+        mockArtistAnswers.mockResolvedValue({
+            selectedTrack: { artist: 'Artist 1', preview: "examplePreviewUrl" },
+            shuffledArtistAnswerList: ['Artist 1' , 'Artist 2', 'Artist 3']
+        });
         return {
-            artistAnswers: async () => ({
-                selectedTrack: { preview: "examplePreviewUrl" },
-                shuffledArtistAnswerList: await mockShuffledArtistAnswerList(),
-            }),
+            artistAnswers: () => mockArtistAnswers()
         };
     });
 });

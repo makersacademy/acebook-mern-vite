@@ -7,11 +7,14 @@ const Answer = ({ selectedTrack, shuffledArtistAnswerList }) => {
     const answerClick = (artist, id) => {
         const isCorrect = selectedTrack.artist === artist
         console.log(isCorrect)
+        const button = document.getElementById(`button-${id}`)
         if (isCorrect) {
             setScore(score + 1);
-            document.getElementById(`button-${id}`).style.backgroundColor = "green";
+            button.style.backgroundColor = "green";
+            button.style.color = "white"
         } else {
-            document.getElementById(`button-${id}`).style.backgroundColor = "red";
+            button.style.backgroundColor = "red";
+            button.style.color = "white"
         }
     };
 
