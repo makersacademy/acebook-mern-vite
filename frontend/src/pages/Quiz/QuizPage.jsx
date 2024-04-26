@@ -22,7 +22,7 @@ export const QuizPage = () => {
       <div style={{ padding: '20px' }}>
         <AudioButton trackPreview={selectedTrack.preview}/>
       </div>
-      <div style={{ padding: '20px' }}>
+      <div style={{ padding: '20px', fontSize: '24px' }}>
         <Question questionType="artist" />
       </div>
       <div style={{ padding: '20px' }}>
