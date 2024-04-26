@@ -2,7 +2,7 @@ import { randomArtists } from "./artist_generator.js";
 import { randomTrack } from "./track_generator.js";
 import { shuffle } from "../helpers/shuffle.js"
 
-export const artistAnswers = async (genreID = 464) => {
+export const artistAnswers = async (genreID) => {
   const selectedArtists = await randomArtists(genreID)
   const correctAnswerArtistID = selectedArtists[0]["id"];
   const artistAnswerList = [];
