@@ -8,12 +8,10 @@ import GenrePicker from "../../components/GenrePicker/GenrePicker";
 export const QuizPage = () => {
   const [shuffledArtistAnswerList, setShuffledArtistAnswerList] = useState([]);
   const [selectedTrack, setSelectedTrack] = useState("");
-
   const [selectedGenre, setSelectedGenre] = useState(0);
 
   const handleGenrePicker = (genreID) => {
     setSelectedGenre(genreID)
-    console.log(genreID)
   }
 
 
