@@ -8,10 +8,6 @@ const GenrePicker = ({onGenreSelect}) =>{
         {id: 464, name: 'Metal'}
     ]
 
-    // const handleGenrePicker = (genreID) =>{
-    //     onGenreSelect(genreID)
-    // }
-
 return (
     <>
         <div>
