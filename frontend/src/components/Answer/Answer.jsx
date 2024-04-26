@@ -2,15 +2,18 @@ import { useState } from "react";
 
 const Answer = ({ selectedTrack, shuffledArtistAnswerList }) => {
     const [score, setScore] = useState(0);
+
     // console.log(selectedTrack.artist)
-    const answerClick = (artist) => {
+    const answerClick = (artist, id) => {
         const isCorrect = selectedTrack.artist === artist
         console.log(isCorrect)
         if (isCorrect) {
             setScore(score + 1);
+            document.getElementById(`button-${id}`).style.backgroundColor = "green";
+        } else {
+            document.getElementById(`button-${id}`).style.backgroundColor = "red";
         }
     };
-
 
 
     return (
@@ -18,7 +21,7 @@ const Answer = ({ selectedTrack, shuffledArtistAnswerList }) => {
         <div>
         {shuffledArtistAnswerList.map((artist, id) => (
             <ul key={id}>
-                <button onClick={() => answerClick(artist)}>{artist}</button>
+                <button id={`button-${id}`} className="answer-button" onClick={() => answerClick(artist, id)}>{artist}</button>
             </ul>
         ))}
         </div>
