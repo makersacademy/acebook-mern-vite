@@ -2,22 +2,20 @@ import { useState } from "react";
 
 const Answer = ({ selectedTrack, shuffledArtistAnswerList }) => {
     const [score, setScore] = useState(0);
-    const [buttonColors, setButtonColors] = useState(Array(shuffledArtistAnswerList.length).fill('bg-blue-500'));
+    const [buttonColors, setButtonColors] = useState('bg-blue-500');
 
     // console.log(selectedTrack.artist)
     const answerClick = (artist, id) => {
         const isCorrect = selectedTrack.artist === artist
+        const newButtonColors = [buttonColors];
         console.log(isCorrect)
         if (isCorrect) {
             setScore(score + 1);
-            const newButtonColors = [...buttonColors];
             newButtonColors[id] = 'bg-green-500';
-            setButtonColors(newButtonColors);
         } else {
-            const newButtonColors = [...buttonColors];
             newButtonColors[id] = 'bg-red-500';
-            setButtonColors(newButtonColors);
         }
+        setButtonColors(newButtonColors);
     };
 
 
@@ -30,9 +28,9 @@ const Answer = ({ selectedTrack, shuffledArtistAnswerList }) => {
                 onClick={() => answerClick(artist, id)} 
                 className={`btn overflow-hidden relative
                 w-64 bg-blue-500 text-white py-4 px-4 rounded-xl font-bold uppercase
-                -- before:block before:absolute before:h-full before:w-full before:bg-red-300
-                before:left-0 before:top-0 before:-translate-y-full before:transition-transform hover:bg-blue-300 ${buttonColors[id]}
-                ${buttonColors[id] === 'bg-blue-500' ? 'hover:bg-blue-300' : ''}`}
+                before:block before:absolute before:h-full before:w-full
+                before:left-0 before:top-0 before:-translate-y-full before:transition-transform ${buttonColors[id]}
+                ${buttonColors === 'bg-blue-500' ? 'hover:bg-blue-300' : ''}`}
                 style={{ marginBottom: '10px' }}
                 >{artist}</button>
             </ul>
