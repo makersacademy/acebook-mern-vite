@@ -11,6 +11,10 @@ import { QuizPage } from "./pages/Quiz/QuizPage";
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <HomePage />,
+  },
+  {
+    path: "/kwizical",
     element: <QuizPage />,
   },
   {

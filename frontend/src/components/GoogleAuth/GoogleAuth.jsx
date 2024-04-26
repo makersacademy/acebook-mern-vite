@@ -1,7 +1,9 @@
 import { useGoogleLogin } from '@react-oauth/google';
+import { useNavigate } from 'react-router-dom';
 import "./GoogleAuth.css"
 
 const GoogleAuth = () => {
+    const navigate = useNavigate()
     const login = useGoogleLogin({
         onSuccess: (tokenResponse) => {
             localStorage.setItem("google-token", tokenResponse.access_token)
@@ -11,6 +13,7 @@ const GoogleAuth = () => {
                 .then(res => res.json())
                 .then(data => {
                     localStorage.setItem("user", data)
+                navigate("/kwizical")
                 });
         },
         onError: (error) => console.log('Login Failed:', error)
