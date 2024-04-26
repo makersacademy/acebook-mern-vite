@@ -3,10 +3,18 @@ import AudioButton from "../../components/AudioButton/AudioButton";
 import Question from "../../components/Question/Question";
 import Answer from "../../components/Answer/Answer";
 import { artistAnswers } from "../../../helpers/answer_generator";  
+import GenrePicker from "../../components/GenrePicker/GenrePicker";
 
 export const QuizPage = () => {
   const [shuffledArtistAnswerList, setShuffledArtistAnswerList] = useState([]);
   const [selectedTrack, setSelectedTrack] = useState("");
+
+  // const [selectedGenre, setSelectedGenre] = useState(0);
+  
+  // const handleGenrePicker = (genreID) =>{
+  //   setSelectedGenre(genreID)
+  //   console.log(genreID)
+  // }
   
   
   useEffect(() => {
@@ -18,6 +26,9 @@ export const QuizPage = () => {
   
   return (
     <>
+      <div>
+        {/* <GenrePicker onGenreSelect={handleGenrePicker}></GenrePicker> */}
+      </div>
       <div>
         <AudioButton trackPreview={selectedTrack.preview}/>
       </div>
