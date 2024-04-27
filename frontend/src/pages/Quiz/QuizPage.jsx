@@ -11,8 +11,8 @@ export const QuizPage = () => {
   const [selectedGenre, setSelectedGenre] = useState(0);
 
   const handleGenrePicker = (genreID) => {
-    setSelectedGenre(genreID)
-  }
+    setSelectedGenre(genreID);
+  };
 
 
   useEffect(() => {
@@ -30,14 +30,16 @@ export const QuizPage = () => {
         </div>)
         : (
           <>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
-              <div style={{ padding: '20px' }}>
+            <div className={`absolute inset-0 flex flex-col items-center justify-center 
+            animate__animated animate__slideInRight`
+            }>
+              <div className="p-5">
                 <AudioButton trackPreview={selectedTrack.preview} />
               </div>
-              <div style={{ padding: '20px', fontSize: '24px' }}>
+              <div className="p-5 text-2xl">
                 <Question questionType="artist" />
               </div>
-              <div style={{ padding: '20px' }}>
+              <div className="p-5">
                 <Answer shuffledArtistAnswerList={shuffledArtistAnswerList} selectedTrack={selectedTrack} />
               </div>
 
