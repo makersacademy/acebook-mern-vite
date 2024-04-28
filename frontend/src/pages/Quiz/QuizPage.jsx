@@ -9,9 +9,13 @@ export const QuizPage = () => {
   const [shuffledArtistAnswerList, setShuffledArtistAnswerList] = useState([]);
   const [selectedTrack, setSelectedTrack] = useState("");
   const [selectedGenre, setSelectedGenre] = useState(0);
+  const [selectedBackground, setSelectedBackground] = useState('custom-background');
 
-  const handleGenrePicker = (genreID) => {
+
+  const handleGenrePicker = (genreID, backgroundClass) => {
     setSelectedGenre(genreID);
+    setSelectedBackground(backgroundClass);
+   
   };
 
 
@@ -25,13 +29,13 @@ export const QuizPage = () => {
   return (
     <>
       {selectedGenre === 0
-        ? (<div>
+        ? (<div className="custom-background">
           <GenrePicker onGenreSelect={handleGenrePicker}></GenrePicker>
         </div>)
         : (
           <>
             <div className={`absolute inset-0 flex flex-col items-center justify-center 
-            animate__animated animate__slideInRight`
+            animate__animated animate__slideInRight ${selectedBackground} bg-cover`
             // The above Tailwind code applies the sliding animation to the transition from the genre 'page' to the quiz 'page'
             }>
               <div className="p-5">
