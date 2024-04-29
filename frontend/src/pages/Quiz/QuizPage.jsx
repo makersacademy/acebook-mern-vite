@@ -29,7 +29,7 @@ export const QuizPage = () => {
   return (
     <>
       {selectedGenre === 0
-        ? (<div className="custom-background">
+        ? (<div className="min-h-screen custom-background bg-cover">
           <GenrePicker onGenreSelect={handleGenrePicker}></GenrePicker>
         </div>)
         : (
