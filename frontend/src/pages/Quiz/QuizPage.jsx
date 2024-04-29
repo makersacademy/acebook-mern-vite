@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import AudioButton from "../../components/AudioButton/AudioButton";
 import Question from "../../components/Question/Question";
 import Answer from "../../components/Answer/Answer";
@@ -11,25 +12,26 @@ export const QuizPage = () => {
   const [selectedGenre, setSelectedGenre] = useState(0);
   const [selectedBackground, setSelectedBackground] =
     useState("custom-background");
-  const [generateNewQuestion, setGenerateNewQuestion] = useState(true);
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
+  const navigate = useNavigate();
 
   const handleAnswerButtonClick = () => {
     setQuestionsAnswered(questionsAnswered + 1);
-    setGenerateNewQuestion(true);
+    if (questionsAnswered === 4) {
+      navigate("/results");
+    }
   };
 
   useEffect(() => {
-    if (generateNewQuestion && questionsAnswered < 5) {
+    if (questionsAnswered < 5) {
       artistAnswers(selectedGenre).then(
         ({ selectedTrack, shuffledArtistAnswerList }) => {
           setShuffledArtistAnswerList(shuffledArtistAnswerList);
           setSelectedTrack(selectedTrack);
-          setGenerateNewQuestion(false);
         }
       );
     }
-  }, [generateNewQuestion, selectedGenre, questionsAnswered]);
+  }, [selectedGenre, questionsAnswered]);
 
   const handleGenrePicker = (genreID, backgroundClass) => {
     setSelectedGenre(genreID);
@@ -51,6 +53,9 @@ export const QuizPage = () => {
               // The above Tailwind code applies the sliding animation to the transition from the genre 'page' to the quiz 'page'
             }
           >
+            <div className="text-2xl text-white">
+              Question {questionsAnswered + 1} of 5
+            </div>
             <div className="p-5">
               <AudioButton trackPreview={selectedTrack.preview} />
             </div>
