@@ -3,9 +3,11 @@ import { QuizPage } from "../../src/pages/Quiz/QuizPage";
 import { describe, vi } from "vitest";
 import "@testing-library/jest-dom";
 
-vi.mock("react-router-dom", () => ({
-  useNavigate: () => () => {}, // Mock useNavigate to return a no-op function
-}));
+vi.mock("react-router-dom", () => {
+  const navigateMock = vi.fn();
+  const useNavigateMock = () => navigateMock;
+  return { useNavigate: useNavigateMock };
+});
 
 beforeAll(() => {
   vi.mock("../../helpers/answer_generator", () => {
