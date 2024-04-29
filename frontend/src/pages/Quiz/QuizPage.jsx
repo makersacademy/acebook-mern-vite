@@ -12,13 +12,15 @@ export const QuizPage = () => {
   const [selectedBackground, setSelectedBackground] =
     useState("custom-background");
   const [generateNewQuestion, setGenerateNewQuestion] = useState(true);
+  const [questionsAnswered, setQuestionsAnswered] = useState(0);
 
   const handleAnswerButtonClick = () => {
+    setQuestionsAnswered(questionsAnswered + 1);
     setGenerateNewQuestion(true);
   };
 
   useEffect(() => {
-    if (generateNewQuestion) {
+    if (generateNewQuestion && questionsAnswered < 5) {
       artistAnswers(selectedGenre).then(
         ({ selectedTrack, shuffledArtistAnswerList }) => {
           setShuffledArtistAnswerList(shuffledArtistAnswerList);
@@ -27,21 +29,12 @@ export const QuizPage = () => {
         }
       );
     }
-  }, [generateNewQuestion, selectedGenre]);
+  }, [generateNewQuestion, selectedGenre, questionsAnswered]);
 
   const handleGenrePicker = (genreID, backgroundClass) => {
     setSelectedGenre(genreID);
     setSelectedBackground(backgroundClass);
   };
-
-  // useEffect(() => {
-  //   artistAnswers(selectedGenre).then(
-  //     ({ selectedTrack, shuffledArtistAnswerList }) => {
-  //       setShuffledArtistAnswerList(shuffledArtistAnswerList);
-  //       setSelectedTrack(selectedTrack);
-  //     }
-  //   );
-  // }, [selectedGenre]);
 
   return (
     <>
