@@ -10,7 +10,7 @@ describe('GenrePicker Component', () => {
         render(<GenrePicker onGenreSelect = {mockOnGenreSelect} />);
         const playButton = screen.getByText('Pop');
         fireEvent.click(playButton); 
-        expect(mockOnGenreSelect).toHaveBeenCalledWith(genreId);
+        expect(mockOnGenreSelect).toHaveBeenCalledWith(genreId, "bg-pop");
     });
 
     test('all the buttons for all genres are created', () => {
