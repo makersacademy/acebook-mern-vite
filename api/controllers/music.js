@@ -6,7 +6,7 @@ const getGenres = async (req, res) => {
     const response = await fetch("https://api.deezer.com/genre", requestOptions);
 
     if (response.status !== 200) {
-        throw new Error("Unable to fetch genres");
+        throw new Error(`Unable to fetch genres. Status: ${response.status}. Headers: ${response.headers}`);
     }
 
     const data = await response.json();
