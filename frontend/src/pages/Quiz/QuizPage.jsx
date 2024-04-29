@@ -18,7 +18,9 @@ export const QuizPage = () => {
   const handleAnswerButtonClick = () => {
     setQuestionsAnswered(questionsAnswered + 1);
     if (questionsAnswered === 4) {
-      navigate("/results");
+      setTimeout(() => {
+        navigate("/results");
+      }, 750);
     }
   };
 
