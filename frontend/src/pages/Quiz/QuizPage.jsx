@@ -9,6 +9,8 @@ export const QuizPage = () => {
   const [shuffledArtistAnswerList, setShuffledArtistAnswerList] = useState([]);
   const [selectedTrack, setSelectedTrack] = useState("");
   const [selectedGenre, setSelectedGenre] = useState(0);
+  const [selectedBackground, setSelectedBackground] =
+    useState("custom-background");
   const [generateNewQuestion, setGenerateNewQuestion] = useState(true);
 
   const handleAnswerButtonClick = () => {
@@ -27,8 +29,9 @@ export const QuizPage = () => {
     }
   }, [generateNewQuestion, selectedGenre]);
 
-  const handleGenrePicker = (genreID) => {
+  const handleGenrePicker = (genreID, backgroundClass) => {
     setSelectedGenre(genreID);
+    setSelectedBackground(backgroundClass);
   };
 
   // useEffect(() => {
@@ -43,27 +46,25 @@ export const QuizPage = () => {
   return (
     <>
       {selectedGenre === 0 ? (
-        <div>
+        <div className="min-h-screen custom-background bg-cover">
           <GenrePicker onGenreSelect={handleGenrePicker}></GenrePicker>
         </div>
       ) : (
         <>
           <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "100vh",
-            }}
+            className={
+              `absolute inset-0 flex flex-col items-center justify-center 
+            animate__animated animate__slideInRight ${selectedBackground} bg-cover`
+              // The above Tailwind code applies the sliding animation to the transition from the genre 'page' to the quiz 'page'
+            }
           >
-            <div style={{ padding: "20px" }}>
+            <div className="p-5">
               <AudioButton trackPreview={selectedTrack.preview} />
             </div>
-            <div style={{ padding: "20px", fontSize: "24px" }}>
+            <div className="p-5 text-2xl">
               <Question questionType="artist" />
             </div>
-            <div style={{ padding: "20px" }}>
+            <div className="p-5">
               <Answer
                 shuffledArtistAnswerList={shuffledArtistAnswerList}
                 selectedTrack={selectedTrack}
