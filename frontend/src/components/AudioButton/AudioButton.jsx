@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./AudioButton.css";
 
-const AudioButton = ( {trackPreview} ) => {
-    const [isPlaying, setIsPlaying] = useState(false);
-    
-    const handleClick = () => {
+const AudioButton = ({ trackPreview }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    setIsPlaying(false);
+  }, [trackPreview]);
+
+  const handleClick = () => {
     setIsPlaying(!isPlaying);
-    playPause()
+    playPause();
   };
 
   function playPause() {
@@ -18,21 +22,17 @@ const AudioButton = ( {trackPreview} ) => {
     }
   }
 
-
   return (
-      <div className="audio">
-      <button className={`play-button ${isPlaying ? 'pulsate' : ''}`} onClick={handleClick}>
-        <span className="icon">{isPlaying ? "❚❚" : "▶"}</span> 
+    <div className="audio">
+      <button
+        className={`play-button ${isPlaying ? "pulsate" : ""}`}
+        onClick={handleClick}
+      >
+        <span className="icon">{isPlaying ? "❚❚" : "▶"}</span>
       </button>
-        <audio id="ASong" src={trackPreview} loop hidden />
-      </div>
+      <audio id="ASong" src={trackPreview} loop hidden />
+    </div>
   );
-}
+};
 
-
-export default AudioButton
-
-
-
-
-
+export default AudioButton;
