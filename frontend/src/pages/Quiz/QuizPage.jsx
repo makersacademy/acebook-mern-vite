@@ -19,7 +19,7 @@ export const QuizPage = () => {
     setQuestionsAnswered(questionsAnswered + 1);
     if (questionsAnswered === 4) {
       setTimeout(() => {
-        navigate("/results");
+        navigate("/score");
       }, 750);
     }
   };
@@ -38,6 +38,8 @@ export const QuizPage = () => {
   const handleGenrePicker = (genreID, backgroundClass) => {
     setSelectedGenre(genreID);
     setSelectedBackground(backgroundClass);
+    localStorage.setItem('genreID', genreID); //Adding genreID to LocalStorage to get it in ScorePage
+
   };
 
   return (
