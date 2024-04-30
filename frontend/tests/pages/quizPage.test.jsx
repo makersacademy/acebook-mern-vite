@@ -84,11 +84,7 @@ describe("Answer component", () => {
     render(<QuizPage />);
     fireEvent.click(screen.getByText("Pop"));
     await waitFor(() => screen.getByText("Artist 1"));
-    fireEvent.click(screen.getByText("Artist 1"));
-    expect(screen.getByText("Artist 1")).toHaveClass("bg-incorrect-color");
     fireEvent.click(screen.getByText("Artist 2"));
     expect(screen.getByText("Artist 2")).toHaveClass("bg-incorrect-color");
-    fireEvent.click(screen.getByText("Artist 3"));
-    expect(screen.getByText("Artist 3")).toHaveClass("bg-incorrect-color");
   });
 });

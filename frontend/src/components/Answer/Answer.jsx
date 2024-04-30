@@ -57,17 +57,19 @@ const Answer = ({
       </div>
       <div className="mt-8">
         <h1 className="results-header text-2xl font-bold text-question-text-color">
-          {buttonColors.includes("bg-correct-color") && (
-            <div className="bg-green-500 border border-green-500 rounded-xl">
-              <p className="text-white">Correct!</p>
-            </div>
-          )}
-          {buttonColors.includes("bg-incorrect-color") && (
-            <div className="bg-red-500 border border-red-500 rounded-xl">
-              <p className="text-white">Wrong!</p>
-            </div>
-          )}
+          Results
         </h1>
+        <p className="text-question-text-color">Your Score: {score}</p>
+        {buttonColors.includes("bg-correct-color") && (
+          <div className="bg-green-500 border border-green-500 rounded-xl">
+            <p className="text-white">Correct!</p>
+          </div>
+        )}
+        {buttonColors.includes("bg-incorrect-color") && (
+          <div className="bg-red-500 border border-red-500 rounded-xl">
+            <p className="text-white">Wrong!</p>
+          </div>
+        )}
       </div>
     </>
   );
