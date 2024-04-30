@@ -2,9 +2,10 @@ const User = require("../models/user");
 
 const create = (req, res) => {
   const email = req.body.email;
-  const password = req.body.password;
+  const name = req.body.name;
+  const imageUrl = req.body.imageUrl;
 
-  const user = new User({ email, password });
+  const user = new User({ email, name, imageUrl });
   user
     .save()
     .then((user) => {
