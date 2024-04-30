@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import AudioButton from "../../components/AudioButton/AudioButton";
 import Question from "../../components/Question/Question";
 import Answer from "../../components/Answer/Answer";
 import { artistAnswers } from "../../../helpers/answer_generator";
 import GenrePicker from "../../components/GenrePicker/GenrePicker";
+import { Navigation } from "../../components/Navigation/Navigation";
 
 export const QuizPage = () => {
   const [shuffledArtistAnswerList, setShuffledArtistAnswerList] = useState([]);
@@ -14,6 +15,9 @@ export const QuizPage = () => {
     useState("custom-background");
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
+  const user = location.state ? location.state.user : "guest";
+  console.log(user)
 
   const handleAnswerButtonClick = () => {
     setQuestionsAnswered(questionsAnswered + 1);
@@ -42,8 +46,10 @@ export const QuizPage = () => {
 
   return (
     <>
+    <div className="min-h-screen custom-background bg-cover">
+    <Navigation />
       {selectedGenre === 0 ? (
-        <div className="min-h-screen custom-background bg-cover">
+        <div>
           <GenrePicker onGenreSelect={handleGenrePicker}></GenrePicker>
         </div>
       ) : (
@@ -74,6 +80,7 @@ export const QuizPage = () => {
           </div>
         </>
       )}
+      </div>
     </>
   );
 };
