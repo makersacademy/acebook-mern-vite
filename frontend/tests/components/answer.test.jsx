@@ -88,7 +88,7 @@ describe("Answer", () => {
     expect(screen.getByText("Your Score: 0")).toBeInTheDocument();
   });
 
-  test("Score is updated to 1 when correct answer is clicked", () => {
+  test("Score is updated to 100 when correct answer is clicked, bonus of 50 points if less than 5 seconds", () => {
     const selectedTrack = { artist: "correct-answer" };
     const shuffledArtistAnswerList = [
       "Artist 1",
@@ -102,13 +102,15 @@ describe("Answer", () => {
         selectedTrack={selectedTrack}
         shuffledArtistAnswerList={shuffledArtistAnswerList}
         onAnswerButtonClick={mockOnAnswerButtonClick}
+        time = {4}
       />
     );
     fireEvent.click(screen.getByText("correct-answer"));
-    expect(screen.getByText("Your Score: 1")).toBeInTheDocument();
+    expect(screen.getByText("Your Score: 100")).toBeInTheDocument();
+    expect(screen.getByText("Speed Bonus: 50")).toBeInTheDocument();
   });
 
-  test("Score stays at 0 when incorrect answer is clicked", () => {
+  test("Score is updated to 100 when correct answer is clicked, no bonus if more than 5 seconds", () => {
     const selectedTrack = { artist: "correct-answer" };
     const shuffledArtistAnswerList = [
       "Artist 1",
@@ -122,9 +124,58 @@ describe("Answer", () => {
         selectedTrack={selectedTrack}
         shuffledArtistAnswerList={shuffledArtistAnswerList}
         onAnswerButtonClick={mockOnAnswerButtonClick}
+        time = {6}
+      />
+    );
+    fireEvent.click(screen.getByText("correct-answer"));
+    expect(screen.getByText("Your Score: 100")).toBeInTheDocument();
+    expect(screen.getByText("Speed Bonus: 0")).toBeInTheDocument();
+  });
+
+  test("Score stays at 0 when incorrect answer is clicked and less than 5 seconds", () => {
+    const selectedTrack = { artist: "correct-answer" };
+    const shuffledArtistAnswerList = [
+      "Artist 1",
+      "Artist 2",
+      "Artist 3",
+      "correct-answer",
+     
+    ];
+    const mockOnAnswerButtonClick = vi.fn();
+    render(
+      <Answer
+        selectedTrack={selectedTrack}
+        shuffledArtistAnswerList={shuffledArtistAnswerList}
+        onAnswerButtonClick={mockOnAnswerButtonClick}
+        time = {4}
       />
     );
     fireEvent.click(screen.getByText("Artist 1"));
     expect(screen.getByText("Your Score: 0")).toBeInTheDocument();
+    expect(screen.getByText("Speed Bonus: 0")).toBeInTheDocument();
+  });
+
+
+  test("Score stays at 0 when incorrect answer is clicked and more than 5 seconds", () => {
+    const selectedTrack = { artist: "correct-answer" };
+    const shuffledArtistAnswerList = [
+      "Artist 1",
+      "Artist 2",
+      "Artist 3",
+      "correct-answer",
+      
+    ];
+    const mockOnAnswerButtonClick = vi.fn();
+    render(
+      <Answer
+        selectedTrack={selectedTrack}
+        shuffledArtistAnswerList={shuffledArtistAnswerList}
+        onAnswerButtonClick={mockOnAnswerButtonClick}
+        time = {6}
+      />
+    );
+    fireEvent.click(screen.getByText("Artist 1"));
+    expect(screen.getByText("Your Score: 0")).toBeInTheDocument();
+    expect(screen.getByText("Speed Bonus: 0")).toBeInTheDocument();
   });
 });

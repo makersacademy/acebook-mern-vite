@@ -7,6 +7,7 @@ vi.mock("react-router-dom", () => ({
   useNavigate: () => () => {}, // Mock useNavigate to return a no-op function
 }));
 
+
 beforeAll(() => {
   vi.mock("../../helpers/answer_generator", () => {
     const mockArtistAnswers = vi.fn();
@@ -90,3 +91,18 @@ describe("Answer component", () => {
     expect(screen.getByText("Artist 3")).toHaveClass("bg-incorrect-color");
   });
 });
+
+describe("Timer component", () => {
+  test("If answered immediately, bonus points are awarded", async () => {
+    render(<QuizPage />);
+    fireEvent.click(screen.getByText("Pop"));
+    await waitFor(() => screen.getByText("Artist 1")); 
+  
+    fireEvent.click(screen.getByText("correct-answer"));
+    expect(screen.getByText("Speed Bonus: 50")).toBeInTheDocument();
+  }); 
+
+ 
+  
+});
+
