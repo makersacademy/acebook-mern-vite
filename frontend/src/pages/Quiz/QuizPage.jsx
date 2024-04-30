@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import AudioButton from "../../components/AudioButton/AudioButton";
 import Question from "../../components/Question/Question";
 import Answer from "../../components/Answer/Answer";
-import { artistAnswers } from "../../../helpers/answer_generator";
+import { answers } from "../../../helpers/answer_generator";
 import GenrePicker from "../../components/GenrePicker/GenrePicker";
 
 export const QuizPage = () => {
@@ -10,19 +10,20 @@ export const QuizPage = () => {
   const [selectedTrack, setSelectedTrack] = useState("");
   const [selectedGenre, setSelectedGenre] = useState(0);
   const [selectedBackground, setSelectedBackground] = useState('custom-background');
+  const [questionType, setQuestionType] = useState(0)
 
 
   const handleGenrePicker = (genreID, backgroundClass) => {
     setSelectedGenre(genreID);
     setSelectedBackground(backgroundClass);
-   
   };
 
 
   useEffect(() => {
-    artistAnswers(selectedGenre).then(({ selectedTrack, shuffledArtistAnswerList }) => {
+    answers(selectedGenre).then(({ selectedTrack, shuffledArtistAnswerList, questionType }) => {
       setShuffledArtistAnswerList(shuffledArtistAnswerList);
       setSelectedTrack(selectedTrack);
+      setQuestionType(questionType)
     })
   }, [selectedGenre]);
 
@@ -42,7 +43,7 @@ export const QuizPage = () => {
                 <AudioButton trackPreview={selectedTrack.preview} />
               </div>
               <div className="p-5 text-2xl">
-                <Question questionType="artist" />
+                <Question questionType={questionType} />
               </div>
               <div className="p-5">
                 <Answer shuffledArtistAnswerList={shuffledArtistAnswerList} selectedTrack={selectedTrack} />

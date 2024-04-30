@@ -6,13 +6,19 @@ import "@testing-library/jest-dom"
 
 beforeAll(() => {
     vi.mock("../../helpers/answer_generator", () => {
-        const mockArtistAnswers = vi.fn();
-        mockArtistAnswers.mockResolvedValue({
-            selectedTrack: { artist: 'correct-answer', preview: "examplePreviewUrl" },
-            shuffledArtistAnswerList: ['Artist 1' , 'Artist 2', 'Artist 3', 'correct-answer']
+        const mockAnswers = vi.fn();
+        mockAnswers.mockResolvedValue({
+            selectedTrack: {
+                title: "Correct Track Title",
+                artist: "Correct Artist",
+                album: { title: "Correct Album Title" },
+                preview: "examplePreviewUrl"
+            },
+            shuffledArtistAnswerList: ['Artist 1' , 'Artist 2', 'Artist 3', 'Correct Artist'],
+            questionType: 1
         });
         return {
-            artistAnswers: () => mockArtistAnswers()
+            answers: () => mockAnswers()
         };
     });
 });
@@ -45,14 +51,14 @@ describe("Audio button component", () => {
 });
 
 
+
 describe("Question component", () => {
-    test("Question displays on page", () => {
+    test("Question displays on page", async () => {
         render(<QuizPage />);
         fireEvent.click(screen.getByText("Pop"));
-        expect(screen.getByText("What is the name of the artist?")).toBeTruthy();
+        await waitFor(() => expect(screen.queryByText("What is the name of the artist?")).toBeInTheDocument());
     });
 });
-
 
 describe("Answer component", () => {
     test("All answers are shown on the page", async () => {
@@ -62,15 +68,15 @@ describe("Answer component", () => {
         expect(screen.getByText("Artist 1")).toBeInTheDocument();
         expect(screen.getByText("Artist 2")).toBeInTheDocument();
         expect(screen.getByText("Artist 3")).toBeInTheDocument();
-        expect(screen.getByText("correct-answer")).toBeInTheDocument();
+        expect(screen.getByText("Correct Artist")).toBeInTheDocument();
     });
 
     test("Button changes to green when correct answer is clicked on the page", async () => {
         render(<QuizPage />);
         fireEvent.click(screen.getByText("Pop"));
         await waitFor(() => screen.getByText("Artist 1"));
-        fireEvent.click(screen.getByText('correct-answer'))
-        expect(screen.getByText('correct-answer')).toHaveClass('bg-correct-color')
+        fireEvent.click(screen.getByText('Correct Artist'))
+        expect(screen.getByText('Correct Artist')).toHaveClass('bg-correct-color')
     })
 
     test("Button changes to red when incorrect answer is clicked on the page", async () => {

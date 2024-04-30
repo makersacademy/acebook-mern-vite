@@ -14,16 +14,26 @@ describe("Answer", () => {
     });
 
     test('Button changes to green when correct answer is clicked', () => {
-        const selectedTrack = {artist: "correct-answer"};
-        const shuffledArtistAnswerList = ['Artist 1' , 'Artist 2', 'Artist 3', 'correct-answer'];
+        const selectedTrack = {
+            title: "Correct Track Title",
+            artist: "Correct Artist",
+            album: { title: "Correct Album Title" }
+        };
+        // const selectedTrack = {artist: "correct-answer"};
+        const shuffledArtistAnswerList = ['Artist 1' , 'Artist 2', 'Artist 3', 'Correct Artist'];
         render(<Answer selectedTrack={selectedTrack} shuffledArtistAnswerList={shuffledArtistAnswerList} />);
-        fireEvent.click(screen.getByText('correct-answer'))
-        expect(screen.getByText('correct-answer')).toHaveClass('bg-correct-color')
+        fireEvent.click(screen.getByText('Correct Artist'))
+        expect(screen.getByText('Correct Artist')).toHaveClass('bg-correct-color')
     })
 
     test('Button changes to red when incorrect answer is clicked', () => {
-        const selectedTrack = {artist: "correct-answer"};
-        const shuffledArtistAnswerList = ['Artist 1' , 'Artist 2', 'Artist 3', 'correct-answer'];
+        const selectedTrack = {
+            title: "Correct Track Title",
+            artist: "Correct Artist",
+            album: { title: "Correct Album Title" }
+        };
+        // const selectedTrack = {artist: "correct-answer"};
+        const shuffledArtistAnswerList = ['Artist 1' , 'Artist 2', 'Artist 3', 'Correct Artist'];
         render(<Answer selectedTrack={selectedTrack} shuffledArtistAnswerList={shuffledArtistAnswerList} />);
         fireEvent.click(screen.getByText('Artist 1'))
         expect(screen.getByText('Artist 1')).toHaveClass('bg-incorrect-color')
