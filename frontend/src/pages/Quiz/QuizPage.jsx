@@ -6,10 +6,13 @@ import Answer from "../../components/Answer/Answer";
 import { artistAnswers } from "../../../helpers/answer_generator";
 import GenrePicker from "../../components/GenrePicker/GenrePicker";
 
+
 export const QuizPage = () => {
   const [shuffledArtistAnswerList, setShuffledArtistAnswerList] = useState([]);
   const [selectedTrack, setSelectedTrack] = useState("");
   const [selectedGenre, setSelectedGenre] = useState(0);
+  const [time, setTime] = useState(0);
+  const [playButtonState, setPlayButtonState] = useState (false)
   const [selectedBackground, setSelectedBackground] =
     useState("custom-background");
   const [questionNumber, setQuestionNumber] = useState(1);
@@ -19,7 +22,9 @@ export const QuizPage = () => {
 
   const handleAnswerButtonClick = () => {
     setInteractionDisabled(true);
-    setQuestionNumber(questionNumber + 1);
+    setTimeout(() => {
+      setQuestionNumber(questionNumber + 1);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -41,6 +46,26 @@ export const QuizPage = () => {
     }
   }, [selectedGenre, questionNumber, navigate]);
 
+  const handlePlayPause = () => {
+    setPlayButtonState(!playButtonState);
+     //When play is pressed, sets to isplaying. When pressed again, sets to !isplaying
+  } 
+
+  useEffect(() => {
+    let interval;
+    if (playButtonState) {
+      interval = setInterval(() => {
+        setTime(prevTimer => {
+          console.log("Timer updated:", prevTimer + 1); // Log the updated timer value
+          return prevTimer + 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [playButtonState]);
+
+
+
   const handleGenrePicker = (genreID, backgroundClass) => {
     setSelectedGenre(genreID);
     setSelectedBackground(backgroundClass);
@@ -56,17 +81,17 @@ export const QuizPage = () => {
         {selectedGenre === 0 ? (
           <div>
             <GenrePicker onGenreSelect={handleGenrePicker}></GenrePicker>
-          </div>
-        ) : (
-          <>
-            <div
-              className={
-                `absolute inset-0 flex flex-col items-center justify-center 
-              animate__animated animate__slideInRight ${selectedBackground} bg-cover`
-                // The above Tailwind code applies the sliding animation to the transition from the genre 'page' to the quiz 'page'
-              }
-            >
-              <div
+        </div>
+      ) : (
+        <>
+          <div
+            className={
+              `absolute inset-0 flex flex-col items-center justify-center 
+            animate__animated animate__slideInRight ${selectedBackground} bg-cover`
+              // The above Tailwind code applies the sliding animation to the transition from the genre 'page' to the quiz 'page'
+            }
+          >
+             <div
                 className={`${
                   animate ? "animate__animated animate__slideInRight" : ""
                 }`}

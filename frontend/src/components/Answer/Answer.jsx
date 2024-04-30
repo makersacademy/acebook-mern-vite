@@ -5,8 +5,10 @@ const Answer = ({
   shuffledArtistAnswerList,
   onAnswerButtonClick,
   interactionDisabled,
+  time
 }) => {
   const [score, setScore] = useState(0);
+  const [bonus, setBonus] = useState(0);
   const [buttonColors, setButtonColors] = useState(
     new Array(4).fill("bg-box-color")
   );
@@ -15,7 +17,11 @@ const Answer = ({
     const isCorrect = selectedTrack.artist === artist;
     const newButtonColors = [...buttonColors];
     if (isCorrect) {
-      setScore(score + 1);
+      setScore(score + 100);
+      if (time < 5) {
+        setBonus(bonus + 50); // Add bonus points only if the answer is correct and the timer is less than 5
+      }
+    
       newButtonColors[id] = "bg-correct-color";
     } else {
       newButtonColors[id] = "bg-incorrect-color";
@@ -70,6 +76,7 @@ const Answer = ({
             <p className="text-white">Wrong!</p>
           </div>
         )}
+        <p className="text-question-text-color">Speed Bonus: {bonus}</p>
       </div>
     </>
   );
