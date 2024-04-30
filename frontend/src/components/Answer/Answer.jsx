@@ -31,7 +31,6 @@ const Answer = ({
     localStorage.setItem("bonus", bonus.toString());
   }, [bonus]);
 
-
   const answerClick = (artist, id) => {
     const isCorrect = selectedTrack.artist === artist;
     const newButtonColors = [...buttonColors];
