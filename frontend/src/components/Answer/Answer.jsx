@@ -27,15 +27,23 @@ const Answer = ({
     localStorage.setItem("score", score.toString());
   }, [score]);
 
+  useEffect(() => {
+    localStorage.setItem("bonus", bonus.toString());
+  }, [bonus]);
+
+
   const answerClick = (artist, id) => {
     const isCorrect = selectedTrack.artist === artist;
     const newButtonColors = [...buttonColors];
     if (isCorrect) {
-      setScore(score + 500);
+      setScore(score + 100);
       if (time < 5) {
-        setBonus(bonus + 50); // Add bonus points only if the answer is correct and the timer is less than 5
-        localStorage.setItem("bonus", bonus + 50); // Save bonus to localStorage
+        setBonus(bonus + 50); // Add bonus points only if the answer is correct and the timer is less than 5 // Save bonus to localStorage
       }
+      console.log('Bonus Here:')
+      console.log(bonus)
+
+
       newButtonColors[id] = "bg-correct-color";
     } else {
       newButtonColors[id] = "bg-incorrect-color";
@@ -77,6 +85,7 @@ const Answer = ({
           Results
         </h1>
         <p className="text-question-text-color">Your Score: {score}</p>
+        <p className="text-question-text-color">Speed Bonus: {bonus}</p>
       </div>
     </>
   );
