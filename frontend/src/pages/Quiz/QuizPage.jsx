@@ -6,10 +6,13 @@ import Answer from "../../components/Answer/Answer";
 import { artistAnswers } from "../../../helpers/answer_generator";
 import GenrePicker from "../../components/GenrePicker/GenrePicker";
 
+
 export const QuizPage = () => {
   const [shuffledArtistAnswerList, setShuffledArtistAnswerList] = useState([]);
   const [selectedTrack, setSelectedTrack] = useState("");
   const [selectedGenre, setSelectedGenre] = useState(0);
+  const [time, setTime] = useState(0);
+  const [playButtonState, setPlayButtonState] = useState (false)
   const [selectedBackground, setSelectedBackground] =
     useState("custom-background");
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
@@ -17,6 +20,7 @@ export const QuizPage = () => {
 
   const handleAnswerButtonClick = () => {
     setQuestionsAnswered(questionsAnswered + 1);
+    setPlayButtonState(false)
     if (questionsAnswered === 4) {
       setTimeout(() => {
         navigate("/results");
@@ -24,8 +28,15 @@ export const QuizPage = () => {
     }
   };
 
+  const handlePlayPause = () => {
+    setPlayButtonState(!playButtonState);
+     //When play is pressed, sets to isplaying. When pressed again, sets to !isplaying
+   
+  } 
+
   useEffect(() => {
     if (questionsAnswered < 5) {
+      setTime(0);
       artistAnswers(selectedGenre).then(
         ({ selectedTrack, shuffledArtistAnswerList }) => {
           setShuffledArtistAnswerList(shuffledArtistAnswerList);
@@ -34,6 +45,21 @@ export const QuizPage = () => {
       );
     }
   }, [selectedGenre, questionsAnswered]);
+
+  useEffect(() => {
+    let interval;
+    if (playButtonState) {
+      interval = setInterval(() => {
+        setTime(prevTimer => {
+          console.log("Timer updated:", prevTimer + 1); // Log the updated timer value
+          return prevTimer + 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [playButtonState]);
+
+
 
   const handleGenrePicker = (genreID, backgroundClass) => {
     setSelectedGenre(genreID);
@@ -59,7 +85,7 @@ export const QuizPage = () => {
               Question {questionsAnswered + 1} of 5
             </div>
             <div className="p-5">
-              <AudioButton trackPreview={selectedTrack.preview} />
+              <AudioButton trackPreview={selectedTrack.preview} onPlayPause={handlePlayPause} playButtonState={playButtonState} />
             </div>
             <div className="p-5 text-2xl">
               <Question questionType="artist" />
@@ -69,8 +95,10 @@ export const QuizPage = () => {
                 shuffledArtistAnswerList={shuffledArtistAnswerList}
                 selectedTrack={selectedTrack}
                 onAnswerButtonClick={handleAnswerButtonClick}
+                time={time}
               />
             </div>
+   
           </div>
         </>
       )}
