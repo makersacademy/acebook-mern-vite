@@ -40,9 +40,6 @@ const Answer = ({
       if (time < 5) {
         setBonus(bonus + 50); // Add bonus points only if the answer is correct and the timer is less than 5 // Save bonus to localStorage
       }
-      console.log('Bonus Here:')
-      console.log(bonus)
-
 
       newButtonColors[id] = "bg-correct-color";
     } else {

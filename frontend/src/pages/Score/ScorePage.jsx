@@ -24,7 +24,6 @@ export const ScorePage = () => {
     }, []);
 
     useEffect(() => {
-        
         if (score === 500) {
             setPerfectRoundBonus(250);
         } else {
@@ -83,7 +82,6 @@ export const ScorePage = () => {
     };
 
     const totalScore = score + bonus + perfectRoundBonus;
-
 
     const rating = getRating(score, genreID);
 

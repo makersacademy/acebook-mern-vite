@@ -100,7 +100,6 @@ export const QuizPage = () => {
                 time={time}
               />
             </div>
-   
           </div>
         </>
       )}
