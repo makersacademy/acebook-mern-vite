@@ -31,7 +31,7 @@ const Answer = ({
 
     setTimeout(() => {
       setButtonColors(new Array(4).fill("bg-box-color"));
-    }, 400);
+    }, 1600);
   };
 
   return (
@@ -67,12 +67,12 @@ const Answer = ({
         </h1>
         <p className="text-question-text-color">Your Score: {score}</p>
         {buttonColors.includes("bg-correct-color") && (
-          <div className="bg-green-500 border border-green-500 rounded-xl">
+          <div className="bg-correct-color border border-green-500 rounded-xl">
             <p className="text-white">Correct!</p>
           </div>
         )}
         {buttonColors.includes("bg-incorrect-color") && (
-          <div className="bg-red-500 border border-red-500 rounded-xl">
+          <div className="bg-incorrect-color border border-red-500 rounded-xl">
             <p className="text-white">Wrong!</p>
           </div>
         )}
