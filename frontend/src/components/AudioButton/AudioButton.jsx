@@ -1,12 +1,7 @@
-import { useEffect } from "react";
 import "./AudioButton.css";
 
 const AudioButton = ({ trackPreview, onPlayPause, playButtonState }) => {
   
-
-  useEffect(() => {
-  }, [trackPreview]);
-
   const handleClick = () => {
    onPlayPause();
     playPause();
