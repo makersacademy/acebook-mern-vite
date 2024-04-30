@@ -12,7 +12,7 @@ export const QuizPage = () => {
   const [selectedTrack, setSelectedTrack] = useState("");
   const [selectedGenre, setSelectedGenre] = useState(0);
   const [time, setTime] = useState(0);
-  const [playButtonState, setPlayButtonState] = useState (false)
+  const [playButtonState, setPlayButtonState] = useState(false)
   const [selectedBackground, setSelectedBackground] =
     useState("custom-background");
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
@@ -30,9 +30,9 @@ export const QuizPage = () => {
 
   const handlePlayPause = () => {
     setPlayButtonState(!playButtonState);
-     //When play is pressed, sets to isplaying. When pressed again, sets to !isplaying
-   
-  } 
+    //When play is pressed, sets to isplaying. When pressed again, sets to !isplaying
+
+  }
 
   useEffect(() => {
     if (questionsAnswered < 5) {
@@ -58,7 +58,6 @@ export const QuizPage = () => {
     }
     return () => clearInterval(interval);
   }, [playButtonState]);
-
 
 
   const handleGenrePicker = (genreID, backgroundClass) => {
