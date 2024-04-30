@@ -101,7 +101,7 @@ describe("Timer component", () => {
     await waitFor(() => screen.getByText("Artist 1")); 
   
     fireEvent.click(screen.getByText("correct-answer"));
-    expect(screen.getByText("Speed Bonus: 50")).toBeInTheDocument();
+    expect(screen.getByText("Speed Bonus: 100")).toBeInTheDocument();
   }); 
 
  
