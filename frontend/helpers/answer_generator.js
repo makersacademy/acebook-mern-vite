@@ -20,10 +20,10 @@ export const answers = async (genreID) => {
   // Randomly decide whether to use track titles or artist names or album title
   // Generates a random number between 0 and 2
   const questionType = Math.floor(Math.random() * 3);
-  // const questionType = 2;
 
   const { selectedTrack, shuffledTracks } = await randomTrack(correctAnswerArtistID);
   if (questionType === 0) {
+    console.log("it is me")
     answerList.push(selectedTrack.title);
     for (let i = 1; i < shuffledTracks.length; i++) {
       answerList.push(shuffledTracks[i].title);

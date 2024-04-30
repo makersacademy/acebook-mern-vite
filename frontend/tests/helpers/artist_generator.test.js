@@ -31,8 +31,8 @@ describe("Artist Generator", () => {
         console.log("Selected:", selectedArtists);
         console.log("Expected:", expectedArtists);
         expect(selectedArtists).toHaveLength(expectedArtists.length); //Confirm that length matches
-        console.log("Selected.Lenght:", selectedArtists.length);
-        console.log("expected.Lenght:", expectedArtists.length)
+        console.log("Selected.Length:", selectedArtists.length);
+        console.log("expected.Length:", expectedArtists.length)
 
     });
 });

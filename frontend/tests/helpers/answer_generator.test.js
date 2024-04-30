@@ -1,5 +1,6 @@
 import { vi } from "vitest";
 import { answers } from "../../helpers/answer_generator.js";
+
 // Mocking the randomArtists function
 vi.mock("../../helpers/artist_generator", () => {
     const randomArtistsMock = vi.fn();
@@ -21,8 +22,15 @@ vi.mock("../../helpers/shuffle", () => ({
 // Mocking the randomTrack function
 vi.mock("../../helpers/track_generator", () => {
     const randomTrackMock = vi.fn();
-    randomTrackMock.mockResolvedValue(
-        { id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 1"} }
+    randomTrackMock.mockResolvedValue({
+        selectedTrack: { id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"} },
+        shuffledTracks: [
+            { id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"} },
+            { id: 1, title: "Title 1", artist: "Artist 1", album: { title: "Album 1"} },
+            { id: 2, title: "Title 2", artist: "Artist 2", album: { title: "Album 2"} },
+            { id: 3, title: "Title 3", artist: "Artist 3", album: { title: "Album 3"} },
+        ]
+    }
         );
     return {
         randomTrack: randomTrackMock,
@@ -43,14 +51,37 @@ vi.mock("../../helpers/album_generator", () => {
 });
 
 describe("Answer Generator", () => {
-    test('Returns first artist from tracks and other artists from artist list', async () => {
-        console.log("Here")
-        const answerss = await answers();
-        console.log("YOYOYO")
-        const expectedAnswers = {
-            "selectedTrack": {id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 1"} },
-            "shuffledArtistAnswerList": ["Artist 45", "Artist 2", "Artist 3", "Artist 4"]
-        };
-        expect(answerss).toEqual(expectedAnswers);
+    test('Returns the answer for each question', async () => {
+        const result = await answers();
+        let expectedAnswers;
+        if (result.questionType === 0) {
+            expectedAnswers = {
+                "questionType": 0,
+                "selectedTrack": {id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"} },
+                "shuffledArtistAnswerList": ["Title 45", "Title 1", "Title 2", "Title 3"]
+            };
+        } else if (result.questionType === 1) {
+            expectedAnswers = {
+                "questionType": 1,
+                "selectedTrack": {id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"} },
+                "shuffledArtistAnswerList": ["Artist 45", "Artist 2", "Artist 3", "Artist 4"]
+            };
+        } else {
+            expectedAnswers = {
+                "questionType": 2,
+                "selectedTrack": {id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"} },
+                "shuffledArtistAnswerList": [{ title: "Album 45"}, "Album 2", "Album 3", "Album 4"]
+            };
+        }
+        expect(result).toEqual(expectedAnswers);
+    });
+
+    test('Returns the selected track and the shuffled list to be length 4', async () => {
+        const result = await answers();
+
+        expect(result).toHaveProperty('selectedTrack');
+        expect(result.shuffledArtistAnswerList).toHaveLength(4);
     });
 });
+
+
