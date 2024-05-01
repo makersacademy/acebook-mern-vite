@@ -21,5 +21,3 @@ export const randomArtists = async (genreID) => {
   }
 };
 
-
-

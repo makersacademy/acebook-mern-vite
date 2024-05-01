@@ -78,7 +78,6 @@ describe("Answer Generator", () => {
 
     test('Returns the selected track and the shuffled list to be length 4', async () => {
         const result = await answers();
-
         expect(result).toHaveProperty('selectedTrack');
         expect(result.shuffledArtistAnswerList).toHaveLength(4);
     });

@@ -28,11 +28,6 @@ describe("Artist Generator", () => {
         { id: 4, name: "Artist 4" }
         ];
         expect(selectedArtists).toEqual(expectedArtists); //Confirm that array is sliced from 0 to 4
-        console.log("Selected:", selectedArtists);
-        console.log("Expected:", expectedArtists);
         expect(selectedArtists).toHaveLength(expectedArtists.length); //Confirm that length matches
-        console.log("Selected.Length:", selectedArtists.length);
-        console.log("expected.Length:", expectedArtists.length)
-
     });
 });
