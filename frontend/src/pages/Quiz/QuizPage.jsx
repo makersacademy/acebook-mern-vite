@@ -5,6 +5,7 @@ import Question from "../../components/Question/Question";
 import Answer from "../../components/Answer/Answer";
 import { answers } from "../../../helpers/answer_generator";
 import GenrePicker from "../../components/GenrePicker/GenrePicker";
+import Difficulty from "../../components/Difficulty/difficulty";
 import { Navigation } from "../../components/Navigation/Navigation";
 
 
@@ -12,6 +13,7 @@ export const QuizPage = () => {
   const [shuffledArtistAnswerList, setShuffledArtistAnswerList] = useState([]);
   const [selectedTrack, setSelectedTrack] = useState("");
   const [selectedGenre, setSelectedGenre] = useState(0);
+  const [selectedDifficulty, setSelectedDifficulty] = useState(0);
   const [time, setTime] = useState(0);
   const [playButtonState, setPlayButtonState] = useState(false);
   const [selectedBackground, setSelectedBackground] =
@@ -34,7 +36,7 @@ export const QuizPage = () => {
     setAnimate(false);
 
     if (questionNumber <= 5) {
-      answers(selectedGenre).then(
+      answers(selectedGenre, selectedDifficulty).then(
         ({ selectedTrack, shuffledArtistAnswerList, questionType }) => {
           setShuffledArtistAnswerList(shuffledArtistAnswerList);
           setSelectedTrack(selectedTrack);
@@ -48,7 +50,7 @@ export const QuizPage = () => {
         navigate("/score");
       }, 750);
     }
-  }, [selectedGenre, questionNumber, navigate]);
+  }, [selectedGenre, selectedDifficulty, questionNumber, navigate]);
 
 
 const handlePlayPause = useCallback((newState) => {
@@ -76,6 +78,11 @@ const handlePlayPause = useCallback((newState) => {
 
   };
 
+  const handleDifficultyPicker = (difficultyID) => {
+    setSelectedDifficulty(difficultyID);
+  };
+ 
+
   return (
     <>
       <div
@@ -88,15 +95,22 @@ const handlePlayPause = useCallback((newState) => {
           <div>
             <GenrePicker onGenreSelect={handleGenrePicker}></GenrePicker>
           </div>
-        ) : (
+        ) : 
+        selectedDifficulty === 0 ? (
+          <div className="min-h-screen custom-background bg-cover">
+            <Difficulty onDifficultySelect={handleDifficultyPicker}></Difficulty>
+          </div>
+        ) :
+        (
           <>
-            <div
+          <div
               className={
                 `absolute inset-0 flex flex-col items-center justify-center 
             animate__animated animate__slideInRight ${selectedBackground} bg-cover`
                 // The above Tailwind code applies the sliding animation to the transition from the genre 'page' to the quiz 'page'
               }
             >
+
               <div
                 className={`${
                   animate ? "animate__animated animate__slideInRight" : ""
@@ -128,7 +142,7 @@ const handlePlayPause = useCallback((newState) => {
                   />
                 </div>
               </div>
-            </div>
+              </div>
           </>
         )}
       </div>

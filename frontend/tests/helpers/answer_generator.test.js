@@ -23,12 +23,12 @@ vi.mock("../../helpers/shuffle", () => ({
 vi.mock("../../helpers/track_generator", () => {
     const randomTrackMock = vi.fn();
     randomTrackMock.mockResolvedValue({
-        selectedTrack: { id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"} },
+        selectedTrack: { id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"}, release_date: "2022-01-01" },
         shuffledTracks: [
-            { id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"} },
-            { id: 1, title: "Title 1", artist: "Artist 1", album: { title: "Album 1"} },
-            { id: 2, title: "Title 2", artist: "Artist 2", album: { title: "Album 2"} },
-            { id: 3, title: "Title 3", artist: "Artist 3", album: { title: "Album 3"} },
+            { id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"}, release_date: "2022-01-01" },
+            { id: 1, title: "Title 1", artist: "Artist 1", album: { title: "Album 1"}, release_date: "2023-01-01" },
+            { id: 2, title: "Title 2", artist: "Artist 2", album: { title: "Album 2"}, release_date: "2024-01-01" },
+            { id: 3, title: "Title 3", artist: "Artist 3", album: { title: "Album 3"}, release_date: "2025-01-01" },
         ]
     }
         );
@@ -57,20 +57,26 @@ describe("Answer Generator", () => {
         if (result.questionType === 0) {
             expectedAnswers = {
                 "questionType": 0,
-                "selectedTrack": {id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"} },
+                "selectedTrack": {id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"}, release_date: "2022-01-01" },
                 "shuffledArtistAnswerList": ["Title 45", "Title 1", "Title 2", "Title 3"]
             };
         } else if (result.questionType === 1) {
             expectedAnswers = {
                 "questionType": 1,
-                "selectedTrack": {id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"} },
+                "selectedTrack": {id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"}, release_date: "2022-01-01" },
                 "shuffledArtistAnswerList": ["Artist 45", "Artist 2", "Artist 3", "Artist 4"]
             };
-        } else {
+        } else if  (result.questionType === 2){
             expectedAnswers = {
                 "questionType": 2,
-                "selectedTrack": {id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"} },
+                "selectedTrack": {id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"}, release_date: "2022-01-01" },
                 "shuffledArtistAnswerList": [{ title: "Album 45"}, "Album 2", "Album 3", "Album 4"]
+            };
+        } else if  (result.questionType === 3){
+            expectedAnswers = {
+                "questionType": 3,
+                "selectedTrack": {id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"}, release_date: "2022-01-01" },
+                "shuffledArtistAnswerList": ["2022-01-01", "2023-01-01", "2024-01-01", "2025-01-01"]
             };
         }
         expect(result).toEqual(expectedAnswers);
