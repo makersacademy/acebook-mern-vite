@@ -61,4 +61,19 @@ export const getTrack = async (trackID) => {
 };
 
 
+export const getAlbumsForArtist = async (artistID) => {
+    const requestOptions = {
+        method: "GET"
+    };
+
+    const response = await fetch(`${BACKEND_URL}/music/artist/${artistID}/albums`, requestOptions);
+
+    if (response.status !== 200) {
+        throw new Error("Unable to fetch artists");
+    }
+
+    const data = await response.json();
+    return data;
+};
+
 
