@@ -95,6 +95,7 @@ const handleGoBack = () => {
 };
 
 return (
+    <div className="min-h-screen relative overflow-hidden bg-homepage-background-1 bg-full">
     <div className="flex flex-col items-center p-8">
         <h1>Total Score Breakdown</h1>
         <h1>Round Score: {score}</h1>
@@ -108,6 +109,7 @@ return (
             rounded-lg shadow-md flex transition duration-300 
             ease-in-out transform hover:scale-105`}>Play Again!</button>
         </div>
+    </div>
     </div>
 );
 };
