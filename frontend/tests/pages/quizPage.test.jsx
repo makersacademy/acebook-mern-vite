@@ -90,8 +90,6 @@ describe("Audio button component", () => {
   });
 });
 
-
-
 describe("Question component", () => {
     test("Question displays on page", async () => {
         render(<QuizPage />);

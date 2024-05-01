@@ -21,7 +21,7 @@ const GoogleAuth = () => {
 
     return (
     <div>
-        <button className='login-with-google-btn' onClick={login}>Sign in with Google to play</button>
+        <button className='login-with-google-btn rounded-lg shadow-md shadow-indigo-950 border-2 border-white hover:border-hot-pink hover:border-2' onClick={login}>Sign in with Google</button>
     </div>)
 }
 
