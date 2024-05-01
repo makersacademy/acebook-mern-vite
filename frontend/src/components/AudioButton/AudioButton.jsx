@@ -1,9 +1,10 @@
 import "./AudioButton.css";
 
 const AudioButton = ({ trackPreview, onPlayPause, playButtonState }) => {
-  
+  console.log("Track Preview URL:", trackPreview);
+
   const handleClick = () => {
-   onPlayPause();
+    onPlayPause();
     playPause();
   };
 

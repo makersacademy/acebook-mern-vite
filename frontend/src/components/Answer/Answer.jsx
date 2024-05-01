@@ -4,6 +4,7 @@ const Answer = ({
   selectedTrack,
   shuffledArtistAnswerList,
   onAnswerButtonClick,
+  interactionDisabled,
   time
 }) => {
   const [score, setScore] = useState(0);
@@ -12,7 +13,6 @@ const Answer = ({
     new Array(4).fill("bg-box-color")
   );
 
-  // console.log(selectedTrack.artist)
   const answerClick = (artist, id) => {
     const isCorrect = selectedTrack.artist === artist;
     const newButtonColors = [...buttonColors];
@@ -31,7 +31,7 @@ const Answer = ({
 
     setTimeout(() => {
       setButtonColors(new Array(4).fill("bg-box-color"));
-    }, 400);
+    }, 1600);
   };
 
   return (
@@ -43,6 +43,7 @@ const Answer = ({
           <button
             key={id}
             onClick={() => answerClick(artist, id)}
+            disabled={interactionDisabled}
             className={`btn overflow-hidden relative
                 w-64 text-text-color py-4 px-4 rounded-xl font-bold uppercase rounded-lg shadow-md hover:text-hover-text-color
                 before:block before:absolute before:h-full before:w-full
@@ -65,6 +66,16 @@ const Answer = ({
           Results
         </h1>
         <p className="text-question-text-color">Your Score: {score}</p>
+        {buttonColors.includes("bg-correct-color") && (
+          <div className="bg-correct-color border border-green-500 rounded-xl">
+            <p className="text-white">Correct!</p>
+          </div>
+        )}
+        {buttonColors.includes("bg-incorrect-color") && (
+          <div className="bg-incorrect-color border border-red-500 rounded-xl">
+            <p className="text-white">Wrong!</p>
+          </div>
+        )}
         <p className="text-question-text-color">Speed Bonus: {bonus}</p>
       </div>
     </>
