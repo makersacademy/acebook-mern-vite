@@ -40,7 +40,7 @@ export const QuizPage = () => {
       );
     } else {
       setTimeout(() => {
-        navigate("/results");
+        navigate("/score");
       }, 750);
     }
   }, [selectedGenre, questionNumber, navigate]);

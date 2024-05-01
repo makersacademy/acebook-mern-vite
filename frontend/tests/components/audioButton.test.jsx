@@ -3,11 +3,6 @@ import { vi } from "vitest";
 import AudioButton from "../../src/components/AudioButton/AudioButton";
 import "@testing-library/jest-dom";
 
-// Object.defineProperty(global.HTMLMediaElement.prototype, 'play', {
-//     configurable: true,
-//     value: vi.fn(),
-//   });
-
 describe("AudioButton", () => {
   test("AudioButton before clicked", () => {
     const mockOnPlayPause = vi.fn();

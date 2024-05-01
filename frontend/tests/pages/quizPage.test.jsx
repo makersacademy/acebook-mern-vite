@@ -1,12 +1,12 @@
 import { screen, render, fireEvent, waitFor } from "@testing-library/react";
 import { QuizPage } from "../../src/pages/Quiz/QuizPage";
 import { describe, vi } from "vitest";
+import { useNavigate } from "react-router-dom";
 import "@testing-library/jest-dom";
 
-const navigateMock = vi.fn();
 vi.mock("react-router-dom", () => {
-  const useNavigateMock = () => navigateMock;
-  return { useNavigate: useNavigateMock };
+  const navigateMock = vi.fn();
+  return { useNavigate: () => navigateMock };
 });
 
 beforeAll(() => {
@@ -124,6 +124,8 @@ describe("Answer component", () => {
     expect(screen.getByText("Artist 2")).toHaveClass("bg-incorrect-color");
   });
 
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
   test("After answering five questions the player should be taken to the score page", async () => {
     render(<QuizPage />);
     fireEvent.click(screen.getByText("Pop"));
@@ -137,8 +139,10 @@ describe("Answer component", () => {
     fireEvent.click(screen.getByText("Artist 3"));
     await waitFor(() => screen.getByText("Question 5 of 5"));
     fireEvent.click(screen.getByText("correct-answer"));
-    // expect(navigateMock).toHaveBeenCalledWith("/score");
-  });
+    await delay(2000);
+    const navigateMock = useNavigate();
+    expect(navigateMock).toHaveBeenCalledWith("/score");
+  }, 7000);
 });
 
 describe("Timer component", () => {
