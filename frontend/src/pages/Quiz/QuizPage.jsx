@@ -128,3 +128,4 @@ const handlePlayPause = useCallback((newState) => {
       </div>
     </>
   );
+};
