@@ -89,12 +89,12 @@ const handlePlayPause = useCallback((newState) => {
         }
       >
         {selectedGenre === 0 ? (
-          <div>
+          <div className="animate__animated animate__slideInRight">
             <GenrePicker onGenreSelect={handleGenrePicker}></GenrePicker>
           </div>
         ) : 
         selectedDifficulty === 0 ? (
-          <div className="min-h-screen bg-homepage-background-2 bg-full">
+          <div className="animate__animated animate__slideInRight">
             <Difficulty onDifficultySelect={handleDifficultyPicker}></Difficulty>
           </div>
         ) :
