@@ -13,9 +13,11 @@ export const randomTrack = async (artistID) => {
       preview: track.preview
     }));
 
-    const shuffledTrack = shuffle(trackList); // Shuffle the array of IDs
-    const selectedTrack = shuffledTrack[0]; // Select the first track
-    return selectedTrack;
+    const shuffledTracksList = shuffle(trackList); // Shuffle the array of IDs
+    const shuffledTracks = shuffledTracksList.slice(0, 4); 
+    const selectedTrack = shuffledTracks[0]; // Select the first track
+
+    return { selectedTrack, shuffledTracks };
   } catch (error) {
     console.error("Error fetching tracks:", error);
     throw new Error("Unable to fetch random track");
