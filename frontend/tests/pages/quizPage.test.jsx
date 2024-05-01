@@ -1,6 +1,6 @@
 import { screen, render, fireEvent, waitFor } from "@testing-library/react";
 import { QuizPage } from "../../src/pages/Quiz/QuizPage";
-import { describe, vi } from "vitest";
+import { afterEach, describe, vi } from "vitest";
 import { useNavigate } from "react-router-dom";
 import "@testing-library/jest-dom";
 
@@ -26,6 +26,10 @@ beforeAll(() => {
             answers: () => mockAnswers()
         };
     });
+});
+
+afterEach(() => {
+  localStorage.clear();
 });
 
 describe("Genre page transition", () => {

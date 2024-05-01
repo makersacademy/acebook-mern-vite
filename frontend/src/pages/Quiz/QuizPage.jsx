@@ -48,7 +48,8 @@ export const QuizPage = () => {
     }
   }, [selectedGenre, questionNumber, navigate]);
 
-  const handlePlayPause = useCallback((newState) => {
+
+const handlePlayPause = useCallback((newState) => {
     setPlayButtonState(newState);
     //When play is pressed, sets to isplaying. When pressed again, sets to !isplaying
   }, []);
@@ -69,6 +70,8 @@ export const QuizPage = () => {
   const handleGenrePicker = (genreID, backgroundClass) => {
     setSelectedGenre(genreID);
     setSelectedBackground(backgroundClass);
+    localStorage.setItem('genreID', genreID); //Adding genreID to LocalStorage to get it in ScorePage
+
   };
 
   return (
