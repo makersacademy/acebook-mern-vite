@@ -82,7 +82,7 @@ describe("Audio button component", () => {
   test("Audio playback stops when play button is clicked", async () => {
     render(<QuizPage />);
     fireEvent.click(screen.getByText("Pop"));
-    fireEvent.click(screen.getByText("Casual Mode"));
+    fireEvent.click(screen.getByText("Expert Mode"));
     const playButton = screen.getByRole("button");
     fireEvent.click(playButton);
     fireEvent.click(playButton);
