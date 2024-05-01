@@ -33,6 +33,7 @@ describe("Genre page transition", () => {
     render(<QuizPage />);
     expect(screen.getByText("Metal")).toBeInTheDocument();
     fireEvent.click(screen.getByText("Pop"));
+    fireEvent.click(screen.getByText("Casual Mode"));
     expect(screen.getByText("Question 1 of 5")).toBeInTheDocument();
   });
 });
@@ -41,6 +42,7 @@ describe("Audio button component", () => {
   test("Play button is accessible on the page", () => {
     render(<QuizPage />);
     fireEvent.click(screen.getByText("Pop"));
+    fireEvent.click(screen.getByText("Casual Mode"));
     const playButton = screen.getByRole("button");
     expect(playButton.textContent).toBe("▶");
   });
@@ -48,6 +50,7 @@ describe("Audio button component", () => {
   test("Pause button is accessible on the page", () => {
     render(<QuizPage />);
     fireEvent.click(screen.getByText("Pop"));
+    fireEvent.click(screen.getByText("Casual Mode"));
     const playButton = screen.getByRole("button");
     fireEvent.click(playButton);
     expect(playButton.textContent).toBe("❚❚");
@@ -56,6 +59,7 @@ describe("Audio button component", () => {
   test("AudioButton changes state to play when clicked", () => {
     render(<QuizPage />);
     fireEvent.click(screen.getByText("Pop"));
+    fireEvent.click(screen.getByText("Casual Mode"));
     const playButton = screen.getByRole("button");
     fireEvent.click(playButton);
     fireEvent.click(playButton);
@@ -65,6 +69,7 @@ describe("Audio button component", () => {
   test("Audio playback starts when play button is clicked", async () => {
     render(<QuizPage />);
     fireEvent.click(screen.getByText("Pop"));
+    fireEvent.click(screen.getByText("Casual Mode"));
     const playButton = screen.getByRole("button");
     fireEvent.click(playButton);
     await waitFor(() => expect(screen.getByText("❚❚")).toBeInTheDocument());
@@ -73,6 +78,7 @@ describe("Audio button component", () => {
   test("Audio playback stops when play button is clicked", async () => {
     render(<QuizPage />);
     fireEvent.click(screen.getByText("Pop"));
+    fireEvent.click(screen.getByText("Casual Mode"));
     const playButton = screen.getByRole("button");
     fireEvent.click(playButton);
     fireEvent.click(playButton);
@@ -86,12 +92,14 @@ describe("Question component", () => {
     test("Question displays on page", async () => {
         render(<QuizPage />);
         fireEvent.click(screen.getByText("Pop"));
+        fireEvent.click(screen.getByText("Casual Mode"));
         await waitFor(() => expect(screen.queryByText("What is the name of the artist?")).toBeInTheDocument());
     });
 
   test("After selecting an answer, another question is generated on the page", async () => {
     render(<QuizPage />);
     fireEvent.click(screen.getByText("Pop"));
+    fireEvent.click(screen.getByText("Casual Mode"));
     await waitFor(() => screen.getByText("Question 1 of 5"));
     fireEvent.click(screen.getByText("Correct Artist"));
     await waitFor(() =>
@@ -104,6 +112,7 @@ describe("Answer component", () => {
     test("All answers are shown on the page", async () => {
         render(<QuizPage />);
         fireEvent.click(screen.getByText("Pop"));
+        fireEvent.click(screen.getByText("Casual Mode"));
         await waitFor(() => screen.getByText("Artist 1"));
         expect(screen.getByText("Artist 1")).toBeInTheDocument();
         expect(screen.getByText("Artist 2")).toBeInTheDocument();
@@ -114,6 +123,7 @@ describe("Answer component", () => {
     test("Button changes to green when correct answer is clicked on the page", async () => {
         render(<QuizPage />);
         fireEvent.click(screen.getByText("Pop"));
+        fireEvent.click(screen.getByText("Casual Mode"));
         await waitFor(() => screen.getByText("Artist 1"));
         fireEvent.click(screen.getByText('Correct Artist'))
         expect(screen.getByText('Correct Artist')).toHaveClass('bg-correct-color')
@@ -122,6 +132,7 @@ describe("Answer component", () => {
   test("Button changes to red when incorrect answer is clicked on the page", async () => {
     render(<QuizPage />);
     fireEvent.click(screen.getByText("Pop"));
+    fireEvent.click(screen.getByText("Casual Mode"));
     await waitFor(() => screen.getByText("Artist 1"));
     fireEvent.click(screen.getByText("Artist 2"));
     expect(screen.getByText("Artist 2")).toHaveClass("bg-incorrect-color");
@@ -132,6 +143,7 @@ describe("Answer component", () => {
   test("After answering five questions the player should be taken to the score page", async () => {
     render(<QuizPage />);
     fireEvent.click(screen.getByText("Pop"));
+    fireEvent.click(screen.getByText("Casual Mode"));
     await waitFor(() => screen.getByText("Question 1 of 5"));
     fireEvent.click(screen.getByText("Correct Artist"));
     await waitFor(() => screen.getByText("Question 2 of 5"));
@@ -152,6 +164,7 @@ describe("Timer component", () => {
   test("If answered immediately, bonus points are awarded", async () => {
     render(<QuizPage />);
     fireEvent.click(screen.getByText("Pop"));
+    fireEvent.click(screen.getByText("Casual Mode"));
     await waitFor(() => screen.getByText("Artist 1")); 
     fireEvent.click(screen.getByText("Correct Artist"));
     expect(screen.getByText("Speed Bonus: 50")).toBeInTheDocument();

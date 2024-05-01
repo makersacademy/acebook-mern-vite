@@ -4,7 +4,8 @@ import { randomAlbums } from "./album_generator.js"
 import { shuffle } from "../helpers/shuffle.js"
 
 
-export const answers = async (genreID) => {
+
+export const answers = async (genreID, difficulty) => {
   let fourAlbums = false;
   let correctAnswerArtistID;
   let answerAlbums;
@@ -19,7 +20,15 @@ export const answers = async (genreID) => {
   const answerList = [];
   // Randomly decide whether to use track titles or artist names or album title
   // Generates a random number between 0 and 2
-  const questionType = Math.floor(Math.random() * 3);
+  let questionType = null;
+
+
+ if (difficulty === 1) {
+   questionType = Math.floor(Math.random() * 2);
+ } else {
+  questionType = Math.floor(Math.random() * 4);
+ }
+
 
   const { selectedTrack, shuffledTracks } = await randomTrack(correctAnswerArtistID);
   if (questionType === 0) {
@@ -33,13 +42,35 @@ export const answers = async (genreID) => {
     // Iterate over all artist expect the first and push their names to the answer list
     for (let i = 1; i < answerArtists.length; i++) {
       answerList.push(answerArtists[i].name);
+    } 
+  } else if (questionType === 2) {
+      answerList.push(selectedTrack.album);
+      for (let i = 1; i < answerAlbums.length; i++) {
+        answerList.push(answerAlbums[i].title);
+      }
     }
-  } else {
-    answerList.push(selectedTrack.album);
-    for (let i = 1; i < answerAlbums.length; i++) {
-      answerList.push(answerAlbums[i].title);
+   
+   
+    else if (questionType === 3) {
+      const releaseDate = new Date(selectedTrack.release_date);
+      const releaseYear = releaseDate.getFullYear(); // Extract the year
+      console.log(releaseDate)
+      answerList.push(releaseYear.toString()); // Convert the year to a string and push it to the answer list
+      // Generate and push other random years
+      for (let i = 1; i < shuffledTracks.length; i++) {
+        const randomYear = getRandomYear(releaseYear);
+        answerList.push(randomYear);
     }
-  }
+   }
+   
+   
+   // Function to generate a random year (between 1900 and 2100)
+   function getRandomYear(year) {
+    const minYear = year - 7; // Minimum year
+    const maxYear = Math.min(year + 7, 2024);// Maximum year
+    return Math.floor(Math.random() * (maxYear - minYear + 1)) + minYear;
+   }
+   
   // Shuffle the answers to randomize the position of the right answer
   const shuffledArtistAnswerList = shuffle(answerList);
 

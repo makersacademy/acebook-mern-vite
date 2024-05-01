@@ -15,7 +15,9 @@ const Answer = ({
 
   // console.log(selectedTrack.artist)
   const answerClick = (answer, id) => {
-    const isCorrect = (selectedTrack.title === answer) || (selectedTrack.artist === answer) || (selectedTrack.album === answer);
+    const releaseDate = new Date(selectedTrack.release_date);
+   const releaseYear = releaseDate.getFullYear();
+   const isCorrect = (selectedTrack.title === answer) || (selectedTrack.artist === answer) || (selectedTrack.album === answer) || (releaseYear === parseInt(answer));
     const newButtonColors = [...buttonColors];
     if (isCorrect) {
       setScore(score + 100);

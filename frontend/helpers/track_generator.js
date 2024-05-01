@@ -1,17 +1,24 @@
 import { shuffle } from "../helpers/shuffle.js";
-import { getTopTracksForArtist } from "../src/services/deezerService.js";
+import { getTopTracksForArtist, getTrack } from "../src/services/deezerService.js";
 
 export const randomTrack = async (artistID) => {
   try {
     const data = await getTopTracksForArtist(artistID);
-
-    const trackList = data.map(track => ({
-      id: track.id,
-      title: track.title,
-      artist: track.artist.name,
-      album: track.album.title,
-      preview: track.preview
+console.log ("Test thing")
+    const trackList = await Promise.all(data.map(async (track) => {
+      console.log("SecondTest")
+      const trackData = await getTrack(track.id);
+      return {
+        id: track.id,
+        title: track.title,
+        artist: track.artist.name,
+        album: track.album.title,
+        preview: track.preview,
+        release_date: trackData.release_date
+       
+      };
     }));
+ 
 
     const shuffledTracksList = shuffle(trackList); // Shuffle the array of IDs
     const shuffledTracks = shuffledTracksList.slice(0, 4); 
