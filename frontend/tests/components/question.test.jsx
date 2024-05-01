@@ -19,8 +19,3 @@ describe("Question component", () => {
     expect(screen.queryByText("What is the name of the album?")).toBeInTheDocument();
   });
 });
-
-
-
-
-

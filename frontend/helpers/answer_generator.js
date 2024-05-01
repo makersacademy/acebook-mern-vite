@@ -47,9 +47,3 @@ export const answers = async (genreID) => {
   return { selectedTrack, shuffledArtistAnswerList, questionType };
 
 };
-
-  
-
-
-
-
