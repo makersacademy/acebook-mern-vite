@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import AudioButton from "../../components/AudioButton/AudioButton";
 import Question from "../../components/Question/Question";
@@ -44,6 +44,7 @@ export const QuizPage = () => {
       }, 750);
     }
   }, [selectedGenre, questionNumber, navigate]);
+
 
 const handlePlayPause = useCallback((newState) => {
     setPlayButtonState(newState);
