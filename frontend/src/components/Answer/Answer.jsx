@@ -13,7 +13,6 @@ const Answer = ({
     new Array(4).fill("bg-box-color")
   );
 
-
   useEffect(() => {
     const storedScore = localStorage.getItem("score"); //add score to localStorage to pass it to ScorePage
     if (storedScore) {
@@ -33,8 +32,8 @@ const Answer = ({
     localStorage.setItem("bonus", bonus.toString());
   }, [bonus]);
 
-  const answerClick = (artist, id) => {
-    const isCorrect = selectedTrack.artist === artist;
+  const answerClick = (answer, id) => {
+    const isCorrect = (selectedTrack.title === answer) || (selectedTrack.artist === answer) || (selectedTrack.album === answer);
     const newButtonColors = [...buttonColors];
     if (isCorrect) {
       setScore(score + 100);
@@ -59,10 +58,10 @@ const Answer = ({
       <div className={`grid grid-cols-1 gap-y-2 md:grid-cols-2 gap-x-40`}>
         {" "}
         {/* 'grid grid-cols-2' this turns the row of answers into two columns. Adding md: applies the changes only when the screen is wider than the md breakpoint*/}
-        {shuffledArtistAnswerList.map((artist, id) => (
+        {shuffledArtistAnswerList.map((answer, id) => (
           <button
             key={id}
-            onClick={() => answerClick(artist, id)}
+            onClick={() => answerClick(answer, id)}
             disabled={interactionDisabled}
             className={`btn overflow-hidden relative
                 w-64 text-text-color py-4 px-4 rounded-xl font-bold uppercase rounded-lg shadow-md hover:text-hover-text-color
@@ -75,7 +74,7 @@ const Answer = ({
               } 
             `}
           >
-            {artist}
+            {answer}
           </button>
         ))}
       </div>

@@ -10,21 +10,22 @@ vi.mock("react-router-dom", () => {
 });
 
 beforeAll(() => {
-  vi.mock("../../helpers/answer_generator", () => {
-    const mockArtistAnswers = vi.fn();
-    mockArtistAnswers.mockResolvedValue({
-      selectedTrack: { artist: "correct-answer", preview: "examplePreviewUrl" },
-      shuffledArtistAnswerList: [
-        "Artist 1",
-        "Artist 2",
-        "Artist 3",
-        "correct-answer",
-      ],
+    vi.mock("../../helpers/answer_generator", () => {
+        const mockAnswers = vi.fn();
+        mockAnswers.mockResolvedValue({
+            selectedTrack: {
+                title: "Correct Track Title",
+                artist: "Correct Artist",
+                album: { title: "Correct Album Title" },
+                preview: "examplePreviewUrl"
+            },
+            shuffledArtistAnswerList: ['Artist 1' , 'Artist 2', 'Artist 3', 'Correct Artist'],
+            questionType: 1
+        });
+        return {
+            answers: () => mockAnswers()
+        };
     });
-    return {
-      artistAnswers: () => mockArtistAnswers(),
-    };
-  });
 });
 
 afterEach(() => {
@@ -83,18 +84,20 @@ describe("Audio button component", () => {
   });
 });
 
+
+
 describe("Question component", () => {
-  test("Question displays on page", () => {
-    render(<QuizPage />);
-    fireEvent.click(screen.getByText("Pop"));
-    expect(screen.getByText("What is the name of the artist?")).toBeTruthy();
-  });
+    test("Question displays on page", async () => {
+        render(<QuizPage />);
+        fireEvent.click(screen.getByText("Pop"));
+        await waitFor(() => expect(screen.queryByText("What is the name of the artist?")).toBeInTheDocument());
+    });
 
   test("After selecting an answer, another question is generated on the page", async () => {
     render(<QuizPage />);
     fireEvent.click(screen.getByText("Pop"));
     await waitFor(() => screen.getByText("Question 1 of 5"));
-    fireEvent.click(screen.getByText("correct-answer"));
+    fireEvent.click(screen.getByText("Correct Artist"));
     await waitFor(() =>
       expect(screen.getByText("Question 2 of 5")).toBeInTheDocument()
     );
@@ -102,23 +105,23 @@ describe("Question component", () => {
 });
 
 describe("Answer component", () => {
-  test("All answers are shown on the page", async () => {
-    render(<QuizPage />);
-    fireEvent.click(screen.getByText("Pop"));
-    await waitFor(() => screen.getByText("Artist 1"));
-    expect(screen.getByText("Artist 1")).toBeInTheDocument();
-    expect(screen.getByText("Artist 2")).toBeInTheDocument();
-    expect(screen.getByText("Artist 3")).toBeInTheDocument();
-    expect(screen.getByText("correct-answer")).toBeInTheDocument();
-  });
+    test("All answers are shown on the page", async () => {
+        render(<QuizPage />);
+        fireEvent.click(screen.getByText("Pop"));
+        await waitFor(() => screen.getByText("Artist 1"));
+        expect(screen.getByText("Artist 1")).toBeInTheDocument();
+        expect(screen.getByText("Artist 2")).toBeInTheDocument();
+        expect(screen.getByText("Artist 3")).toBeInTheDocument();
+        expect(screen.getByText("Correct Artist")).toBeInTheDocument();
+    });
 
-  test("Button changes to green when correct answer is clicked on the page", async () => {
-    render(<QuizPage />);
-    fireEvent.click(screen.getByText("Pop"));
-    await waitFor(() => screen.getByText("Artist 1"));
-    fireEvent.click(screen.getByText("correct-answer"));
-    expect(screen.getByText("correct-answer")).toHaveClass("bg-correct-color");
-  });
+    test("Button changes to green when correct answer is clicked on the page", async () => {
+        render(<QuizPage />);
+        fireEvent.click(screen.getByText("Pop"));
+        await waitFor(() => screen.getByText("Artist 1"));
+        fireEvent.click(screen.getByText('Correct Artist'))
+        expect(screen.getByText('Correct Artist')).toHaveClass('bg-correct-color')
+    })
 
   test("Button changes to red when incorrect answer is clicked on the page", async () => {
     render(<QuizPage />);
@@ -134,7 +137,7 @@ describe("Answer component", () => {
     render(<QuizPage />);
     fireEvent.click(screen.getByText("Pop"));
     await waitFor(() => screen.getByText("Question 1 of 5"));
-    fireEvent.click(screen.getByText("correct-answer"));
+    fireEvent.click(screen.getByText("Correct Artist"));
     await waitFor(() => screen.getByText("Question 2 of 5"));
     fireEvent.click(screen.getByText("Artist 1"));
     await waitFor(() => screen.getByText("Question 3 of 5"));
@@ -142,7 +145,7 @@ describe("Answer component", () => {
     await waitFor(() => screen.getByText("Question 4 of 5"));
     fireEvent.click(screen.getByText("Artist 3"));
     await waitFor(() => screen.getByText("Question 5 of 5"));
-    fireEvent.click(screen.getByText("correct-answer"));
+    fireEvent.click(screen.getByText("Correct Artist"));
     await delay(2000);
     const navigateMock = useNavigate();
     expect(navigateMock).toHaveBeenCalledWith("/score");
@@ -153,8 +156,8 @@ describe("Timer component", () => {
   test("If answered immediately, bonus points are awarded", async () => {
     render(<QuizPage />);
     fireEvent.click(screen.getByText("Pop"));
-    await waitFor(() => screen.getByText("Artist 1"));
-    fireEvent.click(screen.getByText("correct-answer"));
+    await waitFor(() => screen.getByText("Artist 1")); 
+    fireEvent.click(screen.getByText("Correct Artist"));
     expect(screen.getByText("Speed Bonus: 50")).toBeInTheDocument();
-  });
+  }); 
 });

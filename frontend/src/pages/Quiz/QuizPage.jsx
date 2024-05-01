@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AudioButton from "../../components/AudioButton/AudioButton";
 import Question from "../../components/Question/Question";
 import Answer from "../../components/Answer/Answer";
-import { artistAnswers } from "../../../helpers/answer_generator";
+import { answers } from "../../../helpers/answer_generator";
 import GenrePicker from "../../components/GenrePicker/GenrePicker";
 
 export const QuizPage = () => {
@@ -14,6 +14,7 @@ export const QuizPage = () => {
   const [playButtonState, setPlayButtonState] = useState(false);
   const [selectedBackground, setSelectedBackground] =
     useState("custom-background");
+  const [questionType, setQuestionType] = useState(null)
   const [questionNumber, setQuestionNumber] = useState(1);
   const navigate = useNavigate();
   const [interactionDisabled, setInteractionDisabled] = useState(false);
@@ -26,14 +27,16 @@ export const QuizPage = () => {
     }, 1000);
   };
 
+
   useEffect(() => {
     setAnimate(false);
 
     if (questionNumber <= 5) {
-      artistAnswers(selectedGenre).then(
-        ({ selectedTrack, shuffledArtistAnswerList }) => {
+      answers(selectedGenre).then(
+        ({ selectedTrack, shuffledArtistAnswerList, questionType }) => {
           setShuffledArtistAnswerList(shuffledArtistAnswerList);
           setSelectedTrack(selectedTrack);
+          setQuestionType(questionType);
           setInteractionDisabled(false);
           setAnimate(true);
         }
@@ -110,7 +113,7 @@ const handlePlayPause = useCallback((newState) => {
                   />
                 </div>
                 <div className={`p-5 text-2xl`}>
-                  <Question questionType="artist" />
+                  <Question questionType={questionType} />
                 </div>
                 <div className={`p-5`}>
                   <Answer
