@@ -15,7 +15,12 @@ describe("Question component", () => {
 
   test("Question is generated for album title", () => {
     render(<Question questionType={2} />);
-    expect(screen.queryByText("What is the name of the album?")).toBeInTheDocument();
+    expect(screen.queryByText("What is the name of the album this track is on?")).toBeInTheDocument();
+  });
+
+  test("Question is generated for release date", () => {
+    render(<Question questionType={3} />);
+    expect(screen.queryByText("In what year was this song released?")).toBeInTheDocument();
   });
 
   test("Question is hidden from view", () => {
