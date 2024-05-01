@@ -6,6 +6,8 @@ import Answer from "../../components/Answer/Answer";
 import { answers } from "../../../helpers/answer_generator";
 import GenrePicker from "../../components/GenrePicker/GenrePicker";
 import Difficulty from "../../components/Difficulty/difficulty";
+import { Navigation } from "../../components/Navigation/Navigation";
+
 
 export const QuizPage = () => {
   const [shuffledArtistAnswerList, setShuffledArtistAnswerList] = useState([]);
@@ -88,6 +90,7 @@ const handlePlayPause = useCallback((newState) => {
           "min-h-screen relative overflow-hidden custom-background bg-cover"
         }
       >
+        <Navigation />
         {selectedGenre === 0 ? (
           <div>
             <GenrePicker onGenreSelect={handleGenrePicker}></GenrePicker>
