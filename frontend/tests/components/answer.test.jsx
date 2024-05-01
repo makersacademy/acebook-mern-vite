@@ -1,9 +1,13 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Answer from "../../src/components/Answer/Answer";
 import "@testing-library/jest-dom";
-import { vi } from "vitest";
+import { afterEach, vi } from "vitest";
 
 describe("Answer", () => {
+  afterEach(() => {
+    localStorage.clear();
+  })
+
   test("All answers shown on page", () => {
     const selectedTrack = { artist: "correct-answer" };
     const shuffledArtistAnswerList = [
@@ -81,7 +85,7 @@ describe("Answer", () => {
         onAnswerButtonClick={mockOnAnswerButtonClick}
       />
     );
-    expect(screen.getByText("Your Score: 100")).toBeInTheDocument();
+    expect(screen.getByText("Your Score: 0")).toBeInTheDocument();
   });
 
   test("Score is updated to 100 when correct answer is clicked, bonus of 50 points if less than 5 seconds", () => {
@@ -102,7 +106,7 @@ describe("Answer", () => {
       />
     );
     fireEvent.click(screen.getByText("correct-answer"));
-    expect(screen.getByText("Your Score: 200")).toBeInTheDocument();
+    expect(screen.getByText("Your Score: 100")).toBeInTheDocument();
     expect(screen.getByText("Speed Bonus: 50")).toBeInTheDocument();
   });
 
@@ -124,8 +128,8 @@ describe("Answer", () => {
       />
     );
     fireEvent.click(screen.getByText("correct-answer"));
-    expect(screen.getByText("Your Score: 300")).toBeInTheDocument();
-    expect(screen.getByText("Speed Bonus: 50")).toBeInTheDocument();
+    expect(screen.getByText("Your Score: 100")).toBeInTheDocument();
+    expect(screen.getByText("Speed Bonus: 0")).toBeInTheDocument();
   });
 
   test("Score stays at 0 when incorrect answer is clicked and less than 5 seconds", () => {
@@ -147,8 +151,8 @@ describe("Answer", () => {
       />
     );
     fireEvent.click(screen.getByText("Artist 1"));
-    expect(screen.getByText("Your Score: 300")).toBeInTheDocument();
-    expect(screen.getByText("Speed Bonus: 50")).toBeInTheDocument();
+    expect(screen.getByText("Your Score: 0")).toBeInTheDocument();
+    expect(screen.getByText("Speed Bonus: 0")).toBeInTheDocument();
   });
 
 
@@ -171,8 +175,8 @@ describe("Answer", () => {
       />
     );
     fireEvent.click(screen.getByText("Artist 1"));
-    expect(screen.getByText("Your Score: 300")).toBeInTheDocument();
-    expect(screen.getByText("Speed Bonus: 50")).toBeInTheDocument();
+    expect(screen.getByText("Your Score: 0")).toBeInTheDocument();
+    expect(screen.getByText("Speed Bonus: 0")).toBeInTheDocument();
   });
 
   test("Buttons are disabled when interactionDisabled is true", () => {
