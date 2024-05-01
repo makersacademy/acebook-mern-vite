@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Leaderboard } from "../../components/Leaderboard/Leaderboard";
+import { addToUserScore } from "../../services/leaderboardService";
 
 export const ScorePage = () => {
     const [score, setScore] = useState(null);
     const [genreID, setGenreId] = useState(null);
     const [bonus, setBonus] = useState(null);
     const [perfectRoundBonus, setPerfectRoundBonus] = useState(null);
+    const [totalScore, setTotalScore] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,7 +32,14 @@ export const ScorePage = () => {
         } else {
             setPerfectRoundBonus(0);
         }
-    }, [score]);
+
+        setTotalScore(score + bonus + perfectRoundBonus);
+    }, [score, bonus, perfectRoundBonus]);
+
+    useEffect(() => {
+        const userEmail = "aakashrana.r4z@gmail.com";
+        addToUserScore(userEmail, totalScore)
+    }, [totalScore]);
 
     const getRating = (score, genreID) => {
             if (score <= 200) {
@@ -86,8 +96,6 @@ export const ScorePage = () => {
             }
         }
 
-const totalScore = score + bonus + perfectRoundBonus;
-
 const rating = getRating(score, genreID);
 
 const handleGoBack = () => {
@@ -95,6 +103,7 @@ const handleGoBack = () => {
 };
 
 return (
+    <>
     <div className="flex flex-col items-center p-8">
         <h1>Total Score Breakdown</h1>
         <h1>Round Score: {score}</h1>
@@ -109,6 +118,8 @@ return (
             ease-in-out transform hover:scale-105`}>Play Again!</button>
         </div>
     </div>
+    <Leaderboard/>
+    </>
 );
 };
 
