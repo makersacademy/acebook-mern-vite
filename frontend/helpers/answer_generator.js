@@ -23,7 +23,6 @@ export const answers = async (genreID) => {
 
   const { selectedTrack, shuffledTracks } = await randomTrack(correctAnswerArtistID);
   if (questionType === 0) {
-    console.log("it is me")
     answerList.push(selectedTrack.title);
     for (let i = 1; i < shuffledTracks.length; i++) {
       answerList.push(shuffledTracks[i].title);
