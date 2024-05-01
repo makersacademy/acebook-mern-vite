@@ -1,9 +1,13 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Answer from "../../src/components/Answer/Answer";
 import "@testing-library/jest-dom";
-import { vi } from "vitest";
+import { afterEach, vi } from "vitest";
 
 describe("Answer", () => {
+  afterEach(() => {
+    localStorage.clear();
+  })
+
   test("All answers shown on page", () => {
     const selectedTrack = { artist: "correct-answer" };
     const shuffledArtistAnswerList = [
@@ -139,7 +143,7 @@ describe("Answer", () => {
       "Artist 2",
       "Artist 3",
       "correct-answer",
-     
+
     ];
     const mockOnAnswerButtonClick = vi.fn();
     render(

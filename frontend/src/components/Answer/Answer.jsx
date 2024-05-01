@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Answer = ({
   selectedTrack,
@@ -13,7 +13,25 @@ const Answer = ({
     new Array(4).fill("bg-box-color")
   );
 
-  // console.log(selectedTrack.artist)
+  useEffect(() => {
+    const storedScore = localStorage.getItem("score"); //add score to localStorage to pass it to ScorePage
+    if (storedScore) {
+      setScore(parseInt(storedScore));
+    }
+    const storedBonus = localStorage.getItem("bonus");
+    if (storedBonus) {
+      setBonus(parseInt(storedBonus));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("score", score.toString());
+  }, [score]);
+
+  useEffect(() => {
+    localStorage.setItem("bonus", bonus.toString());
+  }, [bonus]);
+
   const answerClick = (answer, id) => {
     const releaseDate = new Date(selectedTrack.release_date);
    const releaseYear = releaseDate.getFullYear();
@@ -22,9 +40,9 @@ const Answer = ({
     if (isCorrect) {
       setScore(score + 100);
       if (time < 5) {
-        setBonus(bonus + 50); // Add bonus points only if the answer is correct and the timer is less than 5
+        setBonus(bonus + 50); // Add bonus points only if the answer is correct and the timer is less than 5 // Save bonus to localStorage
       }
-    
+
       newButtonColors[id] = "bg-correct-color";
     } else {
       newButtonColors[id] = "bg-incorrect-color";
@@ -50,14 +68,12 @@ const Answer = ({
             className={`btn overflow-hidden relative
                 w-64 text-text-color py-4 px-4 rounded-xl font-bold uppercase rounded-lg shadow-md hover:text-hover-text-color
                 before:block before:absolute before:h-full before:w-full
-                before:left-0 before:top-0 before:-translate-y-full before:transition-transform ${
-                  buttonColors[id]
-                }  
-                ${
-                  buttonColors[id] === "bg-box-color"
-                    ? "hover:bg-hover-color"
-                    : ""
-                } 
+                before:left-0 before:top-0 before:-translate-y-full before:transition-transform ${buttonColors[id]
+              }  
+                ${buttonColors[id] === "bg-box-color"
+                ? "hover:bg-hover-color"
+                : ""
+              } 
             `}
           >
             {answer}
