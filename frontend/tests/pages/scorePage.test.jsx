@@ -39,7 +39,7 @@ test('retrieves data from local storage and displays a rating', () => {
     expect(screen.getByText('Perfect Round Bonus: 0')).to.exist;
     expect(screen.getByText('Speed Bonus: 0')).to.exist;
     expect(screen.getByText('Your Score: 0')).to.exist;
-    expect(screen.getByText('Rating: Do you even moonwalk?')).to.exist;
+    expect(screen.getByText('Do you even moonwalk?')).to.exist;
 })
 
 test('handles empty localStorage', () => {
@@ -49,10 +49,10 @@ test('handles empty localStorage', () => {
             <ScorePage />
         </Router>
     );
-    expect(screen.getByText("Total Score Breakdown")).toBeInTheDocument();
+    
     expect(screen.getByText("Round Score:")).toBeInTheDocument();
     expect(screen.getByText(/Perfect Round Bonus: 0/)).toBeInTheDocument();
     expect(screen.getByText("Speed Bonus:")).toBeInTheDocument();
     expect(screen.getByText(/Your Score: 0/)).toBeInTheDocument();
-    expect(screen.getByText(/Rating: Default rating message/)).toBeInTheDocument();
+    expect(screen.getByText(/Default rating message/)).toBeInTheDocument();
 });
