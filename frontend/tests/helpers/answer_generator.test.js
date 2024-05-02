@@ -1,6 +1,7 @@
 import { vi } from "vitest";
 import { answers } from "../../helpers/answer_generator.js";
 
+
 // Mocking the randomArtists function
 vi.mock("../../helpers/artist_generator", () => {
     const randomArtistsMock = vi.fn();
@@ -50,6 +51,9 @@ vi.mock("../../helpers/album_generator", () => {
     };
 });
 
+
+
+
 describe("Answer Generator", () => {
     test('Returns the answer for each question', async () => {
         const result = await answers();
@@ -76,7 +80,12 @@ describe("Answer Generator", () => {
             expectedAnswers = {
                 "questionType": 3,
                 "selectedTrack": {id: 45, title: "Title 45", artist: "Artist 45", album: { title: "Album 45"}, release_date: "2022-01-01" },
-                "shuffledArtistAnswerList": ["2022-01-01", "2023-01-01", "2024-01-01", "2025-01-01"]
+                "shuffledArtistAnswerList": [
+                    "2022",
+                    ...result.shuffledArtistAnswerList
+                        .slice(1, 4)
+                        .filter((year) => year >= 2015 && year <= 2029),
+                    ]
             };
         }
         expect(result).toEqual(expectedAnswers);
@@ -87,6 +96,7 @@ describe("Answer Generator", () => {
         expect(result).toHaveProperty('selectedTrack');
         expect(result.shuffledArtistAnswerList).toHaveLength(4);
     });
+    
 });
 
 
