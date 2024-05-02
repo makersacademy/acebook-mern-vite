@@ -52,8 +52,6 @@ vi.mock("../../helpers/album_generator", () => {
 });
 
 
-
-
 describe("Answer Generator", () => {
     test('Returns the answer for each question', async () => {
         const result = await answers();
@@ -96,7 +94,5 @@ describe("Answer Generator", () => {
         expect(result).toHaveProperty('selectedTrack');
         expect(result.shuffledArtistAnswerList).toHaveLength(4);
     });
-    
 });
-
 
