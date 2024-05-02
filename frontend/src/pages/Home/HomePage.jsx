@@ -52,14 +52,14 @@ export const HomePage = () => {
             <Link
               to="/kwizical"
               className="bg-hot-pink text-white px-11 py-4 rounded-lg hover:bg-white hover:text-hot-pink hover:border-hot-pink hover:border-2 shadow-md shadow-indigo-950 hover:shadow-none transition-shadow duration-300"
+              onClick={handlePlayAsGuest} 
             >
               Play as guest
             </Link>
           </div>
         </div>
       </div>
-      <div>or</div>
-      <Link to="/kwizical" onClick={handlePlayAsGuest} >Play as guest</Link>
+    
     </div>
   );
 };
