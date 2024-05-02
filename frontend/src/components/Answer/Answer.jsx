@@ -14,7 +14,7 @@ const Answer = ({
   );
 
   useEffect(() => {
-    const storedScore = localStorage.getItem("score"); //add score to localStorage to pass it to ScorePage
+    const storedScore = localStorage.getItem("score");
     if (storedScore) {
       setScore(parseInt(storedScore));
     }
@@ -25,7 +25,7 @@ const Answer = ({
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("score", score.toString());
+    localStorage.setItem("score", score.toString()); //add score to localStorage to pass it to ScorePage
   }, [score]);
 
   useEffect(() => {
@@ -34,8 +34,8 @@ const Answer = ({
 
   const answerClick = (answer, id) => {
     const releaseDate = new Date(selectedTrack.release_date);
-   const releaseYear = releaseDate.getFullYear();
-   const isCorrect = (selectedTrack.title === answer) || (selectedTrack.artist === answer) || (selectedTrack.album === answer) || (releaseYear === parseInt(answer));
+    const releaseYear = releaseDate.getFullYear();
+    const isCorrect = (selectedTrack.title === answer) || (selectedTrack.artist === answer) || (selectedTrack.album === answer) || (releaseYear === parseInt(answer));
     const newButtonColors = [...buttonColors];
     if (isCorrect) {
       setScore(score + 100);

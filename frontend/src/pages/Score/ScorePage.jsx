@@ -32,8 +32,9 @@ export const ScorePage = () => {
         } else {
             setPerfectRoundBonus(0);
         }
-
-        setTotalScore(parseInt(storedScore) + parseInt(storedBonus));
+        if (storedScore && storedBonus) {
+            setTotalScore(parseInt(storedScore) + parseInt(storedBonus));
+        }
     }, []);
 
     const getRating = (score, genreID) => {

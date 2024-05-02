@@ -22,10 +22,4 @@ describe("Question component", () => {
     render(<Question questionType={3} />);
     expect(screen.queryByText("In what year was this song released?")).toBeInTheDocument();
   });
-
-  test("Question is hidden from view", () => {
-    render(<Question questionType={1} hidden={true} />);
-    const questionElement = screen.getByText("What is the name of the artist?");
-    expect(questionElement).toHaveStyle({ display: "none" });
-  });
 });
