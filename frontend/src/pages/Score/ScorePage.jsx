@@ -99,14 +99,14 @@ const handleGoBack = () => {
 return (
     <div className="min-h-screen relative overflow-hidden bg-homepage-background-1 bg-full">
     <div className="absolute inset-0 flex justify-center items-center">
-      <div className="w-3/4 h-3/4 rounded-lg bg-dark-purple bg-opacity-50 flex flex-col border-navy-border border-8">
-        <div className="flex flex-row w-full h-3/4">
-          <div className="flex flex-col flex-grow items-center w-1/2">
+      <div className="flex flex-col w-3/4 h-3/4 rounded-lg bg-dark-purple bg-opacity-50 border-navy-border border-8 overflow-x-auto">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start w-full sm:h-3/4">
+          <div className="flex flex-col items-center h-max-1/3 sm:w-1/2">
             <div className="flex">
               <img
                 src={totalscore}
                 alt="Total-score-logo"
-                className="w-full max-h-60"
+                className="w-full sm:max-h-60 max-h-24"
               />
             </div>
             <h1>Round Score: {score}</h1>
@@ -115,13 +115,13 @@ return (
             <h1>Your Score: {totalScore}</h1>
             
           </div>
-          <div className="border-r border-navy-border h-full"></div>
-          <div className="flex flex-col items-center w-1/2">
+          <div className="sm:border-r border-navy-border h-full"></div>
+          <div className="flex flex-col items-center  h-max-1/3 sm:w-1/2">
             <div className="flex">
               <img
                 src={leaderboard}
                 alt="Leaderboard-logo"
-                className="w-full max-h-60"
+                className="w-full sm:max-h-60 max-h-24"
               />
             </div>
             <div className="overflow-x-auto">
@@ -165,8 +165,8 @@ return (
           </div>
           </div>
         </div>
-        <div className="w-full flex flex-col items-center mt-auto border-t border-navy-border p-4">
-  <p className="mb-4 text-2xl font-extrabold">{rating}</p>
+        <div className="w-full flex flex-col items-center mt-auto sm:border-t border-navy-border p-4">
+  <p className="mb-4 text-2xl font-bold sm:font-extrabold">{rating}</p>
   <div className="flex items-center">
     <button onClick={handleGoBack} className={`items-center justify-center bg-dark-purple hover:bg-hover-color hover:text-hover-text-color text-light-purple font-bold w-60 h-10 
       rounded-lg shadow-md flex transition duration-300 
