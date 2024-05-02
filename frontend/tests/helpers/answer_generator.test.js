@@ -82,7 +82,7 @@ describe("Answer Generator", () => {
                     "2022",
                     ...result.shuffledArtistAnswerList
                         .slice(1, 4)
-                        .filter((year) => year >= 2015 && year <= 2029),
+                        .filter((year) => year >= 2012 && year <= 2032),
                     ]
             };
         }
