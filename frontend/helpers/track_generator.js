@@ -4,9 +4,7 @@ import { getTopTracksForArtist, getTrack } from "../src/services/deezerService.j
 export const randomTrack = async (artistID) => {
   try {
     const data = await getTopTracksForArtist(artistID);
-console.log ("Test thing")
     const trackList = await Promise.all(data.map(async (track) => {
-      console.log("SecondTest")
       const trackData = await getTrack(track.id);
       return {
         id: track.id,
