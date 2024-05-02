@@ -66,7 +66,7 @@ const Answer = ({
             onClick={() => answerClick(answer, id)}
             disabled={interactionDisabled}
             className={`btn overflow-hidden relative
-                w-64 text-text-color py-4 px-4 rounded-xl font-bold uppercase rounded-lg shadow-md hover:text-hover-text-color
+                w-80 h-28 text-text-color text-2xl rounded-xl font-bold uppercase rounded-lg shadow-md hover:text-hover-text-color
                 before:block before:absolute before:h-full before:w-full
                 before:left-0 before:top-0 before:-translate-y-full before:transition-transform ${buttonColors[id]
               }  
@@ -80,21 +80,8 @@ const Answer = ({
           </button>
         ))}
       </div>
-      <div className="mt-8">
-        <h1 className="results-header text-2xl font-bold text-question-text-color">
-          Results
-        </h1>
+      <div className="mt-8 font-bold text-3xl">
         <p className="text-question-text-color">Your Score: {score}</p>
-        {buttonColors.includes("bg-correct-color") && (
-          <div className="bg-correct-color border border-green-500 rounded-xl">
-            <p className="text-white">Correct!</p>
-          </div>
-        )}
-        {buttonColors.includes("bg-incorrect-color") && (
-          <div className="bg-incorrect-color border border-red-500 rounded-xl">
-            <p className="text-white">Wrong!</p>
-          </div>
-        )}
         <p className="text-question-text-color">Speed Bonus: {bonus}</p>
       </div>
     </>

@@ -97,7 +97,7 @@ const handlePlayPause = useCallback((newState) => {
           </div>
         ) : 
         selectedDifficulty === 0 ? (
-          <div className="animate__animated animate__slideInRigh absolute inset-0 flex justify-center items-center">
+          <div className="animate__animated animate__slideInRight absolute inset-0 flex justify-center items-center">
             <Difficulty onDifficultySelect={handleDifficultyPicker}></Difficulty>
           </div>
         ) :
@@ -106,7 +106,7 @@ const handlePlayPause = useCallback((newState) => {
           <div
               className={
                 `absolute inset-0 flex flex-col items-center justify-center 
-            animate__animated animate__slideInRight ${selectedBackground} bg-cover`
+            animate__animated animate__slideInRight ${selectedBackground} bg-full`
                 // The above Tailwind code applies the sliding animation to the transition from the genre 'page' to the quiz 'page'
               }
             >
@@ -114,10 +114,10 @@ const handlePlayPause = useCallback((newState) => {
               <div
                 className={`${
                   animate ? "animate__animated animate__slideInRight" : ""
-                }`}
+                } bg-white bg-opacity-30 rounded-lg p-2`}
               >
                 <div
-                  className="text-2xl text-white"
+                  className="text-4xl 2B2939 font-bold "
                   hidden={interactionDisabled}
                 >
                   Question {questionNumber} of 5
@@ -129,7 +129,7 @@ const handlePlayPause = useCallback((newState) => {
                     playButtonState={playButtonState}
                   />
                 </div>
-                <div className={`p-5 text-2xl`}>
+                <div className={`p-5 text-7xl question-font`}>
                   <Question questionType={questionType} />
                 </div>
                 <div className={`p-5`}>
