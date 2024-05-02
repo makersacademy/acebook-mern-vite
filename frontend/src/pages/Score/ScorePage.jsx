@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import totalscore from "../../assets/totalscore.png"
+import leaderboard from "../../assets/leaderboard.png"
 
 export const ScorePage = () => {
     const [score, setScore] = useState(null);
@@ -96,21 +98,84 @@ const handleGoBack = () => {
 
 return (
     <div className="min-h-screen relative overflow-hidden bg-homepage-background-1 bg-full">
-    <div className="flex flex-col items-center p-8">
-        <h1>Total Score Breakdown</h1>
-        <h1>Round Score: {score}</h1>
-        <h1>Perfect Round Bonus: {perfectRoundBonus}</h1>
-        <h1>Speed Bonus: {bonus}</h1>
-        <h1>Your Score: {totalScore}</h1>
-
-        <p>Rating: {rating}</p>
-        <div>
-            <button onClick={handleGoBack} className={`items-center justify-center bg-box-color hover:bg-hover-color hover:text-hover-text-color text-text-color font-bold w-40 h-40 
-            rounded-lg shadow-md flex transition duration-300 
-            ease-in-out transform hover:scale-105`}>Play Again!</button>
+    <div className="absolute inset-0 flex justify-center items-center">
+      <div className="w-3/4 h-3/4 rounded-lg bg-dark-purple bg-opacity-50 flex flex-col border-navy-border border-8">
+        <div className="flex flex-row w-full h-3/4">
+          <div className="flex flex-col flex-grow items-center w-1/2">
+            <div className="flex">
+              <img
+                src={totalscore}
+                alt="Total-score-logo"
+                className="w-full max-h-60"
+              />
+            </div>
+            <h1>Round Score: {score}</h1>
+            <h1>Perfect Round Bonus: {perfectRoundBonus}</h1>
+            <h1>Speed Bonus: {bonus}</h1>
+            <h1>Your Score: {totalScore}</h1>
+            
+          </div>
+          <div className="border-r border-navy-border h-full"></div>
+          <div className="flex flex-col items-center w-1/2">
+            <div className="flex">
+              <img
+                src={leaderboard}
+                alt="Leaderboard-logo"
+                className="w-full max-h-60"
+              />
+            </div>
+            <div className="overflow-x-auto">
+            <table className=" table-auto border-collapse border-navy-border mt-2">
+    <thead>
+      <tr>
+        <th className="border border-navy-border px-4 py-2">Ranking</th>
+        <th className="border border-navy-border px-4 py-2">Name</th>
+        <th className="border border-navy-border px-4 py-2">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      {/* Rows */}
+      <tr>
+        <td className="border border-navy-border px-4 py-1"> 1 </td>
+        <td className="border border-navy-border px-4 py-1">Player 1</td>
+        <td className="border border-navy-border px-4 py-1">1000</td>
+      </tr>
+      <tr>
+        <td className="border border-navy-border px-4 py-1">2</td>
+        <td className="border border-navy-border px-4 py-1">Player 2</td>
+        <td className="border border-navy-border px-4 py-1">950</td>
+      </tr>
+      <tr>
+        <td className="border border-navy-border px-4 py-1">3</td>
+        <td className="border border-navy-border px-4 py-1">Player 3</td>
+        <td className="border border-navy-border px-4 py-1">900</td>
+      </tr>
+      <tr>
+        <td className="border border-navy-border px-4 py-1">4</td>
+        <td className="border border-navy-border px-4 py-1">Player 4</td>
+        <td className="border border-navy-border px-4 py-1">700</td>
+      </tr>
+      <tr>
+        <td className="border border-navy-border px-4 py-1">5</td>
+        <td className="border border-navy-border px-4 py-1">Player 5</td>
+        <td className="border border-navy-border px-4 py-1">250</td>
+      </tr>
+    </tbody>
+  </table>
+          </div>
+          </div>
         </div>
+        <div className="w-full flex flex-col items-center mt-auto border-t border-navy-border p-4">
+  <p className="mb-4 text-2xl font-extrabold">{rating}</p>
+  <div className="flex items-center">
+    <button onClick={handleGoBack} className={`items-center justify-center bg-dark-purple hover:bg-hover-color hover:text-hover-text-color text-light-purple font-bold w-60 h-10 
+      rounded-lg shadow-md flex transition duration-300 
+      ease-in-out transform hover:scale-105`}>Play Again!</button>
+  </div>
+</div>
+      </div>
     </div>
-    </div>
+  </div>
 );
 };
 
