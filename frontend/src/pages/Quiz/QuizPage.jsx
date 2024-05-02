@@ -97,7 +97,7 @@ const handlePlayPause = useCallback((newState) => {
           </div>
         ) : 
         selectedDifficulty === 0 ? (
-          <div className="animate__animated animate__slideInRight">
+          <div className="animate__animated animate__slideInRigh absolute inset-0 flex justify-center items-center">
             <Difficulty onDifficultySelect={handleDifficultyPicker}></Difficulty>
           </div>
         ) :
