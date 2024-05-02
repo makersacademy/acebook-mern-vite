@@ -17,7 +17,7 @@ export const QuizPage = () => {
   const [time, setTime] = useState(0);
   const [playButtonState, setPlayButtonState] = useState(false);
   const [selectedBackground, setSelectedBackground] =
-    useState("custom-background");
+    useState("bg-homepage-background-2");
   const [questionType, setQuestionType] = useState(null)
   const [questionNumber, setQuestionNumber] = useState(1);
   const navigate = useNavigate();
@@ -87,17 +87,17 @@ const handlePlayPause = useCallback((newState) => {
     <>
       <div
         className={
-          "min-h-screen relative overflow-hidden custom-background bg-cover"
+          "min-h-screen relative overflow-hidden bg-homepage-background-2 bg-full"
         }
       >
         <Navigation />
         {selectedGenre === 0 ? (
-          <div>
+          <div className="animate__animated animate__slideInRight absolute inset-0 flex justify-center items-center">
             <GenrePicker onGenreSelect={handleGenrePicker}></GenrePicker>
           </div>
         ) : 
         selectedDifficulty === 0 ? (
-          <div className="min-h-screen custom-background bg-cover">
+          <div className="animate__animated animate__slideInRight absolute inset-0 flex justify-center items-center">
             <Difficulty onDifficultySelect={handleDifficultyPicker}></Difficulty>
           </div>
         ) :
@@ -106,7 +106,7 @@ const handlePlayPause = useCallback((newState) => {
           <div
               className={
                 `absolute inset-0 flex flex-col items-center justify-center 
-            animate__animated animate__slideInRight ${selectedBackground} bg-cover`
+            animate__animated animate__slideInRight ${selectedBackground} bg-full`
                 // The above Tailwind code applies the sliding animation to the transition from the genre 'page' to the quiz 'page'
               }
             >
@@ -114,10 +114,10 @@ const handlePlayPause = useCallback((newState) => {
               <div
                 className={`${
                   animate ? "animate__animated animate__slideInRight" : ""
-                }`}
+                } bg-white bg-opacity-30 rounded-lg p-2`}
               >
                 <div
-                  className="text-2xl text-white"
+                  className="text-4xl 2B2939 font-bold "
                   hidden={interactionDisabled}
                 >
                   Question {questionNumber} of 5
@@ -129,7 +129,7 @@ const handlePlayPause = useCallback((newState) => {
                     playButtonState={playButtonState}
                   />
                 </div>
-                <div className={`p-5 text-2xl`}>
+                <div className={`p-5 text-7xl question-font`}>
                   <Question questionType={questionType} />
                 </div>
                 <div className={`p-5`}>
