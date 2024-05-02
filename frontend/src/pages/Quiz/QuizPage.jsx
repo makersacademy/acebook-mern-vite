@@ -97,11 +97,7 @@ const handlePlayPause = useCallback((newState) => {
           </div>
         ) : 
         selectedDifficulty === 0 ? (
-<<<<<<< HEAD
-          <div className="min-h-screen bg-cover">
-=======
-          <div className="animate__animated animate__slideInRigh absolute inset-0 flex justify-center items-center">
->>>>>>> origin/main
+          <div className="animate__animated animate__slideInRight absolute inset-0 flex justify-center items-center">
             <Difficulty onDifficultySelect={handleDifficultyPicker}></Difficulty>
           </div>
         ) :
