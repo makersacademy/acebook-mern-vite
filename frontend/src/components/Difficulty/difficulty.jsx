@@ -6,7 +6,7 @@ const Difficulty = ({ onDifficultySelect }) => {
     ]
   
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center">
         <div className="mt-8">
           <h1 className="sm:text-4xl text-3xl font-bold mb-8 text-center text-title-color">
             Select a difficulty level

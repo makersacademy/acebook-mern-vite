@@ -11,7 +11,7 @@ export const ScorePosting = ({ score, reloadLeaderboard, setReloadLeaderboard })
             if (email != null && email != "") {
                 addToUserScore(email, score)
                     .then(() => {
-                        setMessage("Your score has been uploaded!");
+                        setMessage("Your score has been saved!");
                         setReloadLeaderboard(!reloadLeaderboard);
                     })
                     .catch(() => {
@@ -22,7 +22,7 @@ export const ScorePosting = ({ score, reloadLeaderboard, setReloadLeaderboard })
             }
         }
         else {
-            setMessage("Your score has been uploaded!");
+            setMessage("Your score has been saved!");
         }
     }, [score, setReloadLeaderboard]);
 

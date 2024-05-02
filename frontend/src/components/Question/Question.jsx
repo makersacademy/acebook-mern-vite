@@ -1,5 +1,5 @@
 
-const Question = ({ questionType, hidden }) => {
+const Question = ({ questionType }) => {
 
   const whichQuestion = (questionType) => {
     if (questionType === 0) {
@@ -16,7 +16,7 @@ const Question = ({ questionType, hidden }) => {
   return (
     <>
       <div className="text-question-text-color"
-      style={{ marginBottom: '10px', display: hidden ? 'none' : 'block' }} >
+      style={{ marginBottom: '10px' }} >
         {whichQuestion(questionType)}
       </div>
     </>

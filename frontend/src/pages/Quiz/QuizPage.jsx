@@ -92,12 +92,12 @@ const handlePlayPause = useCallback((newState) => {
       >
         <Navigation />
         {selectedGenre === 0 ? (
-          <div className="animate__animated animate__slideInRight absolute inset-0 flex justify-center items-center">
+          <div className="animate__animated animate__slideInRight inset-0 flex justify-center items-center">
             <GenrePicker onGenreSelect={handleGenrePicker}></GenrePicker>
           </div>
         ) : 
         selectedDifficulty === 0 ? (
-          <div className="animate__animated animate__slideInRight absolute inset-0 flex justify-center items-center">
+          <div className="animate__animated animate__slideInRight inset-0 flex justify-center items-center">
             <Difficulty onDifficultySelect={handleDifficultyPicker}></Difficulty>
           </div>
         ) :
@@ -118,7 +118,7 @@ const handlePlayPause = useCallback((newState) => {
               >
                 <div
                   className="text-4xl 2B2939 font-bold "
-                  hidden={interactionDisabled}
+                  style={{visibility: interactionDisabled ? 'hidden' : 'visible' }}
                 >
                   Question {questionNumber} of 5
                 </div>
