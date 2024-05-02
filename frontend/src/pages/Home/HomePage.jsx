@@ -3,9 +3,15 @@ import GoogleAuth from "../../components/GoogleAuth/GoogleAuth";
 import logo from "../../assets/Kwizical_logo_no_bg_cropped.png"
 
 import "./HomePage.css";
-
+import { googleLogout } from "@react-oauth/google";
 
 export const HomePage = () => {
+
+  const handlePlayAsGuest = () => {
+    googleLogout();
+    localStorage.clear();
+  }
+
   return (
     <div className="min-h-screen bg-full bg-cover bg-homepage-background-2 font-montserrat overflow-hidden">
       <div className="flex flex-col md:flex-row md:items-start">
@@ -52,6 +58,8 @@ export const HomePage = () => {
           </div>
         </div>
       </div>
+      <div>or</div>
+      <Link to="/kwizical" onClick={handlePlayAsGuest} >Play as guest</Link>
     </div>
   );
 };

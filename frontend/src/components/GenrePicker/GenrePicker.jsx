@@ -11,8 +11,8 @@ const GenrePicker = ({ onGenreSelect }) => {
 
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <div className="mt-8">
+    <div className="flex flex-col items-center justify-center">
+      <div className="">
         <h1 className="text-4xl font-bold mb-8 text-center text-title-color">
           Select a genre
         </h1>
