@@ -16,7 +16,7 @@ describe("Home Page", () => {
     );
 
     const tagline = screen.getByRole("heading");
-    expect(tagline.textContent).toEqual("Let's get Kwizical!");
+    expect(tagline.textContent).toEqual("HOW TO PLAY");
   });
 
   test("Displays 'play as guest' link", async () => {
@@ -42,9 +42,9 @@ describe("Home Page", () => {
     );
 
     const googleLoginButton = screen.getByRole("button", {
-      name: /sign in with google to play/i,
+      name: /sign in with google/i,
     });
     expect(googleLoginButton).toBeInTheDocument();
-    expect(googleLoginButton).toHaveTextContent("Sign in with Google to play");
+    expect(googleLoginButton).toHaveTextContent("Sign in with Google");
   });
 });

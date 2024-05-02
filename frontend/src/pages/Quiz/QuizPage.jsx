@@ -17,7 +17,7 @@ export const QuizPage = () => {
   const [time, setTime] = useState(0);
   const [playButtonState, setPlayButtonState] = useState(false);
   const [selectedBackground, setSelectedBackground] =
-    useState("custom-background");
+    useState("bg-homepage-background-2");
   const [questionType, setQuestionType] = useState(null)
   const [questionNumber, setQuestionNumber] = useState(1);
   const navigate = useNavigate();
@@ -87,17 +87,17 @@ const handlePlayPause = useCallback((newState) => {
     <>
       <div
         className={
-          "min-h-screen relative overflow-hidden custom-background bg-cover"
+          "min-h-screen relative overflow-hidden bg-homepage-background-2 bg-full"
         }
       >
         <Navigation />
         {selectedGenre === 0 ? (
-          <div>
+          <div className="animate__animated animate__slideInRight absolute inset-0 flex justify-center items-center">
             <GenrePicker onGenreSelect={handleGenrePicker}></GenrePicker>
           </div>
         ) : 
         selectedDifficulty === 0 ? (
-          <div className="min-h-screen custom-background bg-cover">
+          <div className="animate__animated animate__slideInRigh absolute inset-0 flex justify-center items-center">
             <Difficulty onDifficultySelect={handleDifficultyPicker}></Difficulty>
           </div>
         ) :

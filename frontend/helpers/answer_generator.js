@@ -26,7 +26,7 @@ export const answers = async (genreID, difficulty) => {
  if (difficulty === 1) {
    questionType = Math.floor(Math.random() * 2);
  } else {
-  questionType = 3
+  questionType = Math.floor(Math.random() * 4);
  }
 
 
@@ -66,8 +66,8 @@ export const answers = async (genreID, difficulty) => {
    
    // Function to generate a random year (between 1900 and 2100)
    function getRandomYear(year) {
-    const minYear = year - 10; // Minimum year
-    const maxYear = Math.min(year + 10, 2024);// Maximum year
+    const minYear = year - 7; // Minimum year
+    const maxYear = Math.min(year + 7, 2024);// Maximum year
     return Math.floor(Math.random() * (maxYear - minYear + 1)) + minYear;
    }
    
