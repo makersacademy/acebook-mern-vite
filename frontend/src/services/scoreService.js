@@ -31,10 +31,12 @@ export const addToUserScore = async (email, score) => {
 
     const response = await fetch(`${BACKEND_URL}/users/leaderboard`, requestOptions);
 
-    // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
-    if (response.status !== 201) {
+    // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200
+    if (response.status !== 200) {
         throw new Error(
-            `Received status ${response.status} when posting score. Expected 201`
+            `Received status ${response.status} when posting score. Expected 200`
         );
+    } else {
+        localStorage.setItem("scorePosted", "true");
     }
 }

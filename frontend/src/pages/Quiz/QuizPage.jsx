@@ -34,7 +34,8 @@ export const QuizPage = () => {
 
   useEffect(() => {
     setAnimate(false);
-
+    localStorage.setItem("scorePosted", "false");
+    
     if (questionNumber <= 5) {
       answers(selectedGenre, selectedDifficulty).then(
         ({ selectedTrack, shuffledArtistAnswerList, questionType }) => {
@@ -63,7 +64,6 @@ const handlePlayPause = useCallback((newState) => {
     if (playButtonState) {
       interval = setInterval(() => {
         setTime((prevTimer) => {
-          console.log("Timer updated:", prevTimer + 1); // Log the updated timer value
           return prevTimer + 1;
         });
       }, 1000);

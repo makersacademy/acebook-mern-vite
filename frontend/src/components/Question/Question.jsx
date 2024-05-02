@@ -2,7 +2,6 @@
 const Question = ({ questionType, hidden }) => {
 
   const whichQuestion = (questionType) => {
-    console.log(questionType)
     if (questionType === 0) {
       return "What is the name of the track?"
     } else if (questionType === 1) {

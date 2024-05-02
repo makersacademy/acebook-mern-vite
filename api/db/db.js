@@ -14,7 +14,7 @@ const connectToDatabase = async () => {
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
-  } catch {
+  } catch (error) {
     console.log(error)
   }
 };

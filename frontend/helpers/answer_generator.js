@@ -54,7 +54,6 @@ export const answers = async (genreID, difficulty) => {
     else if (questionType === 3) {
       const releaseDate = new Date(selectedTrack.release_date);
       const releaseYear = releaseDate.getFullYear(); // Extract the year
-      console.log(releaseDate)
       answerList.push(releaseYear.toString()); // Convert the year to a string and push it to the answer list
       // Generate and push other random years
       for (let i = 1; i < shuffledTracks.length; i++) {

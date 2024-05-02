@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Leaderboard } from "../../components/Leaderboard/Leaderboard";
-import { addToUserScore } from "../../services/leaderboardService";
+import { Leaderboard } from "../../components/Score/Leaderboard";
+import { ScorePosting } from "../../components/Score/ScorePosting";
 
 export const ScorePage = () => {
     const [score, setScore] = useState(null);
     const [genreID, setGenreId] = useState(null);
     const [bonus, setBonus] = useState(null);
     const [perfectRoundBonus, setPerfectRoundBonus] = useState(null);
-    const [totalScore, setTotalScore] = useState(null);
+    const [totalScore, setTotalScore] = useState(0);
+    const [reloadLeaderboard, setReloadLeaderboard] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,22 +25,14 @@ export const ScorePage = () => {
         if (storedBonus) {
             setBonus(parseInt(storedBonus));
         }
-    }, []);
-
-    useEffect(() => {
-        if (score === 500) {
+        if (storedScore === 500) {
             setPerfectRoundBonus(250);
         } else {
             setPerfectRoundBonus(0);
         }
-
-        setTotalScore(score + bonus + perfectRoundBonus);
-    }, [score, bonus, perfectRoundBonus]);
-
-    useEffect(() => {
-        const userEmail = "aakashrana.r4z@gmail.com";
-        addToUserScore(userEmail, totalScore)
-    }, [totalScore]);
+        
+        setTotalScore(parseInt(storedScore) + parseInt(storedBonus));
+    }, []);
 
     const getRating = (score, genreID) => {
             if (score <= 200) {
@@ -118,7 +111,8 @@ return (
             ease-in-out transform hover:scale-105`}>Play Again!</button>
         </div>
     </div>
-    <Leaderboard/>
+    <ScorePosting score={totalScore} reloadLeaderboard={reloadLeaderboard} setReloadLeaderboard={setReloadLeaderboard}/>
+    <Leaderboard reloadLeaderboard={reloadLeaderboard}/>
     </>
 );
 };

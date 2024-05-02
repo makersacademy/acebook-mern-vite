@@ -41,9 +41,22 @@ const addToUserScore = async (req, res) => {
   const user = await User.findOne({ email: email });
   if (user) {
     console.log("old score: " + user.score)
+    //const newScore = user.score + score;
     user.score += score;
-    console.log("new score: " + user.score)
-    await User.findOneAndUpdate({ email: email }, user)
+    //console.log("new score: " + newScore)
+    //if (newScore > user.score) {
+      console.log("updating score")
+      try {
+      User.findOneAndUpdate({ email: email }, user)
+      const newUser = await User.findOne({ email: email })
+      console.log("new score: " + newUser.score);
+      } catch (error) {
+        console.log(error);
+      }
+    //   .then(() => {
+           console.log("score after update: " + user.score);
+    //   })
+    // }
     res.status(200).json({ message: "Score updated" })
   } else {
     res.status(400).json({ message: "User not found" });
@@ -53,7 +66,7 @@ const addToUserScore = async (req, res) => {
 const UsersController = {
   create: create,
   getUsersForLeaderboard: getUsersForLeaderboard,
-  addToUserScore: addToUserScore
+  addToUserScore: addToUserScore,
 };
 
 module.exports = UsersController;
