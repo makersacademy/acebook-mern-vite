@@ -92,7 +92,7 @@ const handlePlayPause = useCallback((newState) => {
       >
         <Navigation />
         {selectedGenre === 0 ? (
-          <div className="animate__animated animate__slideInRight">
+          <div className="animate__animated animate__slideInRight absolute inset-0 flex justify-center items-center">
             <GenrePicker onGenreSelect={handleGenrePicker}></GenrePicker>
           </div>
         ) : 

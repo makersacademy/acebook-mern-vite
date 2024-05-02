@@ -99,66 +99,68 @@ const handleGoBack = () => {
 return (
     <div className="min-h-screen relative overflow-hidden bg-homepage-background-1 bg-full">
     <div className="absolute inset-0 flex justify-center items-center">
-      <div className="flex flex-col w-3/4 h-3/4 rounded-lg bg-dark-purple bg-opacity-50 border-navy-border border-8 overflow-x-auto">
-        <div className="flex flex-col sm:flex-row items-center sm:items-start w-full sm:h-3/4">
+      <div className="flex flex-col w-3/4 h-3/4 rounded-lg bg-dark-purple bg-opacity-50 border-navy-border border-8 overflow-x-auto p-2">
+        <div className="overflow-x-auto flex flex-col sm:flex-row items-center sm:items-start w-full sm:h-3/4">
           <div className="flex flex-col items-center h-max-1/3 sm:w-1/2">
             <div className="flex">
               <img
                 src={totalscore}
                 alt="Total-score-logo"
-                className="w-full sm:max-h-60 max-h-24"
+                className="sm:max-h-60 max-h-16 m-4 sm:m-8"
               />
             </div>
+            <div className="sm:p-8 sm:space-y-4 space-y-1">
             <h1>Round Score: {score}</h1>
             <h1>Perfect Round Bonus: {perfectRoundBonus}</h1>
             <h1>Speed Bonus: {bonus}</h1>
-            <h1>Your Score: {totalScore}</h1>
+            <h1 className="font-black">Your Score: {totalScore}</h1>
+            </div>
             
           </div>
           <div className="sm:border-r border-navy-border h-full"></div>
-          <div className="flex flex-col items-center  h-max-1/3 sm:w-1/2">
+          <div className="flex flex-col items-center sm:w-1/2 p-2">
             <div className="flex">
               <img
                 src={leaderboard}
                 alt="Leaderboard-logo"
-                className="w-full sm:max-h-60 max-h-24"
+                className="w-full sm:max-h-60 max-h-16 m-4 sm:pb-4"
               />
             </div>
             <div className="overflow-x-auto">
-            <table className=" table-auto border-collapse border-navy-border mt-2">
+            <table className=" table-auto border-collapse border-navy-border bg-dark-purple bg-opacity-50">
     <thead>
       <tr>
-        <th className="border border-navy-border px-4 py-2">Ranking</th>
-        <th className="border border-navy-border px-4 py-2">Name</th>
-        <th className="border border-navy-border px-4 py-2">Score</th>
+        <th className="border border-navy-border px-2 py-2">Ranking</th>
+        <th className="border border-navy-border px-2 py-2">Name</th>
+        <th className="border border-navy-border px-2 py-2">Score</th>
       </tr>
     </thead>
     <tbody>
       {/* Rows */}
       <tr>
-        <td className="border border-navy-border px-4 py-1"> 1 </td>
-        <td className="border border-navy-border px-4 py-1">Player 1</td>
-        <td className="border border-navy-border px-4 py-1">1000</td>
+        <td className="border border-navy-border px-2 py-1"> 1 </td>
+        <td className="border border-navy-border px-2 py-1">Player 1</td>
+        <td className="border border-navy-border px-2 py-1">1000</td>
       </tr>
       <tr>
-        <td className="border border-navy-border px-4 py-1">2</td>
-        <td className="border border-navy-border px-4 py-1">Player 2</td>
-        <td className="border border-navy-border px-4 py-1">950</td>
+        <td className="border border-navy-border px-2 py-1">2</td>
+        <td className="border border-navy-border px-2 py-1">Player 2</td>
+        <td className="border border-navy-border px-2 py-1">950</td>
       </tr>
       <tr>
-        <td className="border border-navy-border px-4 py-1">3</td>
-        <td className="border border-navy-border px-4 py-1">Player 3</td>
-        <td className="border border-navy-border px-4 py-1">900</td>
+        <td className="border border-navy-border px-2 py-1">3</td>
+        <td className="border border-navy-border px-2 py-1">Player 3</td>
+        <td className="border border-navy-border px-2 py-1">900</td>
       </tr>
       <tr>
-        <td className="border border-navy-border px-4 py-1">4</td>
-        <td className="border border-navy-border px-4 py-1">Player 4</td>
-        <td className="border border-navy-border px-4 py-1">700</td>
+        <td className="border border-navy-border px-2 py-1">4</td>
+        <td className="border border-navy-border px-2 py-1">Player 4</td>
+        <td className="border border-navy-border px-2 py-1">700</td>
       </tr>
       <tr>
-        <td className="border border-navy-border px-4 py-1">5</td>
-        <td className="border border-navy-border px-4 py-1">Player 5</td>
-        <td className="border border-navy-border px-4 py-1">250</td>
+        <td className="border border-navy-border px-2 py-1">5</td>
+        <td className="border border-navy-border px-2 py-1">Player 5</td>
+        <td className="border border-navy-border px-2 py-1">250</td>
       </tr>
     </tbody>
   </table>
@@ -168,9 +170,9 @@ return (
         <div className="w-full flex flex-col items-center mt-auto sm:border-t border-navy-border p-4">
   <p className="mb-4 text-2xl font-bold sm:font-extrabold">{rating}</p>
   <div className="flex items-center">
-    <button onClick={handleGoBack} className={`items-center justify-center bg-dark-purple hover:bg-hover-color hover:text-hover-text-color text-light-purple font-bold w-60 h-10 
-      rounded-lg shadow-md flex transition duration-300 
-      ease-in-out transform hover:scale-105`}>Play Again!</button>
+    <button onClick={handleGoBack} className={`items-center justify-center bg-hot-pink text-navy font-semibold  w-60 h-10 
+      rounded-lg shadow-md shadow-indigo-950 hover:shadow-none flex transition duration-300 
+      ease-in-out transform`}>Play Again!</button>
   </div>
 </div>
       </div>
