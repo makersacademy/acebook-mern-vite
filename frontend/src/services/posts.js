@@ -18,3 +18,9 @@ export const getPosts = async (token) => {
   const data = await response.json();
   return data;
 };
+
+export const makePost = async (token) => {
+  const payload = {
+    
+  }
+}
