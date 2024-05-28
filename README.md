@@ -23,7 +23,7 @@ the application works.
 
 ### Card wall
 
-REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
+https://trello.com/invite/b/CAG0mne5/ATTI46bc65d94a96bf646d1ba0b0c8ed00a1321F2CD7/acebook-watermelon
 
 ### Quickstart
 
