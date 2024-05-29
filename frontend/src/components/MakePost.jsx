@@ -9,6 +9,7 @@ const MakePost = (props) => {
         try {
             await makePost(token, postData);
             props.update(!props.value);
+            setPostData("");
         } catch (err) {
             console.error(err);
         }
