@@ -1,0 +1,27 @@
+#createPostContainer {
+  border: 2px black dashed;
+  padding: 10px;
+}
+
+#newPostTitle {
+  color: brown;
+  font-family: fantasy;
+}
+
+#newpost {
+  width: 250px;
+  height: 100px;
+  margin-bottom: 20px;
+  vertical-align: top;
+  border-width: 5px;
+  resize: none;
+  /* cursor: pointer; */
+}
+
+#submitPost {
+  background-color: bisque;
+}
+
+#submitPost:hover {
+  background-color: red;
+}
