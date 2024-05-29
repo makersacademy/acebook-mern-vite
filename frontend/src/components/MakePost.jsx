@@ -1,33 +1,41 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
-const MakePost = () => {
-        
-    const [newPost, setNewPost] = useState("");
-    const navigate = useNavigate();
+import { makePost } from "../services/posts";
+const MakePost = (props) => {
+    const [postData, setPostData] = useState("");
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const token = localStorage.getItem("token");
         try {
-        const token = await makePost(newPost);
-        localStorage.setItem("token", token);
-        navigate("/posts");
+            await makePost(token, postData);
+            props.update(!props.value);
         } catch (err) {
-        console.error(err);
-        navigate("/login");
+            console.error(err);
         }
     };
 
+    const handlePostChange = (event) => {
+        setPostData(event.target.value);
+    };
     
-    return <div>
+    return (
+        <>
+        <div>
             <form onSubmit={handleSubmit}>
                 <label htmlFor = "new-post">
                 Write a post!
                 </label>
-                <textarea id="new-post" value = "new-post"></textarea>
-                <input type="submit"/>
+                <textarea
+                id="new-post"
+                type="text"
+                value={postData}
+                onChange={handlePostChange}
+                />
+                <input role="submit-button" id="submit" type="submit" value="Post" />
             </form>
         </div>
+        </>
+    )
 }
 
 export default MakePost;
