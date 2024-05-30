@@ -7,6 +7,13 @@ const getAllPosts = async (req, res) => {
   res.status(200).json({ posts: posts, token: token });
 };
 
+const updateLikes = async (req, res) => {
+  const id = req.body.id;
+  const like_val = req.body.num;
+  const post = await Post.findByIdAndUpdate(id, { $set: { likes: like_val }});
+  res.status(200).json({ message: "Post created" });
+}
+
 const createPost = async (req, res) => {
   const post = new Post(req.body);
   post.save();
@@ -18,6 +25,7 @@ const createPost = async (req, res) => {
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
+  updateLikes: updateLikes
 };
 
 module.exports = PostsController;

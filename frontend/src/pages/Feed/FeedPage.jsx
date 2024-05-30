@@ -7,7 +7,7 @@ import MakePost from "../../components/Post/MakePost";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
-  const [flag, setFlag] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export const FeedPage = () => {
           navigate("/login");
         });
     }
-  }, [navigate, flag]);
+  }, [navigate, refresh]);
 
   const token = localStorage.getItem("token");
   if (!token) {
@@ -33,11 +33,11 @@ export const FeedPage = () => {
 
   return (
     <>
-      <MakePost value={flag} update={setFlag} />
+      <MakePost value={refresh} update={setRefresh} />
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
-          <Post post={post} key={post._id} />
+          <Post post={post} key={post._id} value={refresh} update={setRefresh} />
         ))}
       </div>
     </>
