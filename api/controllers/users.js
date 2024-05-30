@@ -1,12 +1,15 @@
 const User = require("../models/user");
+const slugify = require("../lib/slugify");
 
 const create = (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const fullname = req.body.fullname
+  const slug = slugify(fullname)
 
-  const user = new User({fullname, email, password });
+  const user = new User({fullname, email, password, slug });
   user
+    
     .save()
     .then((user) => {
       console.log("User created, id:", user._id.toString());
