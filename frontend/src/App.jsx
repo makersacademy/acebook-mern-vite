@@ -5,7 +5,10 @@ import { HomePage } from "./pages/Home/HomePage";
 import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
-
+import { SimpleNavBar} from './components/SimpleNavBar/SimpleNavBar'
+import { NavBar} from './components/NavBar/navBar'
+import {Profile} from './pages/Profile/Profile'
+import {EditPage} from './pages/EditPage/EditPage'
 
 // docs: https://reactrouter.com/en/main/start/overview
 const router = createBrowserRouter([
@@ -14,7 +17,7 @@ const router = createBrowserRouter([
     element: 
     <>
     <SimpleNavBar/>
-    <HomePage />,
+    <HomePage/>,
     </>
   },
   {
@@ -22,25 +25,39 @@ const router = createBrowserRouter([
     element: 
     <>
     <SimpleNavBar/>
-    <LoginPage />
+    <LoginPage/>
     </>,
   },
   {
     path: "/signup",
     element:     <>
     <SimpleNavBar/>
-    <SignupPage />
+    <SignupPage/>
     </>,
   },
   {
     path: "/posts", 
     element: 
     <>
-    <NavBar />
-    <FeedPage />
-    
-  </>
-    
+    <NavBar/>
+    <FeedPage/> 
+    </>
+  },
+  {
+    path: "/profile", 
+    element: 
+    <>
+    <NavBar/>
+    <Profile/> 
+    </>
+  },
+  {
+    path: "/edit", 
+    element: 
+    <>
+    <NavBar/>
+    <EditPage/> 
+    </>
   },
 ]);
 
