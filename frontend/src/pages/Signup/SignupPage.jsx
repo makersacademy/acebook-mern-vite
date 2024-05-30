@@ -1,16 +1,31 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { isEmail } from "validator";
 import { signup } from "../../services/authentication";
+
 
 export const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!isEmail(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,12}$)/;
+    if (!passwordRegex.test(password)) {
+      setError("Password must be 8-12 characters long, with at least one special character and one uppercase letter.");
+      return;
+    }
+    
     try {
+       
       await signup(email, password);
       console.log("redirecting...:");
       navigate("/login");
@@ -47,6 +62,7 @@ export const SignupPage = () => {
           value={password}
           onChange={handlePasswordChange}
         />
+        {error && <p className="error">{error}</p>}
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
     </>

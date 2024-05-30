@@ -1,15 +1,29 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { isEmail } from "validator";
 import { login } from "../../services/authentication";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  // eslint-disable-next-line no-unused-vars
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!isEmail(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,12}$)/;
+    if (!passwordRegex.test(password)) {
+      setError("Password must be 8-12 characters long, with at least one special character and one uppercase letter.");
+      return;
+    }
+    
     try {
       const token = await login(email, password);
       localStorage.setItem("token", token);
