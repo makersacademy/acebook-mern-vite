@@ -19,7 +19,7 @@ export const SignupPage = () => {
     }
 
   if (!isStrongPassword(password)) {
-      setError("Password must be 8-12 characters long, with at least one special character and one uppercase letter.");
+      setError("Password must be 8-12 characters long, with at least one special character,one uppercase and one lower case.");
       return;
     }
 
