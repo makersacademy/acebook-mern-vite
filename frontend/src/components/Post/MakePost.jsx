@@ -8,7 +8,12 @@ const MakePost = (props) => {
         event.preventDefault();
         const token = localStorage.getItem("token");
         try {
-            await makePost(token, postData, dateTimeString);
+            if (!props.parent) {
+                parent = null;
+            } else {
+                parent = props.parent;
+            }
+            await makePost(token, postData, dateTimeString, parent);
             console.log(dateTimeString);
             props.update(!props.value);
             setPostData("");
