@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { isEmail } from "validator";
+import { isEmail, isStrongPassword } from "validator";
 import { signup } from "../../services/authentication";
 
 
@@ -18,12 +18,11 @@ export const SignupPage = () => {
       return;
     }
 
-  const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,12}$)/;
-    if (!passwordRegex.test(password)) {
+  if (!isStrongPassword(password)) {
       setError("Password must be 8-12 characters long, with at least one special character and one uppercase letter.");
       return;
     }
-    
+
     try {
        
       await signup(email, password);
