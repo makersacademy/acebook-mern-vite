@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { isEmail, isStrongPassword } from "validator";
 import { login } from "../../services/authentication";
 import DOMpurify from "dompurify";
 
@@ -9,13 +9,14 @@ export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  // eslint-disable-next-line no-unused-vars
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const CleanEmail = DOMpurify.sanitize(email)
-    const CleanPassword = DOMpurify.sanitize(password)
 
-
+   const CleanEmail = DOMpurify.sanitize(email)
+   const CleanPassword = DOMpurify.sanitize(password)
 
     try {
       const token = await login(CleanEmail, CleanPassword);
@@ -59,5 +60,3 @@ export const LoginPage = () => {
       {/* <script type="text/javascript" src="dist/purify.min.js"></script> */}
     </>
   );
-};
-
