@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
 import MakePost from "../../components/Post/MakePost";
+import LogoutButton from "../../components/LogoutButton";
+
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -25,6 +27,7 @@ export const FeedPage = () => {
     }
   }, [navigate, refresh]);
 
+  // needs tests to account for edge case like getting here by typing in the URL without being logged in instead of navigating here through the website
   const token = localStorage.getItem("token");
   if (!token) {
     navigate("/login");
@@ -34,6 +37,7 @@ export const FeedPage = () => {
   return (
     <>
       <MakePost value={refresh} update={setRefresh} />
+      <LogoutButton />
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
