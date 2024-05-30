@@ -5,9 +5,17 @@ import "./HomePage.css";
 export const HomePage = () => {
   return (
     <div className="home">
-      <h1>Welcome to Acebook!</h1>
-      <Link to="/signup">Sign Up</Link>
-      <Link to="/login">Log In</Link>
+      <div className="heading-banner">
+        <h1>Acebook</h1>
+        <h3>Brought to you by the Agile Avengers</h3>
+      </div>
+      <div className="welcome-banner">
+        <h1>Welcome to Acebook!</h1>
+      </div>
+      <div className="button-holder">
+      <button className="sign-up-btn"><Link to="/signup">Sign Up</Link></button> 
+      <button className="login-btn"><Link to="/login">Log In</Link></button>
+      </div>
     </div>
   );
 };
