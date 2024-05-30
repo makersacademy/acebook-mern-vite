@@ -5,6 +5,9 @@ import { signup } from "../../services/authentication";
 
 export const SignupPage = () => {
   const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [dob, setDoB] = useState("");
+  const [pronouns, setPronouns] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // const [profileImg, setProfileImg] = useState(null);
@@ -25,7 +28,9 @@ export const SignupPage = () => {
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
   };
-
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
@@ -34,13 +39,27 @@ export const SignupPage = () => {
     setPassword(event.target.value);
   };
 
+  const handleDoBChange = (event) => {
+    setDoB(event.target.value);
+  };
+
+  const handlePronounsChange = (event) => {
+    setPronouns(event.target.value);
+  };
+
   // const handleProfileImgChange = (event) => {
   //   setProfileImg(event.target.files[0]);
   // };
 
   return (
-    <>
-      <h2>Signup</h2>
+    <div>
+    <div className= "home">
+      <div className="SignUp-banner">
+        <h1>Acebook</h1>
+        <h3>Brought to you by the Agile Avengers</h3>
+      </div>
+    </div>
+    <h2>Sign Up for Your Free Account!</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="firstName">First Name:</label>
         <input
@@ -58,7 +77,7 @@ export const SignupPage = () => {
           value={lastName}
           onChange={handleLastNameChange}
         />
-        <label htmlFor="email">Password:</label>
+        <label htmlFor="email">Email:</label>
         <input
           placeholder="user@email.com"
           id="email"
@@ -80,16 +99,16 @@ export const SignupPage = () => {
           id="dob"
           type="text"
           value={dob}
-          onChange={handleDobChange}
+          onChange={handleDoBChange}
         />
-        <label htmlFor="profileImg">Password:</label>
+        {/* <label htmlFor="profileImg">Password:</label>
         <input
           placeholder=""
           id="profileImg"
           type="file"
           value={profileImg}
-          onChange={handleProfileImgChange}
-        />
+          onChange={handleProfileImgChange}}
+        /> */}
         <label htmlFor="pronouns">Pronouns:</label>
         <input
           placeholder="pronouns"
@@ -100,6 +119,6 @@ export const SignupPage = () => {
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
-    </>
+      </div>
   );
 };
