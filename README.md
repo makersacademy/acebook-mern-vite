@@ -46,7 +46,7 @@ If you haven't already, make sure you have node and NVM installed.
 ### Set up your project
 
 1. Have one team member fork this repository
-2. Rename the fork to `acebook-<team name>`
+2. Rename the fork to `acebook-agile_avengers`
 3. Every team member clone the fork to their local machine
 4. Install dependencies for both the `frontend` and `api` applications:
    ```
