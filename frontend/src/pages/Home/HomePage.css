@@ -1,4 +1,71 @@
 .home {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #f0f2f5;
+  height: 100%;
+}
+
+.heading-banner{
+  margin: 0;
+  font-size: 36px;
+  width: 100%;
+  background-color: #1877f2;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.heading-banner h1 {
+  margin: 0;
+  font-size: 36px;
+  
+}
+
+.heading-banner h3 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.welcome-banner {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.welcome-banner h1 {
+  font-size: 36px;
+  color: #333;
+}
+
+.button-holder {
+  display: flex;
+  gap: 20px;
+}
+
+.button-holder button {
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.sign-up-btn {
+  background-color: #42b72a;
+  color: white;
+}
+
+.login-btn {
+  background-color: #1877f2;
+  color: white;
+}
+
+.button-holder button a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.button-holder button:hover {
+  opacity: 0.6;
 }
