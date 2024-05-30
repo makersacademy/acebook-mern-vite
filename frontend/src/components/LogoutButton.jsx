@@ -10,7 +10,9 @@ const LogoutButton = () => {
 
 
 return ( 
-    <button onClick={handleLogout}>
+    <button
+        data-testid="logoutButton"
+        onClick={handleLogout}>
         Logout
     </button>
     );

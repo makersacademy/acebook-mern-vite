@@ -19,7 +19,6 @@ describe("LogOut", () => {
         render(<LogoutButton />);
     
         const buttonElement = await screen.findByRole("button");
-        // expect(buttonElement.textContent).toEqual("Logout");
 
         await user.click(buttonElement); 
 
