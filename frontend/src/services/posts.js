@@ -16,12 +16,15 @@ export const getPosts = async (token) => {
   }
 
   const data = await response.json();
+  // data.posts.sort((a,b)=>a.date-b.date);  Should use something similar to this later
+  data.posts.reverse();
   return data;
 };
 
-export const makePost = async (token, content) => {
+export const makePost = async (token, content, date) => {
   const payload = {
-    message: content
+    message: content,
+    date: date
   };
 
   const requestOptions = {

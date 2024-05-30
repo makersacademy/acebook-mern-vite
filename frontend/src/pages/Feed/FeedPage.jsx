@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
-import MakePost from "../../components/MakePost";
+import MakePost from "../../components/Post/MakePost";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);

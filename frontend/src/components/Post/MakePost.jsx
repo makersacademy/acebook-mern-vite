@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { makePost } from "../services/posts";
+import { makePost } from "../../services/posts";
 const MakePost = (props) => {
     const [postData, setPostData] = useState("");
+    const dateTimeString = new Date()
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const token = localStorage.getItem("token");
         try {
-            await makePost(token, postData);
+            await makePost(token, postData, dateTimeString);
+            console.log(dateTimeString);
             props.update(!props.value);
             setPostData("");
         } catch (err) {
@@ -18,7 +20,6 @@ const MakePost = (props) => {
     const handlePostChange = (event) => {
         setPostData(event.target.value);
     };
-    
     return (
         <>
         <div>
