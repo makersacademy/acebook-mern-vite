@@ -5,7 +5,7 @@ import { HomePage } from "./pages/Home/HomePage";
 import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
-import { SimpleNavBar } from "./components/SimpleNavBar/SimpleNavBar";
+
 
 // docs: https://reactrouter.com/en/main/start/overview
 const router = createBrowserRouter([
@@ -33,8 +33,14 @@ const router = createBrowserRouter([
     </>,
   },
   {
-    path: "/posts",
-    element: <FeedPage />,
+    path: "/posts", 
+    element: 
+    <>
+    <NavBar />
+    <FeedPage />
+    
+  </>
+    
   },
 ]);
 
