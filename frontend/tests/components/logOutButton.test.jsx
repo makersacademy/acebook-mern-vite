@@ -22,6 +22,7 @@ describe("LogOut", () => {
 
         await user.click(buttonElement); 
 
+        expect(window.localStorage.getItem("token")).toEqual(null);
         expect(navigateMock).toHaveBeenCalledWith("/login");
     });
 });
