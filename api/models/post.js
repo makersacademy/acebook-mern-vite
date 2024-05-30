@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 // defining the columns of an SQL Database.
 const PostSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User"},
+  forename: String,
+  surname: String,
+  username: String,
   message: String,
   createdAt: { type: Date, default: Date.now },
 });
@@ -15,8 +18,8 @@ const Post = mongoose.model("Post", PostSchema);
 
 // These lines will create a test post every time the server starts.
 // You can delete this once you are creating your own posts.
-const dateTimeString = new Date().toLocaleString("en-GB");
-const testUserId = "6656eb0aacc71b0154e0ebaa";
-new Post({ user: testUserId, message: `Test message, created at ${dateTimeString}` }).save();
+// const dateTimeString = new Date().toLocaleString("en-GB");
+// const testUserId = "6656eb0aacc71b0154e0ebaa";
+// new Post({ user: testUserId, message: `Test message, created at ${dateTimeString}` }).save();
 
 module.exports = Post;

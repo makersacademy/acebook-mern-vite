@@ -29,11 +29,11 @@ export const FeedPage = () => {
     navigate("/login");
     return;
   }
-
+  console.log("this is posts:",posts)
   return (
     <>
       <SubmitPost token={token}/>
-      <h2>Posts</h2>
+      <h2>Posts</h2> 
       <div className="feed" role="feed">
         {posts.map((post) => (
           <Post post={post} key={post._id} />
