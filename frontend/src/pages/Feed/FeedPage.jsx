@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
+import MakePost from "../../components/Post/MakePost";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
+  const [flag, setFlag] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +23,7 @@ export const FeedPage = () => {
           navigate("/login");
         });
     }
-  }, [navigate]);
+  }, [navigate, flag]);
 
   const token = localStorage.getItem("token");
   if (!token) {
@@ -31,6 +33,7 @@ export const FeedPage = () => {
 
   return (
     <>
+      <MakePost value={flag} update={setFlag} />
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
