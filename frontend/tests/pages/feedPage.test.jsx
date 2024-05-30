@@ -41,4 +41,15 @@ describe("Feed Page", () => {
     const navigateMock = useNavigate();
     expect(navigateMock).toHaveBeenCalledWith("/login");
   });
+
+  test("It displays logout button if logged in", async () => {
+    window.localStorage.setItem("token", "testToken");
+
+    render(<FeedPage />);
+
+    const buttonElement = await screen.getByTestId("logoutButton");
+    // expect(buttonElement).toBeInTheDocument();
+    expect(buttonElement.textContent).toEqual("Logout");
+  });
+
 });
