@@ -1,28 +1,64 @@
-.home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    background-color: #f0f2f5;
-    height: 100%;
-  }
-  
-  .SignUp-banner{
-    margin: 0;
-    font-size: 36px;
-    width: 100%;
-    background-color: #1877f2;
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-  }
-  .SignUp-banner h1 {
-    margin: 0;
-    font-size: 36px;
-    
-  }
-  
-  .SignUp-banner h3 {
-    margin: 0;
-    font-size: 15px;
-  }
+/* SignupPage.css */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+
+.signup-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+}
+
+.signup-title h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.signup-title form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.signup-title label {
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.signup-title input[type="text"],
+.signup-title input[type="password"],
+.signup-title input[type="date"],
+.signup-title input[type="email"],
+.signup-title input[type="submit"] {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: #f0f0f0;
+}
+
+.signup-title input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0.75rem;
+}
+
+.signup-tilte input[type="submit"]:hover {
+  background-color: #45a049;
+}
