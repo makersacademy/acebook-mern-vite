@@ -5,20 +5,32 @@ import { HomePage } from "./pages/Home/HomePage";
 import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
+import { SimpleNavBar } from "./components/SimpleNavBar/SimpleNavBar";
 
 // docs: https://reactrouter.com/en/main/start/overview
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: 
+    <>
+    <SimpleNavBar/>
+    <HomePage />,
+    </>
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: 
+    <>
+    <SimpleNavBar/>
+    <LoginPage />
+    </>,
   },
   {
     path: "/signup",
-    element: <SignupPage />,
+    element:     <>
+    <SimpleNavBar/>
+    <SignupPage />
+    </>,
   },
   {
     path: "/posts",
