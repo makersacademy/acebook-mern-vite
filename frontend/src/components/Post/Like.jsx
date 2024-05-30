@@ -3,33 +3,25 @@ import { changeLike } from "../../services/posts";
 
 const Like = (props) => {
   const [liked, setLiked] = useState(false);
-  const [flag, setFlag] = useState(false);
   const [like_val, setLikes] = useState(0);
-  const [firstLoad, setFL] = useState(true);
 
   useEffect(() => {
-    if (firstLoad) {
-      setFL(false);
-    } else {
-      const token = localStorage.getItem("token");
-      if (token) {
+    const token = localStorage.getItem("token");
+    if (token) {
         changeLike(token, props.post._id, like_val)
-          .catch((err) => {
-            console.error(err);
-          });
-      }
+        .catch((err) => {
+        console.error(err);
+        });
     }
-  }, [flag]);
+  }, [liked]);
 
   const likePost = () => {
     if (!liked) {
+      setLikes(1);
       setLiked(true);
-      setLikes(props.post.likes + 1);
-      setFlag(true);
     } else {
+      setLikes(-1);
       setLiked(false);
-      setLikes(props.post.likes - 1);
-      setFlag(false);
     }
     props.update(!props.value);
   };

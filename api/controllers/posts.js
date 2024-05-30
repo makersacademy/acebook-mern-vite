@@ -10,7 +10,7 @@ const getAllPosts = async (req, res) => {
 const updateLikes = async (req, res) => {
   const id = req.body.id;
   const like_val = req.body.num;
-  const post = await Post.findByIdAndUpdate(id, { $set: { likes: like_val }});
+  await Post.findByIdAndUpdate(id, { $inc: { likes: like_val }});
   res.status(200).json({ message: "Post created" });
 }
 
