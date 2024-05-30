@@ -30,24 +30,32 @@ export const LoginPage = () => {
 
   return (
     <>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="text"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <input role="submit-button" id="submit" type="submit" value="Submit" />
-      </form>
+    <div>
+      <div className="heading-banner">
+          <h1>Acebook</h1>
+          <h3>Brought to you by the Agile Avengers</h3>
+        </div>
+        <div className="login-tile">
+        <h2>Login</h2>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="email">Email:</label>
+          <input
+            id="email"
+            type="text"
+            value={email}
+            onChange={handleEmailChange}
+          />
+          <label htmlFor="password">Password:</label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          <input role="submit-button" id="submit" type="submit" value="Submit" />
+        </form>
+        </div>
+      </div>
     </>
   );
 };
