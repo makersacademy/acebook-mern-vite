@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { isEmail, isStrongPassword } from "validator";
 import { login } from "../../services/authentication";
 import DOMpurify from "dompurify";
 
