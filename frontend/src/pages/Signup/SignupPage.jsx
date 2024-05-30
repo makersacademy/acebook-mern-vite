@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { signup } from "../../services/authentication";
-
+import "./SignupPage.css";
 export const SignupPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -16,7 +16,7 @@ export const SignupPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await signup(email, password);
+      await signup({email, password, firstName, lastName, dob, pronouns}); //added all fields
       console.log("redirecting...:");
       navigate("/login");
     } catch (err) {
@@ -52,7 +52,7 @@ export const SignupPage = () => {
   // };
 
   return (
-    <div>
+    <div className="signup-title"> 
     <h2>Sign Up for Your Free Account!</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="firstName">First Name:</label>
@@ -91,7 +91,7 @@ export const SignupPage = () => {
         <input
           placeholder="DD-MM-YYYY"
           id="dob"
-          type="text"
+          type="date" //added date picker 
           value={dob}
           onChange={handleDoBChange}
         />
