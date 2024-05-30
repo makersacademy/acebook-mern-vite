@@ -8,14 +8,6 @@ const getAllPosts = async (req, res) => {
   res.status(200).json({ posts: posts, token: token });
 };
 
-// const createPost = async (req, res) => {
-//   const post = new Post(req.body);
-//   post.save();
-  
-//   const newToken = generateToken(req.user_id);
-//   res.status(201).json({ message: "Post created", token: newToken });
-// };
-
 const createPost = async (req, res) => {
   const message  = req.body.message;
   const userId = req.user_id;
@@ -32,10 +24,10 @@ const createPost = async (req, res) => {
 
     const post = new Post({
       user: userId,
-      message: message
-      // forename: user.forename,
-      // surname: user.surname,
-      // username: user.username,
+      message: message,
+      forename: user.forename,
+      surname: user.surname,
+      username: user.username
     });
     await post.save();
 

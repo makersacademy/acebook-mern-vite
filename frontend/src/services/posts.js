@@ -22,7 +22,6 @@ export const getPosts = async (token) => {
 export const createPost = async (token, message) => {
   const payload = {
     token: token,
-    // user: user,
     message: message,
   };
 

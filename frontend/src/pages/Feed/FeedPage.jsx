@@ -29,7 +29,7 @@ export const FeedPage = () => {
     navigate("/login");
     return;
   }
-
+  console.log("this is posts:",posts)
   return (
     <>
       <SubmitPost token={token}/>

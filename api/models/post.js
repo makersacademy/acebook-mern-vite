@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 // defining the columns of an SQL Database.
 const PostSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User"},
+  forename: String,
+  surname: String,
+  username: String,
   message: String,
   createdAt: { type: Date, default: Date.now },
 });
