@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { login } from "../../services/authentication";
+import DOMpurify from "dompurify";
+
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -10,12 +12,18 @@ export const LoginPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const CleanEmail = DOMpurify.sanitize(email)
+    const CleanPassword = DOMpurify.sanitize(password)
+
+
+
     try {
-      const token = await login(email, password);
+      const token = await login(CleanEmail, CleanPassword);
       localStorage.setItem("token", token);
       navigate("/posts");
     } catch (err) {
       console.error(err);
+      console.log({CleanEmail})
       navigate("/login");
     }
   };
@@ -48,6 +56,7 @@ export const LoginPage = () => {
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
+      {/* <script type="text/javascript" src="dist/purify.min.js"></script> */}
     </>
   );
 };
