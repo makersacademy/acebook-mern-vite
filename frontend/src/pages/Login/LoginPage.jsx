@@ -4,7 +4,6 @@ import { isEmail, isStrongPassword } from "validator";
 import { login } from "../../services/authentication";
 import DOMpurify from "dompurify";
 
-
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,8 +14,8 @@ export const LoginPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-   const CleanEmail = DOMpurify.sanitize(email)
-   const CleanPassword = DOMpurify.sanitize(password)
+    const CleanEmail = DOMpurify.sanitize(email);
+    const CleanPassword = DOMpurify.sanitize(password);
 
     try {
       const token = await login(CleanEmail, CleanPassword);
@@ -24,7 +23,7 @@ export const LoginPage = () => {
       navigate("/posts");
     } catch (err) {
       console.error(err);
-      console.log({CleanEmail})
+      console.log({ CleanEmail });
       navigate("/login");
     }
   };
@@ -60,3 +59,4 @@ export const LoginPage = () => {
       {/* <script type="text/javascript" src="dist/purify.min.js"></script> */}
     </>
   );
+};
