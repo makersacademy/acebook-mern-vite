@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
 import CreatePost from "../../components/CreatePost";
+import LogOut from "../../components/LogOut";
+import ProfileButton from "../../components/ProfileButton";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -14,7 +16,7 @@ export const FeedPage = () => {
     if (token) {
       getPosts(token)
         .then((data) => {
-          setPosts(data.posts);
+          setPosts(data.posts.reverse());
           localStorage.setItem("token", data.token);
         })
         .catch((err) => {
@@ -33,6 +35,8 @@ export const FeedPage = () => {
   return (
     <>
       <div>
+        <ProfileButton />
+        <LogOut />
         <CreatePost />
       </div>
       <h2>Posts</h2>
