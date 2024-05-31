@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "./LoginPage.css"; // Import the CSS file
 import { login } from "../../services/authentication";
 
 export const LoginPage = () => {
@@ -48,7 +48,7 @@ export const LoginPage = () => {
             value={password}
             onChange={handlePasswordChange}
           />
-          <input role="submit-button" id="submit" type="submit" value="Submit" />
+          <input role="submit-button" id="submit" type="submit" value="login" />
         </form>
         </div>
       </div>

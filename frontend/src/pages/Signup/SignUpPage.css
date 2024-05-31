@@ -1,35 +1,29 @@
-/* SignupPage.css */
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-}
-
 .signup-title {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  width: 100%;
-}
-
-.signup-title h2 {
-  margin-bottom: 1rem;
-  color: #333;
+  justify-content: center;
+  height: 100vh;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
 }
 
 .signup-title form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
+  max-width: 500px; /* Increased width */
+  padding: 3rem; /* Increased padding */
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-title h2 {
+  margin-bottom: 1rem;
+  color: #333;
 }
 
 .signup-title label {
@@ -41,7 +35,8 @@ body {
 .signup-title input[type="password"],
 .signup-title input[type="date"],
 .signup-title input[type="email"],
-.signup-title input[type="submit"] {
+.signup-title input[type="submit"],
+.signup-title select {
   margin-bottom: 1rem;
   padding: 0.5rem;
   border: 1px solid #ccc;
@@ -59,6 +54,11 @@ body {
   padding: 0.75rem;
 }
 
-.signup-tilte input[type="submit"]:hover {
+.signup-title input[type="submit"]:hover {
   background-color: #45a049;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 0.5rem;
 }

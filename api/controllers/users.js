@@ -1,10 +1,18 @@
 const User = require("../models/user");
+const express = require('express');
+const router = express.Router();
+
 
 const create = (req, res) => {
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
   const email = req.body.email;
   const password = req.body.password;
+  const DOB = req.body.DOB;
+  const gender = req.body.gender
+  
 
-  const user = new User({ email, password });
+  const user = new User({ firstName, lastName, email, password, DOB, gender});
   user
     .save()
     .then((user) => {
@@ -22,3 +30,4 @@ const UsersController = {
 };
 
 module.exports = UsersController;
+

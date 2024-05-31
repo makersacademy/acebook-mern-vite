@@ -1,22 +1,38 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import validatePassword from "./passValidator";
 import { signup } from "../../services/authentication";
 import "./SignupPage.css";
 export const SignupPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [dob, setDoB] = useState("");
-  const [pronouns, setPronouns] = useState("");
+  const [DOB, setDoB] = useState("");
+  const [gender, setgender] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [profileImg, setProfileImg] = useState(null);
+  const [passwordError, setPasswordError] = useState(""); // State for password validation error
+  const [validationError, setValidationError] = useState(""); // State for form validation error
   const navigate = useNavigate();
+  
+  const handlePasswordChange = (event) => {
+    const value = event.target.value;
+    setPassword(value);
+    // Validate password
+    if (!validatePassword(value)) {
+      setPasswordError('Password must be at least 7 characters long, contain one uppercase letter, and one of {!$%&}');
+    } else {
+      setPasswordError('');
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (passwordError) {
+      setValidationError('Please correct the errors before submitting.');
+      return;
+    }
     try {
-      await signup({email, password, firstName, lastName, dob, pronouns}); //added all fields
+      await signup({email, password, firstName, lastName, DOB, gender}); //added all fields
       console.log("redirecting...:");
       navigate("/login");
     } catch (err) {
@@ -25,6 +41,9 @@ export const SignupPage = () => {
     }
   };
 
+
+
+  
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
   };
@@ -35,21 +54,27 @@ export const SignupPage = () => {
     setEmail(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
 
   const handleDoBChange = (event) => {
     setDoB(event.target.value);
   };
 
-  const handlePronounsChange = (event) => {
-    setPronouns(event.target.value);
+  const handlegenderChange = (event) => {
+    setgender(event.target.value);
+  };
+  const getMinDOB = () => {
+    const today = new Date();
+    today.setFullYear(today.getFullYear() - 100);
+    return today.toISOString().split('T')[0];
   };
 
-  // const handleProfileImgChange = (event) => {
-  //   setProfileImg(event.target.files[0]);
-  // };
+  const getMaxDOB = () => {
+    const today = new Date();
+    today.setFullYear(today.getFullYear() - 13);
+    return today.toISOString().split('T')[0];
+  };
+
+
 
   return (
     <div className="signup-title"> 
@@ -87,13 +112,15 @@ export const SignupPage = () => {
           value={password}
           onChange={handlePasswordChange}
         />
-        <label htmlFor="dob">DOB:</label>
+        <label htmlFor="DOB">DOB:</label>
         <input
           placeholder="DD-MM-YYYY"
-          id="dob"
+          id="DOB"
           type="date" //added date picker 
-          value={dob}
+          value={DOB}
           onChange={handleDoBChange}
+          min={getMinDOB()}
+          max={getMaxDOB()}
         />
         {/* <label htmlFor="profileImg">Password:</label>
         <input
@@ -103,14 +130,22 @@ export const SignupPage = () => {
           value={profileImg}
           onChange={handleProfileImgChange}}
         /> */}
-        <label htmlFor="pronouns">Pronouns:</label>
-        <input
-          placeholder="pronouns"
-          id="pronouns"
-          type="text"
-          value={pronouns}
-          onChange={handlePronounsChange}
-        />
+        <label htmlFor="gender">gender:</label>
+        <select
+          id="gender"
+          value={gender}
+          onChange={handlegenderChange}
+
+        >
+          <option value="">Select gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">female</option>
+          <option value="Other">other</option>
+          
+        </select>
+        
+        {passwordError && <div className="error-message">{passwordError}</div>}
+        {validationError && <div className="error-message">{validationError}</div>} 
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
       </div>
