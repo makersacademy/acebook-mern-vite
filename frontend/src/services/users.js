@@ -17,3 +17,8 @@ if (response.status !== 200) {
 const data = await response.json();
 return data;
 };
+
+export const addFriend = async (token, userId) => {
+    
+
+}
