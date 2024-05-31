@@ -21,7 +21,7 @@ export const SignupPage = () => {
 
     if (!isStrongPassword(password)) {
       setError(
-        "Password must be 8-12 characters long, with at least one special character,one uppercase and one lower case."
+        "Password must be at least 8 characters long, with at least one special character,one uppercase and one lower case."
       );
       return;
     }
@@ -32,7 +32,12 @@ export const SignupPage = () => {
       navigate("/login");
     } catch (err) {
       console.error(err);
-      navigate("/signup");
+      console.log(err);
+      if (err.message === "User already exists") {
+        setError("Email already exists. Please enter a valid email address.");
+      } else {
+        setError("An error occurred. Please try again later.");
+      }
     }
   };
 
@@ -43,6 +48,7 @@ export const SignupPage = () => {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
+
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
@@ -59,16 +65,13 @@ export const SignupPage = () => {
           value={username}
           onChange={handleUsernameChange}
         />
-        <br />
-        <label htmlFor="email">Email: </label>
+        <label htmlFor="email">Email:</label>
         <input
-          placeholder="email"
           id="email"
           type="text"
           value={email}
           onChange={handleEmailChange}
         />
-        <br />
         <label htmlFor="password">Password:</label>
         <input
           placeholder="Password"
@@ -77,10 +80,7 @@ export const SignupPage = () => {
           value={password}
           onChange={handlePasswordChange}
         />
-        <br />
-
         {error && <p className="error">{error}</p>}
-        <hr />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
     </>
