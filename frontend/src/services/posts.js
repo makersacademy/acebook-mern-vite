@@ -24,7 +24,8 @@ export const getPosts = async (token) => {
 export const makePost = async (token, content, date) => {
   const payload = {
     message: content,
-    date: date
+    date: date,
+    like_array: []
   };
 
   const requestOptions = {
@@ -43,5 +44,31 @@ export const makePost = async (token, content, date) => {
     return;
   } else {
     throw new Error("Unable to create posts");
+  }
+};
+
+export const changeLike = async (token, post_id, user_id, liked) => {
+  const payload = {
+    id: post_id,
+    user: user_id,
+    liked: liked
+  };
+
+  const requestOptions = {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload),
+  };
+
+  let response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
+
+  // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
+  if (response.status === 200) {
+    return;
+  } else {
+    throw new Error("Unable to like post");
   }
 };

@@ -9,7 +9,7 @@ import LogoutButton from "../../components/LogoutButton";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
-  const [flag, setFlag] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export const FeedPage = () => {
           navigate("/login");
         });
     }
-  }, [navigate, flag]);
+  }, [navigate, refresh]);
 
   // needs tests to account for edge case like getting here by typing in the URL without being logged in instead of navigating here through the website
   const token = localStorage.getItem("token");
@@ -36,12 +36,12 @@ export const FeedPage = () => {
 
   return (
     <>
-      <MakePost value={flag} update={setFlag} />
+      <MakePost value={refresh} update={setRefresh} />
       <LogoutButton />
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
-          <Post post={post} key={post._id} />
+          <Post post={post} key={post._id} value={refresh} update={setRefresh} />
         ))}
       </div>
     </>
