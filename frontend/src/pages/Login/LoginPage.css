@@ -1,58 +1,61 @@
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-  }
-  
-  .login-tile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .login-tile h2 {
-    margin-bottom: 1rem;
-    color: #333;
-  }
-  
-  .login-tile form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 300px;
-  }
-  
-  .login-tile label {
-    margin-bottom: 0.5rem;
-    color: #555;
-  }
-  
-  .login-tile input[type="text"],
-  .login-tile input[type="password"],
-  .login-tile input[type="submit"] {
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-  }
-  
-  .login-tile input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .login-tile input[type="submit"]:hover {
-    background-color: #45a049;
-  }
-  
+.login-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+
+.login-tile form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px; /* Increased width */
+  padding: 3rem; /* Increased padding */
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-tile h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.login-tile label {
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.login-tile input[type="text"],
+.login-tile input[type="password"],
+.login-tile input[type="submit"] {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: #f0f0f0;
+}
+
+.login-tile input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0.75rem;
+}
+
+.login-tile input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 0.5rem;
+}

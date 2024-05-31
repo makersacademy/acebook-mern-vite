@@ -9,9 +9,10 @@ const create = (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const DOB = req.body.DOB;
+  const gender = req.body.gender
   
 
-  const user = new User({ firstName, lastName, email, password, DOB, });
+  const user = new User({ firstName, lastName, email, password, DOB, gender});
   user
     .save()
     .then((user) => {
