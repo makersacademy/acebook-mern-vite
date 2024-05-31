@@ -38,11 +38,59 @@ const createPost = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }};
 
+const likePost = async (req, res) => {
+  
+  try {
+    const postId = req.body.postId;
+    const userId = req.user_id;
+
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    if (!post.likes.includes(userId)) {
+      post.likes.push(userId);
+      await post.save();
+    }
+    const newToken = generateToken(req.user_id);
+    res.status(200).json({ message: "Post liked", token: newToken });
+  } catch (error) {
+    console.error("Internal server error:", error);
+    res.status(500).json({ message: "Internal server error" });
+}};
+
+const unlikePost = async (req, res) => {
+  try {
+    const postId = req.body.postId;
+    const userId = req.user_id;
+
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    const likeIndex = post.likes.indexOf(userId);
+    if (likeIndex === -1) {
+      return res.status(400).json({ message: "Post not liked yet" });
+    }
+
+    post.likes.splice(likeIndex, 1);
+    await post.save();
+
+    const newToken = generateToken(req.user_id);
+    res.status(200).json({ message: "Post unliked", token: newToken });
+  } catch (error) {
+    console.error("Internal server error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
-  // likePost: likePost,
-  // unlikePost: unlikePost,
+  likePost: likePost,
+  unlikePost: unlikePost,
 };
 
 module.exports = PostsController;

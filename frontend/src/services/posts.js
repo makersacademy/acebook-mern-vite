@@ -58,7 +58,7 @@ export const likePost = async (token, postId) => {
   };
 
   let response = await fetch(`${BACKEND_URL}/posts/likes`, requestOptions);
-  if (response.status !== 201) {
+  if (response.status !== 200) {
     throw new Error("Unable to like post");
   } else {
     return;
@@ -81,7 +81,7 @@ export const unlikePost = async (token, postId) => {
   };
 
   let response = await fetch(`${BACKEND_URL}/posts/likes`, requestOptions);
-  if (response.status !== 201) {
+  if (response.status !== 200) {
     throw new Error("Unable to unlike post");
   } else {
     return;
