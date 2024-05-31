@@ -1,7 +1,7 @@
 const User = require("../models/user");
 
 const create = (req, res) => {
-  const email = req.body.email;
+  const email = req.body.email.toLowerCase();
   const password = req.body.password;
 
   const user = new User({ email, password });
@@ -13,7 +13,12 @@ const create = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
+      if (err.code === 11000) {
+        res.status(409).json({ message: "User already exists" });
+        return;
+      }
       res.status(400).json({ message: "Something went wrong" });
+
     });
 };
 

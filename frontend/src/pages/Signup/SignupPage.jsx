@@ -18,8 +18,8 @@ export const SignupPage = () => {
       return;
     }
 
-  if (!isStrongPassword(password)) {
-      setError("Password must be 8-12 characters long, with at least one special character,one uppercase and one lower case.");
+    if (!isStrongPassword(password)) {
+      setError("Password must be at least 8 characters long, with at least one special character,one uppercase and one lower case.");
       return;
     }
 
@@ -30,40 +30,46 @@ export const SignupPage = () => {
       navigate("/login");
     } catch (err) {
       console.error(err);
-      navigate("/signup");
+      console.log(err);
+      if (err.message === "User already exists") {
+        setError("Email already exists. Please enter a valid email address.");
+      } else {
+        setError("An error occurred. Please try again later.");
+      }
     }
   };
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
+    const handleEmailChange = (event) => {
+      setEmail(event.target.value);
+    };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
+    const handlePasswordChange = (event) => {
+      setPassword(event.target.value);
+    };
 
-  return (
-    <>
-      <h2>Signup</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="text"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          placeholder="Password"
-          id="password"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        {error && <p className="error">{error}</p>}
-        <input role="submit-button" id="submit" type="submit" value="Submit" />
-      </form>
-    </>
-  );
-};
+    return (
+      <>
+        <h2>Signup</h2>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="email">Email:</label>
+          <input
+            id="email"
+            type="text"
+            value={email}
+            onChange={handleEmailChange}
+          />
+          <label htmlFor="password">Password:</label>
+          <input
+            placeholder="Password"
+            id="password"
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          {error && <p className="error">{error}</p>}
+          <input role="submit-button" id="submit" type="submit" value="Submit" />
+        </form>
+      </>
+    );
+  };  
+  
