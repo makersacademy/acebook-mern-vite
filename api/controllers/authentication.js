@@ -22,4 +22,5 @@ const AuthenticationController = {
   createToken: createToken,
 };
 
+
 module.exports = AuthenticationController;

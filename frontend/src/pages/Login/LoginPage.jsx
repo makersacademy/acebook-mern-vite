@@ -48,7 +48,7 @@ export const LoginPage = () => {
             value={password}
             onChange={handlePasswordChange}
           />
-          <input role="submit-button" id="submit" type="submit" value="Submit" />
+          <input role="submit-button" id="submit" type="submit" value="login" />
         </form>
         </div>
       </div>

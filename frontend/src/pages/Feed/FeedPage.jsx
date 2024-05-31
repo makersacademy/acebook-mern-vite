@@ -31,7 +31,7 @@ export const FeedPage = () => {
 
   return (
     <>
-      <h2>Posts</h2>
+      <h2>posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
           <Post post={post} key={post._id} />

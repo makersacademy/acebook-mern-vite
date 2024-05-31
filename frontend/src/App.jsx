@@ -39,7 +39,9 @@ const router = createBrowserRouter([
     path: "/posts", 
     element: 
     <>
+    <SimpleNavBar/>
     <NavBar/>
+    
     <FeedPage/> 
     </>
   },
