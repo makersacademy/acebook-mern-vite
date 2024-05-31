@@ -8,6 +8,7 @@ const PostSchema = new mongoose.Schema({
   surname: String,
   username: String,
   message: String,
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User"}],
   createdAt: { type: Date, default: Date.now },
 });
 console.log(PostSchema);

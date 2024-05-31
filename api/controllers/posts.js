@@ -41,6 +41,8 @@ const createPost = async (req, res) => {
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
+  // likePost: likePost,
+  // unlikePost: unlikePost,
 };
 
 module.exports = PostsController;
