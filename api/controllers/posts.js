@@ -11,17 +11,17 @@ const getAllPosts = async (req, res) => {
 const createPost = async (req, res) => {
 
   const message = req.body.message
-  // const date = new Date()
+  const date = new Date()
   // const numOfLikes = req.body.numOfLikes
   //const user = req.body.user._id ///////////////
   
   
   // const post = new Post({message,date,numOfLikes,user});
-  const post = new Post({message});
+  const post = new Post({message, date});
   post.save();
 
   const newToken = generateToken(req.user_id);
-  res.status(201).json({ message: message, token: newToken });
+  res.status(201).json({ message: message, date:date, token: newToken });
 };
 
 const PostsController = {

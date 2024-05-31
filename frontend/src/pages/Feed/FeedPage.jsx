@@ -31,12 +31,12 @@ export const FeedPage = () => {
       navigate('/login');
       return;
     }
-
+  
     const postData = {
       message,
       date: new Date(),
     };
-
+  
     try {
       const newPost = await createPost(token, postData);
       setPosts([newPost, ...posts]);
