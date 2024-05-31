@@ -5,6 +5,7 @@ const passwordRoutes = require('./routes/password');
 
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
+const commentsRouter = require("./routes/comments");
 const authenticationRouter = require("./routes/authentication");
 const tokenChecker = require("./middleware/tokenChecker");
 
@@ -22,6 +23,7 @@ app.use(bodyParser.json());
 app.use('/password', passwordRoutes);
 app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);
+app.use("/comments", commentsRouter);
 app.use("/tokens", authenticationRouter);
 
 // 404 Handler

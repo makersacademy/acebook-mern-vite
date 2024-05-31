@@ -13,20 +13,3 @@ const Post = mongoose.model("Post", PostSchema);
 // These lines will create a test post every time the server starts.
 // You can delete this once you are creating your own posts.
 module.exports = Post;
-
-
-// const PostSchema = new mongoose.Schema({
-//   // date : String,
-//   // message: String,
-//   // numOfLikes : Number,
-//   // user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
-//   date: { type: Date, default: Date.now },
-//   message: { type: String, required: true },
-//   numOfLikes: { type: Number, default: 0 },
-//   user: {
-//     id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-//     firstName: String,
-//     lastName: String,
-//     profilePic: String
-//   }
-// });
