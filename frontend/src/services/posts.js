@@ -21,8 +21,29 @@ export const getPosts = async (token) => {
   return data;
 };
 
-export const makePost = async (token, content, date) => {
+export const getComments = async (token, parent_id) => {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await fetch(`${BACKEND_URL}/posts/${parent_id}`, requestOptions);
+
+  if (response.status !== 200) {
+    throw new Error("Unable to fetch comments");
+  }
+
+  const data = await response.json();
+  // data.posts.sort((a,b)=>a.date-b.date);  Should use something similar to this later
+  data.posts.reverse();
+  return data;
+};
+
+export const makePost = async (token, content, date, parent) => {
   const payload = {
+    parent: parent,
     message: content,
     date: date,
     like_array: []

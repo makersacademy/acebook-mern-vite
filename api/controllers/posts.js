@@ -7,6 +7,14 @@ const getAllPosts = async (req, res) => {
   res.status(200).json({ posts: posts, token: token });
 };
 
+const getComments = async (req, res) => {
+  const parent = req.params.parent_id
+  console.log(parent)
+  const posts = await Post.find({parent: parent});
+  const token = generateToken(req.user_id);
+  res.status(200).json({ posts: posts, token: token });
+};
+
 const updateLikes = async (req, res) => {
   const id = req.body.id;
   const user_id = req.body.user;
@@ -31,7 +39,8 @@ const createPost = async (req, res) => {
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
-  updateLikes: updateLikes
+  updateLikes: updateLikes,
+  getComments: getComments
 };
 
 module.exports = PostsController;

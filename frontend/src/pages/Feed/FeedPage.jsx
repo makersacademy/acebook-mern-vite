@@ -33,14 +33,14 @@ export const FeedPage = () => {
     navigate("/login");
     return;
   }
-
+  let parentPosts = posts.filter((item) => !item.parent)
   return (
     <>
       <MakePost value={refresh} update={setRefresh} />
       <LogoutButton />
       <h2>Posts</h2>
       <div className="feed" role="feed">
-        {posts.map((post) => (
+        {parentPosts.map((post) => (
           <Post post={post} key={post._id} value={refresh} update={setRefresh} />
         ))}
       </div>
