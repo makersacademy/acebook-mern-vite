@@ -25,7 +25,7 @@ export const makePost = async (token, content, date) => {
   const payload = {
     message: content,
     date: date,
-    likes: 0
+    like_array: []
   };
 
   const requestOptions = {
@@ -47,10 +47,11 @@ export const makePost = async (token, content, date) => {
   }
 };
 
-export const changeLike = async (token, post_id, num) => {
+export const changeLike = async (token, post_id, user_id, liked) => {
   const payload = {
     id: post_id,
-    num: num
+    user: user_id,
+    liked: liked
   };
 
   const requestOptions = {

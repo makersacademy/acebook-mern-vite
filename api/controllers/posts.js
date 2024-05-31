@@ -9,10 +9,17 @@ const getAllPosts = async (req, res) => {
 
 const updateLikes = async (req, res) => {
   const id = req.body.id;
-  const like_val = req.body.num;
-  await Post.findByIdAndUpdate(id, { $inc: { likes: like_val }});
-  res.status(200).json({ message: "Post created" });
-}
+  const user_id = req.body.user;
+  const user_liked = req.body.liked;
+  console.log(req.body.user);
+  if (user_liked) {
+    await Post.findByIdAndUpdate(id, { $push: { like_array: user_id }});
+    res.status(200).json({ message: "Added Like" });
+  } else {
+    await Post.findByIdAndUpdate(id, { $pull: { like_array: user_id }});
+    res.status(200).json({ message: "Removed Like" });
+  }
+};
 
 const createPost = async (req, res) => {
   const post = new Post(req.body);

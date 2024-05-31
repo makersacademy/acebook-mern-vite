@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { makePost } from "../../services/posts";
+
 const MakePost = (props) => {
     const [postData, setPostData] = useState("");
     const dateTimeString = new Date()
@@ -8,12 +9,7 @@ const MakePost = (props) => {
         event.preventDefault();
         const token = localStorage.getItem("token");
         try {
-            if (!props.parent) {
-                parent = null;
-            } else {
-                parent = props.parent;
-            }
-            await makePost(token, postData, dateTimeString, parent);
+            await makePost(token, postData, dateTimeString);
             console.log(dateTimeString);
             props.update(!props.value);
             setPostData("");

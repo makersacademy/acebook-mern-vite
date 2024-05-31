@@ -2,27 +2,17 @@ import { useState, useEffect } from "react";
 import { changeLike } from "../../services/posts";
 
 const Like = (props) => {
+  const token = localStorage.getItem("token");
+  const user_id = localStorage.getItem("user_id");
+  console.log(token);
   const [liked, setLiked] = useState(false);
-  const [like_val, setLikes] = useState(0);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-        changeLike(token, props.post._id, like_val)
-        .catch((err) => {
-        console.error(err);
-        });
-    }
-  }, [liked]);
+  console.log(liked)
 
   const likePost = () => {
-    if (!liked) {
-      setLikes(1);
-      setLiked(true);
-    } else {
-      setLikes(-1);
-      setLiked(false);
-    }
+    let liked_state = !liked;  // necessary as this code runs faster than setLiked lol see "race condition"
+    setLiked(!liked);
+    changeLike(token, props.post._id, user_id, liked_state)
+    .catch((err) => {console.error(err)});
     props.update(!props.value);
   };
 
