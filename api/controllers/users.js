@@ -1,4 +1,11 @@
 const User = require("../models/user");
+const { generateToken } = require("../lib/token");
+
+const getAllUsers = async (req, res) => {
+  const users = await User.find();
+  const token = generateToken(req.user_id);
+  res.status(200).json({ users: users, token: token });
+};
 
 const create = (req, res) => {
   const forename = req.body.forename;
@@ -22,6 +29,7 @@ const create = (req, res) => {
 
 const UsersController = {
   create: create,
+  getAllUsers: getAllUsers
 };
 
 module.exports = UsersController;

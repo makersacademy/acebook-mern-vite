@@ -1,10 +1,14 @@
-// fetch("0.0.0.0/acebook")x
+import { useNavigate } from "react-router-dom";
 import "./SearchResults.css";
 
 
-export const SearchResult = ({ result }) => {
+export const SearchResult = ({ SURNAME, FORENAME }) => {
+    const navigate = useNavigate ();
+
     const handleClick = () => {
-        alert(`You selected ${result}!`)
+        // alert(`You selected ${result}!`)
+        navigate(`/profile/${FORENAME}`);
+
     };
     
     return (
@@ -12,7 +16,7 @@ export const SearchResult = ({ result }) => {
             className="search-result"
             onClick={handleClick}
         >
-        {result}
+        {FORENAME +' ' + SURNAME}
         </div>
     );
 };

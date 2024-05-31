@@ -9,7 +9,7 @@ import logo from "../../assets/Mountain-logo.png";
 // Links : friends, profile nad logout
 // Searchbar
 
-const Navbar =  () => {
+const Navbar =  (token) => {
     const [results, setResults] = useState([]);
     const navigate = useNavigate();
     // // const [search, setSearch] = useState("");
@@ -18,12 +18,6 @@ const Navbar =  () => {
             localStorage.removeItem("userId");
             navigate("/login")
         };
-    // const handleSearchChange = (event) => {
-    //     setSearch(event.target.value);};
-
-    // const handleSubmit = (event) =>{
-    //     event.preventDefault()
-
 
     return (
         <nav className="navbar" id="navbar">
@@ -35,7 +29,7 @@ const Navbar =  () => {
                 {/* <form onSubmit = {handleSubmit}> */}
                 <div>
                     <SearchBar setResults={setResults} />
-                    {results && results.length > 0 && <SearchResultsList results={results} />}
+                    {results && results.length > 0 && <SearchResultsList results={results} token={token}/>}
                 </div>
             </div>
             <div className= "navbar-right">
