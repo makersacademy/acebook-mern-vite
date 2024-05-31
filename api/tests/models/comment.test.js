@@ -9,16 +9,8 @@ describe("Comment model", () => {
     expect(comment).toEqual("Adrian Oakley test message");
   });
 
-//   it("can list all posts", async () => {
-//     const posts = await Post.find();
-//     expect(posts).toEqual([]);
-//   });
+  // Add mocks here because we don't have Post code yet?
 
-//   it("can save a post", async () => {
-//     const post = new Post({ message: "some message" });
 
-//     await post.save();
-//     const posts = await Post.find();
-//     expect(posts[0].message).toEqual("some message");
-//   });
+
 });

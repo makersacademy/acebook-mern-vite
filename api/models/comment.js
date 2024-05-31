@@ -14,6 +14,13 @@ const CommentSchema = new mongoose.Schema({
         required: true
         //edge case: Empty comment
     },
+
+    postId: { 
+    type: mongoose.Schema.Types.post._id, 
+    ref: 'Post', 
+    required: true 
+},
+
     createdAt: {
         type: Date,
         default: Date.now
