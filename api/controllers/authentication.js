@@ -2,7 +2,7 @@ const User = require("../models/user");
 const { generateToken } = require("../lib/token");
 
 const createToken = async (req, res) => {
-  const email = req.body.email;
+  const email = req.body.email.toLowerCase();
   const password = req.body.password;
 
   const user = await User.findOne({ email: email });
@@ -18,8 +18,10 @@ const createToken = async (req, res) => {
   }
 };
 
+
+
 const AuthenticationController = {
-  createToken: createToken,
+ createToken
 };
 
 module.exports = AuthenticationController;
