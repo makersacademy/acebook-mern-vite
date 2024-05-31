@@ -2,7 +2,7 @@ const Comment = require("../models/comment");
 const { generateToken } = require("../lib/token");
 
 const getPostComments = async (req, res) => {
-  const comments = await Comment.find(); //attributed to Post_ID
+  const comments = await Comment.find(); //attributed to Post_ID ${post_ID}
   const token = generateToken(req.user_id);
   res.status(200).json({ comments: comments, token: token });
 };

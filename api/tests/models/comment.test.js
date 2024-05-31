@@ -5,8 +5,8 @@ const Comment = require("../../models/comment");
 describe("Comment model", () => {
 
   it("has a message", () => {
-    const post = new Comment({ userName: "Adrian Oakley", message: "some message" });
-    expect(post.message).toEqual("Adrian Oakley some message");
+    const comment = new Comment({ userName: "Adrian Oakley", message: "test message" });
+    expect(comment).toEqual("Adrian Oakley test message");
   });
 
 //   it("can list all posts", async () => {
