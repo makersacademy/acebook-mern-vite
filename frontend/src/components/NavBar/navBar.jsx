@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
-
+import './NavBar.css';
 export const NavBar = () => {
     const location = useLocation();
 
@@ -9,26 +9,22 @@ export const NavBar = () => {
 
     return (
 
-        <nav>
+        <nav className="navbar-container">
             {/* <button><img>?</img></button> */}
-        
-            
-
-        
 
             {location.pathname !== '/profile' && (
                 <h3>
-                    <button><Link to="/profile">Profile</Link></button>
+                    <button className="nav-button"><Link to="/profile">Profile</Link></button>
                 </h3> 
             )}
 
             {location.pathname !== '/posts' && (
                 location.pathname !== '/editPage' && 
                 <h3>
-                    <button><Link to="/posts">Feed</Link></button>
+                    <button className="nav-button"><Link to="/posts">Feed</Link></button>
                 </h3> 
             )}
-            <button><Link to ="/Login">Signout</Link></button>
+            <button className="nav-button"><Link to ="/Login">Signout</Link></button>
         
         </nav>
         
