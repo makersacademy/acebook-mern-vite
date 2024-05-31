@@ -15,6 +15,7 @@ const Navbar =  (token) => {
     // // const [search, setSearch] = useState("");
     const handleLogout = () =>{
             localStorage.removeItem("token");
+            localStorage.removeItem("userId");
             navigate("/login")
         };
 
