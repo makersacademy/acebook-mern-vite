@@ -20,6 +20,8 @@ export const login = async (email, password) => {
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
   if (response.status === 201) {
     let data = await response.json();
+    localStorage.setItem("loggedinusername", data.loggedInUsername);
+    console.log(data);
     return data.token;
   } else {
     throw new Error(
@@ -50,6 +52,9 @@ export const signup = async (email, password, username) => {
     return;
   } else {
     const errorData = await response.json();
-    throw new Error(errorData.message || `Received status ${response.status} when signing up. Expected 201`);
+    throw new Error(
+      errorData.message ||
+        `Received status ${response.status} when signing up. Expected 201`
+    );
   }
 };

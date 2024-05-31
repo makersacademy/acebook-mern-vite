@@ -59,19 +59,22 @@ export const SignupPage = () => {
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>
         <input
-          placeholder="username"
+          placeholder="Username"
           id="username"
           type="username"
           value={username}
           onChange={handleUsernameChange}
         />
+        <br />
         <label htmlFor="email">Email:</label>
         <input
+          placeholder="Email"
           id="email"
           type="text"
           value={email}
           onChange={handleEmailChange}
         />
+        <br />
         <label htmlFor="password">Password:</label>
         <input
           placeholder="Password"
@@ -80,6 +83,7 @@ export const SignupPage = () => {
           value={password}
           onChange={handlePasswordChange}
         />
+        <br />
         {error && <p className="error">{error}</p>}
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>

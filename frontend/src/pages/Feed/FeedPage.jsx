@@ -17,6 +17,8 @@ export const FeedPage = () => {
       getPosts(token)
         .then((data) => {
           setPosts(data.posts.reverse());
+          // console.log("feedpage, data.posts: ", data.posts[0].author.username);
+
           localStorage.setItem("token", data.token);
         })
         .catch((err) => {
@@ -42,7 +44,11 @@ export const FeedPage = () => {
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
-          <Post post={post} key={post._id} />
+          <Post
+            post={post}
+            key={post._id}
+            username={post.author ? post.author.username : "anonymous"}
+          />
         ))}
       </div>
     </>
