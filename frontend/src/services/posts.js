@@ -33,11 +33,13 @@ export const createPost = async (token, message) => {
     },
     body: JSON.stringify(payload),
   };
-  let response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
+  let response = await fetch(`${BACKEND_URL}/posts`, requestOptions); //i had to add post:post to the response to access the new post
   if (response.status !== 201) {
     throw new Error("Unable to create post");
   } else {
-    return;
+    let newPostResponse = await response.json();
+    const newPost = newPostResponse.post
+    return newPost;
   }
 
 };

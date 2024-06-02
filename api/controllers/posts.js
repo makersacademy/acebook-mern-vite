@@ -3,7 +3,7 @@ const User = require("../models/user");
 const { generateToken } = require("../lib/token");
 
 const getAllPosts = async (req, res) => {
-  const posts = await Post.find();
+  const posts = await Post.find().sort({ createdAt: -1 }); //sorts post in decending order of createdAt
   const token = generateToken(req.user_id);
   res.status(200).json({ posts: posts, token: token });
 };
@@ -32,7 +32,7 @@ const createPost = async (req, res) => {
     await post.save();
 
     const newToken = generateToken(req.user_id);
-    res.status(201).json({ message: "Post created", token: newToken });
+    res.status(201).json({ message: "Post created", token: newToken, post:post});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
