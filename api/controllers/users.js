@@ -1,25 +1,33 @@
-const create = async (req, res) => {
-  const { email } = req.params; // Access email parameter from URL
-  const { firstName, lastName, password, DOB, gender } = req.body;
+const User = require("../models/user");
+const express = require('express');
+const router = express.Router();
 
-  try {
-    // Check if the user already exists
-    const existingUser = await User.findOne({ email: email });
-    if (existingUser) {
-      return res.status(400).json({ message: "User with this email already exists" });
-    }
 
-    // Create a new user
-    const newUser = new User({ email, firstName, lastName, password, DOB, gender });
-    await newUser.save();
+const create = (req, res) => {
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const email = req.body.email;
+  const password = req.body.password;
+  const DOB = req.body.DOB;
+  const gender = req.body.gender
+  
 
-    res.status(201).json({ message: "User created successfully" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
-  }
+  const user = new User({ firstName, lastName, email, password, DOB, gender});
+  user
+    .save()
+    .then((user) => {
+      console.log("User created, id:", user._id.toString());
+      res.status(201).json({ message: "OK" });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(400).json({ message: "Something went wrong" });
+    });
 };
 
-module.exports = {
-  create,
+const UsersController = {
+  create: create,
 };
+
+module.exports = UsersController;
+

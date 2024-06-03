@@ -4,7 +4,8 @@ const UsersController = require("../controllers/users");
 
 const router = express.Router();
 
-router.post("/:email", UsersController.create);
+router.post("/", UsersController.create);
+
 
 
 module.exports = router;

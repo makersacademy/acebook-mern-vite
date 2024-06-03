@@ -19,7 +19,7 @@
 // };
 
 // const signup = async (req, res) => {
-//   const { firstName, lastName, email, password, DOB } = req.body;
+//   const { firstName, lastName, email, password, dob } = req.body;
 
 //   try {
 //     // Check if user with the same email already exists
@@ -34,7 +34,7 @@
 //       lastName,
 //       email,
 //       password, // You may want to hash the password here before saving to the database
-//       DOB
+//       dob
 //     });
 
 //     // Save the user record to the database
