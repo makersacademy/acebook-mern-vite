@@ -5,6 +5,7 @@ import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
 import CreatePost from "../../components/CreatePost";
 import Navbar from "../../components/Navbar";
+import CreateComment from "../../components/Comment/createComment";
 
 
 export const FeedPage = () => {
@@ -43,13 +44,18 @@ export const FeedPage = () => {
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
-          <Post
-            post={post}
-            key={post._id}
-            username={post.author ? post.author.username : "anonymous"}
-          />
+          <>
+            <Post
+              post={post}
+              key={post._id}
+              username={post.author ? post.author.username : "anonymous"}
+            />
+            <CreateComment post_id = {post._id}/>
+          </>
         ))}
+     
       </div>
+      
     </>
   );
 };
