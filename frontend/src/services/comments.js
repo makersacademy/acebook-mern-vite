@@ -1,7 +1,7 @@
 // docs: https://vitejs.dev/guide/env-and-mode.html
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export const getComments = async (token) => {
+export const getAllComments = async (token) => {
     const requestOptions = {
         method: "GET",
         headers: {
@@ -17,6 +17,7 @@ export const getComments = async (token) => {
 
     const data = await response.json();
     return data;
+    
 };
 
 export const createComment = async (token, message, postId) => {
@@ -41,6 +42,7 @@ export const createComment = async (token, message, postId) => {
     let newCommentResponse = await response.json();
     const newComment = newCommentResponse.comment;
     return newComment;
+
     }
 
 };

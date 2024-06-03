@@ -5,6 +5,7 @@ const { generateToken } = require("../lib/token");
 
 const getAllComments = async (req, res) => {
     const comments = await Comment.find().sort({ createdAt: 1 }); //sorts post in ascending order of createdAt
+    console.log("!!!!!!this is the comments", comments);
     const token = generateToken(req.user_id);
     res.status(200).json({ comments: comments, token: token });
 };
