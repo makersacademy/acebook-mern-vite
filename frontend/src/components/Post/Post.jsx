@@ -1,6 +1,5 @@
 import "../../../css/post.css"
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
 import { likePost } from '../../services/posts';
 import { unlikePost } from '../../services/posts';
@@ -8,7 +7,7 @@ import { unlikePost } from '../../services/posts';
 
 
 const Post = (props) => {
-  const navigate = useNavigate();
+
   const token = props.token
   const postId = props.post._id
   const postTimestamp = props.post.createdAt
@@ -32,19 +31,22 @@ const Post = (props) => {
 
     try {
       await likePost(token, postId);
-      navigate("/posts"); 
+
+
   } catch (err) {
       console.error(err);
-      navigate("/posts"); 
+      setLikeCount(likeCount); // Revert state change on error
+
   }
   } else if (likeStatus == true) {
     setLikeCount(likeCount - 1);
     try {
       await unlikePost(token, postId);
-      navigate("/posts");
+      // navigate("/posts");
   } catch (err) {
       console.error(err);
-      navigate("/posts");
+      // navigate("/posts");
+      setLikeCount(likeCount); // Revert state change on error
 
   }}
   setLikeStatus(!likeStatus)}

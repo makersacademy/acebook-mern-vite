@@ -13,13 +13,14 @@ export const SubmitPost = (props) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await createPost(token, message);
+            const newPost = await createPost(token, message);
+            props.onPostCreated(newPost);
+            setMessage("");
             navigate("/posts");
         } catch (err) {
             console.error(err);
             navigate("/posts");
         }
-        console.log(message);
         
     };
 
@@ -27,9 +28,10 @@ export const SubmitPost = (props) => {
         <div>
             <h1>Create Post</h1>
             <form onSubmit={handleSubmit}>
-                <label>Content</label>
-                <br />
-                <textarea name="message"
+                <textarea
+                name="message"
+                value={message}
+                placeholder="What's on your mind..."
                 onChange={(event) => setMessage(event.target.value)}></textarea>
                 <br />
                 <button type="submit">Create Post</button>
