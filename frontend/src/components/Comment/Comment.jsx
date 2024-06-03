@@ -1,12 +1,9 @@
 import { getComments } from "../../services/posts";
-import MakePost from "../Post/MakePost";
 import Post from "../Post/Post";
 import { useState, useEffect } from "react";
 
-const CommentButton = (props) => {
+const ShowComments = (props) => {
     const [comments, setComments] = useState([])
-    const [addComment, setAddComment] = useState(false);
-    const [showComment, setShowComment] = useState(false);
     const token = localStorage.getItem("token");
 
     useEffect(() => {
@@ -17,23 +14,13 @@ const CommentButton = (props) => {
         })
     }, []);
 
-    const showCommentBox = () => {
-        setAddComment(!addComment);
-    };
-
-
-    console.log(props);
-
     return (
         <div>
-            {!addComment && <button onClick={showCommentBox}>Add Comment</button>}
-            {addComment && [ <button onClick={showCommentBox}>Return</button>,
-            <MakePost parent={props.parent} value={props.value} update={props.update} />]}
             {comments.map((post) => (
-                <Post post={post} key={post._id} value={props.value} update={props.update} />
+                [<Post post={post} key={post._id} value={props.value} update={props.update} />, console.log(post._id)]
             ))}
         </div>
     );
 };
 
-export default CommentButton;
+export default ShowComments;

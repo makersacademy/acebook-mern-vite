@@ -4,14 +4,13 @@ import { makePost } from "../../services/posts";
 const MakePost = (props) => {
     const [postData, setPostData] = useState("");
     const dateTimeString = new Date()
-    console.log(props)
     const handleSubmit = async (event) => {
         event.preventDefault();
         const token = localStorage.getItem("token");
         try {
             await makePost(token, postData, dateTimeString, props.parent);
-            console.log(dateTimeString);
             props.update(!props.value);
+            console.log("Refreshed")
             setPostData("");
         } catch (err) {
             console.error(err);
@@ -23,7 +22,7 @@ const MakePost = (props) => {
     };
     return (
         <>
-        <div>
+        <div id="make-post">
             <form onSubmit={handleSubmit}>
                 <label htmlFor = "new-post">
                 Write a post!
