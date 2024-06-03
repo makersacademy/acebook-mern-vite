@@ -77,6 +77,11 @@ export const FeedPage = () => {
           {sortedPosts.map((post) => (
             <div className="post" key={post._id}>
               <h3>{post.message}</h3>
+              {post.user_id && post.user_id.firstName && post.user_id.lastName ? (
+                <p>By {post.user_id.firstName} {post.user_id.lastName}</p>
+              ) : (
+                <p>By Unknown User</p>
+              )}
               <div className="post-info">
                 <span>{new Date(post.date).toLocaleString()}</span>
                 <div className="likes">
