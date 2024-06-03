@@ -31,10 +31,14 @@ export const FeedPage = () => {
     return;
   }
 
+  const handlePostCreated = (newPost) => {
+    setPosts((prevPosts) => [newPost, ...prevPosts]);
+  };
+
   return(
     <>
       <Navbar token={token}/>
-      <SubmitPost token={token}/>
+      <SubmitPost token={token} onPostCreated={handlePostCreated}/>
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
