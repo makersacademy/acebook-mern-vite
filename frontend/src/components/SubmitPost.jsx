@@ -7,7 +7,6 @@ export const SubmitPost = (props) => {
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
     const token = props.token;
-    const [dummyState, setDummyState] = useState(0);
     
 
     const handleSubmit = async (event) => {
