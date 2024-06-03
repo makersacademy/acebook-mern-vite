@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use('/password', passwordRoutes);
 app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);
-app.use("/comments", commentsRouter);
+// app.use("/comments", commentsRouter);
 app.use("/tokens", authenticationRouter);
 
 // 404 Handler

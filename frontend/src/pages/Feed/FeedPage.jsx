@@ -7,7 +7,9 @@ import Post from "../../components/Post/Post";
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
+
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -27,16 +29,20 @@ export const FeedPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('user_id');///////////////////////
+
     if (!token) {
       navigate('/login');
       return;
     }
-  
+    
     const postData = {
       message,
       date: new Date(),
+      numOfLikes : 0,
+      user_id: userId//////////////////////////////////////////
     };
-  
+console.log(postData);
     try {
       const newPost = await createPost(token, postData);
       setPosts([newPost, ...posts]);
@@ -45,7 +51,7 @@ export const FeedPage = () => {
       console.error("Error creating post: ", error);
     }
   };
-////////////
+
 return (
   <>
     <h2>Posts</h2>
@@ -63,7 +69,12 @@ return (
     </form>
     <div className="feed" role="feed">
       {posts.map((post) => (
-        <Post post={post} key={post._id} />
+        <Post 
+          key={post._id} 
+          post= {post}
+          setPosts = {setPosts}
+        />
+
       ))}
     </div>
   </>

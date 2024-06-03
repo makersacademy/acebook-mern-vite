@@ -9,20 +9,30 @@ const getAllPosts = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
+  //const user = await User.findById(req.user._id)
 
-  const message = req.body.message
-  const date = new Date()
-  // const numOfLikes = req.body.numOfLikes
-  //const user = req.body.user._id ///////////////
-  
-  
-  // const post = new Post({message,date,numOfLikes,user});
-  const post = new Post({message, date});
-  post.save();
+    const message = req.body.message
+    const date = req.body.date
+    const numOfLikes = req.body.numOfLikes
+    const user_id = req.user_id//////////////////////////////
+console.log(user_id);/////////
+    
+    const post = new Post({message, date, numOfLikes, user_id});///////////////////////
+    post.save();
+    const newToken = generateToken(req.user_id);
+    res.status(201).json(
+      { 
+        message: message, 
+        date: date, 
+        numOfLikes: numOfLikes, 
+        user_id: user_id, ////////////////////////////////////////
+        token: newToken 
+      }
+    );
+    console.log(post)
+  }
 
-  const newToken = generateToken(req.user_id);
-  res.status(201).json({ message: message, date:date, token: newToken });
-};
+
 
 const PostsController = {
   getAllPosts: getAllPosts,
@@ -30,22 +40,3 @@ const PostsController = {
 };
 
 module.exports = PostsController;
-
-
-
-// const createPost = async (req, res) => {
-//   const user_id = req.body.user._id
-//   const user  = await User.findOne({_id: user_id})
-
-//   try {
-//     const post = new Post({
-//       message: req.body.message,
-//       date: Date.now(),
-//       users: {id:user._id}  // Assuming user ID is sent in the request body
-//     });
-//     await post.save();
-//     res.status(201).json(post);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
