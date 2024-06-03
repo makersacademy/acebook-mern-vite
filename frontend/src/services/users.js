@@ -4,7 +4,6 @@ export const getUserById = async (token, user_id) => {
     // const payload = {
     //     user_id: user_id
     // };
-    console.log("starting getUserById")
     const requestOptions = {
         method: "GET",
         headers: {
@@ -15,7 +14,7 @@ export const getUserById = async (token, user_id) => {
         // body: JSON.stringify(payload)
     };
 
-    const response = await fetch(`${BACKEND_URL}/users`, requestOptions);
+    const response = await fetch(`${BACKEND_URL}/users/${user_id}`, requestOptions);
 
     if (response.status !== 200) {
         throw new Error("Unable to fetch user");

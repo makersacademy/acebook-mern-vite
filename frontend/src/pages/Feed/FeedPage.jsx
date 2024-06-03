@@ -10,6 +10,7 @@ export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const navigate = useNavigate();
+  const user_id = localStorage.getItem("user_id");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -37,7 +38,7 @@ export const FeedPage = () => {
     <>
       <MakePost value={refresh} update={setRefresh} />
       <LogoutButton />
-      <Link to="/profile">Your Profile</Link>
+      <Link to={`/profile/${user_id}`}>Your Profile</Link>
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (

@@ -23,11 +23,12 @@ const create = (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-  // const user_id = req.query.user_id;
+  const user_id = req.params.user_id;
+  const user = await User.findById(user_id);
   // const user = await User.findOne( {_id: user_id});
-  const users = await User.find()
+  // const users = await User.find()
   const token = generateToken(req.user_id);
-  res.status(200).json({ users: users, token: token });
+  res.status(200).json({ user: user, token: token });
 };
 
 const UsersController = {
