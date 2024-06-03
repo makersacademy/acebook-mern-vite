@@ -23,6 +23,10 @@ const createComment = async (req, res) => {
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
+        const post = await Post.findById(postId);
+    if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+    };
 
     const comment = new Comment({
         post: postId,
@@ -33,6 +37,10 @@ const createComment = async (req, res) => {
         username: user.username
     });
     await comment.save();
+
+    post.comments.push(comment._id);
+
+    await post.save();
 
     const newToken = generateToken(req.user_id);
     res.status(201).json({ message: "Comment created", token: newToken, comment:comment});
