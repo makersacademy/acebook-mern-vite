@@ -20,7 +20,7 @@ export const login = async (email, password) => {
   // Check if the response is successful
   if (response.ok) {
     let data = await response.json();
-    return data.token;
+    return { token: data.token, user_id: data.user_id }
   } else {
     // Throw an error if the response status is not OK
     throw new Error(
