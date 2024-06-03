@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import "./EditProfilePage.css";
 
-export const EditProfilePage = () => {
+
+export const EditPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [DOB, setDoB] = useState("");
@@ -18,7 +18,7 @@ export const EditProfilePage = () => {
     // Fetch user data
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`/api/users/${id}`);
+        const response = await axios.get(`/users/${id}`);
         const { firstName, lastName, DOB, gender, email } = response.data;
         setFirstName(firstName);
         setLastName(lastName);
@@ -36,7 +36,7 @@ export const EditProfilePage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.put(`/api/users/${id}`, {
+      await axios.put(`/users/${id}`, {
         firstName,
         lastName,
         email,
