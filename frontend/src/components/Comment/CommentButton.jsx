@@ -1,5 +1,5 @@
 import MakePost from "../Post/MakePost";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const CommentButton = (props) => {
     const [addComment, setAddComment] = useState(false);
@@ -11,8 +11,8 @@ const CommentButton = (props) => {
     return (
         <div id="comment-button">
             {!addComment && <button onClick={showCommentBox}>Add Comment</button>}
-            {addComment && [ <button onClick={showCommentBox}>Return</button>,
-            <MakePost parent={props.parent} value={props.value} update={props.update} />]}
+            {addComment && <button onClick={showCommentBox}>Return</button>}
+            {addComment && <MakePost parent={props.parent} value={props.value} update={props.update} />}
         </div>
     );
 };

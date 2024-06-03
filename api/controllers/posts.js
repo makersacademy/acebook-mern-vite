@@ -9,7 +9,6 @@ const getAllPosts = async (req, res) => {
 
 const getComments = async (req, res) => {
   const parent = req.params.parent_id
-  console.log(parent)
   const posts = await Post.find({parent: parent});
   const token = generateToken(req.user_id);
   res.status(200).json({ posts: posts, token: token });

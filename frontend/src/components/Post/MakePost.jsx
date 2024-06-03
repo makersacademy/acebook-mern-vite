@@ -4,6 +4,7 @@ import { makePost } from "../../services/posts";
 const MakePost = (props) => {
     const [postData, setPostData] = useState("");
     const dateTimeString = new Date()
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
         const token = localStorage.getItem("token");
