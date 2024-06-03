@@ -61,6 +61,8 @@ const bcrypt = require('bcrypt');
 const User = require("../models/user");
 const { generateToken } = require("../lib/token");
 
+
+// response: sends back a token AND the user_id
 const createToken = async (req, res) => {
   const { email, password } = req.body;
 
@@ -78,10 +80,10 @@ const createToken = async (req, res) => {
     }
 
     const token = generateToken(user.id);
-    res.status(201).json({ token, message: "OK" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Internal server error" });
+
+/////////////////////////////////////////////////////////////////////////////////////////
+    res.status(201).json({ token: token, user_id: user._id, message: "OK" });
+
   }
 };
 
