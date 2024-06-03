@@ -8,7 +8,6 @@ import { unlikePost } from '../../services/posts';
 
 
 const Post = (props) => {
-  // console.log("this is the props:", props)
   const navigate = useNavigate();
   const token = props.token
   const postId = props.post._id
@@ -33,10 +32,10 @@ const Post = (props) => {
 
     try {
       await likePost(token, postId);
-      navigate("/posts");
+      navigate("/posts"); 
   } catch (err) {
       console.error(err);
-      navigate("/posts");
+      navigate("/posts"); 
   }
   } else if (likeStatus == true) {
     setLikeCount(likeCount - 1);
