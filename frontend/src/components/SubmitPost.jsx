@@ -1,5 +1,5 @@
 // import React from 'react';
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { createPost } from '../services/posts';
 
@@ -7,6 +7,7 @@ export const SubmitPost = (props) => {
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
     const token = props.token;
+    const [dummyState, setDummyState] = useState(0);
     
 
     const handleSubmit = async (event) => {

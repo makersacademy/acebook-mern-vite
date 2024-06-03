@@ -7,6 +7,12 @@ const getAllUsers = async (req, res) => {
   res.status(200).json({ users: users, token: token });
 };
 
+const getOneUser = async (req, res, userID) => {
+  const user = await User.find(UserID);
+  const token = generateToken(req.user_id);
+  res.status(200).json({ users: users, token: token });
+};
+
 const create = (req, res) => {
   const forename = req.body.forename;
   const surname = req.body.surname;
@@ -79,8 +85,10 @@ const removeFriend = async (req, res) => {
 const UsersController = {
   create: create,
   getAllUsers: getAllUsers,
+  getOneUser: getOneUser,
   addFriend: addFriend,
   removeFriend: removeFriend
+
 };
 
 module.exports = UsersController;

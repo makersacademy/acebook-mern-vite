@@ -1,6 +1,5 @@
 import "../../../css/post.css"
 import { useState } from "react";
-// import { useNavigate } from 'react-router-dom'; NOT BEING USED CURRENTLY
 import { formatDistanceToNow } from 'date-fns';
 import { likePost } from '../../services/posts';
 import { unlikePost } from '../../services/posts';
@@ -8,8 +7,7 @@ import { unlikePost } from '../../services/posts';
 
 
 const Post = (props) => {
-  // console.log("this is the props:", props)
-  // const navigate = useNavigate(); NOT BEING USED CURRENTLY
+
   const token = props.token
   const postId = props.post._id
   const postTimestamp = props.post.createdAt
@@ -33,11 +31,12 @@ const Post = (props) => {
 
     try {
       await likePost(token, postId);
-      // navigate("/posts"); dont think this is needed?
+
+
   } catch (err) {
       console.error(err);
-      // navigate("/posts");
       setLikeCount(likeCount); // Revert state change on error
+
   }
   } else if (likeStatus == true) {
     setLikeCount(likeCount - 1);
