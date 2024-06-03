@@ -4,6 +4,7 @@ import { useState } from "react";
 // import { login } from "../../services/authentication";
 import { createPost } from "../services/createPost";
 import "./CreatePost.css";
+import DOMpurify from "dompurify";
 
 const CreatePost = () => {
   const [newPost, setNewPost] = useState("");
@@ -17,8 +18,9 @@ const CreatePost = () => {
     event.preventDefault();
     const token = localStorage.getItem("token");
     try {
-      createPost(newPost, token).then((data) => {
-        console.log("newPost value: ", newPost);
+      let CleanNewPost =DOMpurify.sanitize(newPost);
+      createPost(CleanNewPost, token).then((data) => {
+        console.log("newPost value: ", CleanNewPost);
         console.log("data value: ", data);
         location.reload();
         localStorage.setItem("token", data.token);
