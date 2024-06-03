@@ -25,6 +25,7 @@ app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);
 // app.use("/comments", commentsRouter);
 app.use("/tokens", authenticationRouter);
+app.use(express.static('public'));
 
 // 404 Handler
 app.use((_req, res) => {
