@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { isEmail, isStrongPassword } from "validator";
 import { signup } from "../../services/authentication";
 import DOMpurify from "dompurify";
+import "./Signup.css";
 
 export const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
@@ -28,7 +30,7 @@ export const SignupPage = () => {
 
     try {
        
-      await signup(CleanEmail, CleanPassword);
+      await signup(CleanEmail, CleanPassword, username);
       console.log("redirecting...:");
       navigate("/login");
     } catch (err) {
@@ -42,37 +44,52 @@ export const SignupPage = () => {
     }
   };
 
-    const handleEmailChange = (event) => {
-      setEmail(event.target.value);
-    };
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
 
-    const handlePasswordChange = (event) => {
-      setPassword(event.target.value);
-    };
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
 
-    return (
-      <>
-        <h2>Signup</h2>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email:</label>
-          <input
-            id="email"
-            type="text"
-            value={email}
-            onChange={handleEmailChange}
-          />
-          <label htmlFor="password">Password:</label>
-          <input
-            placeholder="Password"
-            id="password"
-            type="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-          {error && <p className="error">{error}</p>}
-          <input role="submit-button" id="submit" type="submit" value="Submit" />
-        </form>
-      </>
-    );
-  };  
-  
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  return (
+    <>
+      <h2 className="signup">Signup</h2>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="username">Username:</label>
+        <input
+          placeholder="Username"
+          id="username"
+          type="username"
+          value={username}
+          onChange={handleUsernameChange}
+        />
+        <br />
+        <label htmlFor="email">Email:</label>
+        <input
+          placeholder="Email"
+          id="email"
+          type="text"
+          value={email}
+          onChange={handleEmailChange}
+        />
+        <br />
+        <label htmlFor="password">Password:</label>
+        <input
+          placeholder="Password"
+          id="password"
+          type="password"
+          value={password}
+          onChange={handlePasswordChange}
+        />
+        <br />
+        {error && <p className="error">{error}</p>}
+        <input role="submit-button" id="submit" type="submit" value="Submit" />
+      </form>
+    </>
+  );
+};

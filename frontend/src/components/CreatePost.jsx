@@ -1,7 +1,5 @@
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { getPosts } from "../services/posts";
-// import { login } from "../../services/authentication";
+
 import { createPost } from "../services/createPost";
 import "./CreatePost.css";
 import DOMpurify from "dompurify";
@@ -17,20 +15,20 @@ const CreatePost = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem("token");
+    const postby = localStorage.getItem("postby");
     try {
       let CleanNewPost =DOMpurify.sanitize(newPost);
-      createPost(CleanNewPost, token).then((data) => {
-        console.log("newPost value: ", CleanNewPost);
-        console.log("data value: ", data);
+      createPost(CleanNewPost, token, postby).then((data) => {
+        // console.log("newPost value: ", newPost);
+        // console.log("data value: ", data);
+        // console.log("author: ", postby);
         location.reload();
         localStorage.setItem("token", data.token);
       });
 
       console.log("updating post...:");
-      //   navigate("/post");
     } catch (err) {
       console.error(err);
-      //   navigate("/signup");
     }
   };
 
