@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { signup } from "../../services/authentication";
+import {passwordValidator} from "../../../../api/utils/passwordValidator";
 
 export const SignupPage = () => {
   const [email, setEmail] = useState("");
@@ -32,6 +32,7 @@ export const SignupPage = () => {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    console.log(passwordValidator(password))
   };
 
   return (
