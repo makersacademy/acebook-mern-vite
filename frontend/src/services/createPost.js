@@ -25,8 +25,8 @@ export const createPost = async (message, token, postby) => {
   }
 
   const data = await response.json();
-  console.log(data);
-  console.log("createPost.js/author: ", data.post.author);
+  console.log("this is data", data);
+  // console.log("createPost.js/author: ", data.post.author);
   localStorage.setItem("postby", data.post.author);
   return data;
 };

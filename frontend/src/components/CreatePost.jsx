@@ -17,9 +17,9 @@ const CreatePost = () => {
     const postby = localStorage.getItem("postby");
     try {
       createPost(newPost, token, postby).then((data) => {
-        console.log("newPost value: ", newPost);
-        console.log("data value: ", data);
-        console.log("author: ", postby);
+        // console.log("newPost value: ", newPost);
+        // console.log("data value: ", data);
+        // console.log("author: ", postby);
         location.reload();
         localStorage.setItem("token", data.token);
       });

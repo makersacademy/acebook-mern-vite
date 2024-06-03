@@ -18,16 +18,27 @@ const createPost = async (req, res) => {
     author: req.user_id, // Assuming `user_id` is attached to `req` by authentication middleware
   });
   // const post = new Post({ message: req.body, author: req.user_id });
-  post.save();
+  await post.save();
 
-  // const user = await User.findById(req.user_id, "username -_id");
-  // if (!user) {
-  //   return res.status(404).json({ message: "User not found" });
-  // }
+  const user = await User.findById(req.user_id, "username -_id");
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
 
-  const newToken = generateToken(req.user_id);
-  res.status(201).json({ message: "Post created", token: newToken });
+
+const newToken = generateToken(req.user_id);
+  res.status(201).json({
+    message: "Post created",
+    post: {
+      _id: post._id,
+      message: post.message,
+      author: user.username,
+    },
+    token: newToken,
+    test: "test",
+  });
 };
+
 
 const PostsController = {
   getAllPosts: getAllPosts,
