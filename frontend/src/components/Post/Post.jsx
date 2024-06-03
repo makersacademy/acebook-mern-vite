@@ -4,6 +4,8 @@ import { useState } from "react";
 import { formatDistanceToNow } from 'date-fns';
 import { likePost } from '../../services/posts';
 import { unlikePost } from '../../services/posts';
+import SubmitComment from "../Comment/SubmitComment";
+import Comment from "../Comment/Comment";
 
 
 
@@ -19,6 +21,8 @@ const Post = (props) => {
 
   const [likeStatus, setLikeStatus] = useState(initialLikeStatus)
   const [likeCount, setLikeCount] = useState(initialLikeCount)
+  const [comments, setComments] = useState([]);
+
 
   function formatTimestamp(timestamp) {
     return formatDistanceToNow(new Date(timestamp), { addSuffix: true });
@@ -52,11 +56,19 @@ const Post = (props) => {
   }}
   setLikeStatus(!likeStatus)}
 
-  return <div key={props.post._id} className="post">
+  const handleCommentCreated = (newComment) => {
+    setComments((prevComments) => [newComment, ...prevComments]);
+  };
+
+  return <div key={postId} className="post">
     <h2>{props.post.username} - {formattedTimestamp}</h2>
     <article>{props.post.message}</article>
     <button onClick={ handleLike }>{likeStatus ? 'Unlike' : 'Like'}</button>
     <p>{likeCount} likes</p>
+    <SubmitComment postId={postId} token={token} onCommentCreated={handleCommentCreated}/>
+    {comments.map((comment) => (
+      <Comment comment={comment} token={token} key={comment._id} postId={postId} />
+    ))}  
     </div>
 };
 
