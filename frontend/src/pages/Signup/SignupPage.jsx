@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isEmail, isStrongPassword } from "validator";
 import { signup } from "../../services/authentication";
-
+import DOMpurify from "dompurify";
 
 export const SignupPage = () => {
   const [email, setEmail] = useState("");
@@ -11,21 +11,24 @@ export const SignupPage = () => {
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
+    let CleanEmail = DOMpurify.sanitize(email);
+    let CleanPassword = DOMpurify.sanitize(password);
+    console.log(CleanEmail);
     event.preventDefault();
 
-    if (!isEmail(email)) {
+    if (!isEmail(CleanEmail)) {
       setError("Please enter a valid email address.");
       return;
     }
 
-    if (!isStrongPassword(password)) {
+    if (!isStrongPassword(CleanPassword)) {
       setError("Password must be at least 8 characters long, with at least one special character,one uppercase and one lower case.");
       return;
     }
 
     try {
        
-      await signup(email, password);
+      await signup(CleanEmail, CleanPassword);
       console.log("redirecting...:");
       navigate("/login");
     } catch (err) {
