@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { createPost } from "../services/createPost";
 import "./CreatePost.css";
+import DOMpurify from "dompurify";
 
 const CreatePost = () => {
   const [newPost, setNewPost] = useState("");
@@ -16,7 +17,8 @@ const CreatePost = () => {
     const token = localStorage.getItem("token");
     const postby = localStorage.getItem("postby");
     try {
-      createPost(newPost, token, postby).then((data) => {
+      let CleanNewPost =DOMpurify.sanitize(newPost);
+      createPost(CleanNewPost, token, postby).then((data) => {
         // console.log("newPost value: ", newPost);
         // console.log("data value: ", data);
         // console.log("author: ", postby);
