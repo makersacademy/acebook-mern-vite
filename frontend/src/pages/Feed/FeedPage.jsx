@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPosts, createPost } from "../../services/posts";
+import Post from "../../components/Post/Post"; // Import the Post component
 // Importing Font Awesome icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import "./FeedPage.css";
 
 export const FeedPage = () => {
@@ -53,6 +54,10 @@ export const FeedPage = () => {
     }
   };
 
+  const updatePost = (updatedPost) => {
+    setPosts(posts.map(post => post._id === updatedPost._id ? updatedPost : post));
+  };
+
   const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
@@ -75,21 +80,7 @@ export const FeedPage = () => {
         <h2 className="feed-title">Feed</h2>
         <div className="feed" role="feed">
           {sortedPosts.map((post) => (
-            <div className="post" key={post._id}>
-              <h3>{post.message}</h3>
-              {post.user_id && post.user_id.firstName && post.user_id.lastName ? (
-                <p>By {post.user_id.firstName} {post.user_id.lastName}</p>
-              ) : (
-                <p>By Unknown User</p>
-              )}
-              <div className="post-info">
-                <span>{new Date(post.date).toLocaleString()}</span>
-                <div className="likes">
-                  <FontAwesomeIcon icon={faHeart} className="heart" />
-                  <span>{post.numOfLikes}</span>
-                </div>
-              </div>
-            </div>
+            <Post key={post._id} post={post} updatePost={updatePost} />
           ))}
         </div>
       </div>

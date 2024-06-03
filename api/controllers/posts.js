@@ -8,6 +8,7 @@ const getAllPosts = async (req, res) => {
     const token = generateToken(req.user_id);
     res.status(200).json({ posts: posts, token: token });
   } catch (error) {
+    console.error("Error fetching posts:", error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -43,6 +44,51 @@ const createPost = async (req, res) => {
 
     console.log(post);
   } catch (error) {
+    console.error("Error creating post:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const likePost = async (req, res) => {
+  try {
+    console.log("Liking post with ID:", req.params.id);
+    let post = await Post.findById(req.params.id);
+    if (!post) {
+      console.error("Post not found");
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    post.numOfLikes += 1;
+    post.likedBy.push(req.user_id);
+    await post.save();
+
+    // Populate user_id field before sending the response
+    post = await Post.populate(post, { path: 'user_id', select: 'firstName lastName' });
+    res.status(200).json(post);
+  } catch (error) {
+    console.error("Error liking post:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const unlikePost = async (req, res) => {
+  try {
+    console.log("Unliking post with ID:", req.params.id);
+    let post = await Post.findById(req.params.id);
+    if (!post) {
+      console.error("Post not found");
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    post.numOfLikes = Math.max(post.numOfLikes - 1, 0); // Ensure likes do not go below 0
+    post.likedBy = post.likedBy.filter(id => id.toString() !== req.user_id.toString());
+    await post.save();
+
+    // Populate user_id field before sending the response
+    post = await Post.populate(post, { path: 'user_id', select: 'firstName lastName' });
+    res.status(200).json(post);
+  } catch (error) {
+    console.error("Error unliking post:", error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -50,6 +96,8 @@ const createPost = async (req, res) => {
 const PostsController = {
   getAllPosts,
   createPost,
+  likePost,
+  unlikePost,
 };
 
 module.exports = PostsController;

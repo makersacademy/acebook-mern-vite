@@ -1,38 +1,64 @@
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { likePost, unlikePost } from "../../services/posts";
 
-const Post = (props) => {
-  const createdDate = new Date(props.post.date).toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: '2-digit' })
-  
-  const handleNumOfLikes = () => {
-    props.setPosts((prevPosts) =>
-      prevPosts.map((prevPost) =>
-        prevPost._id=== props.post._id ? { ...prevPost, numOfLikes: prevPost.numOfLikes + 1 } : prevPost
-      )
-    );
-  }
+const Post = ({ post, updatePost }) => {
+  const [hasLiked, setHasLiked] = useState(false);
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    // Check if the current user has liked the post
+    const token = localStorage.getItem('token');
+    if (post.likedBy && token) {
+      const userId = JSON.parse(atob(token.split('.')[1])).user_id;
+      setHasLiked(post.likedBy.includes(userId));
+    }
+
+    // Set the user name only once
+    if (post.user_id && post.user_id.firstName && post.user_id.lastName) {
+      setUserName(`${post.user_id.firstName} ${post.user_id.lastName}`);
+    } else {
+      setUserName('Unknown User');
+    }
+  }, [post.likedBy, post.user_id]);
+
+  const handleLikeToggle = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      let updatedPost;
+      if (hasLiked) {
+        console.log(`Unliking post with ID: ${post._id}`);
+        updatedPost = await unlikePost(token, post._id);
+      } else {
+        console.log(`Liking post with ID: ${post._id}`);
+        updatedPost = await likePost(token, post._id);
+      }
+      console.log('Updated post:', updatedPost);
+      setHasLiked(!hasLiked);
+      updatePost(updatedPost);
+    } catch (error) {
+      console.error(`Error ${hasLiked ? 'unliking' : 'liking'} post: `, error);
+    }
+  };
+
   return (
-    <>
-      <article key={props.post._id}>{props.post.message}</article>
-      <article key={props.post._id}>{createdDate}</article>
-      <div className="like-btn">
-        <button onClick={()=>handleNumOfLikes()}>{props.post.numOfLikes}</button>
+    <div className="post">
+      <p><strong>{userName}</strong></p>
+      <h3>{post.message}</h3>
+      <div className="post-info">
+        <span>{new Date(post.date).toLocaleString()}</span>
+        <div className="likes">
+          <FontAwesomeIcon 
+            icon={faHeart} 
+            className={`heart ${hasLiked ? 'liked' : ''}`} 
+            onClick={handleLikeToggle} 
+          />
+          <span>{post.numOfLikes}</span>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
-
 export default Post;
-
-
-
-
-
-//if we wanted to keep the function in FeedPage:
-  // const handleNumOfLikes = (id) => {
-  //   setPosts((prevPosts) =>
-  //     prevPosts.map((post) =>
-  //       post._id === id ? { ...post, numOfLikes: post.numOfLikes + 1 } : post
-  //     )
-  //   );
-  // }
-  //          handleNumOfLikes= {() => handleNumOfLikes(post._id)}
