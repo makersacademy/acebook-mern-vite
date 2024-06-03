@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
 import CreatePost from "../../components/CreatePost";
-import LogOut from "../../components/LogOut";
-import ProfileButton from "../../components/ProfileButton";
+import Navbar from "../../components/Navbar";
+
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -37,8 +37,7 @@ export const FeedPage = () => {
   return (
     <>
       <div>
-        <ProfileButton />
-        <LogOut />
+        <Navbar />
         <CreatePost />
       </div>
       <h2>Posts</h2>

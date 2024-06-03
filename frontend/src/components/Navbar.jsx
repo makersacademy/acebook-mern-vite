@@ -1,10 +1,14 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import "./Navbar.css";
 
-const Navbar = () => {
 
+
+const Navbar = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const currentPath = location.pathname;
     const handleProfile = () => {
     navigate("/profile");
     };
@@ -14,10 +18,19 @@ const Navbar = () => {
     navigate("/login");
     };
 
+    const handleFeed = () => {
+        navigate("/posts");
+    };
+
     return (
         <nav>
             <div className="navbar">
-               <button className="profile" onClick={handleProfile}>My Profile</button>
+                {currentPath !== "/profile" && (
+                    <button className="profile" onClick={handleProfile}>My Profile</button>
+                )}
+                {currentPath !== "/posts" && (
+                    <button className="feed" onClick={handleFeed}>Feed</button>
+                )}
                <button className="logout" onClick={handleLogout}>Logout</button>
             </div>
         </nav>
