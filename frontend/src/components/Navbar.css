@@ -3,7 +3,7 @@
     flex-direction: row;
 }
 
-.profile {
+.profile, .feed, .logout {
     background-color: #1f62ab;
     color: white;
     transition-duration: 0.4s;
@@ -11,24 +11,9 @@
     padding: 12px 28px;
 }
 
-.profile:hover {
+.profile:hover, .feed:hover, .logout:hover {
     background-color:#1da4e3;
     color: white;
     font-size: 16px;
     padding: 12px 28px;
-}
-
-.logout {
-    background-color: #1f62ab;
-    color: white;
-    transition-duration: 0.4s;
-    font-size: 16px;
-    padding: 12px 28px;
-}
-
-.logout:hover {
-    background-color: #1da4e3;
-    padding: 12px 28px;
-    color: white;
-    font-size: 16px;
 }
