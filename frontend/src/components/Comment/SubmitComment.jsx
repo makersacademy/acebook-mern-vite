@@ -9,13 +9,10 @@ export const SubmitComment = (props) => {
     const token = props.token;
     const postId = props.postId;
     
-    
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const newComment = await createComment(token, message, postId);
-            props.onCommentCreated(newComment);
+            await createComment(token, message, postId);
             setMessage("");
             navigate("/posts");
         } catch (err) {
@@ -24,6 +21,20 @@ export const SubmitComment = (props) => {
         }
         
     };
+//this might need to replace handleSubmit above when we try to do the re-render on state change thing
+    // const handleSubmit = async (event) => {
+    //     event.preventDefault();
+    //     try {
+    //         const newComment = await createComment(token, message, postId);
+    //         props.handleCommentCreated(newComment);
+    //         setMessage("");
+    //         navigate("/posts");
+    //     } catch (err) {
+    //         console.error(err);
+    //         navigate("/posts");
+    //     }
+        
+    // };
 
     return(
         <div>
