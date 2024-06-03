@@ -6,7 +6,7 @@ import axios from "axios";
 export const EditPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [DOB, setDoB] = useState("");
+  const [DOB, setDOB] = useState("");
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +22,7 @@ export const EditPage = () => {
         const { firstName, lastName, DOB, gender, email } = response.data;
         setFirstName(firstName);
         setLastName(lastName);
-        setDoB(DOB);
+        setDOB(DOB);
         setGender(gender);
         setEmail(email);
       } catch (err) {
@@ -88,7 +88,7 @@ export const EditPage = () => {
           id="DOB"
           type="date"
           value={DOB}
-          onChange={(e) => setDoB(e.target.value)}
+          onChange={(e) => setDOB(e.target.value)}
         />
         <label htmlFor="gender">Gender:</label>
         <select

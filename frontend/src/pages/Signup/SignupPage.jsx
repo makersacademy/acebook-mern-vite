@@ -6,7 +6,7 @@ import "./SignupPage.css";
 export const SignupPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [DOB, setDoB] = useState("");
+  const [DOB, setDOB] = useState("");
   const [gender, setgender] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,8 +55,8 @@ export const SignupPage = () => {
   };
 
 
-  const handleDoBChange = (event) => {
-    setDoB(event.target.value);
+  const handleDOBChange = (event) => {
+    setDOB(event.target.value);
   };
 
   const handlegenderChange = (event) => {
@@ -118,7 +118,7 @@ export const SignupPage = () => {
           id="DOB"
           type="date" //added date picker 
           value={DOB}
-          onChange={handleDoBChange}
+          onChange={handleDOBChange}
           min={getMinDOB()}
           max={getMaxDOB()}
         />
