@@ -1,68 +1,64 @@
-body {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Adjusted to position the form higher */
-    height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-  }
-  
+.edit-profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+input,
+select {
+  margin-bottom: 15px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Media query for responsive layout */
+@media (max-width: 768px) {
   .edit-profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-    margin-top: 50px; /* Added margin-top to raise the form */
+    max-width: 100%;
   }
-  
-  .edit-profile-container h2 {
-    margin-bottom: 1rem;
-    color: #333;
+
+  form {
+    padding: 10px;
   }
-  
-  .edit-profile-container form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+
+  label {
+    font-size: 14px;
   }
-  
-  .edit-profile-container label {
-    margin-bottom: 0.5rem;
-    color: #555;
+
+  input,
+  select {
+    font-size: 14px;
+    padding: 6px;
   }
-  
-  .edit-profile-container input[type="text"],
-  .edit-profile-container input[type="email"],
-  .edit-profile-container input[type="password"],
-  .edit-profile-container input[type="date"],
-  .edit-profile-container select {
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
+
+  button {
+    font-size: 14px;
+    padding: 8px 16px;
   }
-  
-  .edit-profile-container button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 1.1rem;
-    padding: 0.75rem;
-  }
-  
-  .edit-profile-container button:hover {
-    background-color: #45a049;
-  }
-  
-  .error-message {
-    color: red;
-    margin-bottom: 1rem;
-  }
+}

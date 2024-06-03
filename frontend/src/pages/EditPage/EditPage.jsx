@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-
+import "./EditPage.css";
 
 export const EditPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -12,13 +12,12 @@ export const EditPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { email: userEmail } = useParams(); // Access email from URL params
 
   useEffect(() => {
-    // Fetch user data
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`/users/${id}`);
+        const response = await axios.get(`/users/${userEmail}`);
         const { firstName, lastName, DOB, gender, email } = response.data;
         setFirstName(firstName);
         setLastName(lastName);
@@ -31,12 +30,12 @@ export const EditPage = () => {
     };
 
     fetchUserData();
-  }, [id]);
+  }, [userEmail]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.put(`/users/${id}`, {
+      await axios.put(`/users/${userEmail}`, { // Update the URL to use userEmail
         firstName,
         lastName,
         email,
@@ -47,7 +46,11 @@ export const EditPage = () => {
       navigate("/profile");
     } catch (err) {
       console.error(err);
-      setError("Error updating profile. Please try again.");
+      if (err.response) {
+        setError(err.response.data.message);
+      } else {
+        setError("Error updating profile. Please try again.");
+      }
     }
   };
 
@@ -75,8 +78,9 @@ export const EditPage = () => {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          disabled // Disable email input as it's the unique identifier
         />
-        <label htmlFor="password">Password (leave blank to keep current password):</label>
+        <label htmlFor="password">Password:</label>
         <input
           id="password"
           type="password"
