@@ -9,6 +9,9 @@ import LogoutButton from "../../components/LogoutButton";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
+  // Remove in future. Find a better way of rerendering componants and not rerendeing the whole feed page
+  // Possibly start investingating at Like.jsx??
+  // Changes necessary to MakePost.jsx
   const [refresh, setRefresh] = useState(false);
   const navigate = useNavigate();
 
