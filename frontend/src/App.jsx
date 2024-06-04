@@ -6,7 +6,7 @@ import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
 import { SimpleNavBar} from './components/SimpleNavBar/SimpleNavBar'
-import { NavBar} from './components/NavBar/navBar'
+import { NavBar} from './components/NavBar/NavBar'
 import {Profile} from './pages/Profile/Profile'
 import {EditPage} from './pages/EditPage/EditPage'
 
