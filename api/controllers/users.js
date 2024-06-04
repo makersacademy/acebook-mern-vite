@@ -17,8 +17,15 @@ const create = async(req, res) => {
         })
         .catch((err) => {
           console.error(err);
+          console.error(err.keyPattern);
+          console.log(err.message);
           if (err.code === 11000) {
-            res.status(409).json({ message: "User already exists" });
+            if (err.message.includes('username')){
+              res.status(409).json({ message: "Username already exists"});
+            }else{
+              res.status(409).json({ message: "Email already exists"});
+            };
+            
             return;
           }
           res.status(400).json({ message: "Something went wrong" });

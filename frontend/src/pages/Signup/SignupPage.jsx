@@ -15,8 +15,14 @@ export const SignupPage = () => {
   const handleSubmit = async (event) => {
     let CleanEmail = DOMpurify.sanitize(email);
     let CleanPassword = DOMpurify.sanitize(password);
+    let CleanUsername = DOMpurify.sanitize(username);
     console.log(CleanEmail);
     event.preventDefault();
+
+    if (CleanUsername.length < 5) {
+      setError("Username must be at least 5 characters.");
+      return;
+    }
 
     if (!isEmail(CleanEmail)) {
       setError("Please enter a valid email address.");
@@ -29,14 +35,15 @@ export const SignupPage = () => {
     }
 
     try {
-       
       await signup(CleanEmail, CleanPassword, username);
       console.log("redirecting...:");
       navigate("/login");
     } catch (err) {
       console.error(err);
       console.log(err);
-      if (err.message === "User already exists") {
+      if (err.message === "Username already exists") {
+        setError("Username already exists. Please enter a valid email address.");
+      }else if (err.message === "Email already exists") {
         setError("Email already exists. Please enter a valid email address.");
       } else {
         setError("An error occurred. Please try again later.");
