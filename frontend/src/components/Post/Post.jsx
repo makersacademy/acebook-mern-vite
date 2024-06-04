@@ -13,13 +13,13 @@ const Post = (props) => {
   const handleCommentSubmit = (e) => {
     e.preventDefault();
     // const token = localStorage.getItem('token'); ////////////////////////
-    const userId = localStorage.getItem('user_id');
+    // const userId = localStorage.getItem('user_id');
     
     const newComment = {
       commentMessage,
       createdAt : new Date(), 
-      postId: props.post._id,
-      userId: userId
+      // postId: props.post._id,
+      // userId: userId
       
     }
     console.log ('line 25', props.post._id)
