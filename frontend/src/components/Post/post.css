@@ -6,8 +6,10 @@ article {
 }
 
 .post_container {
-  border: 2px powderblue solid;
+  border: 4px black solid;
   background-color: powderblue;
   border-radius: 20px;
   padding: 20px;
 }
+
+
