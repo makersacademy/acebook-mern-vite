@@ -11,49 +11,49 @@ const Comment = (props) => {
   // const navigate = useNavigate(); NOT BEING USED CURRENTLY
     const token = props.token;
     // const postId = props.post._id;
-    const commentId = props.commentId;
+    const commentId = props.comment._id;
     const commentTimestamp = props.comment.createdAt;
     console.log("This is the message",props.comment.message);
     const userId = localStorage.getItem("userId");
-    // const initialLikeCount = props.comment.likes.length;
-    // const initialLikeStatus = props.comment.likes.includes(userId)
+    const initialLikeCount = props.comment.likes.length;
+    const initialLikeStatus = props.comment.likes.includes(userId)
 
-    // const [likeStatus, setLikeStatus] = useState(initialLikeStatus)
-    // const [likeCount, setLikeCount] = useState(initialLikeCount)
+    const [likeStatus, setLikeStatus] = useState(initialLikeStatus)
+    const [likeCount, setLikeCount] = useState(initialLikeCount)
 
-    // function formatTimestamp(timestamp) {
-    //     return formatDistanceToNow(new Date(timestamp), { addSuffix: true });
-    // }
+    function formatTimestamp(timestamp) {
+        return formatDistanceToNow(new Date(timestamp), { addSuffix: true });
+    }
 
-    // const formattedTimestamp = formatTimestamp(commentTimestamp);
+    const formattedTimestamp = formatTimestamp(commentTimestamp);
 
-    // const handleLike = async () => {
+    const handleLike = async () => {
 
-    //     if (likeStatus == false) {
-    //     setLikeCount(likeCount + 1);
+        if (likeStatus == false) {
+        setLikeCount(likeCount + 1);
 
-    //     try {
-    //         await likeComment(token, commentId);
-    // }   catch (err) {
-    //         console.error(err);
-    //         setLikeCount(likeCount);
-    // }
-    // }   else if (likeStatus == true) {
-    //     setLikeCount(likeCount - 1);
-    //     try {
-    //         await unlikeComment(token, commentId);
-    // }   catch (err) {
-    //         console.error(err);
-    //         setLikeCount(likeCount);
+        try {
+            await likeComment(token, commentId);
+    }   catch (err) {
+            console.error(err);
+            setLikeCount(likeCount);
+    }
+    }   else if (likeStatus == true) {
+        setLikeCount(likeCount - 1);
+        try {
+            await unlikeComment(token, commentId);
+    }   catch (err) {
+            console.error(err);
+            setLikeCount(likeCount);
 
-    // }}
-    // setLikeStatus(!likeStatus)}
-// {formattedTimestamp}
+    }}
+
+    setLikeStatus(!likeStatus)}
     return <div key={props.comment._id} className="comment">
-        <h2>{props.comment.username} </h2> 
+        <h2>{props.comment.username} - {formattedTimestamp}</h2> 
         <article>{props.comment.message}</article>
-        {/* <button onClick={ handleLike }>{likeStatus ? 'Unlike' : 'Like'}</button> */}
-        {/* <p>{likeCount} likes</p> */}
+        <button onClick={ handleLike }>{likeStatus ? 'Unlike' : 'Like'}</button>
+        <p>{likeCount} likes</p>
         </div>
 };
 
