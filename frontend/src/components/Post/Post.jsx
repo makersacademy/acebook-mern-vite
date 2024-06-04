@@ -16,8 +16,6 @@ const Post = ({ post, updatePost }) => {
     }
 
     // Set the user name only once
-    //console.log("Post line19");
-    //console.log(post);
     if (post.user_id && post.user_id.firstName && post.user_id.lastName) {
       setUserName(`${post.user_id.firstName} ${post.user_id.lastName}`);
     } else {
