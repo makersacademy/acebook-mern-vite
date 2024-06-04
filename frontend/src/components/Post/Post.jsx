@@ -7,7 +7,7 @@ import { unlikePost } from '../../services/posts';
 import SubmitComment from "../Comment/SubmitComment";
 
 const Post = (props) => {
-  console.log("this is the props:", props)
+  // console.log("this is the props:", props)
   // const navigate = useNavigate(); 
   const token = props.token
   const postId = props.post._id

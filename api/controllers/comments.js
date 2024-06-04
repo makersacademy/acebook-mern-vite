@@ -39,7 +39,6 @@ const createComment = async (req, res) => {
     await comment.save();
 
     post.comments.push(comment._id);
-    // post.comments.push(comment);
 
     await post.save();
     //this line is new
