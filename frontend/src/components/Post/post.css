@@ -1,0 +1,15 @@
+article {
+  font-family: sans-serif;
+}
+.author {
+  font-family: fantasy;
+}
+
+.post_container {
+  border: 4px black solid;
+  background-color: powderblue;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+
