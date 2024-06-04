@@ -12,10 +12,21 @@ const Post = (props) => {
   
   const handleCommentSubmit = (e) => {
     e.preventDefault();
+    // const token = localStorage.getItem('token'); ////////////////////////
+    const userId = localStorage.getItem('user_id');
+    
     const newComment = {
-      _id: Date.now().toString(), // Generate a temporary ID for the new comment
-      message: commentMessage,
-    };
+      commentMessage,
+      createdAt : new Date(), 
+      postId: props.post._id,
+      userId: userId
+      
+    }
+    console.log ('line 25', props.post._id)
+    // const newComment = {
+    //   _id: Date.now().toString(), // Generate a temporary ID for the new comment
+    //   message: commentMessage,
+    // };
     setComments([...comments, newComment]);
     setCommentMessage(''); // Clear the input field after submission
   };
@@ -36,6 +47,7 @@ const Post = (props) => {
 
       <div>
         {comments.map((comment) => (
+
           <div key={comment._id}>
           <Comment comment={comment} />
           </div>
