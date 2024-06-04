@@ -2,11 +2,11 @@ const User = require("../models/user");
 
 const bcrypt = require("bcrypt");
 
-const create = async(req, res) => {
+const create = async (req, res) => {
   const email = req.body.email.toLowerCase();
   const password = req.body.password;
   const username = req.body.username;
-   bcrypt.genSalt(10, function (err, salt) {
+  bcrypt.genSalt(10, function (err, salt) {
     bcrypt.hash(password, salt, function (err, hash) {
       const user = new User({ email, username, password: hash });
       user
@@ -25,9 +25,9 @@ const create = async(req, res) => {
         });
     });
   });
-}
+};
 const UsersController = {
-      create: create,
-    };
+  create: create,
+};
 
-    module.exports = UsersController;
+module.exports = UsersController;
