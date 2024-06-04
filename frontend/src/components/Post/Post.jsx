@@ -4,6 +4,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { likePost } from '../../services/posts';
 import { unlikePost } from '../../services/posts';
 import SubmitComment from "../Comment/SubmitComment";
+import Comment from "../Comment/Comment";
 
 const Post = (props) => {
   const token = props.token
@@ -56,7 +57,7 @@ const Post = (props) => {
     <button onClick={ handleLike }>{likeStatus ? 'Unlike' : 'Like'}</button>
     <p>{likeCount} likes</p>
     <SubmitComment postId={postId} token={token} handleCommentCreated={handleCommentCreated} /> 
-    <div className="comments">
+    {/* <div className="comments">
         {commentsList.map(comment => (
           // just gotta move this into own component 
           // similar to <Comment comment={comment} token={token} key={comment._id} postId={postId} />
@@ -65,8 +66,14 @@ const Post = (props) => {
             <p>{comment.message}</p>
           </div>
         ))}
+      </div> */}
+
+
+        {commentsList.map(comment => (
+        <Comment comment={comment} token={token} key={comment._id} postId={postId} />
+        ))}
       </div>
-  </div>
+
 };
 
 export default Post;

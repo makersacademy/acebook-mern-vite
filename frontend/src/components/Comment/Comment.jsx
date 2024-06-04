@@ -49,7 +49,7 @@ const Comment = (props) => {
     // }}
     // setLikeStatus(!likeStatus)}
 // {formattedTimestamp}
-    return <div key={props.comment._id} className="post">
+    return <div key={props.comment._id} className="comment">
         <h2>{props.comment.username} </h2> 
         <article>{props.comment.message}</article>
         {/* <button onClick={ handleLike }>{likeStatus ? 'Unlike' : 'Like'}</button> */}
