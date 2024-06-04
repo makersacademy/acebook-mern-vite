@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getUserById } from "../../services/users";
 
 export const ProfilePage = () => {
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState({});
     const navigate = useNavigate();
     const { user_id } = useParams();
     
@@ -13,8 +13,8 @@ export const ProfilePage = () => {
         if (token) {
             getUserById(token, user_id)
                 .then((data) => {
-                const loggedUser = data.user;
-                    setUser(loggedUser.fullname);
+                const foundUser = data.user;
+                    setUser(foundUser);
                 localStorage.setItem("token", data.token);
                 })
                 .catch((err) => {
@@ -32,7 +32,8 @@ export const ProfilePage = () => {
 
     return (
         <>
-            <h2>{user}</h2>
+            <p>Email: {user.email}</p>
+            <p>Full Name: {user.fullname}</p>
         </>
     );
 };
