@@ -16,6 +16,8 @@ const Post = ({ post, updatePost }) => {
     }
 
     // Set the user name only once
+    //console.log("Post line19");
+    //console.log(post);
     if (post.user_id && post.user_id.firstName && post.user_id.lastName) {
       setUserName(`${post.user_id.firstName} ${post.user_id.lastName}`);
     } else {
@@ -31,7 +33,7 @@ const Post = ({ post, updatePost }) => {
         console.log(`Unliking post with ID: ${post._id}`);
         updatedPost = await unlikePost(token, post._id);
       } else {
-        console.log(`Liking post with ID: ${post._id}`);
+        console.log(`Liking post line 36 with ID: ${post._id}`);
         updatedPost = await likePost(token, post._id);
       }
       console.log('Updated post:', updatedPost);

@@ -43,11 +43,13 @@ export const FeedPage = () => {
       date: new Date(),
       numOfLikes: 0,
       user_id: userId
+
     };
 
 console.log(postData);
     try {
       const newPost = await createPost(token, postData);
+      console.log(newPost);
       setPosts([newPost, ...posts]);
       setMessage("");
     } catch (error) {
