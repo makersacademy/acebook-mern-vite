@@ -30,19 +30,23 @@ const createPost = async (req, res) => {
 
     const post = new Post({ message, date, numOfLikes, user_id });
     await post.save();
+    console.log('coming from line 33');
+    console.log(post._id);
+
+    const postCreated = await Post.findById(post._id).populate('user_id', 'firstName lastName')
+    console.log(postCreated.user_id);
 
     const newToken = generateToken(req.user_id);
     res.status(201).json({
-      message: message,
-      date: date,
-      numOfLikes: numOfLikes,
-      user_id: user_id,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      message: postCreated.message,
+      date: postCreated.date,
+      numOfLikes: postCreated.numOfLikes,
+      user_id: postCreated.user_id,
+      _id: postCreated._id,
       token: newToken
     });
 
-    console.log(post);
+
   } catch (error) {
     console.error("Error creating post:", error);
     res.status(500).json({ message: error.message });
