@@ -9,6 +9,9 @@ import LogoutButton from "../../components/LogoutButton";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
+  // Remove in future. Find a better way of rerendering componants and not rerendeing the whole feed page
+  // Possibly start investingating at Like.jsx??
+  // Changes necessary to MakePost.jsx
   const [refresh, setRefresh] = useState(false);
   const navigate = useNavigate();
 
@@ -33,14 +36,14 @@ export const FeedPage = () => {
     navigate("/login");
     return;
   }
-
+  let parentPosts = posts.filter((item) => !item.parent)
   return (
     <>
       <MakePost value={refresh} update={setRefresh} />
       <LogoutButton />
       <h2>Posts</h2>
       <div className="feed" role="feed">
-        {posts.map((post) => (
+        {parentPosts.map((post) => (
           <Post post={post} key={post._id} value={refresh} update={setRefresh} />
         ))}
       </div>
