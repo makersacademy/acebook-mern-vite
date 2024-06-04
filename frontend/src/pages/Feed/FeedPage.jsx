@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPosts, createPost } from "../../services/posts";
-import Post from "../../components/Post/Post"; // Import the Post component
-// Importing Font Awesome icons
+import Post from "../../components/Post/Post";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import "./FeedPage.css";
@@ -10,9 +9,9 @@ import "./FeedPage.css";
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
-
   const navigate = useNavigate();
 
+  //lists all posts 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -28,6 +27,7 @@ export const FeedPage = () => {
     }
   }, [navigate]);
 
+  //starts creating new Post on Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
@@ -46,7 +46,6 @@ export const FeedPage = () => {
 
     };
 
-console.log(postData);
     try {
       const newPost = await createPost(token, postData);
       console.log(newPost);
