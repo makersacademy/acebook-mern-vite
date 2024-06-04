@@ -2,11 +2,11 @@ export const passwordValidator = (password) => {
     const regexLength = /^.{8,}$/;
     const regexCase = /^(?=.*[a-z])(?=.*[A-Z]).+$/;
     const regexNumber = /^(?=.*\d).+$/;
-    const regexSpecialCharacter = /^(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    let checks = {"length": regexLength.test(password),
-        "case": regexCase.test(password),
-        "number": regexNumber.test(password),
-        "special character": regexSpecialCharacter.test(password)
-    };
-    return checks;
+    if (regexLength.test(password) === false) {
+        throw new Error("Password must be 8+ characters")
+    } else if (regexCase.test(password) === false) {
+        throw new Error("Password must contain upper and lowercase")
+    } else if (regexNumber.test(password) === false) {
+        throw new Error("Password must contain at least one number")
+    }
 }
