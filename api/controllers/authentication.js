@@ -66,7 +66,6 @@ const { generateToken } = require("../lib/token");
 const createToken = async (req, res) => {
   const { email, password } = req.body;
 
-  try {
     const user = await User.findOne({ email });
     if (!user) {
       console.log("Auth Error: User not found");
@@ -81,10 +80,7 @@ const createToken = async (req, res) => {
 
     const token = generateToken(user.id);
 
-/////////////////////////////////////////////////////////////////////////////////////////
     res.status(201).json({ token: token, user_id: user._id, message: "OK" });
-
-  }
 };
 
 const signup = async (req, res) => {

@@ -95,6 +95,16 @@ JWT_SECRET="secret"
 
 For an explanation of these environment variables, see the documentation.
 
+
+### Install some dependencies
+; npm install --save @fortawesome/free-solid-svg-icons
+
+; npm install --save @fortawesome/react-fontawesome @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons
+
+; npm install bcryptjs
+
+;npm install axios
+
 ### How to run the server and use the app
 
 1. Start the server application (in the `api` directory) in dev mode:
