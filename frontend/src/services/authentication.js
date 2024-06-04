@@ -49,7 +49,7 @@ export const signup = async ({ firstName, lastName, email, password, DOB, gender
     };
 
     let response = await fetch(`${BACKEND_URL}/users`, requestOptions);
-console.log(response);
+
   // Check if the response is successful
     if (response.ok) {
         return;

@@ -81,7 +81,7 @@ const createToken = async (req, res) => {
     const token = generateToken(user.id);
 
     res.status(201).json({ token: token, user_id: user._id, message: "OK" });
-  }
+};
 
 const signup = async (req, res) => {
   const { firstName, lastName, email, password, DOB } = req.body;

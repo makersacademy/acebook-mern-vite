@@ -45,6 +45,7 @@ export const FeedPage = () => {
       user_id: userId
     };
 
+console.log(postData);
     try {
       const newPost = await createPost(token, postData);
       setPosts([newPost, ...posts]);
