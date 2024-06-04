@@ -12,9 +12,10 @@ export const SubmitComment = (props) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await createComment(token, message, postId);
+            const newComment = await createComment(token, message, postId);
+            props.handleCommentCreated(newComment)
             setMessage("");
-            window.location.reload();
+            navigate("/posts");
         } catch (err) {
             console.error(err);
             navigate("/posts");

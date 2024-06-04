@@ -1,24 +1,22 @@
 import "../../../css/post.css"
 import { useState } from "react";
-// import { useNavigate } from 'react-router-dom'; 
 import { formatDistanceToNow } from 'date-fns';
 import { likePost } from '../../services/posts';
 import { unlikePost } from '../../services/posts';
 import SubmitComment from "../Comment/SubmitComment";
 
 const Post = (props) => {
-  // console.log("this is the props:", props)
-  // const navigate = useNavigate(); 
   const token = props.token
   const postId = props.post._id
   const postTimestamp = props.post.createdAt
   const userId = localStorage.getItem("userId");
   const initialLikeCount = props.post.likes.length;
   const initialLikeStatus = props.post.likes.includes(userId)
+  const initialCommentsState = props.post.comments
 
   const [likeStatus, setLikeStatus] = useState(initialLikeStatus)
   const [likeCount, setLikeCount] = useState(initialLikeCount)
-  // const [commentsList, setCommentsList] = useState([]);
+  const [commentsList, setCommentsList] = useState(initialCommentsState);
 
   function formatTimestamp(timestamp) {
     return formatDistanceToNow(new Date(timestamp), { addSuffix: true });
@@ -48,19 +46,18 @@ const Post = (props) => {
   }}
   setLikeStatus(!likeStatus)}
 
-  // const handleCommentCreated = (newComment) => {
-  //   setCommentsList((prevComments) => [newComment, ...prevComments]);
-  // };
+  const handleCommentCreated = (newComment) => {
+    setCommentsList((prevComments) => [...prevComments, newComment]);
+  };
 
   return <div key={postId} className="post">
     <h2>{props.post.username} - {formattedTimestamp}</h2>
     <article>{props.post.message}</article>
     <button onClick={ handleLike }>{likeStatus ? 'Unlike' : 'Like'}</button>
     <p>{likeCount} likes</p>
-    <SubmitComment postId={postId} token={token} /> 
-  {/* may need to pass this to above component for rerender/state change: handleCommentCreated={handleCommentCreated} */}
+    <SubmitComment postId={postId} token={token} handleCommentCreated={handleCommentCreated} /> 
     <div className="comments">
-        {props.post.comments.map(comment => (
+        {commentsList.map(comment => (
           // just gotta move this into own component 
           // similar to <Comment comment={comment} token={token} key={comment._id} postId={postId} />
           <div key={comment._id} className="comment">
