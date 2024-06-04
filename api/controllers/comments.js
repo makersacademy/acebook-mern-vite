@@ -4,12 +4,14 @@ const { generateToken } = require("../lib/token");
 
 const getAllComments = async (req, res) => {
   // const posts = await Post.find().populate("author", "email");
-  const posts = await Post.find().populate({
-    path: "author",
+  const comments = await Comment.find().populate({
+    path: "userId",
     select: "username -_id", // Only fetch the username field and exclude the MongoDB default '_id' field
   });
+  console.log(comments[0]);
+  console.log(comments[0].username);
   const token = generateToken(req.user_id);
-  res.status(200).json({ posts: posts, token: token });
+  res.status(200).json({ comments: comments, token: token });
 };
 
 const createComment = async (req, res) => {
