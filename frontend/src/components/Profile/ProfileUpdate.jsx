@@ -1,25 +1,19 @@
 
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import { updateUserProfile } from "../../services/users";
 
 export const ProfileUpdate = ({profile}) => {
   const [email, setEmail] = useState(profile.email);
   const [password, setPassword] = useState(profile.password);
-  const [firstName, setFirstName] = useState(profile.firstName);
-  const [lastName, setLastName] = useState(profile.lastName);
+  const [fullName, setFullName] = useState(profile.fullName);
   const [bio, setBio] = useState(profile.bio);
-//   const navigate = useNavigate();
-console.log(profile)
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await updateUserProfile(email, password, firstName, lastName, bio, profile._id);
-    //   console.log("redirecting...:");
-    //   navigate("/login");
+      await updateUserProfile(email, password, fullName, bio, profile._id);
     } catch (err) {
       console.error(err);
-    //   navigate("/signup");
     }
   };
 
@@ -31,12 +25,8 @@ console.log(profile)
     setPassword(event.target.value);
   };
 
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
-  };
-
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
+  const handleFullNameChange = (event) => {
+    setFullName(event.target.value);
   };
 
   const handleBioChange = (event) => {
@@ -44,11 +34,15 @@ console.log(profile)
   };
 
   return (
+    // should split this into separate forms
+    // to be able to change just the info wanted to change,
+    // not only all of them at the same time
     <>
       <h2>Update Profile</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
         <input
+          placeholder="Email"
           id="email"
           type="text"
           value={email}
@@ -62,24 +56,16 @@ console.log(profile)
           value={password}
           onChange={handlePasswordChange}
         />
-        {/* <label htmlFor="firstName">First Name:</label>
+        <label htmlFor="fullName">Last Name:</label>
         <input
-          placeholder="first name"
-          id="firstName"
+          placeholder="Full Name"
+          id="fullName"
           type="text"
-          value={firstName}
-          onChange={handleFirstNameChange}
-        /> */}
-         <label htmlFor="lastName">Last Name:</label>
-        <input
-          placeholder="last name"
-          id="lastName"
-          type="text"
-          value={lastName}
-          onChange={handleLastNameChange}
+          value={fullName}
+          onChange={handleFullNameChange}
         />
-         <input
-          placeholder="bio"
+        <input
+          placeholder="Say something about you!"
           id="bio"
           type="text"
           value={bio}

@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUserById } from "../../services/users";
+import { ProfileUpdate } from "../../components/Profile/ProfileUpdate";
 
 export const ProfilePage = () => {
     const [user, setUser] = useState({});
     const navigate = useNavigate();
-    const { user_id } = useParams();
+    const profile_id = useParams();
+    const user_id = localStorage.getItem("user_id");
     
     useEffect(() => {
         const token = localStorage.getItem("token");
-        // const user_id = localStorage.getItem("user_id");
         if (token) {
-            getUserById(token, user_id)
+            getUserById(token, profile_id.user_id)
                 .then((data) => {
-                const foundUser = data.user;
-                    setUser(foundUser);
+                    setUser(data.user);
                 localStorage.setItem("token", data.token);
                 })
                 .catch((err) => {
@@ -22,7 +22,7 @@ export const ProfilePage = () => {
                     navigate("/login");
                 });
         }
-    }, [navigate, user]);
+    }, [navigate]);
 
     const token = localStorage.getItem("token");
     if (!token) {
@@ -32,8 +32,9 @@ export const ProfilePage = () => {
 
     return (
         <>
+            <h2>{user.fullName}</h2>
             <p>Email: {user.email}</p>
-            <p>Full Name: {user.fullname}</p>
+            {user_id == profile_id && <ProfileUpdate profile={user} />}
         </>
     );
 };

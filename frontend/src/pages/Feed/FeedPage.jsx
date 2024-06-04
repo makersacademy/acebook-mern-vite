@@ -27,7 +27,9 @@ export const FeedPage = () => {
     }
   }, [navigate, refresh]);
 
-  // needs tests to account for edge case like getting here by typing in the URL without being logged in instead of navigating here through the website
+  // needs tests to account for edge case
+  // like getting here by typing in the URL without being logged in
+  // instead of navigating here through the website
   const token = localStorage.getItem("token");
   if (!token) {
     navigate("/login");
@@ -36,6 +38,7 @@ export const FeedPage = () => {
 
   return (
     <>
+    {/* {console.log('\n\nlocalStorage.getItem("user_id") is', user_id)} */}
       <MakePost value={refresh} update={setRefresh} />
       <LogoutButton />
       <Link to={`/profile/${user_id}`}>Your Profile</Link>
