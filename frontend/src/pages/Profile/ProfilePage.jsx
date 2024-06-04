@@ -7,7 +7,7 @@ export const ProfilePage = () => {
     const [user, setUser] = useState({});
     const navigate = useNavigate();
     const profile_id = useParams();
-    // const user_id = localStorage.getItem("user_id");
+    const user_id = localStorage.getItem("user_id");
     
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -35,7 +35,7 @@ export const ProfilePage = () => {
             <h1>{user.fullName}</h1>
             <p>Email: {user.email}</p>
             <p>Bio: {user.bio}</p>
-            <ProfileUpdate profile={user} />
+            {(user_id == profile_id.user_id) && <ProfileUpdate profile={user} />}
         </>
     );
 };

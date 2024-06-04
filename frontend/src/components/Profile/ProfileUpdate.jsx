@@ -13,9 +13,7 @@ export const ProfileUpdate = ({profile}) => {
     try {
       const updatedProfile = await updateUserProfile(token, email, fullName, bio, profile._id);
       console.log("updatedProfile", updatedProfile)
-      setEmail(updatedProfile.email);
-      setFullName(updatedProfile.fullName);
-      setBio(updatedProfile.bio);
+      
     } catch (err) {
       console.error(err);
     }
