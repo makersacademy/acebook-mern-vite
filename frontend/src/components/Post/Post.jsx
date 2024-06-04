@@ -32,9 +32,11 @@ const Post = (props) => {
 
     try {
       await likePost(token, postId);
+
   } catch (err) {
       console.error(err);
       setLikeCount(likeCount); 
+
   }
   } else if (likeStatus == true) {
     setLikeCount(likeCount - 1);

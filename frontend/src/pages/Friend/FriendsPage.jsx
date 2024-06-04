@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Friend } from "../../components/Friend";
 import { addFriend, removeFriend } from "../../services/users";
@@ -7,7 +7,7 @@ import { addFriend, removeFriend } from "../../services/users";
 
 export const FriendsPage = () =>{
     const token = localStorage.getItem("token");
-    const friendUserId = "6659bf908211f3e770e47584";
+    const friendUserId = "6659b01289099d487a51a345";
     const [friendStatus, setFriendStatus] = useState(false);
     const navigate = useNavigate();
     const handleAdd = async () => {

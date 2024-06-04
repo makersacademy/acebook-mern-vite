@@ -1,15 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import "./SearchResults.css";
 
+import { useState, useEffect } from "react";
 
-export const SearchResult = ({ SURNAME, FORENAME }) => {
+export const SearchResult = ({ SURNAME, FORENAME, userid, handleUserIdChange }) => {
     const navigate = useNavigate ();
 
+    
     const handleClick = () => {
-        // alert(`You selected ${result}!`)
-        navigate(`/profile/${FORENAME}`);
-
+        navigate(`/profile/${userid}`);
+        window.location.reload();
     };
+
     
     return (
         <div
@@ -20,3 +22,4 @@ export const SearchResult = ({ SURNAME, FORENAME }) => {
         </div>
     );
 };
+

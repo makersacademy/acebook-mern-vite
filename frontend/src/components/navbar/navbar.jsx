@@ -6,13 +6,10 @@ import { SearchBar } from "./searchbar/SearchBar";
 import { SearchResultsList } from "./searchbar/SearchResultsList";
 import logo from "../../assets/Mountain-logo.png";
 
-// Links : friends, profile nad logout
-// Searchbar
-
 const Navbar =  (token) => {
     const [results, setResults] = useState([]);
     const navigate = useNavigate();
-    // // const [search, setSearch] = useState("");
+
     const handleLogout = () =>{
             localStorage.removeItem("token");
             localStorage.removeItem("userId");
@@ -26,7 +23,6 @@ const Navbar =  (token) => {
                 <div id="logo">Acebook</div>
             </div>
             <div className = "navbar-left">
-                {/* <form onSubmit = {handleSubmit}> */}
                 <div>
                     <SearchBar setResults={setResults} />
                     {results && results.length > 0 && <SearchResultsList results={results} token={token}/>}

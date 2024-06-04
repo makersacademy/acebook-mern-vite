@@ -1,20 +1,12 @@
 import { FaSearch } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./SearchBar.css";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-// import { MONGODB_URL } from "../../../../../api/db/db";
-// const mongoose = require("mongoose");
+
 
 export const SearchBar = ({ setResults }) => {
     const [input, setInput] = useState("");
     
-    // useEffect (() => {
-    //     const token = localStorage.getItem("token");
-    //     if (token) {
-    //         getUsers(token)
-                
-    //     }
-    // })
     
     const fetchData = (value) => {
         console.log(BACKEND_URL)
@@ -37,12 +29,14 @@ export const SearchBar = ({ setResults }) => {
                 );
             });
             setResults(results);
+
             console.log(results)
         });
 };
     const handleChange = (value) => {
         setInput(value);
         fetchData(value);
+
     };
 
     return (
