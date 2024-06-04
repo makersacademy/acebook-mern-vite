@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../services/authentication";
-import {passwordValidator} from "../../../../api/utils/passwordValidator";
+import {passwordValidator, notEmpty} from "../../../../api/utils/fieldValidator";
 
 export const SignupPage = () => {
+  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullname, setFullName] = useState("");
+
+  const fields = [email, password, fullname]
 
   const navigate = useNavigate();
 
@@ -14,6 +18,9 @@ export const SignupPage = () => {
     event.preventDefault();
     
     try {
+      fields.forEach(field => {
+        notEmpty(field);
+      })
       passwordValidator(password)
     } catch (err) {
       alert(err)
@@ -40,6 +47,8 @@ export const SignupPage = () => {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
+
+
 
   return (
     <>
