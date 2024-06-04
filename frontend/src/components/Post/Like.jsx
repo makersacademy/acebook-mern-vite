@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { changeLike } from "../../services/posts";
 
 const Like = (props) => {

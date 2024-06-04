@@ -39,6 +39,7 @@ const getUserById = async (req, res) => {
 
 
 const updateProfile = async (req, res) => {
+  console.log("\n\n\n\nreq.body is:", req.body);
   const user_id = req.params.user_id;
 
   try {
@@ -48,7 +49,7 @@ const updateProfile = async (req, res) => {
     }
     const updatedUser = await User.findByIdAndUpdate(user_id, { $set: req.body}, { new: true });
     
-    res.status(200).json({ message: "Profile updated successfully", updatedUser });
+    res.status(200).json({ message: "Profile updated successfully", updatedUser: updatedUser });
   } catch (error) {
     console.error("Error updating profile:", error);
     res.status(500).json({ message: "Internal server error" });

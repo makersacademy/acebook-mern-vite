@@ -37,6 +37,7 @@ export const LoginPage = () => {
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
         <input
+          placeholder="Email"
           id="email"
           type="text"
           value={email}
@@ -44,6 +45,7 @@ export const LoginPage = () => {
         />
         <label htmlFor="password">Password:</label>
         <input
+          placeholder="Password"
           id="password"
           type="password"
           value={password}

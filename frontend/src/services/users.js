@@ -21,10 +21,9 @@ export const getUserById = async (token, user_id) => {
 };
 
 
-export const updateUserProfile = async (email, password, fullName, bio, user_id) => {
+export const updateUserProfile = async (token, email, fullName, bio, user_id) => {
     const payload = {
         email: email,
-        password: password,
         fullName: fullName,
         bio: bio
     };
@@ -32,14 +31,18 @@ export const updateUserProfile = async (email, password, fullName, bio, user_id)
     const requestOptions = {
         method: 'PUT',
         headers: {
-        'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
     };
 
     const response = await fetch(`${BACKEND_URL}/users/${user_id}`, requestOptions);
 
-    if (response.status !== 200) {
+    if (response.status === 200) {
+        console.log("\n\n\n\n\n\n\n\nresponse is:", response)
+        return response;
+    } else {
         throw new Error("Unable to update user profile");
     }
 };

@@ -7,7 +7,7 @@ export const ProfilePage = () => {
     const [user, setUser] = useState({});
     const navigate = useNavigate();
     const profile_id = useParams();
-    const user_id = localStorage.getItem("user_id");
+    // const user_id = localStorage.getItem("user_id");
     
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -32,9 +32,10 @@ export const ProfilePage = () => {
 
     return (
         <>
-            <h2>{user.fullName}</h2>
+            <h1>{user.fullName}</h1>
             <p>Email: {user.email}</p>
-            {user_id == profile_id && <ProfileUpdate profile={user} />}
+            <p>Bio: {user.bio}</p>
+            <ProfileUpdate profile={user} />
         </>
     );
 };
