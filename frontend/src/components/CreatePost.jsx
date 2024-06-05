@@ -17,7 +17,7 @@ const CreatePost = () => {
     const token = localStorage.getItem("token");
     const postby = localStorage.getItem("postby");
     try {
-      let CleanNewPost =DOMpurify.sanitize(newPost);
+      let CleanNewPost = DOMpurify.sanitize(newPost);
       createPost(CleanNewPost, token, postby).then((data) => {
         // console.log("newPost value: ", newPost);
         // console.log("data value: ", data);
@@ -33,23 +33,26 @@ const CreatePost = () => {
   };
 
   return (
-    <div id="createPostContainer">
+    <div>
       <h2 id="newPostTitle">Write a post...</h2>
-      <form id="newPostForm" onSubmit={handleSubmit}>
-        <textarea
-          id="newpost"
-          type="text"
-          value={newPost}
-          onChange={handlePostChange}
-        />
-        <br />
-        <input
-          role="submit-button"
-          id="submitPost"
-          type="submit"
-          value="Post"
-        />
-      </form>
+
+      <div id="createPostContainer">
+        <form id="newPostForm" onSubmit={handleSubmit}>
+          <textarea
+            id="newpost"
+            type="text"
+            value={newPost}
+            onChange={handlePostChange}
+          />
+          <br />
+          <input
+            role="submit-button"
+            id="submitPost"
+            type="submit"
+            value="Post"
+          />
+        </form>
+      </div>
     </div>
   );
 };

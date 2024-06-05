@@ -1,27 +1,33 @@
 #createPostContainer {
-  border: 2px black dashed;
-  padding: 10px;
+  /* border: 2px black solid; */
+  display: flex;
+  justify-content: center;
 }
 
 #newPostTitle {
-  color: brown;
-  font-family: fantasy;
+  color: #3eb489;
+  /* font-family: fantasy; */
+  font-family: monospace;
 }
 
 #newpost {
   width: 250px;
   height: 100px;
-  margin-bottom: 20px;
   vertical-align: top;
   border-width: 5px;
   resize: none;
+  border-radius: 20px;
   /* cursor: pointer; */
 }
 
 #submitPost {
-  background-color: bisque;
+  font-family: monospace;
+  flex-direction: row;
+  background-color: powderblue;
+  margin-left: 220px;
+  border-radius: 20px;
 }
 
 #submitPost:hover {
-  background-color: red;
+  background-color: #3eb489;
 }
