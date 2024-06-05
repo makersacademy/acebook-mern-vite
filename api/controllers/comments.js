@@ -1,16 +1,5 @@
-const Comment = require("../models/comment");
-const { generateToken } = require("../lib/token");
-
-// const getPostComments = async (req, res) => {
-//   try {
-//     const comments = await Comment.find().populate('userId', 'firstName lastName');
-//     //const token = generateToßken(req.body.userId);
-//     res.status(200).json({ comments: comments, token: token });
-//   } catch (error) {
-//     console.error("Error fetching comments:", error);
-//     res.status(500).json({ message: error.message });
-//   }
-// };
+ const Comment = require("../models/comment");
+ const { generateToken } = require("../lib/token");
 
 const getPostComments = async (req, res) => {
   try {
@@ -54,9 +43,9 @@ const createComment = async (req, res) => {
   }
 };
 
-const CommentController = {
+ const CommentController = {
   getPostComments: getPostComments,
   createComment: createComment,
-};
+ };
 
-module.exports = CommentController;
+ module.exports = CommentController;

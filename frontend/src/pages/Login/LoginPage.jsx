@@ -6,17 +6,23 @@ import { login } from "../../services/authentication";
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // State variable for error message
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const token = await login(email, password);
+
+      const {token, user_id} = await login(email, password);/////////////////
+      console.log(token)
+      console.log(user_id)
       localStorage.setItem("token", token);
+      localStorage.setItem("user_id", user_id);//////////////////////////
+
       navigate("/posts");
     } catch (err) {
       console.error(err);
-      navigate("/login");
+      setErrorMessage("Incorrect email or password"); // Set error message
     }
   };
 
@@ -30,26 +36,27 @@ export const LoginPage = () => {
 
   return (
     <>
-    <div>
+      <div>
         <div className="login-tile">
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email:</label>
-          <input
-            id="email"
-            type="text"
-            value={email}
-            onChange={handleEmailChange}
-          />
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-          <input role="submit-button" id="submit" type="submit" value="login" />
-        </form>
+          <h2>Login</h2>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="email">Email:</label>
+            <input
+              id="email"
+              type="text"
+              value={email}
+              onChange={handleEmailChange}
+            />
+            <label htmlFor="password">Password:</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+            <input role="submit-button" id="submit" type="submit" value="login" />
+            {errorMessage && <div className="error-message">{errorMessage}</div>} {/* Render error message if present */}
+          </form>
         </div>
       </div>
     </>

@@ -1,3 +1,4 @@
+
 const mongoose = require("mongoose");
 //test number to show in console as page not being picked up by mongoDB (Or server)
 
@@ -31,18 +32,9 @@ const CommentSchema = new mongoose.Schema({
     },
 });
 
-// We use the Schema to create the Comment model. Models are classes which we can
-// use to construct entries in our Database.
-const Comment = mongoose.model("Comment", CommentSchema);
 
-// These lines will create a test post every time the server starts.
-// You can delete this once you are creating your own posts.
-// const dateTimeString = new Date().toLocaleString("en-GB");
-// const comment = new Comment({userName: 'Adrian', message: `Test post MeSsAgE, created at ${dateTimeString}`});
-// console.log(comment)
-// console.log(CommentSchema)
-// console.log(2+2)
-// const comment = new Comment //({userName: user, 'at {$dateTimeString commented`, message: {post}});
-// comment.save()
+// // We use the Schema to create the Comment model. Models are classes which we can
+// // use to construct entries in our Database.
+ const Comment = mongoose.model("Comment", CommentSchema);
 
-module.exports = Comment;
+ module.exports = Comment;

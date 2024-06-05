@@ -1,17 +1,16 @@
-import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import './NavBar.css';
 export const NavBar = () => {
+    
     const location = useLocation();
 
-    
-
+    const logOut = () => {
+        localStorage.removeItem("token")
+        localStorage.removeItem("user_id")
+    }
 
     return (
-
         <nav className="navbar-container">
-            {/* <button><img>?</img></button> */}
-
             {location.pathname !== '/profile' && (
                 <h3>
                     <button className="nav-button"><Link to="/profile">Profile</Link></button>
@@ -24,21 +23,9 @@ export const NavBar = () => {
                     <button className="nav-button"><Link to="/posts">Feed</Link></button>
                 </h3> 
             )}
-            <button className="nav-button"><Link to ="/Login">Signout</Link></button>
-        
+            <button className="nav-button" onClick={()=>logOut()}><Link to ="/Login">Signout</Link></button>
         </nav>
-        
-        
     );
-
 }
 
-
-
-    // redirect to profile
-    // redirect to login page
-
-    // logo
-
-    // banner
 
