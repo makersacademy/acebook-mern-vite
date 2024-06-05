@@ -4,7 +4,7 @@ const { generateToken } = require("../lib/token");
 
 const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate('user_id', 'firstName lastName');
+    const posts = await Post.find().populate('user_id', 'firstName lastName profilePicture');
     const token = generateToken(req.user_id);
     res.status(200).json({ posts: posts, token: token });
   } catch (error) {
@@ -33,7 +33,7 @@ const createPost = async (req, res) => {
     console.log('coming from line 33');
     console.log(post._id);
 
-    const postCreated = await Post.findById(post._id).populate('user_id', 'firstName lastName')
+    const postCreated = await Post.findById(post._id).populate('user_id', 'firstName lastName profilePicture');
     console.log(postCreated.user_id);
 
     const newToken = generateToken(req.user_id);
@@ -45,7 +45,6 @@ const createPost = async (req, res) => {
       _id: postCreated._id,
       token: newToken
     });
-
 
   } catch (error) {
     console.error("Error creating post:", error);
@@ -67,7 +66,7 @@ const likePost = async (req, res) => {
     await post.save();
 
     // Populate user_id field before sending the response
-    post = await Post.populate(post, { path: 'user_id', select: 'firstName lastName' });
+    post = await Post.populate(post, { path: 'user_id', select: 'firstName lastName profilePicture' });
     res.status(200).json(post);
   } catch (error) {
     console.error("Error liking post:", error);
@@ -89,7 +88,7 @@ const unlikePost = async (req, res) => {
     await post.save();
 
     // Populate user_id field before sending the response
-    post = await Post.populate(post, { path: 'user_id', select: 'firstName lastName' });
+    post = await Post.populate(post, { path: 'user_id', select: 'firstName lastName profilePicture' });
     res.status(200).json(post);
   } catch (error) {
     console.error("Error unliking post:", error);
