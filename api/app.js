@@ -32,7 +32,7 @@ app.use('/uploads', express.static(uploadsDir));
 app.use('/password', passwordRoutes);
 app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);
-// app.use("/comments", commentsRouter);
+app.use("/comments", commentsRouter);
 app.use("/tokens", authenticationRouter);
 app.use(express.static('public'));
 
