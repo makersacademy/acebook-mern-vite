@@ -1,10 +1,14 @@
 const User = require("../models/user");
+const slugify = require("../lib/slugify");
+const { generateToken } = require("../lib/token");
 
 const create = (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
+  const fullname = req.body.fullname;
+  const slug = slugify(fullname);
 
-  const user = new User({ email, password });
+  const user = new User({ fullname, email, password, slug });
   user
     .save()
     .then((user) => {
@@ -17,8 +21,15 @@ const create = (req, res) => {
     });
 };
 
+const getUserById = async (req, res) => {
+  const users = await User.find();
+  const token = generateToken(req.user_id);
+  res.status(200).json({ users: users, token: token });
+};
+
 const UsersController = {
   create: create,
+  getUserById: getUserById,
 };
 
 module.exports = UsersController;
