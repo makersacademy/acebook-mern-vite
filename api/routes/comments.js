@@ -1,9 +1,13 @@
-// const express = require("express");
-// const router = express.Router();
+ const express = require("express");
+ const router = express.Router();
 
-// const CommentsController = require("../controllers/comments");
+ const CommentsController = require("../controllers/comments");
 
-// router.get("/posts/:postId/comments", CommentsController.getPostComments);
-// router.post("/posts/:postId/comments", CommentsController.createComment);
+// Fetch comments for a specific post
+router.get("/posts/:postId/comments", CommentsController.getPostComments);
 
-// module.exports = router;
+// Create a new comment for a specific post
+router.post("/", CommentsController.createComment);
+
+module.exports = router;
+

@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { likePost, unlikePost } from "../../services/posts";
-
+import Comment from "../Comment/Comment"
+import {createComment, getPostComments} from "../../services/commentsServices"
+  
 const Post = ({ post, updatePost }) => {
   const [hasLiked, setHasLiked] = useState(false);
   const [userName, setUserName] = useState('');
-
+  const [comments, setComments] = useState([]);
+  const [commentMessage, setCommentMessage] = useState('');
+  
   useEffect(() => {
     // Check if the current user has liked the post
     const token = localStorage.getItem('token');
@@ -41,8 +45,42 @@ const Post = ({ post, updatePost }) => {
       console.error(`Error ${hasLiked ? 'unliking' : 'liking'} post: `, error);
     }
   };
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      getPostComments(token, props.post._id)
+        .then((data) => {
+          setComments(data.comments);
+          // localStorage.setItem("token", data.token);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }, []);
 
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem('token'); ////////////////////////
+    const user_id = localStorage.getItem('user_id');
+    
+    const newComment = {
+      commentMessage: commentMessage,
+      createdAt : new Date(), 
+      postId: props.post._id,
+      userId: user_id
+    }
+
+    const commentCreated = await createComment(token, newComment)
+
+    console.log(commentCreated._id);
+    
+    setComments((currComments)=>[commentCreated, ...currComments]);
+    setCommentMessage(''); // Clear the input field after submission
+  
+  };
   return (
+    <>
     <div className="post">
       <p><strong>{userName}</strong></p>
       <h3>{post.message}</h3>
@@ -58,7 +96,29 @@ const Post = ({ post, updatePost }) => {
         </div>
       </div>
     </div>
+          <form onSubmit={handleCommentSubmit}>
+        <label>Comment:</label>
+        <input
+          type="text"
+          onChange={(e) => setCommentMessage(e.target.value)}
+          value={commentMessage}
+          
+          required
+        />    
+        <button type="submit">Comment</button>
+      </form>
+
+      <div key={Math.random().toString()}>
+        {comments.map((comment) => (
+          <Comment key={Math.random().toString()} comment={comment} />
+        ))}
+      </div>
+      </>
   );
+
 };
+
+
+ 
 
 export default Post;

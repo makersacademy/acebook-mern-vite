@@ -6,12 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import "./FeedPage.css";
 
+
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-
-  //lists all posts 
+  
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -55,6 +55,7 @@ export const FeedPage = () => {
       console.error("Error creating post: ", error);
     }
   };
+
 
   const updatePost = (updatedPost) => {
     setPosts(posts.map(post => post._id === updatedPost._id ? updatedPost : post));
