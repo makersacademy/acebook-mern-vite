@@ -17,39 +17,33 @@ export const login = async (email, password) => {
 
   const response = await fetch(`${BACKEND_URL}/tokens`, requestOptions);
 
-  // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
-  if (response.status === 201) {
+  // Check if the response is successful
+  if (response.ok) {
     let data = await response.json();
-    return data.token;
+    return { token: data.token, user_id: data.user_id };
   } else {
+    // Throw an error if the response status is not OK
     throw new Error(
-      `Received status ${response.status} when logging in. Expected 201`
+      `Received status ${response.status} when logging in. Expected 200 OK`
     );
   }
 };
 
-export const signup = async (email, password) => {
-  const payload = {
-    email: email,
-    password: password,
-  };
-
+export const signup = async (formData) => {
   const requestOptions = {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
+    body: formData, // FormData automatically sets the correct headers
   };
 
-  let response = await fetch(`${BACKEND_URL}/users`, requestOptions);
+  let response = await fetch(`${BACKEND_URL}/users/signup`, requestOptions);
 
-  // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
-  if (response.status === 201) {
+  // Check if the response is successful
+  if (response.ok) {
     return;
   } else {
+    // Throw an error if the response status is not OK
     throw new Error(
-      `Received status ${response.status} when signing up. Expected 201`
+      `Received status ${response.status} when signing up. Expected 200 OK`
     );
   }
 };
