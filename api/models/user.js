@@ -71,6 +71,10 @@ const userSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  profilePicture: {
+    type: String,
+    default: ''
+  }
 });
 
 // Hash the password before saving the user

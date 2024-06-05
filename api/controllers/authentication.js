@@ -99,7 +99,8 @@ const signup = async (req, res) => {
       lastName,
       email,
       password, // Password will be hashed by the pre-save hook in the User model
-      DOB
+      DOB,
+      profilePicture
     });
 
     // Save the user record to the database
