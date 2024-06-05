@@ -1,8 +1,10 @@
 import Navbar from "../../components/Navbar";
+import Upload from "../../components/Upload"
 import Bio from "./Bio";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getMyProfile } from "../../services/profile";
+
 
 const ProfilePage = () => {
   const [bio, setBio] = useState("");
@@ -35,6 +37,7 @@ const ProfilePage = () => {
     <div>
       <Navbar />
       <h1>Profile page</h1>
+      <Upload />
       <Bio bio={bio} setBio={setBio} username={username} />
     </div>
   );

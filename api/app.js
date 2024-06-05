@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const profileRouter = require("./routes/profile");
+const profileUploadRoute = require('./routes/profileUpload');
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
 const authenticationRouter = require("./routes/authentication");
@@ -17,6 +18,7 @@ app.use(cors());
 
 // Parse JSON request bodies, made available on `req.body`
 app.use(bodyParser.json());
+app.use('/uploads', express.static('uploads'));
 
 // API Routes
 app.use("/users", usersRouter);
@@ -24,6 +26,7 @@ app.use("/posts", tokenChecker, postsRouter);
 app.use("/tokens", authenticationRouter);
 app.use("/comments", tokenChecker, commentsRouter);
 app.use("/profile", tokenChecker, profileRouter);
+app.use("/api/routes/profileUpload", profileUploadRoute);
 
 // 404 Handler
 app.use((_req, res) => {
