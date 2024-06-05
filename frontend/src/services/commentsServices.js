@@ -1,7 +1,7 @@
 // docs: https://vitejs.dev/guide/env-and-mode.html
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export const getPostComments = async (token) => {
+export const getPostComments = async (token, postId) => {
 const requestOptions = {
     method: "GET",
     headers: {
@@ -9,10 +9,10 @@ const requestOptions = {
     },
 };
 
-const response = await fetch(`${BACKEND_URL}/comments`, requestOptions);
+const response = await fetch(`${BACKEND_URL}/comments/posts/${postId}/comments`, requestOptions);
 
 if (response.status !== 200) {
-    throw new Error("Unable to fetch posts");
+    throw new Error("Unable to fetch comments");
 }
 
 const data = await response.json();
@@ -30,7 +30,7 @@ const requestOptions = {
     body: JSON.stringify(commententData),
 };
 
-const response = await fetch(`${BACKEND_URL}/commentsnts`, requestOptions);
+const response = await fetch(`${BACKEND_URL}/comments`, requestOptions);
 
 if (response.status !== 201) {
     throw new Error("Unable to create post");

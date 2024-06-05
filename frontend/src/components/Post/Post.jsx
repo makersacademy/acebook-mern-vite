@@ -1,5 +1,6 @@
 import Comment from "../Comment/Comment"
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {createComment, getPostComments} from "../../services/commentsServices"
 
 
 
@@ -10,26 +11,41 @@ const Post = (props) => {
   //SHOW COMMENTS USING THE COMMENT COMPONENT, AND RENDER TO THE POST, THEN CLEAR THE FORM
   // READY FOR A NEW COMMENT.
   
-  const handleCommentSubmit = (e) => {
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      getPostComments(token, props.post._id)
+        .then((data) => {
+          setComments(data.comments);
+          // localStorage.setItem("token", data.token);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }, []);
+
+  const handleCommentSubmit = async (e) => {
     e.preventDefault();
-    // const token = localStorage.getItem('token'); ////////////////////////
-    // const userId = localStorage.getItem('user_id');
+    const token = localStorage.getItem('token'); ////////////////////////
+    const user_id = localStorage.getItem('user_id');
     
     const newComment = {
-      commentMessage,
+      commentMessage: commentMessage,
       createdAt : new Date(), 
-      // postId: props.post._id,
-      // userId: userId
-      
+      postId: props.post._id,
+      userId: user_id
     }
-    console.log ('line 25', props.post._id)
-    // const newComment = {
-    //   _id: Date.now().toString(), // Generate a temporary ID for the new comment
-    //   message: commentMessage,
-    // };
-    setComments([...comments, newComment]);
+
+    const commentCreated = await createComment(token, newComment)
+
+    console.log(commentCreated._id);
+    
+    setComments((currComments)=>[commentCreated, ...currComments]);
     setCommentMessage(''); // Clear the input field after submission
+  
   };
+  console.log("line 34", comments)
 
   return (
     <>
@@ -38,20 +54,17 @@ const Post = (props) => {
         <label>Comment:</label>
         <input
           type="text"
-          value={commentMessage}
           onChange={(e) => setCommentMessage(e.target.value)}
+          value={commentMessage}
           required
         />    
         <button type="submit">Comment</button>
       </form>
 
-      <div>
+      <div key={Math.random().toString()}>
         {comments.map((comment) => (
-
-          <div key={comment._id}>
-          <Comment comment={comment} />
-          </div>
-        ))};
+          <Comment key={Math.random().toString()} comment={comment} />
+        ))}
       </div>
   </>
 )
