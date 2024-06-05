@@ -1,13 +1,9 @@
- const express = require("express");
- const router = express.Router();
+const express = require("express");
+const router = express.Router();
+const CommentController = require("../controllers/comments");
+const tokenChecker = require("../middleware/tokenChecker");
 
- const CommentsController = require("../controllers/comments");
-
-// Fetch comments for a specific post
-router.get("/posts/:postId/comments", CommentsController.getPostComments);
-
-// Create a new comment for a specific post
-router.post("/", CommentsController.createComment);
+router.get("/posts/:postId/comments", tokenChecker, CommentController.getPostComments);
+router.post("/", tokenChecker, CommentController.createComment);
 
 module.exports = router;
-

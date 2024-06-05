@@ -1,12 +1,12 @@
- const Comment = require("../models/comment");
- const { generateToken } = require("../lib/token");
+const Comment = require("../models/comment");
+const { generateToken } = require("../lib/token");
 
 const getPostComments = async (req, res) => {
   try {
-    const postId = req.query.postId; // Assuming postId is passed as a query parameter
-    const comments = await Comment.findById({ postId }).populate('userId', 'firstName lastName');
+    const postId = req.params.postId; // Assuming postId is passed as a route parameter
+    const comments = await Comment.find({ postId }).populate('userId', 'firstName lastName');
     const token = generateToken(req.userId);
-    res.status(200).json({ comments:comments, token :token});
+    res.status(200).json({ comments, token });
   } catch (error) {
     console.error("Error fetching comments:", error);
     res.status(500).json({ message: error.message });
@@ -15,8 +15,6 @@ const getPostComments = async (req, res) => {
 
 const createComment = async (req, res) => {
   try {
-    //const postId = req.params.postId; // Ensure postId is extracted correctly
-    
     const comment = new Comment({
       commentMessage: req.body.commentMessage,
       createdAt: req.body.createdAt,
@@ -25,9 +23,9 @@ const createComment = async (req, res) => {
     });
     await comment.save();
 
-    const commentCreated = await Comment.findById(comment._id).populate('userId', 'firstName lastName')
+    const commentCreated = await Comment.findById(comment._id).populate('userId', 'firstName lastName');
 
-    const newToken = generateToken(req.userId)
+    const newToken = generateToken(req.userId);
 
     res.status(201).json({ 
       commentMessage: commentCreated.commentMessage,
@@ -43,9 +41,9 @@ const createComment = async (req, res) => {
   }
 };
 
- const CommentController = {
-  getPostComments: getPostComments,
-  createComment: createComment,
- };
+const CommentController = {
+  getPostComments,
+  createComment,
+};
 
- module.exports = CommentController;
+module.exports = CommentController;
