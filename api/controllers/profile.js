@@ -24,40 +24,40 @@ const getProfile = async (req, res) => {
   res.status(200).json({ profile: profile, token: token });
 };
 
-const createProfile = async (req, res) => {
-  const profile = new Profile({
-    bio: "default bio",
-    author: req.user_id,
-    profilepicture: "default pic",
-  });
-  await profile.save();
+// const createProfile = async (req, res) => {
+//   const profile = new Profile({
+//     bio: "default bio",
+//     author: req.user_id,
+//     profilepicture: "default pic",
+//   });
+//   await profile.save();
 
-  const user = await User.findById(req.user_id, "username -_id");
-  if (!user) {
-    return res.status(404).json({ message: "User not found" });
-  }
-  const newToken = generateToken(req.user_id);
-  res.status(201).json({
-    message: "Profile created",
-    profile: {
-      _id: profile._id,
-      bio: profile.bio,
-      profilepicture: profile.profilepicture,
-      author: user.username,
-    },
-    token: newToken,
-    test: "test",
-  });
-  module.exports = {
-    getProfile,
-    createProfile,
-    getMyProfile,
-  };
-};
+//   const user = await User.findById(req.user_id, "username -_id");
+//   if (!user) {
+//     return res.status(404).json({ message: "User not found" });
+//   }
+//   const newToken = generateToken(req.user_id);
+//   res.status(201).json({
+//     message: "Profile created",
+//     profile: {
+//       _id: profile._id,
+//       bio: profile.bio,
+//       profilepicture: profile.profilepicture,
+//       author: user.username,
+//     },
+//     token: newToken,
+//     test: "test",
+//   });
+//   module.exports = {
+//     getProfile,
+//     createProfile,
+//     getMyProfile,
+//   };
+// };
 
 const ProfileController = {
   getProfile: getProfile,
-  createProfile: createProfile,
+  // createProfile: createProfile,
   getMyProfile: getMyProfile,
 };
 

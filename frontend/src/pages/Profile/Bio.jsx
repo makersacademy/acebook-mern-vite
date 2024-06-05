@@ -7,13 +7,17 @@ const Bio = ({ bio, setBio, username }) => {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("hi");
     // const CleanBio = DOMpurify.sanitize(bio);
   };
   return (
     <div>
-      <h3>Username: {username} </h3>
-      <div>
-        <p className="bio">Bio: {bio}</p>
+      <h3>My Username: </h3>
+      <p className="bio"> {username}</p>
+      <br />
+      <div className="bio_container">
+        <h4>My Bio:</h4>
+        <p className="bio"> {bio}</p>
         <form onClick={handleSubmit}>
           <input
             placeholder="type your new bio"
