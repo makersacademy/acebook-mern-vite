@@ -55,7 +55,11 @@ export const SignupPage = () => {
       navigate("/login");
     } catch (err) {
       console.error("Signup error:", err);
-      setValidationError('Something went wrong, please try again.');
+      if (err.response && err.response.status === 409) {
+        setValidationError('Email already exists. Please use a different email.');
+      } else {
+        setValidationError('Something went wrong, please try again.');
+      }
     }
   };
 

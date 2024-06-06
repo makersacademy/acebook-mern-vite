@@ -4,7 +4,10 @@ const multer = require('multer');
 const path = require('path');
 const router = express.Router();
 const fs = require('fs');
+
+
 const tokenChecker = require("../middleware/tokenChecker");
+
 
 // Define the correct path for the uploads directory
 const uploadsDir = path.join(__dirname, '../../uploads');
@@ -24,8 +27,16 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+
+router.post("/", upload.single('profilePicture'), UsersController.create);
+
+
 router.get("/profile", tokenChecker, UsersController.getProfile);
 router.get("/profile/posts", tokenChecker, UsersController.getUserPosts);
 router.post("/signup", upload.single('profilePicture'), UsersController.create);
 
+
+// Define routes
+router.get('/:userId', UsersController.getUserById);
+router.put('/:userId', UsersController.updateUserById);
 module.exports = router;

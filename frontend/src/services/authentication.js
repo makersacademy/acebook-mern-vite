@@ -35,7 +35,7 @@ export const signup = async (formData) => {
     body: formData, // FormData automatically sets the correct headers
   };
 
-  let response = await fetch(`${BACKEND_URL}/users/signup`, requestOptions);
+  let response = await fetch(`${BACKEND_URL}/users`, requestOptions);
 
   // Check if the response is successful
   if (response.ok) {
