@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
-const Comment = (props) => { 
+const Comment = (props) => {
     return (
         <div className="comment-feed">
                 <img
