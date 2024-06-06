@@ -12,17 +12,6 @@ const storage = multer.diskStorage({ destination: (req, file, cb) => {
     cb(null, Date.now() + '-' + file.originalname); } });
     const uploadMiddleware = multer({ storage: storage });
 
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'uploads/');
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, Date.now() + '-' + file.originalname);
-//     }
-// });
-
-// const uploadMiddleware = multer({ storage: storage });
-
 const upload = async (req, res) => {
         try {
             const profilePicPath = req.file.path;
@@ -46,14 +35,23 @@ const upload = async (req, res) => {
         userId: profile.author,
         },
         token: newToken,
-        path: profilePicPath,
+        path: `/uploads/${path.basename(profilePicPath)}`,
   });
         } catch (error) {
             console.error('Error uploading file', error);
             res.status(500).json({ message: 'Error uploading file', error });
         }
 };
+const get = async (req, res) => {
+    const filePath = path.join(__dirname, '..', 'uploads', req.params.filename);
+    res.sendFile(filePath, (err) => {
+      if (err) {
+        res.status(404).send('Image not found');
+      }
+    });
+};
 
 
 
-module.exports = { upload, uploadMiddleware };
+module.exports = router;
+module.exports = { upload, get, uploadMiddleware};

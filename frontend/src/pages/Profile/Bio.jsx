@@ -1,6 +1,9 @@
+import "./Profile.css";
+
 import "./bio.css";
 import { useState } from "react";
 import { updateMyBio } from "../../services/updateBio";
+
 // import DOMpurify from "dompurify";
 
 const Bio = ({ bio, setBio, username }) => {

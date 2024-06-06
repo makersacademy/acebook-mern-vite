@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import Download from "../../components/Download";
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
 import CreatePost from "../../components/CreatePost";
@@ -8,7 +8,9 @@ import Navbar from "../../components/Navbar";
 import CreateComment from "../../components/Comment/createComment";
 import { getComments } from "../../services/comments";
 import Comment from "../../components/Comment/comment";
+import "./Feed.css";
 import "./feedpage.css";
+
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -52,11 +54,16 @@ export const FeedPage = () => {
       <div className="posts-container" role="feed">
         {posts.map((post) => (
           <>
+
+            
+
             <div className="single-post-container">
               <Post
                 post={post}
                 key={post._id}
                 username={post.author ? post.author.username : "anonymous"}
+ <Download className="img" key={post._id}/>
+
               />
               <CreateComment post_id={post._id} />
               {comments
