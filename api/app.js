@@ -27,6 +27,7 @@ app.use(bodyParser.json());
 
 // Serve the uploads directory as static files
 app.use('/uploads', express.static(uploadsDir));
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // API Routes
 app.use('/password', passwordRoutes);
