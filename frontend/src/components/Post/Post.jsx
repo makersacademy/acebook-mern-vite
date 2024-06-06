@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { likePost, unlikePost } from "../../services/posts";
-import './Post.css'; // Ensure you have styles for the post
+import './Post.css';
 import Comment from "../Comment/Comment";
 import { createComment, getPostComments } from "../../services/commentsServices";
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +10,7 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 const Post = ({ post, updatePost }) => {
   const [hasLiked, setHasLiked] = useState(false);
   const [userName, setUserName] = useState('');
-  const [profilePicture, setProfilePicture] = useState(''); // State for profile picture
+  const [profilePicture, setProfilePicture] = useState('');
   const [comments, setComments] = useState([]);
   const [commentMessage, setCommentMessage] = useState('');
 
@@ -24,8 +24,8 @@ const Post = ({ post, updatePost }) => {
     if (post.user_id) {
       setUserName(`${post.user_id.firstName} ${post.user_id.lastName}`);
       const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
-      const defaultProfilePicture = `${backendUrl}/uploads/default-profile.png`;
-      setProfilePicture(post.user_id.profilePicture ? `${backendUrl}${post.user_id.profilePicture}` : defaultProfilePicture); // Use environment variable for backend URL
+      const defaultProfilePicture = `${backendUrl}/uploads/default-profile-photo.jpg`;
+      setProfilePicture(post.user_id.profilePicture ? `${backendUrl}${post.user_id.profilePicture}` : defaultProfilePicture);
     }
   }, [post.likedBy, post.user_id]);
 
@@ -73,7 +73,7 @@ const Post = ({ post, updatePost }) => {
     const commentCreated = await createComment(token, newComment);
 
     setComments((currComments) => [commentCreated, ...currComments]);
-    setCommentMessage(''); // Clear the input field after submission
+    setCommentMessage('');
   };
 
   return (
@@ -89,6 +89,7 @@ const Post = ({ post, updatePost }) => {
           <p><strong>{userName}</strong></p>
         </div>
         <h3>{post.message}</h3>
+        {post.image && <img src={`${import.meta.env.VITE_BACKEND_URL}${post.image}`} alt="Post" className="post-image" />}
         <div className="post-info">
           <span>{new Date(post.date).toLocaleString()}</span>
           <div className="likes">

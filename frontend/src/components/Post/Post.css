@@ -29,6 +29,12 @@
     justify-content: space-between;
     align-items: center;
   }
+  .post-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
   
   .likes {
     display: flex;
@@ -44,7 +50,7 @@
     color: red;
   }
 
-  .comment{
+.comment{
     padding: 5px;
     margin-left: 10px;
     margin-top: 10px;
@@ -91,3 +97,6 @@
     font-size: 18px;
     margin-left : 1em
   }
+  
+
+
