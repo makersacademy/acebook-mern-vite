@@ -1,12 +1,11 @@
 import Navbar from "../../components/Navbar";
-import Upload from "../../components/Upload"
+import Upload from "../../components/Upload";
 import Bio from "./Bio";
 import Download from "../../components/Download";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getMyProfile } from "../../services/profile";
 import "./Profile.css";
-
 
 const ProfilePage = () => {
   const [bio, setBio] = useState("");

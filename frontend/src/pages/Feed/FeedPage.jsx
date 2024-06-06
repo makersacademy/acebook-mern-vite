@@ -11,7 +11,6 @@ import Comment from "../../components/Comment/comment";
 import "./Feed.css";
 import "./feedpage.css";
 
-
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
@@ -54,17 +53,13 @@ export const FeedPage = () => {
       <div className="posts-container" role="feed">
         {posts.map((post) => (
           <>
-
-            
-
             <div className="single-post-container">
               <Post
                 post={post}
                 key={post._id}
                 username={post.author ? post.author.username : "anonymous"}
- <Download className="img" key={post._id}/>
-
-              />
+              />{" "}
+              <Download className="img" key={post._id} />
               <CreateComment post_id={post._id} />
               {comments
                 .filter((comment) => {

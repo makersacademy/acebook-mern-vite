@@ -1,6 +1,6 @@
 import "./Profile.css";
 
-import "./bio.css";
+// import "./bio.css";
 import { useState } from "react";
 import { updateMyBio } from "../../services/updateBio";
 
@@ -15,16 +15,14 @@ const Bio = ({ bio, setBio, username }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem("token");
-    try{
+    try {
       const updatedProfile = await updateMyBio(token, newbio);
       setBio(updatedProfile.bio);
       setNewBio("");
       location.reload();
-
-    
     } catch (err) {
-    console.error(err);
-  }
+      console.error(err);
+    }
     // const CleanBio = DOMpurify.sanitize(bio);
   };
   return (
