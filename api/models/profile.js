@@ -4,11 +4,7 @@ const mongoose = require("mongoose");
 // defining the columns of an SQL Database.
 const ProfileSchema = new mongoose.Schema({
   bio: String,
-  profilepicture:
-  {
-    data: Buffer,
-    contentType: String
-  },
+  profilePictureURL: String,
   author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 

@@ -19,7 +19,7 @@ const create = async (req, res) => {
         const profile = new Profile({
           bio: "default bio",
           author: user._id,
-          profilepicture: "default picture",
+          profilePictureURL: "uploads/default_profile_pic.jpg",
         });
         await profile.save();
 
