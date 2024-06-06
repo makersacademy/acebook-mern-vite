@@ -20,3 +20,6 @@
   object-fit: cover;
   border-radius: 50%;
 }
+img {
+  height: 300px;
+}
