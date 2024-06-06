@@ -1,15 +1,15 @@
 article {
   font-family: sans-serif;
 }
-.author {
+.postAuthor {
   font-family: fantasy;
+  text-decoration: underline;
+  text-align: right;
 }
 
-.post_container {
+/* .post_container {
   border: 4px black solid;
   background-color: powderblue;
   border-radius: 20px;
   padding: 20px;
-}
-
-
+} */

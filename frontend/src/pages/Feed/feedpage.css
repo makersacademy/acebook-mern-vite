@@ -3,9 +3,59 @@
   color: #3eb489;
 }
 
-.single-post-container {
+.postAndComment-container {
+  display: flex;
+  flex-direction: column;
   border: 2px #3eb489 solid;
   border-radius: 20px;
   margin-bottom: 50px;
   padding: 15px;
+  width: 800px;
+  overflow: auto;
+}
+.postAndImage {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+
+  overflow: auto;
+  justify-content: space-between;
+}
+
+.postonly {
+  flex: 1 1 75%;
+  border: 4px black solid;
+  background-color: powderblue;
+  border-radius: 20px;
+  padding: 20px;
+  /* word-wrap: break-word;
+  overflow-wrap: break-word; /* Ensures that if any word is too long to fit, it breaks onto the next line */
+  /* white-space: normal; */
+  margin-bottom: 10px;
+}
+
+.blankSpace {
+  flex: 1 1 5%;
+}
+.feed-img {
+  flex: 1 1 20%;
+}
+
+.commentsArea {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.commentsComponent {
+  width: 40%;
+  height: 40%;
+  /* border: 1px powderblue solid; */
+  /* background-color: #d3d3d3; */
+  /* border-radius: 20px; */
+  padding: 5px;
+  width: 330px;
+}
+
+.createCommentComponent {
+  width: 40%;
 }

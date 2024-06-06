@@ -5,9 +5,19 @@ article {
   font-family: fantasy;
 }
 
-.comment_container {
+/* .commentAndAuthorContainer {
   border: 1px powderblue solid;
-  background-color: powderblue;
+  background-color: #d3d3d3;
   border-radius: 20px;
   padding: 5px;
+  width: 200px;
+} */
+.commentContent {
+  font-size: medium;
+  text-align: left;
+}
+.commentAuthor {
+  font-size: small;
+  text-decoration: underline;
+  text-align: right;
 }

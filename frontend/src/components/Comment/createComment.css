@@ -1,7 +1,23 @@
+#createCommentContainer {
+  display: flex;
+}
+
 #submitComment {
   font-family: monospace;
   flex-direction: row;
   background-color: powderblue;
-  margin-left: 220px;
+  margin-left: 90px;
   border-radius: 20px;
+}
+#submitComment:hover {
+  background-color: #3eb489;
+}
+
+#newComment {
+  width: 200px;
+  height: 50px;
+  vertical-align: top;
+  border-width: 3px;
+  resize: none;
+  border-radius: 15px;
 }
