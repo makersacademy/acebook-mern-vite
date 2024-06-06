@@ -4,6 +4,7 @@ const multer = require('multer');
 const path = require('path');
 const router = express.Router();
 const fs = require('fs');
+
 // Define the correct path for the uploads directory
 const uploadsDir = path.join(__dirname, '../../uploads');
 if (!fs.existsSync(uploadsDir)) {
@@ -22,6 +23,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/signup", upload.single('profilePicture'), UsersController.create);
+router.post("/", upload.single('profilePicture'), UsersController.create);
 
+
+// Define routes
+router.get('/:userId', UsersController.getUserById);
+router.put('/:userId', UsersController.updateUserById);
 module.exports = router;

@@ -5,9 +5,9 @@ const AuthenticationController = require("../controllers/authentication");
 
 router.post("/", AuthenticationController.createToken);
 router.post('/signup', AuthenticationController.signup);
-
+router.post('/tokens', AuthenticationController.createToken); 
 // Login route
-router.post('/login', AuthenticationController.createToken);
+
 
 // Update user route
 
