@@ -5,10 +5,10 @@ import { HomePage } from "./pages/Home/HomePage";
 import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
-import { SimpleNavBar} from './components/SimpleNavBar/SimpleNavBar'
-import { NavBar} from './components/NavBar/NavBar'
-import {Profile} from './pages/Profile/Profile'
-import {EditPage} from './pages/EditPage/EditPage'
+import { SimpleNavBar} from './components/SimpleNavBar/SimpleNavBar';
+import { NavBar} from './components/NavBar/NavBar';
+import Profile from './pages/ProfilePage/Profile';
+import {EditPage} from './pages/EditPage/EditPage';
 
 // docs: https://reactrouter.com/en/main/start/overview
 const router = createBrowserRouter([
