@@ -1,0 +1,22 @@
+.bio {
+    border: 2px powderblue solid;
+  }
+  
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.container div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.img {
+    height: 300px;
+    width: 300px;
+    object-fit: cover;
+    border-radius: 50%;
+}

@@ -1,4 +1,4 @@
-import "./bio.css";
+import "./Profile.css";
 // import DOMpurify from "dompurify";
 
 const Bio = ({ bio, setBio, username }) => {
