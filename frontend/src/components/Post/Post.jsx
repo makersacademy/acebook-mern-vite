@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { likePost, unlikePost } from "../../services/posts";
 import './Post.css'; // Ensure you have styles for the post
 import Comment from "../Comment/Comment";
 import { createComment, getPostComments } from "../../services/commentsServices";
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 const Post = ({ post, updatePost }) => {
   const [hasLiked, setHasLiked] = useState(false);
@@ -76,7 +77,7 @@ const Post = ({ post, updatePost }) => {
   };
 
   return (
-    <>
+    <div className="container">
       <div className="post">
         <div className="user-info">
           <img
@@ -100,23 +101,38 @@ const Post = ({ post, updatePost }) => {
           </div>
         </div>
       </div>
-      <form onSubmit={handleCommentSubmit}>
-        <label>Comment:</label>
-        <input
-          type="text"
-          onChange={(e) => setCommentMessage(e.target.value)}
-          value={commentMessage}
-          required
-        />    
-        <button type="submit">Comment</button>
-      </form>
 
-      <div>
-        {comments.map((comment) => (
-          <Comment key={comment._id} comment={comment} />
-        ))}
+      <div className="comment">
+          {comments.map((comment) => (
+            <Comment 
+            key={comment._id} 
+            comment={comment} 
+            profilePicture = {profilePicture}
+            />
+          ))}
+        <form onSubmit={handleCommentSubmit}>
+          <div className="user-info-commments">
+            <img
+              src={profilePicture}
+              alt="Profile"
+              className="profile-picture-comments"
+              onError={(e) => { e.target.onerror = null; e.target.src=`${import.meta.env.VITE_BACKEND_URL}/uploads/default-profile-photo.jpg`; }}
+            />
+            <textarea
+              type="text"
+              placeholder = {`Hey ${post.user_id.firstName}, add a comment...`}
+              value={commentMessage}
+              onChange={(e) => setCommentMessage(e.target.value)}
+              rows="2" 
+              required
+            />  
+            <button type="submit" className="comment-add-btn">
+              <FontAwesomeIcon icon={faPaperPlane} />
+            </button>
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 };
 
