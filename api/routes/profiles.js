@@ -1,8 +1,9 @@
 const express = require('express');
-const profilesController = require('../controllers/profiles');
-
 const router = express.Router();
+const UsersController = require('../controllers/users');
+const tokenChecker = require('../middleware/tokenChecker');
 
-router.get('/profile', profilesController.getProfile);
+router.get('/profile', tokenChecker, UsersController.getProfile);
+router.get('/profile/posts', tokenChecker, UsersController.getUserPosts);
 
 module.exports = router;

@@ -76,33 +76,32 @@ const Post = ({ post, updatePost }) => {
   };
 
   return (
-    <div className="container">
-      <div className="post">
-        <div className="user-info">
+    <div className="card my-3">
+      <div className="card-body">
+        <div className="d-flex align-items-center mb-3">
           <img
             src={profilePicture}
             alt="Profile"
-            className="profile-picture"
+            className="rounded-circle me-3"
+            width="50"
+            height="50"
             onError={(e) => { e.target.onerror = null; e.target.src=`${import.meta.env.VITE_BACKEND_URL}/uploads/default-profile-photo.jpg`; }}
           />
-          <p><strong>{userName}</strong></p>
-        </div>
-        <h3 >{post.message}</h3>
-        {post.image && <img src={`${import.meta.env.VITE_BACKEND_URL}${post.image}`} alt="Post" className="post-image" />}
-        <div className="post-info">
-          <span>{new Date(post.date).toLocaleString()}</span>
-          <div className="likes">
-            <FontAwesomeIcon 
-              icon={faHeart} 
-              className={`heart ${hasLiked ? 'liked' : ''}`} 
-              onClick={handleLikeToggle} 
-            />
-            <span>{post.numOfLikes}</span>
+          <div>
+            <h5 className="mb-0">{userName}</h5>
+            <small className="text-muted">{new Date(post.date).toLocaleString()}</small>
           </div>
+        </div>
+        <p className="card-text text-left">{post.message}</p> {/* Ensure text is left aligned */}
+        {post.image && <img src={`${import.meta.env.VITE_BACKEND_URL}${post.image}`} alt="Post" className="img-fluid rounded mb-3" />}
+        <div className="d-flex justify-content-between">
+          <button className="btn btn-outline-danger" onClick={handleLikeToggle}>
+            <FontAwesomeIcon icon={faHeart} className={hasLiked ? 'text-danger' : ''} /> {post.numOfLikes}
+          </button>
         </div>
       </div>
 
-      <div className="comment">
+      <div className="mt-4">
         {comments.map((comment) => (
           <Comment 
             key={comment._id} 
@@ -110,26 +109,27 @@ const Post = ({ post, updatePost }) => {
             profilePicture={comment.userId.profilePicture ? `${import.meta.env.VITE_BACKEND_URL}${comment.userId.profilePicture}` : `${import.meta.env.VITE_BACKEND_URL}/uploads/default-profile-photo.jpg`}
           />
         ))}
-        <form onSubmit={handleCommentSubmit}>
-          <div className="user-info-comments">
-            <img
-              src={profilePicture}
-              alt="Profile"
-              className="profile-picture-comments"
-              onError={(e) => { e.target.onerror = null; e.target.src=`${import.meta.env.VITE_BACKEND_URL}/uploads/default-profile-photo.jpg`; }}
-            />
-            <textarea
-              type="text"
-              placeholder={`Hey ${post.user_id.firstName}, add a comment...`}
-              value={commentMessage}
-              onChange={(e) => setCommentMessage(e.target.value)}
-              rows="2" 
-              required
-            />  
-            <button type="submit" className="comment-add-btn">
-              <FontAwesomeIcon icon={faPaperPlane} />
-            </button>
-          </div>
+        <form onSubmit={handleCommentSubmit} className="d-flex align-items-center mt-3">
+          <img
+            src={profilePicture}
+            alt="Profile"
+            className="rounded-circle me-3"
+            width="30"
+            height="30"
+            onError={(e) => { e.target.onerror = null; e.target.src=`${import.meta.env.VITE_BACKEND_URL}/uploads/default-profile-photo.jpg`; }}
+          />
+          <textarea
+            className="form-control me-2"
+            type="text"
+            placeholder={`Hey ${post.user_id.firstName}, add a comment...`}
+            value={commentMessage}
+            onChange={(e) => setCommentMessage(e.target.value)}
+            rows="2"
+            required
+          />
+          <button type="submit" className="btn btn-primary">
+            <FontAwesomeIcon icon={faPaperPlane} />
+          </button>
         </form>
       </div>
     </div>
