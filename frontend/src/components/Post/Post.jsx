@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { likePost, unlikePost } from "../../services/posts";
-import './Post.css'; // Ensure you have styles for the post
+import './Post.css';
 import Comment from "../Comment/Comment";
 import { createComment, getPostComments } from "../../services/commentsServices";
 
 const Post = ({ post, updatePost }) => {
   const [hasLiked, setHasLiked] = useState(false);
   const [userName, setUserName] = useState('');
-  const [profilePicture, setProfilePicture] = useState(''); // State for profile picture
+  const [profilePicture, setProfilePicture] = useState('');
   const [comments, setComments] = useState([]);
   const [commentMessage, setCommentMessage] = useState('');
 
@@ -23,8 +23,8 @@ const Post = ({ post, updatePost }) => {
     if (post.user_id) {
       setUserName(`${post.user_id.firstName} ${post.user_id.lastName}`);
       const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
-      const defaultProfilePicture = `${backendUrl}/uploads/default-profile.png`;
-      setProfilePicture(post.user_id.profilePicture ? `${backendUrl}${post.user_id.profilePicture}` : defaultProfilePicture); // Use environment variable for backend URL
+      const defaultProfilePicture = `${backendUrl}/uploads/default-profile-photo.jpg`;
+      setProfilePicture(post.user_id.profilePicture ? `${backendUrl}${post.user_id.profilePicture}` : defaultProfilePicture);
     }
   }, [post.likedBy, post.user_id]);
 
@@ -72,51 +72,67 @@ const Post = ({ post, updatePost }) => {
     const commentCreated = await createComment(token, newComment);
 
     setComments((currComments) => [commentCreated, ...currComments]);
-    setCommentMessage(''); // Clear the input field after submission
+    setCommentMessage('');
   };
 
   return (
-    <>
-      <div className="post">
-        <div className="user-info">
+    <div className="card my-3">
+      <div className="card-body">
+        <div className="d-flex align-items-center mb-3">
           <img
             src={profilePicture}
             alt="Profile"
-            className="profile-picture"
+            className="rounded-circle me-3"
+            width="50"
+            height="50"
             onError={(e) => { e.target.onerror = null; e.target.src=`${import.meta.env.VITE_BACKEND_URL}/uploads/default-profile-photo.jpg`; }}
           />
-          <p><strong>{userName}</strong></p>
-        </div>
-        <h3>{post.message}</h3>
-        <div className="post-info">
-          <span>{new Date(post.date).toLocaleString()}</span>
-          <div className="likes">
-            <FontAwesomeIcon 
-              icon={faHeart} 
-              className={`heart ${hasLiked ? 'liked' : ''}`} 
-              onClick={handleLikeToggle} 
-            />
-            <span>{post.numOfLikes}</span>
+          <div>
+            <h5 className="mb-0">{userName}</h5>
+            <small className="text-muted">{new Date(post.date).toLocaleString()}</small>
           </div>
         </div>
+        <p className="card-text text-left">{post.message}</p> {/* Ensure text is left aligned */}
+        {post.image && <img src={`${import.meta.env.VITE_BACKEND_URL}${post.image}`} alt="Post" className="img-fluid rounded mb-3" />}
+        <div className="d-flex justify-content-between">
+          <button className="btn btn-outline-danger" onClick={handleLikeToggle}>
+            <FontAwesomeIcon icon={faHeart} className={hasLiked ? 'text-danger' : ''} /> {post.numOfLikes}
+          </button>
+        </div>
       </div>
-      <form onSubmit={handleCommentSubmit}>
-        <label>Comment:</label>
-        <input
-          type="text"
-          onChange={(e) => setCommentMessage(e.target.value)}
-          value={commentMessage}
-          required
-        />    
-        <button type="submit">Comment</button>
-      </form>
 
-      <div>
+      <div className="mt-4">
         {comments.map((comment) => (
-          <Comment key={comment._id} comment={comment} />
+          <Comment 
+            key={comment._id} 
+            comment={comment} 
+            profilePicture={comment.userId.profilePicture ? `${import.meta.env.VITE_BACKEND_URL}${comment.userId.profilePicture}` : `${import.meta.env.VITE_BACKEND_URL}/uploads/default-profile-photo.jpg`}
+          />
         ))}
+        <form onSubmit={handleCommentSubmit} className="d-flex align-items-center mt-3">
+          <img
+            src={profilePicture}
+            alt="Profile"
+            className="rounded-circle me-3"
+            width="30"
+            height="30"
+            onError={(e) => { e.target.onerror = null; e.target.src=`${import.meta.env.VITE_BACKEND_URL}/uploads/default-profile-photo.jpg`; }}
+          />
+          <textarea
+            className="form-control me-2"
+            type="text"
+            placeholder={`Hey ${post.user_id.firstName}, add a comment...`}
+            value={commentMessage}
+            onChange={(e) => setCommentMessage(e.target.value)}
+            rows="2"
+            required
+          />
+          <button type="submit" className="btn btn-primary">
+            <FontAwesomeIcon icon={faPaperPlane} />
+          </button>
+        </form>
       </div>
-    </>
+    </div>
   );
 };
 

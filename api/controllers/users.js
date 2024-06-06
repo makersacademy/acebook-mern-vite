@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const User = require("../models/user");
+const Post = require("../models/post"); // Make sure you import the Post model
 
 // Define the correct path for the uploads directory outside the api folder
 const uploadsDir = path.join(__dirname, '../../uploads');
@@ -52,6 +53,7 @@ const getUserById = async (req, res) => {
   }
 };
 
+
 const updateUserById = async (req, res) => {
   const userId = req.params.userId; // Extract user ID from request parameters
   const newData = req.body; // Data to update
@@ -70,6 +72,35 @@ const UsersController = {
   create: create,
   getUserById:getUserById,
   updateUserById:updateUserById,
+
+
+const getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user_id);
+    if(!user){
+      return res.status(404).json({error:'User not found'});
+    }
+    res.json(user);
+  } catch (error) {
+    console.error('error fetching user profile: ', error);
+    res.status(500).json({error: 'internal server error'})
+  }
+}
+
+const getUserPosts = async (req, res) => {
+  try {
+      const posts = await Post.find({ user_id: req.user_id });
+      res.json({ posts });
+  } catch (error) {
+      console.error('Error fetching user posts:', error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+const UsersController = {
+  create,
+  getProfile,
+  getUserPosts
 
 };
 
