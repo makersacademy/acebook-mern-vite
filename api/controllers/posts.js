@@ -5,21 +5,23 @@ const Post = require("../models/post");
 const User = require("../models/user");
 const { generateToken } = require("../lib/token");
 
+// Define the correct path for the uploads directory
 const uploadsDir = path.join(__dirname, '../../uploads');
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
+// File upload controller
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, uploadsDir);
+    cb(null, uploadsDir); // Use the uploadsDir path
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
+    cb(null, Date.now() + '-' + file.originalname); // Add a timestamp to the filename
   }
 });
 
-const upload = multer({ storage: storage }).single('image');
+const upload = multer({ storage: storage }).single('image'); // Adjust multer to handle a single file upload
 
 const getAllPosts = async (req, res) => {
   try {
@@ -49,7 +51,7 @@ const createPost = async (req, res) => {
       const date = req.body.date;
       const numOfLikes = req.body.numOfLikes;
       const user_id = req.user_id;
-      const image = req.file ? `/uploads/${req.file.filename}` : '';
+      const image = req.file ? `/uploads/${req.file.filename}` : ''; // Store the image URL
 
       const post = new Post({ message, date, numOfLikes, user_id, image });
       await post.save();

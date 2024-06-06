@@ -5,6 +5,7 @@
         border-radius: 5px;
         background-color: #f9f9f9;
         width:100%;
+        margin-bottom: 10px;
     }
 
     .comment-content{
@@ -49,11 +50,13 @@
     .likes-feed{
         display: flex;
         align-items: center;
-        gap:0.2em
+        gap:0.2em;
+        color: red;
     }
     .heart-feed{
         cursor: pointer;
-        margin-right: 10px;
+        margin-right: 5px;
+        color: red;
     }
     
     .heart-feed.liked {

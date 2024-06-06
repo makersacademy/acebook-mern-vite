@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { likePost, unlikePost } from "../../services/posts";
 import './Post.css';
 import Comment from "../Comment/Comment";
 import { createComment, getPostComments } from "../../services/commentsServices";
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 const Post = ({ post, updatePost }) => {
   const [hasLiked, setHasLiked] = useState(false);
@@ -88,7 +87,7 @@ const Post = ({ post, updatePost }) => {
           />
           <p><strong>{userName}</strong></p>
         </div>
-        <h3>{post.message}</h3>
+        <h3 >{post.message}</h3>
         {post.image && <img src={`${import.meta.env.VITE_BACKEND_URL}${post.image}`} alt="Post" className="post-image" />}
         <div className="post-info">
           <span>{new Date(post.date).toLocaleString()}</span>
@@ -104,15 +103,15 @@ const Post = ({ post, updatePost }) => {
       </div>
 
       <div className="comment">
-          {comments.map((comment) => (
-            <Comment 
+        {comments.map((comment) => (
+          <Comment 
             key={comment._id} 
             comment={comment} 
-            profilePicture = {profilePicture}
-            />
-          ))}
+            profilePicture={comment.userId.profilePicture ? `${import.meta.env.VITE_BACKEND_URL}${comment.userId.profilePicture}` : `${import.meta.env.VITE_BACKEND_URL}/uploads/default-profile-photo.jpg`}
+          />
+        ))}
         <form onSubmit={handleCommentSubmit}>
-          <div className="user-info-commments">
+          <div className="user-info-comments">
             <img
               src={profilePicture}
               alt="Profile"
@@ -121,7 +120,7 @@ const Post = ({ post, updatePost }) => {
             />
             <textarea
               type="text"
-              placeholder = {`Hey ${post.user_id.firstName}, add a comment...`}
+              placeholder={`Hey ${post.user_id.firstName}, add a comment...`}
               value={commentMessage}
               onChange={(e) => setCommentMessage(e.target.value)}
               rows="2" 
