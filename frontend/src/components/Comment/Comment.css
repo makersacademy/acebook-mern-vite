@@ -50,7 +50,7 @@
         display: flex;
         align-items: center;
         gap:0.2em
-    
+    }
     .heart-feed{
         cursor: pointer;
         margin-right: 10px;
