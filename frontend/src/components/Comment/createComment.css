@@ -1,0 +1,7 @@
+#submitComment {
+  font-family: monospace;
+  flex-direction: row;
+  background-color: powderblue;
+  margin-left: 220px;
+  border-radius: 20px;
+}

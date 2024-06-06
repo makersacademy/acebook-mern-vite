@@ -1,13 +1,30 @@
 import "./Profile.css";
+
+import "./bio.css";
+import { useState } from "react";
+import { updateMyBio } from "../../services/updateBio";
+
 // import DOMpurify from "dompurify";
 
 const Bio = ({ bio, setBio, username }) => {
+  const [newbio, setNewBio] = useState("");
   const handleBioChange = (event) => {
-    setBio(event.target.value);
+    setNewBio(event.target.value);
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("hi");
+    const token = localStorage.getItem("token");
+    try{
+      const updatedProfile = await updateMyBio(token, newbio);
+      setBio(updatedProfile.bio);
+      setNewBio("");
+      location.reload();
+
+    
+    } catch (err) {
+    console.error(err);
+  }
     // const CleanBio = DOMpurify.sanitize(bio);
   };
   return (
@@ -18,16 +35,16 @@ const Bio = ({ bio, setBio, username }) => {
       <div className="bio_container">
         <h4>My Bio:</h4>
         <p className="bio"> {bio}</p>
-        <form onClick={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <input
             placeholder="type your new bio"
             id="bio"
             type="text"
-            value={bio}
+            value={newbio}
             onChange={handleBioChange}
           />
 
-          <button>update bio</button>
+          <button type="submit">update bio</button>
         </form>
       </div>
     </div>

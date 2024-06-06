@@ -24,64 +24,31 @@ const getProfile = async (req, res) => {
   res.status(200).json({ profile: profile, token: token });
 };
 
-// const createProfile = async (req, res) => {
-//   const profile = new Profile({
-//     bio: "default bio",
-//     author: req.user_id,
-//     profilepicture: "default pic",
-//   });
-//   await profile.save();
+const updateMyBio = async (req, res) => { 
+  try { 
+    const { bio} = req.body; 
+    const profile = await Profile.findOneAndUpdate(
+      { author: req.user_id },
+      { bio: bio},
+      { new: true } );
+      if (!profile) {
+      return res.status(404).json({ message: "Profile not found" }); }
+    const token = generateToken(req.user_id); 
+    res.status(200).json({ profile: profile, token: token }); }
+        catch (error) {
+          res.status(500).json({ message: error.message });
+       }};
 
-//   const user = await User.findById(req.user_id, "username -_id");
-//   if (!user) {
-//     return res.status(404).json({ message: "User not found" });
-//   }
-//   const newToken = generateToken(req.user_id);
-//   res.status(201).json({
-//     message: "Profile created",
-//     profile: {
-//       _id: profile._id,
-//       bio: profile.bio,
-//       profilepicture: profile.profilepicture,
-//       author: user.username,
-//     },
-//     token: newToken,
-//     test: "test",
-//   });
-//   module.exports = {
-//     getProfile,
-//     createProfile,
-//     getMyProfile,
-//   };
-// };
+
+
+
 
 const ProfileController = {
   getProfile: getProfile,
-  // createProfile: createProfile,
   getMyProfile: getMyProfile,
+  updateMyBio: updateMyBio,
 };
 
 module.exports = ProfileController;
 
-// const editProfile = Profile({
-//     const query = {'username': req.user.username, 'bio': req.body.bio, 'profilepicture': req.body.profilepicture},
-//     req.newData.username = req.user.username,
-//     bio: req.body.bio,
-//     author: req.user_id, // Assuming `user_id` is attached to `req` by authentication middleware
-//     profilepicture: req.body.profilepicture
-//   });
-//   // const post = new Post({ message: req.body, author: req.user_id });
-//   await profile.save();
 
-//   const user = await User.findById(req.user_id, "username -_id");
-//   if (!user) {
-//     return res.status(404).json({ message: "User not found" });
-//   }};
-
-//   var query = {'username': req.user.username};
-//   req.newData.username = req.user.username;
-
-//   MyModel.findOneAndUpdate(query, req.newData, {upsert: true}, function(err, doc) {
-//       if (err) return res.send(500, {error: err});
-//       return res.send('Succesfully saved.');
-//   });

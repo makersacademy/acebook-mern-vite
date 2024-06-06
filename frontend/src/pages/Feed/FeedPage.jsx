@@ -9,6 +9,7 @@ import CreateComment from "../../components/Comment/createComment";
 import { getComments } from "../../services/comments";
 import Comment from "../../components/Comment/comment";
 import "./Feed.css";
+import "./feedpage.css";
 
 
 export const FeedPage = () => {
@@ -30,11 +31,10 @@ export const FeedPage = () => {
           console.error(err);
           navigate("/login");
         });
-      getComments(localStorage.getItem("token"))
-      .then((data) => {
+      getComments(localStorage.getItem("token")).then((data) => {
         setComments(data.comments.reverse());
         localStorage.setItem("token", data.token);
-      })
+      });
     }
   }, [navigate]);
 
@@ -50,34 +50,42 @@ export const FeedPage = () => {
         <Navbar />
         <CreatePost />
       </div>
-      <h2>Posts</h2>
-      <div className="feed" role="feed">
+      <h2 className="posts-title">Posts</h2>
+      <div className="posts-container" role="feed">
         {posts.map((post) => (
           <>
-            <Post
-              post={post}
-              key={post._id}
-              username={post.author ? post.author.username : "anonymous"}
-            />
-            <Download className="img" key={post._id}/>
-            <CreateComment post_id = {post._id}/>
-            {comments.filter((comment) => {return comment.postId == post._id}).map((comment) => (
-              // console.log(comment._id);
-              // console.log(comment.userId.username);
-              // console.log(comment.message);
-              <Comment
-                message={comment.message}
-                key={comment._id}
-                username={comment.userId.username}
+
+            
+
+            <div className="single-post-container">
+              <Post
+                post={post}
+                key={post._id}
+                username={post.author ? post.author.username : "anonymous"}
+ <Download className="img" key={post._id}/>
+
               />
-            ))}
-            <br />
-            <br />
+              <CreateComment post_id={post._id} />
+              {comments
+                .filter((comment) => {
+                  return comment.postId == post._id;
+                })
+                .map((comment) => (
+                  // console.log(comment._id);
+                  // console.log(comment.userId.username);
+                  // console.log(comment.message);
+                  <Comment
+                    message={comment.message}
+                    key={comment._id}
+                    username={comment.userId.username}
+                  />
+                ))}
+              <br />
+              <br />
+            </div>
           </>
         ))}
-     
       </div>
-      
     </>
   );
 };
