@@ -25,6 +25,7 @@ const upload = async (req, res) => {
             });
             await profile.save();
             const newToken = generateToken(req.user_id);
+
             res.status(201).json({
             message: "Picture Uploaded",
             upload: {
@@ -34,13 +35,23 @@ const upload = async (req, res) => {
             },
             token: newToken,
             path: profilePicPath,
+
   });
         } catch (error) {
             console.error('Error uploading file', error);
             res.status(500).json({ message: 'Error uploading file', error });
         }
 };
+const get = async (req, res) => {
+    const filePath = path.join(__dirname, '..', 'uploads', req.params.filename);
+    res.sendFile(filePath, (err) => {
+      if (err) {
+        res.status(404).send('Image not found');
+      }
+    });
+};
 
 
 
-module.exports = { upload, uploadMiddleware };
+module.exports = router;
+module.exports = { upload, get, uploadMiddleware};

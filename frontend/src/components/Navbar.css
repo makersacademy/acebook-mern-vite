@@ -1,20 +1,30 @@
 .navbar {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 20px;
+  padding-top: 10px;
+  justify-content: center;
 }
 
-.profile, .feed, .logout {
-    background-color: #1f62ab;
-    color: white;
-    transition-duration: 0.4s;
-    font-size: 16px;
-    padding: 14px 36px;
-    margin: 30px;
+
+.profile-button,
+.feed-button,
+.logout-button {
+  background-color: #1f62ab;
+  color: white;
+  transition-duration: 0.4s;
+  font-size: 16px;
+  padding: 10px 10px;
+  /* padding: 12px 28px; */
+  border-radius: 20px;
+  margin-left: 10px;
 }
 
-.profile:hover, .feed:hover, .logout:hover {
-    background-color:#1da4e3;
-    color: white;
-    font-size: 16px;
-    padding: 12px 28px;
+.profile-button:hover,
+.feed-button:hover,
+.logout-button:hover {
+  background-color: #1da4e3;
+  color: white;
+  font-size: 16px;
+  padding: 12px 28px;
 }

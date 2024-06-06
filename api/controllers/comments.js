@@ -9,7 +9,7 @@ const getAllComments = async (req, res) => {
     select: "username -_id", // Only fetch the username field and exclude the MongoDB default '_id' field
   });
   console.log(comments[0]);
-  console.log(comments[0].username);
+  // console.log(comments[0].username);
   const token = generateToken(req.user_id);
   res.status(200).json({ comments: comments, token: token });
 };

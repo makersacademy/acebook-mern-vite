@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createComment } from "../../services/createComment";
-// import "./CreatePost.css";
+import "./createComment.css";
 import DOMpurify from "dompurify";
 
 const CreateComment = (props) => {
@@ -17,7 +17,7 @@ const CreateComment = (props) => {
     const postby = localStorage.getItem("postby");
     const post_id = props.post_id;
     try {
-      let CleanNewComment =DOMpurify.sanitize(newComment);
+      let CleanNewComment = DOMpurify.sanitize(newComment);
       createComment(CleanNewComment, token, postby, post_id).then((data) => {
         // console.log("newPost value: ", newPost);
         // console.log("data value: ", data);

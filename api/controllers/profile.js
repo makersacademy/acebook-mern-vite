@@ -24,6 +24,7 @@ const getProfile = async (req, res) => {
   res.status(200).json({ profile: profile, token: token });
 };
 
+
 const updateMyImage = async (req, res) => { 
   try { 
     const { profilePictureURL} = req.body; 
@@ -39,10 +40,34 @@ const updateMyImage = async (req, res) => {
           res.status(500).json({ message: error.message });
        }};
 
+const updateMyBio = async (req, res) => { 
+  try { 
+    const { bio} = req.body; 
+    const profile = await Profile.findOneAndUpdate(
+      { author: req.user_id },
+      { bio: bio},
+      { new: true } );
+      if (!profile) {
+      return res.status(404).json({ message: "Profile not found" }); }
+    const token = generateToken(req.user_id); 
+    res.status(200).json({ profile: profile, token: token }); }
+        catch (error) {
+          res.status(500).json({ message: error.message });
+       }};
+
+
+
+
+
+
 const ProfileController = {
   getProfile: getProfile,
   getMyProfile: getMyProfile,
+
   updateMyImage: updateMyImage,
+
+  updateMyBio: updateMyBio,
+
 };
 
 module.exports = ProfileController;

@@ -1,7 +1,10 @@
+
 // eslint-disable-next-line no-unused-vars
-import React, {useState} from "react";
-import axios from 'axios';
+
 import { updateMyImage } from "../services/updateImage";
+import React, {useState, useEffect} from "react";
+import axios from 'axios';
+
 
 const Upload = () => {
     const [file, setFile] = useState(null);
@@ -15,6 +18,7 @@ const Upload = () => {
         const token = localStorage.getItem("token");
         const formData = new FormData();
         formData.append("profilepicture", file);
+
         // formData.append('bio', '');
         console.log("file: ", file);
         
@@ -34,13 +38,30 @@ const Upload = () => {
     }
 
 
+        formData.append('bio', '');
+        const token = localStorage.getItem('token');
+
+        try {
+            const res = await axios.post("http://localhost:3000/api/routes/profileUpload", formData, {
+                headers: { "Content-Type": "multipart/form-data",
+                'Authorization': `Bearer ${token}`
+                },
+            });
+            console.log(res.data.path);
+        } catch (error) {
+            console.error('Error', error);
+        }
+    };
+
+
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="file" onChange={handleFileChange}/>
+        <form id="form" onSubmit={handleSubmit} encType="multipart-form-data">
+            <input id="file" type="file" onChange={handleFileChange}/>
             <button type="submit">Upload</button>
-            {/* <input id="upload" type="file" value={file} onChange={handleFileChange}/> */}
+        <hr></hr>
+
         </form>
     );
-}
+};
 
 export default Upload;

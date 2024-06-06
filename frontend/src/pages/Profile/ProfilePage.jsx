@@ -1,10 +1,11 @@
 import Navbar from "../../components/Navbar";
-import Upload from "../../components/Upload"
+import Upload from "../../components/Upload";
 import Bio from "./Bio";
+import Download from "../../components/Download";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getMyProfile } from "../../services/profile";
-
+import "./Profile.css";
 
 
 const ProfilePage = () => {
@@ -42,6 +43,7 @@ const ProfilePage = () => {
       {/* <h2>{profilePictureURL}this is a picture</h2> */}
       <img src={`http://localhost:3000/${profilePictureURL}`} alt="Profile Picture" />
       <Upload />
+      <Download />
       <Bio bio={bio} setBio={setBio} username={username} />
            </div>
           );
