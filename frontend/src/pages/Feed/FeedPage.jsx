@@ -61,6 +61,7 @@ export const FeedPage = () => {
   };
 
   const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  
 
   return (
     <div className="feed-container">

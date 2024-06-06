@@ -1,11 +1,50 @@
 // Create comment object with this component...
-
+import { useState, useEffect } from "react";
 import "./Comment.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { likeComment, unlikeComment } from "../../services/commentsServices"
 
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 const Comment = (props) => {
+    const [hasLiked, setHasLiked] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (props.comment.likedBy && token) {
+            console.log('coment.likeBy line 20',props.comment.likedBy);
+            const userId = JSON.parse(atob(token.split('.')[1])).user_id;
+            setHasLiked(props.comment.likedBy.includes(userId));
+            console.log(props.comment.likedBy.includes(userId));
+        }
+    
+        // if (comment.userId) {
+        //     setUserName(`${props.comment.userId.firstName} ${props.comment.userId.lastName}`);
+        //     const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
+            // const defaultProfilePicture = `${backendUrl}/uploads/default-profile-photo.jpg`;
+            // setProfilePicture(post.user_id.profilePicture ? `${backendUrl}${post.user_id.profilePicture}` : defaultProfilePicture);
+        // }
+    }, [props.comment.likedBy]);
+
+    console.log('hasLiked line 28', hasLiked);
+    
+    const handleLikeToggle = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            let updatedComment;
+            if (hasLiked) {
+                updatedComment = await unlikeComment(token, props.comment._id);
+            } else {
+                updatedComment = await likeComment(token, props.comment._id);
+            }
+            setHasLiked(!hasLiked);
+            props.updateComment(updatedComment);
+        } catch (error) {
+            console.error(`Error ${hasLiked ? 'unliking' : 'liking'} comment: `, error);
+        }
+        };
+        
+        console.log('hasLiked line 46', hasLiked);
     return (
         <div className="comment-feed">
                 <img
@@ -24,10 +63,10 @@ const Comment = (props) => {
                             <div className="likes-feed">
                                 <FontAwesomeIcon 
                                     icon={faHeart} 
-                                    // className={`heart-feed ${hasLiked ? 'liked' : ''}`} 
-                                    // onClick={handleLikeToggle}
+                                    className={`heart-feed ${hasLiked ? 'liked' : ''}`} 
+                                    onClick={handleLikeToggle}
                                 />
-                                <span>0</span>
+                                <span>{props.numOfLikes}</span>
                             </div>
                     </div>
             </div>

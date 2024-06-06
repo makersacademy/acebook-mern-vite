@@ -37,3 +37,42 @@ export const createComment = async (token, commentData) => {
   const data = await response.json();
   return data;
 };
+
+export const likeComment = async (token, commentId) => {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  const response = await fetch(`${BACKEND_URL}/comments/${commentId}/like`, requestOptions);
+
+  if (response.status !== 200) {
+    throw new Error("Unable to like comment");
+  }
+
+  const data = await response.json();
+  return data;
+};
+
+export const unlikeComment = async (token, commentId) => {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  const response = await fetch(`${BACKEND_URL}/comments/${commentId}/unlike`, requestOptions);
+
+  if (response.status !== 200) {
+    throw new Error("Unable to unlike comments");
+  }
+
+  const data = await response.json();
+  return data;
+};
+

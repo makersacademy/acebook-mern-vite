@@ -11,6 +11,12 @@ const CommentSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+
+    numOfLikes: {
+        type: Number, 
+        default: 0 
+    },
+
     postId: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Post', 
@@ -21,6 +27,17 @@ const CommentSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
+
+    likedBy: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User' 
+    }],
+
+    // image: {
+    //     type: String
+    // }
+
+
 });
 
 // We use the Schema to create the Comment model. Models are classes which we can
