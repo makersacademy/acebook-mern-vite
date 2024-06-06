@@ -2,7 +2,8 @@ import "./Profile.css";
 
 // import "./bio.css";
 import { useState } from "react";
-import { updateMyBio } from "../../services/updateBio";
+// import { updateMyBio } from "../../services/updateBio";
+import { updateProfile } from "../../services/updateProfile";
 
 // import DOMpurify from "dompurify";
 
@@ -15,11 +16,15 @@ const Bio = ({ bio, setBio, username }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem("token");
+
     try {
-      const updatedProfile = await updateMyBio(token, newbio);
-      setBio(updatedProfile.bio);
-      setNewBio("");
-      location.reload();
+      await updateProfile(token, { bio: newbio }).then(
+        (data) => console.log("!!data:", data),
+        setBio(newbio),
+        setNewBio("")
+      );
+
+      // location.reload();
     } catch (err) {
       console.error(err);
     }
