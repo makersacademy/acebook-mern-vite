@@ -23,9 +23,8 @@ export const createPost = async (token, postData) => {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
     },
-    body: JSON.stringify(postData),
+    body: postData, // Use the FormData directly
   };
 
   const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
