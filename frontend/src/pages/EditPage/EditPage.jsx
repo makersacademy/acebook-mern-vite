@@ -1,7 +1,9 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import userService from '../../services/user';
-import "./editpage.css"
+import bcrypt from 'bcryptjs'; // Import bcrypt library
+import "./editpage.css";
+
 export const EditPage = () => {
   const [user, setUser] = useState({});
   const [error, setError] = useState('');
@@ -23,13 +25,10 @@ export const EditPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await fetch(`/users/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-      });
+      // Hash the password before updating the user
+      const hashedPassword = await bcrypt.hash(user.password, 10); // Hash password with bcrypt
+      const updatedUser = { ...user, password: hashedPassword }; // Update user object with hashed password
+      await userService.updateUser(id, updatedUser); // Call updateUser function with hashed password
       navigate('/profile');
     } catch (error) {
       console.error(error);
@@ -39,10 +38,22 @@ export const EditPage = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setUser((prevUser) => ({
-      ...prevUser,
-      [name]: value
-    }));
+    if (name === 'DOB') { // Handle date separately
+      const date = new Date(value);
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Ensure double-digit month
+      const day = date.getDate().toString().padStart(2, '0'); // Ensure double-digit day
+      const formattedDate = `${year}-${month}-${day}`;
+      setUser((prevUser) => ({
+        ...prevUser,
+        [name]: formattedDate
+      }));
+    } else {
+      setUser((prevUser) => ({
+        ...prevUser,
+        [name]: value
+      }));
+    }
   };
 
   return (
