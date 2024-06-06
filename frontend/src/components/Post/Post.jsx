@@ -4,7 +4,7 @@ const Post = (props) => {
     <div className="container">
       <div className="post_container">
         <article key={props.post._id}>{props.post.message}</article>
-        <p className="author">By: {props.username}</p>
+        <p className="postAuthor">By: {props.username}</p>
       </div>
       <br />
     </div>

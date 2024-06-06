@@ -53,28 +53,44 @@ export const FeedPage = () => {
       <div className="posts-container" role="feed">
         {posts.map((post) => (
           <>
-            <div className="single-post-container">
-              <Post
-                post={post}
-                key={post._id}
-                username={post.author ? post.author.username : "anonymous"}
-              />{" "}
-              <Download className="img" key={post._id} />
-              <CreateComment post_id={post._id} />
-              {comments
-                .filter((comment) => {
-                  return comment.postId == post._id;
-                })
-                .map((comment) => (
-                  // console.log(comment._id);
-                  // console.log(comment.userId.username);
-                  // console.log(comment.message);
-                  <Comment
-                    message={comment.message}
-                    key={comment._id}
-                    username={comment.userId.username}
-                  />
-                ))}
+            <div className="postAndComment-container">
+              <div className="postAndImage">
+                <div className="postonly">
+                  <Post
+                    post={post}
+                    key={post._id}
+                    username={post.author ? post.author.username : "anonymous"}
+                  />{" "}
+                </div>
+                <div className="blankSpace"></div>
+                <div className="feed-image">
+                  {" "}
+                  <Download imageSize="100px" key={post._id} />
+                </div>
+              </div>
+
+              <div className="commentsArea">
+                <div className="commentsComponent">
+                  {comments
+                    .filter((comment) => {
+                      return comment.postId == post._id;
+                    })
+                    .map((comment) => (
+                      // console.log(comment._id);
+                      // console.log(comment.userId.username);
+                      // console.log(comment.message);
+                      <Comment
+                        message={comment.message}
+                        key={comment._id}
+                        username={comment.userId.username}
+                      />
+                    ))}
+                </div>
+                <div className="createCommentComponent">
+                  <CreateComment post_id={post._id} />
+                </div>
+              </div>
+
               <br />
               <br />
             </div>

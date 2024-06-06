@@ -6,6 +6,7 @@ import DOMpurify from "dompurify";
 
 const CreatePost = () => {
   const [newPost, setNewPost] = useState("");
+  const [error, setError] = useState("");
 
   const handlePostChange = (event) => {
     setNewPost(event.target.value);
@@ -16,8 +17,12 @@ const CreatePost = () => {
     event.preventDefault();
     const token = localStorage.getItem("token");
     const postby = localStorage.getItem("postby");
+    let CleanNewPost = DOMpurify.sanitize(newPost);
+    if (CleanNewPost.length < 1) {
+      setError("Post can't be empty!");
+      return;
+    }
     try {
-      let CleanNewPost = DOMpurify.sanitize(newPost);
       createPost(CleanNewPost, token, postby).then((data) => {
         // console.log("newPost value: ", newPost);
         // console.log("data value: ", data);
@@ -45,6 +50,7 @@ const CreatePost = () => {
             onChange={handlePostChange}
           />
           <br />
+          {error && <p className="error">{error}</p>}
           <input
             role="submit-button"
             id="submitPost"
