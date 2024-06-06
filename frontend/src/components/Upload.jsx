@@ -38,20 +38,20 @@ const Upload = () => {
     }
 
 
-        formData.append('bio', '');
-        const token = localStorage.getItem('token');
+        // formData.append('bio', '');
+        // const token = localStorage.getItem('token');
 
-        try {
-            const res = await axios.post("http://localhost:3000/api/routes/profileUpload", formData, {
-                headers: { "Content-Type": "multipart/form-data",
-                'Authorization': `Bearer ${token}`
-                },
-            });
-            console.log(res.data.path);
-        } catch (error) {
-            console.error('Error', error);
-        }
-    };
+        // try {
+        //     const res = await axios.post("http://localhost:3000/api/routes/profileUpload", formData, {
+        //         headers: { "Content-Type": "multipart/form-data",
+        //         'Authorization': `Bearer ${token}`
+        //         },
+        //     });
+        //     console.log(res.data.path);
+        // } catch (error) {
+        //     console.error('Error', error);
+        // }
+    
 
 
     return (
@@ -62,6 +62,7 @@ const Upload = () => {
 
         </form>
     );
-};
+}
+
 
 export default Upload;
