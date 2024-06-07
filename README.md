@@ -23,7 +23,7 @@ the application works.
 
 ### Card wall
 
-REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
+https://trello.com/b/oBJgf5mQ/agileavengersacebook
 
 ### Quickstart
 
@@ -46,7 +46,7 @@ If you haven't already, make sure you have node and NVM installed.
 ### Set up your project
 
 1. Have one team member fork this repository
-2. Rename the fork to `acebook-<team name>`
+2. Rename the fork to `acebook-agile_avengers`
 3. Every team member clone the fork to their local machine
 4. Install dependencies for both the `frontend` and `api` applications:
    ```
@@ -121,3 +121,22 @@ Then, after signing up, you should be able to log in by going to
 
 After logging in, you won't see much but you can create posts using PostMan and
 they should then show up in the browser if you refresh the page.
+
+
+
+
+
+### Dependencies we used
+### Frontend
+; npm install --save @fortawesome/free-solid-svg-icons
+
+; npm install --save @fortawesome/react-fontawesome @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons
+
+; npm install bcryptjs
+
+; npm install axios
+
+### Backend 
+; npm install bcryptjs
+
+; npm install axios
