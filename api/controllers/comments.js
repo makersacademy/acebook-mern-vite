@@ -5,7 +5,7 @@ const getPostComments = async (req, res) => {
   try {
     const postId = req.params.postId; // Assuming postId is passed as a route parameter
     const comments = await Comment.find({ postId }).populate('userId', 'firstName lastName');
-    const token = generateToken(req.userId);
+    const token = generateToken(req.user_id);
     res.status(200).json({ comments, token });
   } catch (error) {
     console.error("Error fetching comments:", error);
@@ -19,7 +19,7 @@ const createComment = async (req, res) => {
       commentMessage: req.body.commentMessage,
       createdAt: req.body.createdAt,
       postId: req.body.postId,
-      userId: req.body.userId,
+      userId: req.user_id,
       numOfLikes: req.body.numOfLikes
     });
     await comment.save();
@@ -27,7 +27,7 @@ const createComment = async (req, res) => {
     const commentCreated = await Comment.findById(comment._id).populate('userId', 'firstName lastName');
     
 
-    const newToken = generateToken(req.userId);
+    const newToken = generateToken(req.user_id);
 
     res.status(201).json({ 
       commentMessage: commentCreated.commentMessage,
@@ -51,13 +51,11 @@ const likeComment = async (req, res) => {
       return res.status(404).json({ message: "comment not found" });
     }
     
-    console.log('comment',comment);
     comment.numOfLikes += 1;
 
-    comment.likedBy.push(comment.userId);
-    console.log('req.params.id',req.params.id);
-    console.log(comment.userId);
+    comment.likedBy.push(req.user_id);
 
+    console.log('like : line 58', req.user_id);
     await comment.save();
 
     comment = await Comment.populate(comment, { path: 'userId', select: 'firstName lastName profilePicture' });
@@ -76,11 +74,10 @@ const unlikeComment = async (req, res) => {
     }
 
     comment.numOfLikes = Math.max(comment.numOfLikes - 1, 0);
-    console.log("comment.numOfLikes", comment.numOfLikes);
+    console.log('unlike line 79' ,req.user_id);
 
-    comment.likedBy = comment.likedBy.filter(id => id !== comment.userId);
-    console.log("comment.likedBy",comment.likedBy);
-    console.log(comment.userId);
+    comment.likedBy = comment.likedBy.filter(id => id.toString() !== req.user_id);
+  
     await comment.save();
 
     comment = await Comment.populate(comment, { path: 'userId', select: 'firstName lastName profilePicture' });

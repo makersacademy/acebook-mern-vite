@@ -66,7 +66,7 @@ const Comment = (props) => {
                                     className={`heart-feed ${hasLiked ? 'liked' : ''}`} 
                                     onClick={handleLikeToggle}
                                 />
-                                <span>{props.numOfLikes}</span>
+                                <span>{props.comment.numOfLikes}</span>
                             </div>
                     </div>
             </div>
