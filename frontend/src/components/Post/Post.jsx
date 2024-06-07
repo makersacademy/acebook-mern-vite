@@ -119,6 +119,7 @@ const Post = ({ post, updatePost }) => {
             updateComment={ updateComment }
             comment={comment} 
             profilePicture = {profilePicture}
+            setProfilePicture = {setProfilePicture}
             />
           ))}
         <form onSubmit={handleCommentSubmit}>
