@@ -6,8 +6,10 @@ export const HomePage = () => {
   return (
     <div className="home">
       <h1>Welcome to Acebook!</h1>
-      <Link to="/signup">Sign Up</Link>
-      <Link to="/login">Log In</Link>
+      <div className="box-container">
+      <Link to="/signup" className="box sign-up-box">Sign Up</Link>
+      <Link to="/login" className="box log-in-box">Log In</Link>
+      </div>
     </div>
   );
 };

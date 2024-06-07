@@ -1,8 +1,22 @@
-## Acebook MERN Template
+##                                                          Acebook TEAM WATERMELON 🍉
 
 In this project, you are task with working on an existing application. A
 significant part of the challenge will be to familiarise yourself with the
 codebase you've inherited, as you work to **improve and extend** it.
+
+🤝 Our Team:
+
+Benedict Hall
+
+Jet Siva
+
+Jose Lopez
+
+Mohammed Ali Zaini
+
+Oluwatomi Taiwo 
+
+Xiangnan Liu 
 
 ### Structure
 
@@ -23,7 +37,7 @@ the application works.
 
 ### Card wall
 
-REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
+https://trello.com/invite/b/CAG0mne5/ATTI46bc65d94a96bf646d1ba0b0c8ed00a1321F2CD7/acebook-watermelon
 
 ### Quickstart
 
