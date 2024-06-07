@@ -66,7 +66,8 @@ const Post = ({ post, updatePost }) => {
       commentMessage: commentMessage,
       createdAt: new Date(), 
       postId: post._id,
-      userId: user_id
+      userId: user_id,
+      numOfLikes: 0, 
     };
 
     const commentCreated = await createComment(token, newComment);
@@ -74,6 +75,14 @@ const Post = ({ post, updatePost }) => {
     setComments((currComments) => [commentCreated, ...currComments]);
     setCommentMessage('');
   };
+
+
+  const updateComment = (updatedComment) => {
+    setComments(comments.map(comment => comment._id === updatedComment._id ? updatedComment : comment));
+  };
+
+
+
 
   return (
     <div className="card my-3">
@@ -105,6 +114,7 @@ const Post = ({ post, updatePost }) => {
         {comments.map((comment) => (
           <Comment 
             key={comment._id} 
+            updateComment={ updateComment }
             comment={comment} 
             profilePicture={comment.userId.profilePicture ? `${import.meta.env.VITE_BACKEND_URL}${comment.userId.profilePicture}` : `${import.meta.env.VITE_BACKEND_URL}/uploads/default-profile-photo.jpg`}
           />
