@@ -68,12 +68,6 @@ const updateUserById = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
-const UsersController = {
-  create: create,
-  getUserById:getUserById,
-  updateUserById:updateUserById,
-
-
 const getProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user_id);
@@ -98,6 +92,8 @@ const getUserPosts = async (req, res) => {
 }
 
 const UsersController = {
+  updateUserById,
+  getUserById,
   create,
   getProfile,
   getUserPosts
