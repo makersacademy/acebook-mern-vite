@@ -1,56 +1,58 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-import "./EditPage.css";
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import userService from '../../services/user';
+import bcrypt from 'bcryptjs'; // Import bcrypt library
+import "./editpage.css";
 
 export const EditPage = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [DOB, setDOB] = useState("");
-  const [gender, setGender] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [user, setUser] = useState({});
+  const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { email: userEmail } = useParams(); // Access email from URL params
+  const { id } = useParams(); // Access user ID from URL params
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchUser = async () => {
       try {
-        const response = await axios.get(`/users/${userEmail}`);
-        const { firstName, lastName, DOB, gender, email } = response.data;
-        setFirstName(firstName);
-        setLastName(lastName);
-        setDOB(DOB);
-        setGender(gender);
-        setEmail(email);
-      } catch (err) {
-        console.error(err);
+        const fetchedUser = await userService.getUserById(id);
+        setUser(fetchedUser);
+      } catch (error) {
+        console.error(error);
       }
     };
-
-    fetchUserData();
-  }, [userEmail]);
+    fetchUser();
+  }, [id]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.put(`/users/${userEmail}`, { // Update the URL to use userEmail
-        firstName,
-        lastName,
-        email,
-        password,
-        DOB,
-        gender
-      });
-      navigate("/profile");
-    } catch (err) {
-      console.error(err);
-      if (err.response) {
-        setError(err.response.data.message);
-      } else {
-        setError("Error updating profile. Please try again.");
-      }
+      // Hash the password before updating the user
+      const hashedPassword = await bcrypt.hash(user.password, 10); // Hash password with bcrypt
+      const updatedUser = { ...user, password: hashedPassword }; // Update user object with hashed password
+      await userService.updateUser(id, updatedUser); // Call updateUser function with hashed password
+      navigate('/profile');
+    } catch (error) {
+      console.error(error);
+      setError('Error updating profile. Please try again.');
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    if (name === 'DOB') { // Handle date separately
+      const date = new Date(value);
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Ensure double-digit month
+      const day = date.getDate().toString().padStart(2, '0'); // Ensure double-digit day
+      const formattedDate = `${year}-${month}-${day}`;
+      setUser((prevUser) => ({
+        ...prevUser,
+        [name]: formattedDate
+      }));
+    } else {
+      setUser((prevUser) => ({
+        ...prevUser,
+        [name]: value
+      }));
     }
   };
 
@@ -62,43 +64,49 @@ export const EditPage = () => {
         <input
           id="firstName"
           type="text"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          name="firstName"
+          value={user.firstName || ''}
+          onChange={handleChange}
         />
         <label htmlFor="lastName">Last Name:</label>
         <input
           id="lastName"
           type="text"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
+          name="lastName"
+          value={user.lastName || ''}
+          onChange={handleChange}
         />
         <label htmlFor="email">Email:</label>
         <input
           id="email"
           type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          value={user.email || ''}
+          onChange={handleChange}
           disabled // Disable email input as it's the unique identifier
         />
         <label htmlFor="password">Password:</label>
         <input
           id="password"
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          value={user.password || ''}
+          onChange={handleChange}
         />
         <label htmlFor="DOB">DOB:</label>
         <input
           id="DOB"
           type="date"
-          value={DOB}
-          onChange={(e) => setDOB(e.target.value)}
+          name="DOB"
+          value={user.DOB || ''}
+          onChange={handleChange}
         />
         <label htmlFor="gender">Gender:</label>
         <select
           id="gender"
-          value={gender}
-          onChange={(e) => setGender(e.target.value)}
+          name="gender"
+          value={user.gender || ''}
+          onChange={handleChange}
         >
           <option value="">Select Gender</option>
           <option value="Male">Male</option>

@@ -6,11 +6,9 @@ const PostSchema = new mongoose.Schema({
   numOfLikes: { type: Number, default: 0 },
   user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  image: String
+  image: { type: String } 
 });
 
 const Post = mongoose.model("Post", PostSchema);
 
 module.exports = Post;
-
-//rename user_id to user

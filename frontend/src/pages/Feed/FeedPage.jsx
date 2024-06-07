@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getPosts, createPost } from "../../services/posts";
 import Post from "../../components/Post/Post";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faPaperPlane, faImage } from '@fortawesome/free-solid-svg-icons';
 import "./FeedPage.css";
 
 export const FeedPage = () => {
@@ -11,7 +11,7 @@ export const FeedPage = () => {
   const [message, setMessage] = useState("");
   const [image, setImage] = useState(null); // State for the uploaded image
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -74,14 +74,21 @@ export const FeedPage = () => {
             onChange={(e) => setMessage(e.target.value)}
             required
           />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImage(e.target.files[0])}
-          />
-          <button type="submit">
-            <FontAwesomeIcon icon={faPaperPlane} />
-          </button>
+          <div className="post-actions">
+            <input
+              type="file"
+              id="imageUpload"
+              accept="image/*"
+              onChange={(e) => setImage(e.target.files[0])}
+              hidden
+            />
+            <label htmlFor="imageUpload" className="image-upload-label">
+              <FontAwesomeIcon icon={faImage} />
+            </label>
+            <button type="submit" className="submit-btn">
+              <FontAwesomeIcon icon={faPaperPlane} />
+            </button>
+          </div>
         </form>
       </div>
       <div className="posts-container">

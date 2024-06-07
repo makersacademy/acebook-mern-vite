@@ -1,145 +1,74 @@
-body {
-    background-color: white;
-    padding-top: 50px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .feed-container {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .create-message-container, .posts-container {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-  
-  .post-form {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  }
-  
-  .post-form textarea {
-    width: 100%;
-    height: 100px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
-    padding-right: 50px; /* To provide space for the button */
-  }
-  
-  .post-form button {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    width: 40px;
-    height: 40px;
-    background-color: #007bff;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-  }
-  
-  .post-form button:hover {
-    background-color: #0056b3;
-  }
-  
-  .feed {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .post {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: left; /* Align text to the left */
-  }
-  
-  .post h3 {
-    margin: 0 0 10px 0;
-  }
-  
-  .post p {
-    margin: 0;
-  }
-  
-  .post-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-    color: #777;
-    font-size: 14px;
-  }
-  
-  .post-info .likes {
-    display: flex;
-    align-items: center;
-  }
-  
-  .post-info .likes .heart {
-    color: red;
-    margin-right: 5px;
-  }
-  
-  h2.feed-title {
-    text-align: left; 
-    color: lightgrey; 
-    margin-bottom: 20px;
-  }
+.feed-container {
+  max-width: 600px;
+  margin: auto;
+  margin-top: 20px;
+}
 
-  .post {
-    background-color: white;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .post h3 {
-    margin-top: 5px;
-  }
-  
-  .post-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-  }
-  
-  .likes {
-    display: flex;
-    align-items: center;
-  }
-  
-  .likes .heart {
-    cursor: pointer;
-    margin-right: 5px;
-  }
-  
-  .likes .heart.liked {
-    color: red;
-  }
-  
-  .post p {
-    margin: 0;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
+.create-message-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  resize: none;  /* Prevent textarea from being resized */
+}
+
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.image-upload-label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.submit-btn {
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.posts-container {
+  margin-top: 20px;
+}
+
+.feed-title {
+  margin-bottom: 10px;
+  color: slategray;
+  text-align: left;
+}
+
+.feed {
+  display: flex;
+  flex-direction: column;
+}

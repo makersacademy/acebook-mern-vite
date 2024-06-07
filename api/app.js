@@ -1,7 +1,7 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const path = require("path");
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const path = require('path');
 const fs = require('fs');
 const passwordRoutes = require('./routes/password');
 
@@ -9,6 +9,7 @@ const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
 const commentsRouter = require("./routes/comments");
 const authenticationRouter = require("./routes/authentication");
+const profilesRouter = require("./routes/profiles");
 const tokenChecker = require("./middleware/tokenChecker");
 
 const app = express();
@@ -35,6 +36,7 @@ app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);
 app.use("/comments", commentsRouter);
 app.use("/tokens", authenticationRouter);
+app.use("/profiles", tokenChecker, profilesRouter); // Ensure this line is correct
 app.use(express.static('public'));
 
 // 404 Handler
