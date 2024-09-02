@@ -1,22 +1,20 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { signup } from "../../services/authentication";
 
-export const SignupPage = () => {
+export const SignupPage = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       await signup(email, password);
       console.log("redirecting...:");
-      navigate("/login");
+      props.setPage("login");
     } catch (err) {
       console.error(err);
-      navigate("/signup");
+      props.setPage("signup");
     }
   };
 

@@ -3,19 +3,11 @@ import { vi } from "vitest";
 
 import { FeedPage } from "../../src/pages/Feed/FeedPage";
 import { getPosts } from "../../src/services/posts";
-import { useNavigate } from "react-router-dom";
 
 // Mocking the getPosts service
 vi.mock("../../src/services/posts", () => {
   const getPostsMock = vi.fn();
   return { getPosts: getPostsMock };
-});
-
-// Mocking React Router's useNavigate function
-vi.mock("react-router-dom", () => {
-  const navigateMock = vi.fn();
-  const useNavigateMock = () => navigateMock; // Create a mock function for useNavigate
-  return { useNavigate: useNavigateMock };
 });
 
 describe("Feed Page", () => {
@@ -30,15 +22,15 @@ describe("Feed Page", () => {
 
     getPosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
 
-    render(<FeedPage />);
+    render(<FeedPage setPage={() => {}} />);
 
     const post = await screen.findByRole("article");
     expect(post.textContent).toEqual("Test Post 1");
   });
 
   test("It navigates to login if no token is present", async () => {
-    render(<FeedPage />);
-    const navigateMock = useNavigate();
-    expect(navigateMock).toHaveBeenCalledWith("/login");
+    const setPageMock = vi.fn();
+    render(<FeedPage setPage={setPageMock} />);
+    expect(setPageMock).toHaveBeenCalledWith("login");
   });
 });
