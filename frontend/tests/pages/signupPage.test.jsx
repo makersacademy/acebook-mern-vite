@@ -2,17 +2,9 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
 
-import { useNavigate } from "react-router-dom";
 import { signup } from "../../src/services/authentication";
 
 import { SignupPage } from "../../src/pages/Signup/SignupPage";
-
-// Mocking React Router's useNavigate function
-vi.mock("react-router-dom", () => {
-  const navigateMock = vi.fn();
-  const useNavigateMock = () => navigateMock; // Create a mock function for useNavigate
-  return { useNavigate: useNavigateMock };
-});
 
 // Mocking the signup service
 vi.mock("../../src/services/authentication", () => {
@@ -39,7 +31,7 @@ describe("Signup Page", () => {
   });
 
   test("allows a user to signup", async () => {
-    render(<SignupPage />);
+    render(<SignupPage setPage={() => {}} />);
 
     await completeSignupForm();
 
@@ -47,23 +39,22 @@ describe("Signup Page", () => {
   });
 
   test("navigates to /login on successful signup", async () => {
-    render(<SignupPage />);
-
-    const navigateMock = useNavigate();
+    const setPageMock = vi.fn();
+    render(<SignupPage setPage={setPageMock} />);
 
     await completeSignupForm();
 
-    expect(navigateMock).toHaveBeenCalledWith("/login");
+    expect(setPageMock).toHaveBeenCalledWith("login");
   });
 
   test("navigates to /signup on unsuccessful signup", async () => {
-    render(<SignupPage />);
+    const setPageMock = vi.fn();
+    render(<SignupPage setPage={setPageMock} />);
 
     signup.mockRejectedValue(new Error("Error signing up"));
-    const navigateMock = useNavigate();
 
     await completeSignupForm();
 
-    expect(navigateMock).toHaveBeenCalledWith("/signup");
+    expect(setPageMock).toHaveBeenCalledWith("signup");
   });
 });

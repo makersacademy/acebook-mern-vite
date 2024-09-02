@@ -1,40 +1,36 @@
 import { render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
+import { vi } from "vitest";
 
 import { HomePage } from "../../src/pages/Home/HomePage";
+import userEvent from "@testing-library/user-event";
 
 describe("Home Page", () => {
   test("welcomes you to the site", () => {
-    // We need the Browser Router so that the Link elements load correctly
-    render(
-      <BrowserRouter>
-        <HomePage />
-      </BrowserRouter>
-    );
+    render(<HomePage setPage={() => {}} />);
 
     const heading = screen.getByRole("heading");
     expect(heading.textContent).toEqual("Welcome to Acebook!");
   });
 
   test("Displays a signup link", async () => {
-    render(
-      <BrowserRouter>
-        <HomePage />
-      </BrowserRouter>
-    );
+    const user = userEvent.setup();
+
+    const setPageMock = vi.fn();
+    render(<HomePage setPage={setPageMock} />);
 
     const signupLink = screen.getByText("Sign Up");
-    expect(signupLink.getAttribute("href")).toEqual("/signup");
+    await user.click(signupLink);
+    expect(setPageMock).toHaveBeenCalledWith("signup");
   });
 
   test("Displays a login link", async () => {
-    render(
-      <BrowserRouter>
-        <HomePage />
-      </BrowserRouter>
-    );
+    const user = userEvent.setup();
+
+    const setPageMock = vi.fn();
+    render(<HomePage setPage={setPageMock} />);
 
     const loginLink = screen.getByText("Log In");
-    expect(loginLink.getAttribute("href")).toEqual("/login");
+    await user.click(loginLink);
+    expect(setPageMock).toHaveBeenCalledWith("signup");
   });
 });

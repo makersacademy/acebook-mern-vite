@@ -1,22 +1,20 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { login } from "../../services/authentication";
 
-export const LoginPage = () => {
+export const LoginPage = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const token = await login(email, password);
       localStorage.setItem("token", token);
-      navigate("/posts");
+      props.setPage("feed");
     } catch (err) {
       console.error(err);
-      navigate("/login");
+      props.setPage("login");
     }
   };
 

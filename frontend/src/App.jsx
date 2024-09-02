@@ -1,35 +1,23 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useState } from "react";
 
-import "./App.css";
 import { HomePage } from "./pages/Home/HomePage";
 import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
 
-// docs: https://reactrouter.com/en/main/start/overview
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomePage />,
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/signup",
-    element: <SignupPage />,
-  },
-  {
-    path: "/posts",
-    element: <FeedPage />,
-  },
-]);
+import "./App.css";
 
 const App = () => {
+  const [currentPage, setPage] = useState("home");
+
+  // This uses conditional rendering, using the && operator.
+  // Read more here: https://react.dev/learn/conditional-rendering#logical-and-operator-
   return (
     <>
-      <RouterProvider router={router} />
+      {currentPage === "home" && <HomePage setPage={setPage} />}
+      {currentPage === "login" && <LoginPage setPage={setPage} />}
+      {currentPage === "signup" && <SignupPage setPage={setPage} />}
+      {currentPage === "feed" && <FeedPage setPage={setPage} />}
     </>
   );
 };

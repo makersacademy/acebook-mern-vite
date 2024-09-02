@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
 
-export const FeedPage = () => {
+export const FeedPage = ({ props }) => {
   const [posts, setPosts] = useState([]);
-  const navigate = useNavigate();
+  const changePage = props.setPage;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -18,14 +17,14 @@ export const FeedPage = () => {
         })
         .catch((err) => {
           console.error(err);
-          navigate("/login");
+          changePage("login");
         });
     }
-  }, [navigate]);
+  }, [changePage]);
 
   const token = localStorage.getItem("token");
   if (!token) {
-    navigate("/login");
+    changePage("login");
     return;
   }
 

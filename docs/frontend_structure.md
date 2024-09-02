@@ -25,12 +25,9 @@ to insert our App into that div.
 ### App.jsx
 
 This file contains our application. It imports all of the pages we want in our
-application, and uses React Router to serve them at specific URLs. Unlike
-previous web applications you may have worked on, these different URLs don't
-represent different backend routes. They are handled purely by the frontend. Any
-request to any of these routes will be served the same HTML and JS files for the
-React application, and the application will then determine how to handle the
-route.
+application, and displays them based on the `currentPage` state. It uses
+[conditional rendering](https://react.dev/learn/conditional-rendering#logical-and-operator-)
+to only render one page.
 
 ### Pages
 
