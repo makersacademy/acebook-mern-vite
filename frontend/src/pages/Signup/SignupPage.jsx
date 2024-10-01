@@ -6,12 +6,13 @@ import { signup } from "../../services/authentication";
 export function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      await signup(email, password);
+      await signup(email, password, username);
       navigate("/login");
     } catch (err) {
       console.error(err);
@@ -25,6 +26,10 @@ export function SignupPage() {
 
   function handlePasswordChange(event) {
     setPassword(event.target.value);
+  }
+
+  function handleUsernameChange(event) {
+    setUsername(event.target.value);
   }
 
   return (
@@ -45,6 +50,14 @@ export function SignupPage() {
           type="password"
           value={password}
           onChange={handlePasswordChange}
+        />
+        <label htmlFor="username">Username:</label>
+        <input
+          placeholder="Username"
+          id="username"
+          type="text"
+          value={username}
+          onChange={handleUsernameChange}
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
