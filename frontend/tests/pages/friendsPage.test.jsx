@@ -10,7 +10,7 @@ describe("Testing Friends Page", () => {
     test("It displays the heading", async () => {
         render(<FriendsPage />);
 
-        const text = await screen.findByRole("heading");
+        const text = await screen.findByRole("heading", {level: 1});
         expect(text.textContent).toEqual("Check out your Friends!");
     });
 
