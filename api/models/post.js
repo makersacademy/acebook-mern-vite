@@ -14,5 +14,6 @@ const Post = mongoose.model("Post", PostSchema);
 // You can delete this once you are creating your own posts.
 const dateTimeString = new Date().toLocaleString("en-GB");
 new Post({ message: `Test message, created at ${dateTimeString}` }).save();
+// new Post({ message: `Test message, created at ${dateTimeString}` }).save();
 
 module.exports = Post;
