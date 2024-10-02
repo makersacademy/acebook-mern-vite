@@ -11,8 +11,8 @@ describe("Profile Page", () => {
 
     render(<ProfilePage />);
 
-    const post = await screen.findByRole("heading");
-    expect(post.textContent).toEqual("Welcome to your profile!");
+    const heading = await screen.findByRole("heading");
+    expect(heading.textContent).toEqual("Welcome to your profile!");
   });
 
 });
