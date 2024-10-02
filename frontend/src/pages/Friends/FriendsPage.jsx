@@ -2,7 +2,6 @@
 //import { useNavigate } from "react-router-dom";
 //import { getFriends } from "../../services/friends";
 //import Friend from "../../components/Friend";
-import LogoutButton from "../../components/LogoutButton";
 
 export function FriendsPage() {
 /*  const [friends, setFriends] = useState([]);
@@ -33,7 +32,6 @@ export function FriendsPage() {
     return (
         <>
         <h2>Check out your Friends!</h2>
-        <LogoutButton />
         </>
     );
 }
