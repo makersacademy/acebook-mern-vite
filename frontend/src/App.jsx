@@ -6,6 +6,7 @@ import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
 import { ProfilePage } from "./pages/Profile/ProfilePage";
+import { FriendsPage } from "./pages/Friends/FriendsPage.jsx";
 
 // docs: https://reactrouter.com/en/main/start/overview
 const router = createBrowserRouter([
@@ -29,6 +30,9 @@ const router = createBrowserRouter([
     path: "/profile",
     element: <ProfilePage />,
   },
+  {path: "/friends",
+    element: <FriendsPage/>,
+  }
 ]);
 
 function App() {
