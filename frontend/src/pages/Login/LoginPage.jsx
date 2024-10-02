@@ -13,6 +13,7 @@ export function LoginPage() {
     try {
       const token = await login(email, password);
       localStorage.setItem("token", token);
+      localStorage.setItem("email", email); // Attaching email as string upon login - probably chage to username eventually
       navigate("/posts");
     } catch (err) {
       console.error(err);
