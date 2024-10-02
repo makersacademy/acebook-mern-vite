@@ -31,7 +31,6 @@ export function SignupPage() {
 
   return (
     <>
-      <NavBar></NavBar>
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>

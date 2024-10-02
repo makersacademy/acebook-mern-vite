@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { FriendsPage } from "../../src/pages/Friends/FriendsPage";
+import { MemoryRouter } from "react-router-dom";
 
 
 describe("Testing Friends Page", () => {
@@ -8,7 +9,11 @@ describe("Testing Friends Page", () => {
     });
 
     test("It displays the heading", async () => {
-        render(<FriendsPage />);
+        render(
+        <MemoryRouter>
+            <FriendsPage />
+        </MemoryRouter>
+        );
 
         const text = await screen.findByRole("heading", {level: 1});
         expect(text.textContent).toEqual("Check out your Friends!");
