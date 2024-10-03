@@ -11,9 +11,12 @@ export function LoginPage() {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const token = await login(email, password);
-      localStorage.setItem("token", token);
-      localStorage.setItem("email", email); // Attaching email as string upon login - probably chage to username eventually
+      const data = await login(email, password);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user_id", data.user_id); // Attaching user_id via authentication controller/services
+      // const token = await login(email, password);
+      // localStorage.setItem("token", token);
+      // localStorage.setItem("email", email);  Attaching email as string upon login - probably chage to username eventually 
       navigate("/posts");
     } catch (err) {
       console.error(err);
