@@ -139,11 +139,64 @@ describe("/posts", () => {
       expect(response.status).toEqual(200);
     });
 
+    test("returns multiple posts for a given specific user", async () => {
+      const user1 = new User({
+        email: "chris@email.com",
+        password: "password",
+        username: "marion",
+        firstName: "Alexia",
+        lastName: "Chris",
+        gender: "both",
+        birthday: new Date("0000-12-25"),
+      })
+      user1.save()
+      
+      const user2 = new User({
+        email: "user2@email.com",
+        password: "password",
+        username: "user2",
+        firstName: "user",
+        lastName: "two",
+        gender: "two",
+        birthday: new Date("2002-10-01"),
+      })
+      user2.save()
+
+      const post1 = new Post({ message: "howdy!", dateCreated: new Date("2024-10-02"), user: user1._id });
+      const post2 = new Post({ message: "bonjour!", dateCreated: new Date("2020-11-22"), user: user1._id  });
+      const post3 = new Post({ message: "hola!", dateCreated: new Date("2020-12-22"), user: user2._id });
+      await post1.save();
+      await post2.save();
+      await post3.save();
+
+      const response = await request(app)
+      .get(`/posts?user=${user1._id}`)
+      .set("Authorization", `Bearer ${token}`);
+      
+      const post = response.body.posts;
+      const firstPost = post[0];
+      const secondPost = post[1];
+      // const thirdPost = post[2];
+
+      expect(firstPost.message).toEqual("howdy!");
+      expect(secondPost.message).toEqual("bonjour!");
+      expect(firstPost.user._id).toEqual(user1._id.toString());
+      expect(secondPost.user._id).toEqual(user1._id.toString());
+      // expect(thirdPost.user._id).toEqual(user2._id.toString());
+
+      expect(post.length).toEqual(2)
+
+      expect(new Date(firstPost.dateCreated)).toEqual(new Date("2024-10-02"));
+      expect(new Date(secondPost.dateCreated)).toEqual(new Date("2020-11-22"));
+      
+    });
+
     test("returns every post in the collection", async () => {
       const post1 = new Post({ message: "howdy!" });
       const post2 = new Post({ message: "hola!" });
       await post1.save();
       await post2.save();
+      
 
       const response = await request(app)
         .get("/posts")
@@ -155,6 +208,8 @@ describe("/posts", () => {
 
       expect(firstPost.message).toEqual("howdy!");
       expect(secondPost.message).toEqual("hola!");
+
+    
     });
 
     test("returns post with user information", async () => {
