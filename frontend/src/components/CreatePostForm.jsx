@@ -12,6 +12,7 @@ const CreatePostForm = () => {
         event.preventDefault();
         console.log(`message= ${message}`)
         createPost(message);
+        setMessage(""); // clears message field upon submit
     }
 
     return (
