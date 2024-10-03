@@ -41,7 +41,7 @@ export function FeedPage() {
             key={post._id} 
             message={post.message} 
             dateCreated={post.dateCreated}
-            username={post.user.username}
+            username={post.user?.username}
             noOfLikes={post.noOfLikes}
           />
         ))}

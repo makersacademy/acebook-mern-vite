@@ -9,7 +9,7 @@ function NavBar() {
     return (
         <nav>
             <div className="homeLogo">
-                <a href="/posts">
+                <a href="/feed">
                     <div className="logoContainer">
                         🍉
                     </div>
