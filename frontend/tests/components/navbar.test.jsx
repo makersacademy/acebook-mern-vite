@@ -1,13 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import { createMemoryRouter, MemoryRouter, RouterProvider} from "react-router-dom"; // Setup automatic routing to it without needing to login
 import NavBar from "../../src/components/NavBar";
-import userEvent from '@testing-library/user-event';
+ // import userEvent from '@testing-library/user-event';
 
-import { ProfilePage } from "../../src/pages/Profile/ProfilePage";
-import { MessagesPage } from "../../src/pages/Messages/MessagesPage";
-import { FeedPage } from "../../src/pages/Feed/FeedPage";
-import { SettingsPage } from "../../src/pages/Settings/SettingsPage";
-import { FriendsPage } from "../../src/pages/Friends/FriendsPage";
+// import { ProfilePage } from "../../src/pages/Profile/ProfilePage";
+// import { MessagesPage } from "../../src/pages/Messages/MessagesPage";
+// import { FeedPage } from "../../src/pages/Feed/FeedPage";
+// import { SettingsPage } from "../../src/pages/Settings/SettingsPage";
+// import { FriendsPage } from "../../src/pages/Friends/FriendsPage";
 
 // Navigation
 
