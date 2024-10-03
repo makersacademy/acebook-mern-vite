@@ -153,13 +153,15 @@ describe("/posts", () => {
       const post = response.body.posts;
       const firstPost = post[0];
       const secondPost = post[1];
-      const thirdPost = post[2];
+      // const thirdPost = post[2];
 
       expect(firstPost.message).toEqual("howdy!");
       expect(secondPost.message).toEqual("bonjour!");
       expect(firstPost.user._id).toEqual(user1._id.toString());
       expect(secondPost.user._id).toEqual(user1._id.toString());
-      expect(thirdPost.user._id).toEqual(user2._id.toString());
+      // expect(thirdPost.user._id).toEqual(user2._id.toString());
+
+      expect(post.length).toEqual(2)
 
       expect(new Date(firstPost.dateCreated)).toEqual(new Date("2024-10-02"));
       expect(new Date(secondPost.dateCreated)).toEqual(new Date("2020-11-22"));
