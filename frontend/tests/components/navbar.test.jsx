@@ -69,7 +69,7 @@ test("has correct href for each navigation link", () => {
     </MemoryRouter>
     );
 
-    expect(screen.getByText("Home").closest("a").getAttribute("href")).to.equal("/posts");
+    expect(screen.getByText("Home").closest("a").getAttribute("href")).to.equal("/feed");
     expect(screen.getByText("Profile").closest("a").getAttribute("href")).to.equal("/profile");
     expect(screen.getByText("Friends").closest("a").getAttribute("href")).to.equal("/friends");
     expect(screen.getByText("Messages").closest("a").getAttribute("href")).to.equal("/messages");
