@@ -11,6 +11,7 @@ const CreatePostForm = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         createPost(message);
+        setMessage(""); // clears message field upon submit
     }
 
     return (
