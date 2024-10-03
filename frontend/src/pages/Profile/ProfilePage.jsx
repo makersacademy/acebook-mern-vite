@@ -1,8 +1,11 @@
+import NavBar from "../../components/NavBar"
+
 export function ProfilePage() {
 
   return (
     <>
-    <h2>Welcome to your profile!</h2>
+    <NavBar></NavBar>
+    <h1>Welcome to your profile!</h1>
     </>
   )
 }
