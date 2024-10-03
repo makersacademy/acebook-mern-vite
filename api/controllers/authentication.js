@@ -14,7 +14,9 @@ async function createToken(req, res) {
     res.status(401).json({ message: "Password incorrect" });
   } else {
     const token = generateToken(user.id);
-    res.status(201).json({ token: token, message: "OK" });
+    res.status(201).json({ token: token, message: "OK", user_id: user.id }); // user_id returned in HTTP response JSON
+    //     res.status(201).json({ token: token, message: "OK" });- old code
+
   }
 }
 

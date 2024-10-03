@@ -5,7 +5,9 @@ function LogoutButton() {
 
   function logOut() {
     localStorage.removeItem("token");
-    localStorage.removeItem("email"); // deletes email upon logout
+    localStorage.removeItem("user_id"); // deletes user_id upon logout
+    // localStorage.removeItem("email"); // deletes email upon logout
+
     navigate("/");
   }
 
