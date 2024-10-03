@@ -48,15 +48,38 @@ describe("/posts", () => {
       expect(response.status).toEqual(201);
     });
 
+
+    // post fields
+    // 
+    // message: String,
+    // dateCreated: Date,
+    // dateEdited: Date, (ignoring for now)
+    // likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+    // user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+
     test("creates a new post", async () => {
+
+      const user = new User({
+        email: "post-test@test.com",
+        password: "12345678",
+        username: "alexia"
+      });
+      await user.save();
+
       await request(app)
         .post("/posts")
         .set("Authorization", `Bearer ${token}`)
-        .send({ message: "Hello World!!" });
+        .send({ 
+          message: "Hello World!!",
+          dateCreated: new Date('2024-10-03'),
+          user: user._id
+        });
 
-      const posts = await Post.find();
+      const posts = await Post.find().populate("user");
       expect(posts.length).toEqual(1);
       expect(posts[0].message).toEqual("Hello World!!");
+      expect(posts[0].dateCreated).toEqual(new Date('2024-10-03'));
+      expect(posts[0].user.username).toEqual("alexia");
     });
 
     test("returns a new token", async () => {
