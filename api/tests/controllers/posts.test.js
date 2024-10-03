@@ -147,13 +147,9 @@ describe("/posts", () => {
       await post3.save();
 
       const response = await request(app)
-      .get("/posts/")
+      .get(`/posts?user=${user1._id}`)
       .set("Authorization", `Bearer ${token}`);
       
-      // might need to set more variables
-      // query parameter / route parameter
-      // req.param
-
       const post = response.body.posts;
       const firstPost = post[0];
       const secondPost = post[1];

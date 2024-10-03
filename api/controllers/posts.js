@@ -3,19 +3,25 @@ const { generateToken } = require("../lib/token");
 const User = require("../models/user");
 
 async function getAllPosts(req, res) {
-  const posts = await Post.find().populate('user', 'username');
-  const token = generateToken(req.user_id);
-  res.status(200).json({ posts: posts, token: token });
-}
-
-async function getPostByUser(req, res) {
-  const user = await User.findOne().populate('post', 'username', 'user_id')
-  const token = generateToken(req.user_id);
-  res.status(200).json({ user: user, token: token})
+    try {
+      const token = generateToken(req.user_id); 
+      let query = {}; 
+      if (req.query.username) {
+        const user = await User.findOne({ username: req.query.username });
+        // If the user is found, add the user filter to the query
+        if (user) {
+          query.user = user._id;
+        }
+      }
+      // Find posts (filtered by user if applicable, or all posts if no user or user not found)
+      const posts = await Post.find(query).populate('user', 'username');
   
-}
-
-
+      res.status(200).json({ posts: posts, token: token });
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching posts", error: error.message });
+    }
+  }
+  
 async function createPost(req, res) {
   const post = new Post(req.body);
   post.save();
@@ -27,7 +33,6 @@ async function createPost(req, res) {
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
-  getPostByUser: getPostByUser,
 };
 
 module.exports = PostsController;
