@@ -31,7 +31,6 @@ async function createPost(req, res) {
 }
 
 async function deletePost(req, res) {
-  console.log(req.body)
   try {
     const postId = req.params.id;
 
