@@ -1,8 +1,13 @@
-
-import UserCreatePostForm from "../../components/UserCreatePostForm";
+import CreatePostForm from "../../components/CreatePostForm";
+import { NavbarComponent } from "../../components/NavbarComponent";
 
 export function CreatePost() {
-    return <UserCreatePostForm/>
+    return (
+        <>
+            <NavbarComponent />
+            <CreatePostForm/>
+        </>
+    )
 }
 
 
