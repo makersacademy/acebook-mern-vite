@@ -1,7 +1,7 @@
 const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
 const User = require("../models/user");
-
+const { tokenChecker } = require('../middleware/tokenChecker')
 
 async function getAllPosts(req, res) {
     try {
@@ -21,10 +21,11 @@ async function getAllPosts(req, res) {
       res.status(500).json({ message: "Error fetching posts", error: error.message });
     }
   }
- 
 
 async function createPost(req, res) {
-  const post = new Post(req.body);
+  const postObject = req.body
+  postObject.user = req.user_id
+  const post = new Post(postObject);
   post.save();
 
   const newToken = generateToken(req.user_id);

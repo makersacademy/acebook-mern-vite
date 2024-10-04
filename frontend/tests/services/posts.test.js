@@ -79,7 +79,7 @@ describe("posts service", () => {
         user: "test user id"
       }
 
-      await createPost("testToken", JSON.stringify(post))
+      await createPost("testToken", post)
       
       // This is an array of the arguments that were last passed to fetch
       const fetchArguments = fetch.mock.lastCall;
@@ -103,7 +103,7 @@ describe("posts service", () => {
         user: "test user id"
       }
 
-      await createPost("testToken", JSON.stringify(post))
+      await createPost("testToken", post)
       
       // This is an array of the arguments that were last passed to fetch
       const fetchArguments = fetch.mock.lastCall;

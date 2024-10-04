@@ -66,13 +66,14 @@ describe("/posts", () => {
       });
       await user.save();
 
+      const token = createToken(user._id)
+
       await request(app)
         .post("/posts")
         .set("Authorization", `Bearer ${token}`)
         .send({ 
           message: "Hello World!!",
           dateCreated: new Date('2024-10-03'),
-          user: user._id
         });
 
       const posts = await Post.find().populate("user");
