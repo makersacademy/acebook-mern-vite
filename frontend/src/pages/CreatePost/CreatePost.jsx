@@ -1,7 +1,8 @@
-import CreatePostForm from "../../components/CreatePostForm";
+
+import UserCreatePostForm from "../../components/UserCreatePostForm";
 
 export function CreatePost() {
-    return <CreatePostForm/>
+    return <UserCreatePostForm/>
 }
 
 
