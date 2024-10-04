@@ -6,6 +6,7 @@ import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
 import { CreatePost } from "./pages/CreatePost/CreatePost";
+import { Profile } from "./pages/Profile/Profile";
 
 // docs: https://reactrouter.com/en/main/start/overview
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/createpost",
     element: <CreatePost/>, // route to a page simply containing CreatePostForm - needs more functionality, but what?
+  },
+  {
+    path: "/users/me",
+    element: <Profile />, // route to page for current users profile  
   },
 ]);
 
