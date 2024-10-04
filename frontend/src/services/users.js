@@ -40,7 +40,7 @@ export async function getUser(token) {
   }
 
   const data = await response.json();
-  return data;
+  return data; // Can we return less or more specific data here?
 }
 
 

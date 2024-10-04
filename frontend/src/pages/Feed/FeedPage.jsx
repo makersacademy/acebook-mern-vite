@@ -67,6 +67,8 @@ export function FeedPage() {
         getUser(token)
           .then((data) => {
             setUser(data.user);
+            localStorage.setItem("user", JSON.stringify(data.user)) // add all user data to local storage !! INCLUDES PASSWORD !!
+            localStorage.setItem("username", data.user.username) // adds username to local storage
             localStorage.setItem("token", data.token);
           })
           .catch((err) => {
@@ -93,7 +95,7 @@ export function FeedPage() {
       <div className="feed" role="feed">
           {[...posts].reverse().map((post) => (
           <Post post={post} key={post._id}/>
-        
+
         ))}
         <button onClick={handleUnreverse}>Unreverse</button> {/*Button reverses currently displayed order*/}
       </div>): 
