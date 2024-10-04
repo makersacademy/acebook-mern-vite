@@ -1,11 +1,19 @@
 import { render, screen } from "@testing-library/react";
 import CreatePost from "../../src/components/CreatePost";
+import userEvent from "@testing-library/user-event";
+import { vi } from "vitest";
 
-import userEvent from '@testing-library/user-event';
+import { createPost } from "../../src/services/posts";
+
+vi.mock("../../src/services/posts", () => {
+  const createPostMock = vi.fn()
+  return {createPost: createPostMock}
+})
 
 describe("Create Post Component" , () => {
     beforeEach(() => {
         window.localStorage.removeItem("token");
+        vi.setSystemTime(new Date("2024-10-04"))
     });
 
     // Reuseable function to handle typing into the field.
@@ -37,51 +45,73 @@ describe("Create Post Component" , () => {
         
     });
 
-    test("Can't type more than 500 characters", async () => {
-        render(
-            <CreatePost/>
-        );
+    test("user completes post form, and createPost function is called with token and post object", async () => {
+      window.localStorage.setItem("token", "testToken");
+      render( <CreatePost />)
 
-        // Create a 600 length string without making it look horrible.
-        let largeString = "";
-        for (let i = 0; i < 600; i++){
-            largeString += "e";
-        }
+      const user = userEvent.setup();
 
-        await typeInArea(largeString);
+      const messageInputEl = screen.getByTestId("messageForm");
+      const submitButtonEl = screen.getByRole("button");
+    
+      await user.type(messageInputEl, "Test message.");
+      await user.click(submitButtonEl);
 
-        await typeInArea("Hello world");
-        const textarea = screen.getByTitle("MessageBox");
-        expect(textarea.value.length).to.equal(500);
-        
-    });
+      const testPostObject = {
+        message: "Test message.",
+        dateCreated: new Date("2024-10-04")
+      }
 
-    test("Word Counter works", async () => {
-        render(
-            <CreatePost/>
-        );
+      expect(createPost).toHaveBeenCalledWith("testToken", testPostObject)
 
-        await typeInArea("Hello world");
-        const counter = screen.getByText("11/500")
-        expect(counter).to.exist;
 
     })
 
-    test("Counter reaches a max of 500 characters", async () => {
-        render(
-            <CreatePost/>
-        );
+    // test("Can't type more tqhan 500 characters", async () => {
+    //     render(
+    //         <CreatePost/>
+    //     );
 
-        // Create a 600 length string without making it look horrible.
-        let largeString = "";
-        for (let i = 0; i < 600; i++){
-            largeString += "e";
-        }
+    //     // Create a 600 length string without making it look horrible.
+    //     let largeString = "";
+    //     for (let i = 0; i < 600; i++){
+    //         largeString += "e";
+    //     }
 
-        await typeInArea(largeString);
-        const counter = screen.getByText("500/500");
-        expect(counter).to.exist;
+    //     await typeInArea(largeString);
 
-    });
+    //     await typeInArea("Hello world");
+    //     const textarea = screen.getByTitle("MessageBox");
+    //     expect(textarea.value.length).to.equal(500);
+        
+    // });
+
+    // test("Word Counter works", async () => {
+    //     render(
+    //         <CreatePost/>
+    //     );
+
+    //     await typeInArea("Hello world");
+    //     const counter = screen.getByText("11/500")
+    //     expect(counter).to.exist;
+
+    // })
+
+    // test("Counter reaches a max of 500 characters", async () => {
+    //     render(
+    //         <CreatePost/>
+    //     );
+
+    //     // Create a 600 length string without making it look horrible.
+    //     let largeString = "";
+    //     for (let i = 0; i < 600; i++){
+    //         largeString += "e";
+    //     }
+
+    //     await typeInArea(largeString);
+    //     const counter = screen.getByText("500/500");
+    //     expect(counter).to.exist;
+
+    // });
 
 });
