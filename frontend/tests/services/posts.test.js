@@ -13,12 +13,12 @@ createFetchMock(vi).enableMocks();
 describe("posts service", () => {
   // tests for get post
   describe("getPosts", () => {
-    test("includes a token with its request", async () => {
+    test("includes a token and no user id (empty string) with its request", async () => {
       fetch.mockResponseOnce(JSON.stringify({ posts: [], token: "newToken" }), {
         status: 200,
       });
 
-      await getPosts("testToken");
+      await getPosts("testToken", "");
 
       // This is an array of the arguments that were last passed to fetch
       const fetchArguments = fetch.mock.lastCall;
@@ -29,7 +29,7 @@ describe("posts service", () => {
       expect(options.method).toEqual("GET");
       expect(options.headers["Authorization"]).toEqual("Bearer testToken");
     });
-
+    
     test("rejects with an error if the status is not 200", async () => {
       fetch.mockResponseOnce(
         JSON.stringify({ message: "Something went wrong" }),
@@ -41,6 +41,25 @@ describe("posts service", () => {
       } catch (err) {
         expect(err.message).toEqual("Unable to fetch posts");
       }
+    });
+
+
+    test("includes a token & user id with its request", async () => {
+      fetch.mockResponseOnce(JSON.stringify({ posts: [], token: "newToken" }), {
+        status: 200,
+      });
+
+      const userID = 123 
+      await getPosts("testToken", userID);
+
+      // This is an array of the arguments that were last passed to fetch
+      const fetchArguments = fetch.mock.lastCall;
+      const url = fetchArguments[0];
+      const options = fetchArguments[1];
+
+      expect(url).toEqual(`${BACKEND_URL}/posts?userID=123`);
+      expect(options.method).toEqual("GET");
+      expect(options.headers["Authorization"]).toEqual("Bearer testToken");
     });
   });
 
