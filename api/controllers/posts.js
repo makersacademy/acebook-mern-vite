@@ -32,9 +32,39 @@ async function createPost(req, res) {
   res.status(201).json({ message: "Post created", token: newToken });
 }
 
+async function deletePost(req, res) {
+  try {
+    const postId = req.params.id;
+
+    // Find the post by ID
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    // Authorization check
+    if (post.user.toString() !== req.user_id) {
+      return res.status(403).json({ message: "Unauthorized to delete this post" });
+    }
+
+    // Delete the post
+    await post.deleteOne(post);
+    const newToken = generateToken(req.user_id);
+
+    
+    res.status(200).json({ message: "Post deleted", token: newToken });
+  } catch (error) {
+    console.error("Error deleting post:", error); // Log the error
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+}
+
+
 const PostsController = {
-  getAllPosts: getAllPosts,
-  createPost: createPost,
+  getAllPosts,
+  createPost,
+  deletePost,
 };
 
 module.exports = PostsController;
