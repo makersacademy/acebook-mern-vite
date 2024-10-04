@@ -30,7 +30,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <ProfilePage />,
+    element: <ProfilePage/>,
   },
   {
     path: "/friends",
@@ -43,7 +43,11 @@ const router = createBrowserRouter([
   {
     path: "/settings",
     element: <SettingsPage/>
-  }
+  },
+  // {
+  //   path: "/user/:user-id",
+  //   element: <UserPage />
+  // },
 ]);
 
 function App() {
