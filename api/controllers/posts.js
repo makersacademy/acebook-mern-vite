@@ -37,7 +37,6 @@ async function deletePost(req, res) {
 
     // Find the post by ID
     const post = await Post.findById(postId);
-    console.log("Post found:", post);
 
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
@@ -45,8 +44,6 @@ async function deletePost(req, res) {
 
     // Authorization check
     if (post.user.toString() !== req.user_id) {
-      console.log("post.user: " + post.user.toString())
-      console.log("req.user_id: " + req.user_id.toString())
       return res.status(403).json({ message: "Unauthorized to delete this post" });
     }
 
