@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post";
-import LogoutButton from "../../components/LogoutButton";
 import CreatePostForm from "../../components/CreatePostForm";
 import { getAllUsers} from "../../services/users";
 import { getUser } from "../../services/users";
 import UserProfile from "../../components/UserProfile";
+import { NavbarComponent } from "../../components/NavbarComponent";
 
 export function FeedPage() {
 
@@ -85,7 +85,9 @@ export function FeedPage() {
   
   return (
     <>
+    <NavbarComponent />
       <h2>Posts</h2>
+      <CreatePostForm />
       {postReverse ? 
       ( // conditional rendering based on postReverse status being true, renders reversed initially
       <div className="feed" role="feed">
@@ -105,9 +107,6 @@ export function FeedPage() {
       </div>)
 }
 
-      <LogoutButton />
-
-      <CreatePostForm />
 
       <h2>All User Profiles</h2>
       <div>

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 import { signup } from "../../services/authentication";
 
@@ -35,7 +37,28 @@ export function SignupPage() {
   return (
     <>
       <h2>Signup</h2>
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
+        {/* look at controlID */} 
+      <Form.Group className="mb-3" controlId="formBasicUsername">
+        <Form.Label htmlFor="username">Username</Form.Label>
+        <Form.Control id="username" type="text" value={username} placeholder="Enter a username" onChange={handleUsernameChange} />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label htmlFor="email">Email address</Form.Label>
+        <Form.Control id="email" type="email" value={email} placeholder="Enter email" onChange={handleEmailChange} />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label htmlFor="password">Password</Form.Label>
+        <Form.Control id="password" type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
+      </Form.Group>
+      <Button role="submit-button" id="submit" variant="primary" type="submit" value="Submit">
+        Submit
+      </Button>
+    </Form>
+      
+      {/* <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
         <input
           id="email"
@@ -60,7 +83,7 @@ export function SignupPage() {
           onChange={handleUsernameChange}
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
-      </form>
+      </form> */}
     </>
   );
 }

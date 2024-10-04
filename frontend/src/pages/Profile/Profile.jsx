@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../services/users";
 import UserProfile from "../../components/UserProfile";
+import { NavbarComponent } from "../../components/NavbarComponent";
 
 export function Profile() {
 
@@ -35,7 +36,7 @@ export function Profile() {
   
   return (
     <>
-
+  <NavbarComponent />
     <h2>My Profile</h2>
       <div>
         {user && <UserProfile user={user} key={user._id} />}
