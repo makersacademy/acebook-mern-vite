@@ -1,4 +1,5 @@
 // importing the logout componant
+import { Component } from "react";
 import LogoutButton from "./LogoutButton";
 
 // importing the nav bar css
@@ -30,3 +31,5 @@ function NavBar() {
 }
 
 export default NavBar;
+
+

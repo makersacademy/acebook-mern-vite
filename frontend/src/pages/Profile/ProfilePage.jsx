@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getPosts} from "../../services/posts";
 import Post from "../../components/Post"
+// import { useParams } from "react-router-dom";
 export function ProfilePage() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
-
+  // const { userId } = useParams()
   
   useEffect(() => {
     const token = localStorage.getItem("token");
