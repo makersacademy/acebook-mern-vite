@@ -4,6 +4,8 @@ const JWT = require("jsonwebtoken");
 const app = require("../../app");
 const Post = require("../../models/post");
 const User = require("../../models/user");
+const mongoose = require("mongoose");
+
 
 require("../mongodb_helper");
 
@@ -296,3 +298,84 @@ describe("/posts", () => {
     });
   });
 });
+
+describe("DELETE /posts/:id", () => {
+  let token;
+  let user1;
+  let post1;
+
+  beforeEach(async () => {
+    user1 = new User({
+      email: "chris@email.com",
+      password: "password",
+      username: "marion",
+      firstName: "Alexia",
+      lastName: "Chris",
+      gender: "both",
+      birthday: new Date("0000-12-25"),
+    });
+    await user1.save();
+
+    token = createToken(user1.id);
+
+    const user2 = new User({
+      email: "user2@email.com",
+      password: "password",
+      username: "user2",
+      firstName: "user",
+      lastName: "two",
+      gender: "two",
+      birthday: new Date("2002-10-01"),
+    })
+    user2.save()
+
+    post1 = new Post({
+      message: "hello",
+      dateCreated: new Date("2024-10-02"),
+      user: user1._id,
+    });
+    await post1.save();
+
+    post2 = new Post({
+      message: "hello",
+      dateCreated: new Date("2024-10-02"),
+      user: user2._id,
+    });
+    await post2.save();
+  });
+
+  afterEach(async () => {
+    await User.deleteMany({});
+    await Post.deleteMany({});
+  });
+
+  test("responds with 200 when post is successfully deleted", async () => {
+    const response = await request(app)
+      .delete(`/posts/${post1.id}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.status).toEqual(200);
+    expect(response.body.message).toEqual("Post deleted");
+  });
+
+  test("responds with 404 if post does not exist", async () => {
+    const invalidPostId = new mongoose.Types.ObjectId(); // Creating a random valid ObjectId
+    const response = await request(app)
+      .delete(`/posts/${invalidPostId}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.status).toEqual(404);
+    expect(response.body.message).toEqual("Post not found");
+  });
+
+  test("responds with 403 if user is not authorized", async () => {
+
+    const response = await request(app)
+      .delete(`/posts/${post2._id}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.status).toEqual(403);
+    expect(response.body.message).toEqual("Unauthorized to delete this post");
+  });
+});
+
