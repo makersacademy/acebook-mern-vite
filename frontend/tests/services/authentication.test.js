@@ -42,7 +42,6 @@ describe("authentication service", () => {
       });
 
       const token = await login(testEmail, testPassword);
-      // use JSON.stringify??
       expect(token).toEqual("testToken");
     });
 
