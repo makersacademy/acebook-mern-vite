@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 
 import {
   Container,
@@ -13,6 +14,8 @@ import {
 } from './Post.styled.js'; // Make sure to update this path
 
 function Post(props) {
+  const [avatar, setAvatar] = useState('');
+
   const getDateString = (dateString) => {
     const date = new Date(dateString);
     let hour = date.getUTCHours();
@@ -31,18 +34,22 @@ function Post(props) {
     return `${hour}:${minutes}${meridium} - ${day}.${month}.${year}`;
   };
 
-  const getRandomAvatar = () => {
-    const avatarCount = 6; // Adjust to the number of SVGs in userAvatars
-    const randomIndex = Math.floor(Math.random() * avatarCount) + 1;
-    return `/src/assets/userAvatars/${randomIndex}.svg`;
-  };
+
+  useEffect(() => {
+    const getRandomAvatar = () => {
+      const avatarCount = 6; 
+      const randomIndex = Math.floor(Math.random() * avatarCount) + 1;
+      return `src/assets/userAvatars/${randomIndex}.svg`;
+    };
+    setAvatar(getRandomAvatar());
+  }, []);
 
   return (
     <Container>
     <PostContainer key={props.id}>
       <PostHeader>
         <UserContainer>
-          <Image src={getRandomAvatar()} alt="User Avatar" />
+          <Image src={avatar} alt="User Avatar" />
           <UserDetails>
             <UserName data-testid="username">{props.username}</UserName>
             <TimeStamp data-testid="dateCreated">
