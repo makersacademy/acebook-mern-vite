@@ -13,6 +13,10 @@ function tokenChecker(req, res, next) {
     if (err) {
       console.log(err);
       res.status(401).json({ message: "auth error" });
+      // Check if user_id is in payload and return error if not
+    } else if (!payload.user_id) { 
+      console.log(err);
+      res.status(401).json({ message: "token did not contain user_id" });
     } else {
       // Add the user_id from the payload to the req object.
       req.user_id = payload.user_id;
