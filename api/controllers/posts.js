@@ -7,8 +7,8 @@ async function getAllPosts(req, res) {
     try {
       const token = generateToken(req.user_id); 
       let query = {}; 
-      if (req.query.user) {
-        const user = await User.findById(req.query.user);
+      if (req.query.userId) {
+        const user = await User.findById(req.query.userId);
         // If the user is found, add the user filter to the query
         if (user) {
           query.user = user._id;

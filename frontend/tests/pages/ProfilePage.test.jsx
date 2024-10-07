@@ -9,7 +9,7 @@ describe("Profile Page", () => {
 
   test("It displays a page heading", async () => {
     window.localStorage.setItem("token", "testToken");
-    render( // what is it??
+    render( 
       <MemoryRouter>
         <ProfilePage />
       </MemoryRouter>
