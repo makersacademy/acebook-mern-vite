@@ -10,23 +10,28 @@ const mongoose = require("mongoose");
 //     { timestamps: true } 
 // ); 
 
+// Define the schema for the Post model
 const PostSchema = new mongoose.Schema({
   message: {
     type: String,
     required: true,
   },
   likes: {
-    count: 0, // counts number of likes
-    liked_by: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] // array of user_ids. type and ref tell mongoose the relationship with User model
+    count: { 
+      type: Number,
+      default: 0 
+    },
+    // liked_by: []
+    liked_by: [
+      { type: mongoose.Schema.Types.ObjectId, ref: 'User' } // Array of user ids who liked the post
+    ]
   },
   author: {
-    type: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User' },
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User',  // Referencing the User model
     required: true
   }
-}, { timestamps: true }
-); 
+}, { timestamps: true });
 
 
 const Post = mongoose.model("Post", PostSchema);

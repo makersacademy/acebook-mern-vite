@@ -56,13 +56,18 @@ export async function createPost(message) {
 }
 
 // UPDATE POST
-export async function updatePost(post) {
+export async function updatePost(postId) {
 
   const payload = {
-    user: localStorage.getItem("user"),
-    post: post
+    post: { _id: postId },
+    // author: userId
   }
   
+  // const payload = {
+  //   author: userId
+  // };
+  console.log(`payload in JSON = ${JSON.stringify(payload)}`)
+
   const requestOptions = {
     method: "PATCH",
     // headers includes an Authorization header (using the token from localStorage) and Content-Type: "application/json"
@@ -75,9 +80,9 @@ export async function updatePost(post) {
     body: JSON.stringify(payload)
   };
   // Sends an UPDATE request to the /posts endpoint using the requestOptions.
-  const response = await fetch(`${BACKEND_URL}/posts/${post._id}`, requestOptions);
+  const response = await fetch(`${BACKEND_URL}/posts/${postId}`, requestOptions);
 
-  if (response.status !== 201) {
+  if (response.status !== 200) {
     throw new Error("Unable to change like status of post");
   }
   // Parses the server’s JSON response and returns the parsed data.

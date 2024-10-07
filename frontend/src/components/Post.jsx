@@ -1,5 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import LikeButton from './LikeButton';
 
 function Post(props) {
 
@@ -20,10 +21,13 @@ function Post(props) {
       </Card.Body>
       <ListGroup className="list-group-flush">
         <ListGroup.Item className="post-metadata">Posted on: {formatDate(props.post.createdAt)}</ListGroup.Item>
-        <ListGroup.Item className="post-metadata">Posted By: {props.post.user}</ListGroup.Item>
+        {/* <ListGroup.Item className="post-metadata">Posted By: {props.post.user}</ListGroup.Item> */}
+        <ListGroup.Item className="post-metadata">Posted By: {props.post.author ? props.post.author.username : "Unknown User"}</ListGroup.Item>        
+        <ListGroup.Item className="post-metadata">Likes: {props.post.likes.count}</ListGroup.Item>        
       </ListGroup>
       <Card.Body>
-        <Card.Link href="#">Like</Card.Link>
+        {/* <Card.Link href="#">Like</Card.Link> */}
+        <LikeButton post={props.post} user={props.user} toggleLike={props.toggleLike} />  
       </Card.Body>
     </Card>
 

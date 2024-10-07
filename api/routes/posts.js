@@ -6,6 +6,6 @@ const PostsController = require("../controllers/posts");
 
 router.get("/", PostsController.getAllPosts);
 router.post("/", PostsController.createPost);
-router.patch("/", tokenChecker, PostsController.updatePost);
+router.patch("/:post_id", tokenChecker, PostsController.updatePost);
 
 module.exports = router;
