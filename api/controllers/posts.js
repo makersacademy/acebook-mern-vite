@@ -36,7 +36,7 @@ async function updatePost(req, res) {
   }
   const updatedPost = await Post.findByIdAndUpdate(req.post_id, update, { new: true }); //{ new: true } means updated post is returned 
   const token = generateToken(req.user_id);
-  res.status(201).json({ message: "Post updated", post: updatedPost, token: token }); //add updated post 
+  res.status(200).json({ message: "Post updated", post: updatedPost, token: token }); //add updated post 
 } 
 
 const PostsController = {

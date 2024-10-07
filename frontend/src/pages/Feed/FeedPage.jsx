@@ -15,6 +15,8 @@ export function FeedPage() {
   const [users, setUsers] = useState([]);
 
   const [user, setUser] = useState({});
+
+  // const [likedBy, setLikedBy] = useState([])
   
   const navigate = useNavigate();
   const [postReverse, setPostReverser] = useState(true); // Determines which button to render based on postReverse status
