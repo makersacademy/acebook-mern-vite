@@ -31,7 +31,8 @@ export async function createPost(message) {
   console.log(user) // logs user data
   const payload = {
     message: message,
-    user: user.username
+    user: user.username,
+    userPic : user.imgURL
   }
   
   const requestOptions = {

@@ -8,11 +8,14 @@ function Post(props) {
   
   return (
     <article key={props.post._id}>
-      {props.post.message} 
-      Posted on: {formatDate(props.post.createdAt)}
+    <img src={props.post.userPic} className="postedbypic"></img> Messsage: {props.post.message}&nbsp;
+        Posted on: {formatDate(props.post.createdAt)}
     <br>
     </br>
       Posted By: {props.post.user}
+      <br></br>
+      <br></br>
+
     </article>
   )
 }
