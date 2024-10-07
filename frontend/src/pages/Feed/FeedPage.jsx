@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post";
 import NavBar from "../../components/NavBar";
+import ListOfPosts from "../../components/ListOfPosts";
 
 export function FeedPage() {
   const [posts, setPosts] = useState([]);
@@ -35,16 +36,8 @@ export function FeedPage() {
     <>
     <NavBar></NavBar>
       <h2>Posts</h2>
-      <div className="feed" role="feed">
-        {posts.map((post) => (
-          <Post 
-            key={post._id} 
-            message={post.message} 
-            dateCreated={post.dateCreated}
-            username={post.user?.username}
-            noOfLikes={post.noOfLikes}
-          />
-        ))}
+      <div className="feed-component" role="feed-component">
+        <ListOfPosts posts={posts}/>         
       </div>
     </>
   );
