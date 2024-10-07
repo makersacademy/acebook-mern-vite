@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 import {
   Container,
+  Button,
   PostContainer,
   PostHeader,
   UserContainer,
@@ -60,7 +61,7 @@ function Post(props) {
       </PostHeader>
       <TextContent data-testid="message">{props.message}</TextContent>
       <Footer>
-        <div data-testid="numberOfLikes">{props.noOfLikes} Likes</div>
+        <Button data-testid="numberOfLikes">{props.noOfLikes} Likes</Button>
       </Footer>
     </PostContainer>
     </Container>
