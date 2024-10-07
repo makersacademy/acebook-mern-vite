@@ -39,6 +39,7 @@ export function Profile() {
   <NavbarComponent />
     <h2>My Profile</h2>
       <div>
+        <img src={user.imgURL}></img>
         {user && <UserProfile user={user} key={user._id} />}
       </div>
     </>
