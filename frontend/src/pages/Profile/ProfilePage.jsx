@@ -24,7 +24,7 @@ export function ProfilePage() {
           navigate("/login");
         });
     }
-  }, [navigate, posts]);
+  }, [navigate]);
 
   const token = localStorage.getItem("token");
   if (!token) {

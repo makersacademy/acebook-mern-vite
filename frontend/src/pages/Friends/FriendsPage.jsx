@@ -22,7 +22,7 @@ export function FriendsPage() {
           navigate("/login");
         });
     }
-  }, [navigate, users]);
+  }, [navigate]);
 
   const token = localStorage.getItem("token");
   if (!token) {

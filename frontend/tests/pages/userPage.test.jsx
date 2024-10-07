@@ -1,4 +1,4 @@
-import { UserPage } from "../../src/pages/User/UserPage";
+import {  UserPage } from "../../src/pages/User/UserPage";
 import { MemoryRouter, Route } from "react-router-dom";
 import { vi } from "vitest";
 import { getUser } from "../../src/services/users";

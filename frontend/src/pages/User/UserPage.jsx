@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getPosts } from "../../services/posts";
 import { getUser }  from "../../services/users";
-// import Post from "../../components/Post";
+import Post from "../../components/Post";
 import { useParams } from "react-router-dom";
 
 
@@ -27,22 +27,22 @@ export function UserPage() {
             navigate("/login");
           });
       }
-    }, [navigate, posts, userId]);
-    // useEffect(() => {
-    //   const token = localStorage.getItem("token");
-    //   const loggedIn = token !== null;
-    //   if (loggedIn) {
-    //     getUser(token, userId)
-    //       .then((data) => {
-    //         setUser(data.user);
-    //         localStorage.setItem("token", data.token);
-    //       })
-    //       .catch((err) => {
-    //         console.error(err);
-    //         navigate("/login");
-    //       });
-    //   }
-    // }, [navigate, user, userId]);
+    }, [navigate, userId]);
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      const loggedIn = token !== null;
+      if (loggedIn) {
+        getUser(token, userId)
+          .then((data) => {
+            setUser(data.user);
+            localStorage.setItem("token", data.token);
+          })
+          .catch((err) => {
+            console.error(err);
+            navigate("/login");
+          });
+      }
+    }, [navigate, userId]);
   
     const token = localStorage.getItem("token");
     if (!token) {
@@ -52,11 +52,11 @@ export function UserPage() {
     return (
       <>
       <NavBar></NavBar>
-      <h1 data-testid="username-heading">{`${userId}'s Profile`}</h1>
+      <h1 data-testid="username-heading">{`${user.username}'s Profile`}</h1>
       
       <h2>Posts</h2>
         {/* Should be replaced by the feed component */}
-        {/* <div className="feed" role="feed">
+        <div className="feed" role="feed">
           {posts.map((post) => (
             <Post 
               key={post._id} 
@@ -66,7 +66,7 @@ export function UserPage() {
               noOfLikes={post.noOfLikes}
             />
           ))}
-        </div> */}
+        </div>
       </>
     )
   }
