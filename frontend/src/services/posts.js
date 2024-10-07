@@ -32,7 +32,7 @@ export async function createPost(message) {
   const payload = {
     message: message,
     user: user.username,
-    userPic : user.imgURL
+    userPic : user.imgURL // added current users imgURL to payload
   }
   
   const requestOptions = {

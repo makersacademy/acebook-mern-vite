@@ -5,7 +5,7 @@
 
 
 
-.postedbypic  { border: 1px solid #ddd;
+.postedbypic  { border: 1px solid #ddd; /* Added styling to test functionality, feel free to delete */
   border-radius: 4px;
   padding: 5px;
   width: 150px;}
