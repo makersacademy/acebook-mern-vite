@@ -46,7 +46,7 @@ const router = createBrowserRouter([
     element: <SettingsPage/>
   },
   {
-  path: "/user",
+  path: "/user/:userId",
   element: <UserPage />
   }
 ]);
