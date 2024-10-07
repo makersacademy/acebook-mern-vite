@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
+import { getComments } from "../../services/comments";
 import Post from "../../components/Post";
 import CreatePostForm from "../../components/CreatePostForm";
 import { getAllUsers} from "../../services/users";
 import { getUser } from "../../services/users";
 import UserProfile from "../../components/UserProfile";
 import { NavbarComponent } from "../../components/NavbarComponent";
+import DisplayComment from "../../components/DisplayComment";
 
 export function FeedPage() {
 
@@ -15,6 +17,8 @@ export function FeedPage() {
   const [users, setUsers] = useState([]);
 
   const [user, setUser] = useState({});
+
+  const [comments, setComments] = useState([]);
   
   const navigate = useNavigate();
   const [postReverse, setPostReverser] = useState(true); // Determines which button to render based on postReverse status
@@ -41,6 +45,23 @@ export function FeedPage() {
         });
       }
     }, [navigate, posts]); // added posts argument to re-render page upon post
+
+     // GET COMMENTS
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const loggedIn = token !== null;
+    if (loggedIn) {
+      getComments(token)
+        .then((data) => {
+          setComments(data.comments);
+          localStorage.setItem("token", data.token);
+        })
+        .catch((err) => {
+          console.error(err);
+          navigate("/login");
+        });
+      }
+    }, [navigate, comments]);
 
     // GET USERS
     useEffect(() => {
@@ -84,7 +105,9 @@ export function FeedPage() {
     navigate("/login");
     return;
   }
-  
+
+  // const filteredComments = comments.filter((comment) => comment.post_id === post._id);
+
   return (
     <>
     <NavbarComponent />
@@ -94,7 +117,7 @@ export function FeedPage() {
       ( // conditional rendering based on postReverse status being true, renders reversed initially
       <div className="feed" role="feed">
           {[...posts].reverse().map((post) => (
-          <Post post={post} key={post._id}/>
+          <Post post={post} key={post._id} comment="hello"/>
 
         ))}
         <button onClick={handleUnreverse}>Unreverse</button> {/*Button reverses currently displayed order*/}
@@ -108,6 +131,12 @@ export function FeedPage() {
         <button onClick={handleReverse}>Reverse</button> {/*Button reverses currently displayed order*/}
       </div>)
 }
+
+      <div>
+      {filteredComments.map((comment) => (
+        <DisplayComment key={comment.id} comment_text={comment.comment} />
+      ))}
+      </div>
 
 
       <h2>All User Profiles</h2>

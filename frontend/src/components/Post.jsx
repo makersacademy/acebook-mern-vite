@@ -22,13 +22,14 @@ function Post(props) {
 
   const [comment, setComment] = useState("");
 
-  const handleCommentChange = (event) => setComment(event.target.value);
+  const handleCommentChange = (event) => {
+    setComment(event.target.value);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(props.post._id);
     createComment(comment);
-    console.log(event);
     setComment(""); // clears COMMENT field upon submit
   };
 
@@ -71,6 +72,7 @@ function Post(props) {
         </Form>
 
         <Card.Body>
+        <Card.Text>{props.comment}</Card.Text>
           <Card.Link href="#">Like</Card.Link>
         </Card.Body>
       </Card>

@@ -1,6 +1,24 @@
 // docs: https://vitejs.dev/guide/env-and-mode.html
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
+export async function getComments(token) {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await fetch(`${BACKEND_URL}/comments`, requestOptions);
+
+  if (response.status !== 200) {
+    throw new Error("Unable to fetch comments");
+  }
+
+  const data = await response.json();
+  return data;
+}
+
 // CREATE Comments ("COMMENTS")
 export async function createComment(comment) {
   // payload object is created, which contains the comment data that will be sent to the backend. The key is comment, and the value is the argument passed to the function.
@@ -8,7 +26,7 @@ export async function createComment(comment) {
   // const userId = localStorage.user_id;
 
   const user = JSON.parse(localStorage.getItem("user")); // gets user object from localStorage as object
-  const post_id = JSON.parse(localStorage.getItem("post_id")); // gets user object from localStorage as object
+  const post_id = localStorage.getItem("post_id");
 
   console.log(user); // logs user data
   const payload = {
