@@ -39,7 +39,7 @@ export function UserPage() {
           })
           .catch((err) => {
             console.error(err);
-            navigate("/login");
+            // navigate("/login");
           });
       }
     }, [navigate, userId]);

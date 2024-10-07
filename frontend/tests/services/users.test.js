@@ -38,7 +38,7 @@ describe("users service", () => {
       const url = fetchArguments[0];
       const options = fetchArguments[1];
 
-      expect(url).toEqual(`${BACKEND_URL}/user?userID=123`);
+      expect(url).toEqual(`${BACKEND_URL}/user?userId=123`);
       expect(options.method).toEqual("GET");
       expect(options.headers["Authorization"]).toEqual("Bearer testToken");
     });

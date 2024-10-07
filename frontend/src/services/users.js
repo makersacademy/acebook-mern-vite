@@ -9,7 +9,7 @@ export async function getUser(token, userId) {
   };
 
   const newUrl = new URL(`${BACKEND_URL}/user`);
-  newUrl.searchParams.append("userID",`${userId}`)
+  newUrl.searchParams.append("userId",`${userId}`)
   
   const response = await fetch(newUrl.toString(), requestOptions);
 
