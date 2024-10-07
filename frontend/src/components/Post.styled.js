@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-// Styled components based on Tailwind classes
 const Container = styled.div`
   height: 100%;
   display: flex;
@@ -60,11 +59,6 @@ const UserDetails = styled.div`
   line-height: 1.25rem;
 `;
 
-const UserName = styled.h4`
-  font-weight: bold;
-  color: black;
-`;
-
 const TimeStamp = styled.span`
   font-size: 0.875rem;
 `;
@@ -93,6 +87,6 @@ const Footer = styled.div`
 
 export {
   Container, Image, InputContainer, Input, ImageIcon, PostContainer, 
-  PostHeader, UserContainer, UserDetails, UserName, TimeStamp, Button, 
+  PostHeader, UserContainer, UserDetails, TimeStamp, Button, 
   TextContent, Footer
 };
