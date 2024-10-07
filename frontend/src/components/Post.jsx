@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import User from './User.jsx'
 
 import {
   Container,
@@ -7,12 +8,11 @@ import {
   PostHeader,
   UserContainer,
   UserDetails,
-  UserName,
   TimeStamp,
   TextContent,
   Footer,
   Image
-} from './Post.styled.js'; // Make sure to update this path
+} from './Post.styled.js'; 
 
 function Post(props) {
   const [avatar, setAvatar] = useState('');
@@ -52,7 +52,12 @@ function Post(props) {
         <UserContainer>
           <Image src={avatar} alt="User Avatar" />
           <UserDetails>
-            <UserName data-testid="username">{props.username}</UserName>
+            <User 
+              user={{ 
+                _id: props.user?._id, 
+                username: props.username
+              }} 
+            />
             <TimeStamp data-testid="dateCreated">
               {getDateString(props.dateCreated)}
             </TimeStamp>
