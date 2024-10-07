@@ -16,10 +16,13 @@ const PostSchema = new mongoose.Schema({
     required: true,
   },
   likes: {
-    count: 0, liked_by: [] //counts number of likes and a list of users who have liked a post
+    count: 0, // counts number of likes
+    liked_by: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] // array of user_ids. type and ref tell mongoose the relationship with User model
   },
   author: {
-    type: String,
+    type: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User' },
     required: true
   }
 }, { timestamps: true }
