@@ -28,11 +28,14 @@ export async function login(email, password) {
   }
 }
 
-export async function signup(email, password, username) {
+// added imgURL on lines 33 & 38
+
+export async function signup(email, password, username, imgURL) {
   const payload = {
     email: email,
     password: password,
     username: username,
+    imgURL: imgURL
   };
 
   const requestOptions = {
