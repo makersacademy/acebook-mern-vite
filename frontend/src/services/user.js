@@ -9,7 +9,7 @@ export async function getUserInfo(token, userID="") {
     },
   };
 
-  const newUrl = new URL(`${BACKEND_URL}/posts`);
+  const newUrl = new URL(`${BACKEND_URL}/user`);
   if (userID) {
     newUrl.searchParams.append("userID",`${userID}`)
   }
