@@ -123,6 +123,7 @@ export function FeedPage() {
 
       <h2>Current User Profile</h2>
       <div>
+        <img src={user.imgURL}></img> {/* Displays the img from the imgURL property of current user*/}
         {user && <UserProfile user={user} key={user._id} />}
       </div>
     </>

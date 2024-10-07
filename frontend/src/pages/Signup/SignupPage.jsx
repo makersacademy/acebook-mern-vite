@@ -9,12 +9,14 @@ export function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [imgURL, setimgURL] = useState(""); // added state for imgURL submission
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
+    console.log(imgURL);
     try {
-      await signup(email, password, username);
+      await signup(email, password, username, imgURL);
       navigate("/login");
     } catch (err) {
       console.error(err);
@@ -32,6 +34,9 @@ export function SignupPage() {
 
   function handleUsernameChange(event) {
     setUsername(event.target.value);
+  }
+  function handleImgURLChange(event) { // added handle imgURL function
+    setimgURL(event.target.value);
   }
 
   return (
@@ -57,6 +62,11 @@ export function SignupPage() {
             onChange={handleEmailChange}
           />
         </Form.Group>
+
+    <Form.Group className="mb-3" controlId="formBasicImgURL"> {/* added a box to enter your img URL to signup form*/}
+        <Form.Label >Image URL</Form.Label>
+        <Form.Control type="text" value={imgURL} placeholder="Enter Image URL" onChange={handleImgURLChange} />
+      </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
