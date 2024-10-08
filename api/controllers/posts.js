@@ -10,6 +10,7 @@ async function getAllPosts(req, res) {
 
 async function createPost(req, res) {
   const post = new Post({
+    userPic: req.body.userPic,
     message: req.body.message,
     author: req.user_id, // including author from the request
   });

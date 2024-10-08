@@ -12,12 +12,12 @@ const mongoose = require("mongoose");
 
 // Define the schema for the Post model
 const PostSchema = new mongoose.Schema({
+  user: String, // added user as a string
+  userPic: String, // added userPic as string to post model
   message: {
     type: String,
     required: true,
   },
-  user: String, // added user as a string
-  userPic : String, // added userPic as string to post model
   likes: {
     count: { 
       type: Number,
