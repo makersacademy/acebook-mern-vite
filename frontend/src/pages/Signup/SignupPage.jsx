@@ -35,7 +35,8 @@ export function SignupPage() {
   function handleUsernameChange(event) {
     setUsername(event.target.value);
   }
-  function handleImgURLChange(event) { // added handle imgURL function
+  function handleImgURLChange(event) {
+    // added handle imgURL function
     setimgURL(event.target.value);
   }
 
@@ -63,10 +64,17 @@ export function SignupPage() {
           />
         </Form.Group>
 
-    <Form.Group className="mb-3" controlId="formBasicImgURL"> {/* added a box to enter your img URL to signup form*/}
-        <Form.Label >Image URL</Form.Label>
-        <Form.Control type="text" value={imgURL} placeholder="Enter Image URL" onChange={handleImgURLChange} />
-      </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicImgURL">
+          {" "}
+          {/* added a box to enter your img URL to signup form*/}
+          <Form.Label>Image URL</Form.Label>
+          <Form.Control
+            type="text"
+            value={imgURL}
+            placeholder="Enter Image URL"
+            onChange={handleImgURLChange}
+          />
+        </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
@@ -88,32 +96,6 @@ export function SignupPage() {
         </Button>
       </Form>
 
-      {/* <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="text"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          placeholder="Password"
-          id="password"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <label htmlFor="username">Username:</label>
-        <input
-          placeholder="Username"
-          id="username"
-          type="text"
-          value={username}
-          onChange={handleUsernameChange}
-        />
-        <input role="submit-button" id="submit" type="submit" value="Submit" />
-      </form> */}
     </>
   );
 }

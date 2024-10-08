@@ -16,6 +16,14 @@ async function createPost(req, res) {
   res.status(201).json({ message: "Post created", token: newToken });
 }
 
+// async function createComment(req, res) {
+//   const comment = new Comment(req.body);
+//   comment.save();
+
+//   const newToken = generateToken(req.user_id);
+//   res.status(201).json({ message: "comment created", token: newToken });
+// }
+
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
