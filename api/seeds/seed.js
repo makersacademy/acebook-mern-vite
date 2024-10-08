@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 async function connectToDatabase() {
   // put mongo url in 
-  const mongoDbUrl = "";
+  const mongoDbUrl = "mongodb://0.0.0.0/acebook";
 
   if (!mongoDbUrl) {
     console.error(
