@@ -52,7 +52,7 @@ export function UserPage() {
     return (
       <>
       <NavBar></NavBar>
-      <h1 data-testid="username-heading">{`${user.username}'s Profile`}</h1>
+      <h1 data-testid="username-heading">{`${user?.username}'s Profile`}</h1>
       
       <h2>Posts</h2>
         {/* Should be replaced by the feed component */}

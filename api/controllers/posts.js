@@ -15,7 +15,8 @@ async function getAllPosts(req, res) {
         }
       }
       // Find posts (filtered by user if applicable, or all posts if no user or user not found)
-      const posts = await Post.find(query).populate('user', 'username', 'firstName');
+      // const posts = await Post.find(query).populate('user', 'username', 'firstName'); should be a list like [username, firstName]
+      const posts = await Post.find(query).populate('user', 'username'); 
       res.status(200).json({ posts: posts, token: token });
     } catch (error) {
       res.status(500).json({ message: "Error fetching posts", error: error.message });
