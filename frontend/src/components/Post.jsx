@@ -1,11 +1,12 @@
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createComment } from "../services/comments";
 import Form from "react-bootstrap/Form";
-
+import DisplayComment from "../components/DisplayComment";
+import { getComments } from "../services/comments";
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-// import CreateCommentForm from "./CreateComment";
 
 function Post(props) {
   const formatDate = (date) => {
@@ -17,25 +18,48 @@ function Post(props) {
       hour12: true,
     };
     return new Date(date).toLocaleDateString(undefined, options);
-    //return date
   };
 
-  const [comment, setComment] = useState("");
+  const navigate = useNavigate();
 
+  const [comment, setComment] = useState(""); // individual comment
+
+  const [allComments, setAllComments] = useState([]); // all comments
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const loggedIn = token !== null;
+    if (loggedIn) {
+      getComments(token)
+        .then((data) => {
+          setAllComments(data.comments);
+          localStorage.setItem("token", data.token);
+        })
+        .catch((err) => {
+          console.error(err);
+          navigate("/login");
+        });
+      }
+    }, [navigate, allComments]);
+
+  // set an individual comment into state
   const handleCommentChange = (event) => {
     setComment(event.target.value);
   }
 
+  // handleSubmit for posting a comment
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(props.post._id);
     createComment(comment);
     setComment(""); // clears COMMENT field upon submit
   };
 
+  // set local storage item 'post_id' as the post id of the comment box being clicked on
   const handleClick = () => {
     localStorage.setItem("post_id", props.post._id);
   };
+
+  const filteredComments = allComments.filter((comment) => comment.post_id === props.post._id);
 
   return (
     <>
@@ -72,18 +96,15 @@ function Post(props) {
         </Form>
 
         <Card.Body>
-        <Card.Text>{props.comment}</Card.Text>
           <Card.Link href="#">Like</Card.Link>
+          <div>
+      {filteredComments.map((comment) => (
+        <DisplayComment key={comment._id} comment_text={comment.comment} user={comment.user} created_at={formatDate(comment.createdAt)}/>
+      ))}
+      </div>
         </Card.Body>
       </Card>
 
-      {/* <article key={props.post._id}>
-      {props.post.message} 
-      Posted on: {formatDate(props.post.createdAt)}
-    <br>
-    </br>
-      Posted By: {props.post.user}
-    </article> */}
     </>
   );
 }

@@ -1,6 +1,7 @@
 // docs: https://vitejs.dev/guide/env-and-mode.html
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
+// GET method to get all comments in the comments collection
 export async function getComments(token) {
   const requestOptions = {
     method: "GET",
@@ -19,23 +20,19 @@ export async function getComments(token) {
   return data;
 }
 
-// CREATE Comments ("COMMENTS")
+// CREATE Comments ("COMMENTS") POST method
 export async function createComment(comment) {
   // payload object is created, which contains the comment data that will be sent to the backend. The key is comment, and the value is the argument passed to the function.
   // organizes the data that needs to be sent to the backend. The backend typically expects data in a specific format, and payload ensures that.
-  // const userId = localStorage.user_id;
 
   const user = JSON.parse(localStorage.getItem("user")); // gets user object from localStorage as object
-  const post_id = localStorage.getItem("post_id");
+  const post_id = localStorage.getItem("post_id"); // gets post_id from local storage
 
-  console.log(user); // logs user data
   const payload = {
     comment: comment,
     post_id: post_id,
     user: user.username,
   };
-
-  console.log(payload);
 
   const requestOptions = {
     method: "POST",
@@ -49,7 +46,7 @@ export async function createComment(comment) {
     body: JSON.stringify(payload),
   };
 
-  // Sends a POST request to the /posts endpoint using the requestOptions. The server will create a new post with the data in payload.
+  // Sends a POST request to the /comments endpoint using the requestOptions. The server will create a new comment with the data in payload.
   const response = await fetch(`${BACKEND_URL}/comments`, requestOptions);
 
   if (response.status !== 201) {

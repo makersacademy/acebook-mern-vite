@@ -28,7 +28,6 @@ export async function createPost(message) {
   // const userId = localStorage.user_id;
 
   const user = JSON.parse(localStorage.getItem("user")) // gets user object from localStorage as object
-  console.log(user) // logs user data
   const payload = {
     message: message,
     user: user.username
