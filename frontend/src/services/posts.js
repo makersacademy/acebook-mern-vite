@@ -1,21 +1,20 @@
 // docs: https://vitejs.dev/guide/env-and-mode.html
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export async function getPosts(token, userId="") {
+export async function getPosts(token, userId = "") {
   const requestOptions = {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
-  
+
   const newUrl = new URL(`${BACKEND_URL}/posts`);
   if (userId) {
-    newUrl.searchParams.append("userId",`${userId}`)
+    newUrl.searchParams.append("userId", `${userId}`);
   }
-  console.log(newUrl)
   const response = await fetch(newUrl.toString(), requestOptions);
-  
+
   if (response.status !== 200) {
     throw new Error("Unable to fetch posts");
   }
@@ -40,7 +39,7 @@ export async function createPost(token, postObject) {
   if (response.status !== 201) {
     throw new Error("Unable to create a post");
   } else {
-    let data = await response.json();
-    return data.token;
+    const data = await response.json();
+    return data;
   }
 }

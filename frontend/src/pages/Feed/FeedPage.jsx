@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
-import Post from "../../components/Post";
 import NavBar from "../../components/NavBar";
 import ListOfPosts from "../../components/ListOfPosts";
 
@@ -36,9 +35,7 @@ export function FeedPage() {
     <>
     <NavBar></NavBar>
       <h2>Posts</h2>
-      <div className="feed-component" role="feed-component">
-        <ListOfPosts posts={posts}/>         
-      </div>
+      <ListOfPosts posts={posts}/>         
     </>
   );
 }
