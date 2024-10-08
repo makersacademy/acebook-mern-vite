@@ -34,9 +34,7 @@ export function FeedPage() {
     <>
     <NavBar></NavBar>
       <h2>Posts</h2>
-      <div className="feed-component" role="feed-component">
-        <ListOfPosts posts={posts}/>         
-      </div>
+      <ListOfPosts posts={posts}/>         
     </>
   );
 }

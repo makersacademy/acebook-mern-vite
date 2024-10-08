@@ -6,7 +6,8 @@ function CreatePost(props) {
   // const [wordCount, setWordCount] = useState(0);
   const [input, setInput] = useState("");
 
-  const handleChange = (event) => { // stores the form text as 'input' variable
+  const handleChange = (event) => {
+    // stores the form text as 'input' variable
     setInput(event.target.value); // we can set the input by typing in the form
     // const length = input.split("").length;
     // if (length <= 500) {
@@ -21,25 +22,28 @@ function CreatePost(props) {
       message: input,
       dateCreated: new Date(),
     };
-    try {
-      const data = await createPost(token, post);
-      localStorage.setItem("token", data.token);
-      setInput(""); // will reset the text field after the message has been submited
-      const loggedIn = token !== null;
-      if (loggedIn) {
-        getPosts(token)
-          .then((data) => {
-            props.setPosts(data.posts);
-            localStorage.setItem("token", data.token);
-          })
-          .catch((err) => {
-            console.error(err);
-            // navigate("/login");
-          });
+
+    const loggedIn = token !== null;
+    if (loggedIn) {
+      try {
+        await createPost(token, post);
+        setInput(""); // will reset the text field after the message has been submited
+        const postData = await getPosts(token)
+        localStorage.setItem("token", postData.token);
+        //   .then((data) => {
+
+        props.setPosts(postData.posts);
+        //     localStorage.setItem("token", data.token);
+        //   })
+        //   .catch((err) => {
+        //     console.error(err);
+        //     // navigate("/login");
+        //   });
+
+        props.setCreatePostState(!props.createPostState);
+      } catch (err) {
+        console.log(err);
       }
-      props.setCreatePostState(props.createPostState)
-    } catch (err) {
-      console.log(err);
     }
   };
   return (
@@ -47,13 +51,13 @@ function CreatePost(props) {
       <h3>Create a Post</h3>
       <div className="FieldContainer">
         <form onSubmit={handleSubmit}>
-            <textarea
-              data-testid="messageForm"
-              onChange={handleChange}
-              maxLength="500"
-              title="MessageBox"
-              value={input}
-              />
+          <textarea
+            data-testid="messageForm"
+            onChange={handleChange}
+            maxLength="500"
+            title="MessageBox"
+            value={input}
+          />
           {/* <p className="WordCounter">{`${wordCount}/500`}</p> */}
           <button className="SubmitButton">Submit</button>
         </form>

@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getPosts } from "../../services/posts";
 import { getUser }  from "../../services/users";
-import Post from "../../components/Post";
 import { useParams } from "react-router-dom";
+import ListOfPosts from "../../components/ListOfPosts";
 
 
 export function UserPage() {
@@ -56,17 +56,7 @@ export function UserPage() {
       
       <h2>Posts</h2>
         {/* Should be replaced by the feed component */}
-        <div className="feed" role="feed">
-          {posts.map((post) => (
-            <Post 
-              key={post._id} 
-              message={post.message} 
-              dateCreated={post.dateCreated}
-              username={post.user?.username}
-              noOfLikes={post.noOfLikes}
-            />
-          ))}
-        </div>
+        <ListOfPosts posts={posts}/>  
       </>
     )
   }
