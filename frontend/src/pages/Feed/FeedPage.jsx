@@ -84,7 +84,7 @@ export function FeedPage() {
     navigate("/login");
     return;
   }
-  
+
   return (
     <>
     <NavbarComponent />
@@ -95,7 +95,6 @@ export function FeedPage() {
       <div className="feed" role="feed">
           {[...posts].reverse().map((post) => (
           <Post post={post} key={post._id}/>
-
         ))}
         <button onClick={handleUnreverse}>Unreverse</button> {/*Button reverses currently displayed order*/}
       </div>): 
