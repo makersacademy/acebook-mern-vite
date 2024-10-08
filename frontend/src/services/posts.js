@@ -25,7 +25,7 @@ export async function createPost(message) {
   // organizes the data that needs to be sent to the backend. The backend typically expects data in a specific format, and payload ensures that.
   // const userId = localStorage.user_id;
   const user = JSON.parse(localStorage.getItem("user")) // gets user object from localStorage as object
-  console.log(user) // logs user data
+  // console.log(user) // logs user data
   const payload = {
     message: message,
     user: user.username
@@ -60,13 +60,11 @@ export async function updatePost(postId) {
 
   const payload = {
     post: { _id: postId },
+    // post_id: postId,
     // author: userId
   }
-  
-  // const payload = {
-  //   author: userId
-  // };
-  console.log(`payload in JSON = ${JSON.stringify(payload)}`)
+  // console.log(`65 updatePost postId = ${postId}`)
+  // console.log(`70 updatePost payload in JSON = ${JSON.stringify(payload)}`)
 
   const requestOptions = {
     method: "PATCH",
@@ -82,10 +80,14 @@ export async function updatePost(postId) {
   // Sends an UPDATE request to the /posts endpoint using the requestOptions.
   const response = await fetch(`${BACKEND_URL}/posts/${postId}`, requestOptions);
 
+  // console.log(`86 updatePost response status = ${response.status}`)
+
   if (response.status !== 200) {
     throw new Error("Unable to change like status of post");
   }
   // Parses the server’s JSON response and returns the parsed data.
   const data = await response.json();
+  
+  // console.log(`92 updatePost data = ${data.post}`)
   return data;
 }

@@ -27,8 +27,10 @@ export function FeedPage() {
     setPostReverser(false); // returns to default order
   }
 
+  //creat function to pass in to useEffect below
+
   // GET POSTS
-  useEffect(() => {
+  useEffect(() => { //trigger when a post is created 
     const token = localStorage.getItem("token");
     const loggedIn = token !== null;
     if (loggedIn) {
@@ -43,7 +45,8 @@ export function FeedPage() {
           navigate("/login");
         });
       }
-    }, [navigate, posts]); // added posts argument to re-render page upon post
+    // }, [navigate, posts]); // added posts argument to re-render page upon post
+    }, [navigate]); // added posts argument to re-render page upon post
 
     // GET USERS
   useEffect(() => {
@@ -87,11 +90,12 @@ export function FeedPage() {
     if (token) {
       updatePost(postId) 
         .then((updatedPost) => {
-          console.log("Updated Post: ", updatedPost);
+          console.log(`90 feed: Updated Post = ${updatedPost}`);
           // Update the posts state with the updated post
           setPosts((prevPosts) => {
             return prevPosts.map((post) => {
               if (post._id === updatedPost.post._id) {
+                console.log(`95 feed updated post = ${updatedPost.post}`)
                 return updatedPost.post; // If the post is the updated one, replace it
               } else {
                 return post; // Otherwise, leave it as is

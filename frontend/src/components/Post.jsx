@@ -9,7 +9,10 @@ function Post(props) {
     return new Date(date).toLocaleDateString(undefined, options)
     //return date
   }
-  
+  const author = `Posted By: ${props.post.author ? props.post.author.username : "Unknown User"}`
+  console.log("author", author)
+  console.log("12 Post:", props.post)
+  console.log(props.post.author ? props.post.author.username : "Unknown User")
   return (
     <>
     <Card className="post-card" key={props.post._id}>

@@ -23,7 +23,10 @@ const PostSchema = new mongoose.Schema({
     },
     // liked_by: []
     liked_by: [
-      { type: mongoose.Schema.Types.ObjectId, ref: 'User' } // Array of user ids who liked the post
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User' // Array of user ids who liked the post
+      } 
     ]
   },
   author: {
