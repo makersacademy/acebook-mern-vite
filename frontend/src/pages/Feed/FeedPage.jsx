@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { getPosts } from "../../services/posts";
-import Post from "../../components/Post";
 import NavBar from "../../components/NavBar";
 import ListOfPosts from "../../components/ListOfPosts";
 
