@@ -10,6 +10,7 @@ function Post(props) {
   }
   
   return (
+
     <>
     <Card className="post-card" key={props.post._id}>
       <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
@@ -19,6 +20,7 @@ function Post(props) {
         </Card.Text>
       </Card.Body>
       <ListGroup className="list-group-flush">
+        <ListGroup.Item className="post-metadata"><img src={props.post.userPic} className="postedbypic"></img></ListGroup.Item>
         <ListGroup.Item className="post-metadata">Posted on: {formatDate(props.post.createdAt)}</ListGroup.Item>
         <ListGroup.Item className="post-metadata">Posted By: {props.post.user}</ListGroup.Item>
       </ListGroup>
@@ -35,6 +37,7 @@ function Post(props) {
       Posted By: {props.post.user}
     </article> */}
     </>
+
   )
 }
 
