@@ -70,7 +70,7 @@ export function Profile() {
       <div className="feed" role="feed">
         <h2>Posts you have submitted: </h2>
         {filteredPosts.map((post) => (
-          <ProfilePost key={post._id} post={post} />
+          <ProfilePost key={post._id} post={post} user={user}/>  // key={post._id} was post.id in like branch
         ))}
       </div>
     </>

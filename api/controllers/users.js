@@ -39,14 +39,14 @@ res.status(202).json({ message: "Image updated!", user: updatedUser.username, to
 }}
 // GET ALL USERS
 async function getAllUsers(req, res) {
-  const users = await User.find();
+  const users = await User.find().select("-password");
   const token = generateToken(req.user_id);
   res.status(200).json({ users: users, token: token });
 }
 
 // GET CURRENT USER
 async function getCurrentUser(req, res) {
-  const user = await User.findById(req.user_id);
+  const user = await User.findById(req.user_id).select("-password");
   const token = generateToken(req.user_id);
   res.status(200).json({ user: user, token: token });
 }

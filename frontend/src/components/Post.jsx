@@ -7,9 +7,12 @@ import DisplayComment from "../components/DisplayComment";
 import { getComments } from "../services/comments";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import LikeButton from './LikeButton';
 
 function Post(props) {
+
   const formatDate = (date) => {
+
     const options = {
       year: "numeric",
       month: "long",
@@ -62,9 +65,8 @@ function Post(props) {
   const filteredComments = allComments.filter((comment) => comment.post_id === props.post._id);
 
   return (
-
     <>
-      <Card className="post-card" key={props.post._id}>
+    <Card className="post-card" key={props.post._id}>
         <Card.Img variant="top" src={props.post.userPic} className="postedbypic" />
         <Card.Body>
           <Card.Text>{props.post.message}</Card.Text>
@@ -76,6 +78,9 @@ function Post(props) {
           <ListGroup.Item className="post-metadata">
             Posted By: {props.post.user}
           </ListGroup.Item>
+          {/* <ListGroup.Item className="post-metadata">Posted By: {props.post.author ? props.post.author.username : "Unknown User"}</ListGroup.Item>        
+        <ListGroup.Item className="post-metadata">Likes: {props.post.likes.count}</ListGroup.Item>         */}
+
         </ListGroup>
 
         <Form onSubmit={handleSubmit}>
@@ -97,7 +102,9 @@ function Post(props) {
         </Form>
 
         <Card.Body>
-          <Card.Link href="#">Like</Card.Link>
+          {/* <Card.Link href="#">Like</Card.Link> */}
+          <LikeButton post={props.post} user={props.user} toggleLike={props.toggleLike} />  
+
           <div>
       {filteredComments.map((comment) => (
         <DisplayComment key={comment._id} comment_text={comment.comment} user={comment.user} created_at={formatDate(comment.createdAt)}/>
@@ -105,10 +112,9 @@ function Post(props) {
       </div>
         </Card.Body>
       </Card>
-
     </>
-  );
-
+  )
 }
 
 export default Post;
+

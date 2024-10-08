@@ -32,18 +32,7 @@ const CreatePostForm = () => {
       <Button value="Submit" variant="primary" type="submit">
         Submit
       </Button>
-      {/* <label htmlFor="message">Enter message:</label>
-            <input 
-                type="text"
-                name="message"
-                value={message}
-                onChange={handleMessageChange} 
-            /> */}
 
-      {/* <input 
-                type="submit"
-                value="Submit" 
-            /> */}
     </Form>
   );
 };
