@@ -31,7 +31,7 @@ try {
     }
 
 user.imgURL = newImgURL;
-const updatedUser = await user.save();
+const updatedUser = user.save();
 res.status(202).json({ message: "Image updated!", user: updatedUser.username, token: token});
 } catch (err) {
   console.error(err);
