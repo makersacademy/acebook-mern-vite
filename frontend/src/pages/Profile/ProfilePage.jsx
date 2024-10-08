@@ -6,6 +6,7 @@ import { getPosts } from "../../services/posts";
 import { getUserInfo } from "../../services/user";
 import ListOfPosts from "../../components/ListOfPosts";
 
+
 export function ProfilePage() {
   const [posts, setPosts] = useState([]);
   const [createPostState, setCreatePostState] = useState(false);
@@ -49,8 +50,8 @@ export function ProfilePage() {
         createPostState={createPostState}
       ></CreatePost>
       <h2>Posts</h2>
-      {/* Should be replaced by the feed component */}
         <ListOfPosts posts={posts}/>         
+
     </>
   );
 }
