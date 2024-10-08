@@ -15,11 +15,5 @@ const CommentSchema = new mongoose.Schema(
 
 const Comment = mongoose.model("Comment", CommentSchema);
 
-const dateTimeString = new Date().toLocaleString("en-GB");
-// new Post({ message: `Test message, created at ${dateTimeString}`, user: "spoofed on startup" }).save();
-// These lines will create a test post every time the server starts.
-// You can delete this once you are creating your own posts.
-// const dateTimeString = new Date().toLocaleString("en-GB");
-// new Post({ message: `Test message, created at ${dateTimeString}` }).save();
 
 module.exports = Comment;
