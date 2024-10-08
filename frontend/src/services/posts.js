@@ -30,7 +30,8 @@ export async function createPost(message) {
   const user = JSON.parse(localStorage.getItem("user")) // gets user object from localStorage as object
   const payload = {
     message: message,
-    user: user.username
+    user: user.username,
+    userPic : user.imgURL // added current users imgURL to payload
   }
   
   const requestOptions = {

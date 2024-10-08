@@ -23,6 +23,7 @@ const CreatePostForm = () => {
           rows={3}
           onChange={handleMessageChange}
           value={message}
+          className="message-box"
           name="message"
           placeholder="Your post..."
         />

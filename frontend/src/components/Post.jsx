@@ -62,9 +62,10 @@ function Post(props) {
   const filteredComments = allComments.filter((comment) => comment.post_id === props.post._id);
 
   return (
+
     <>
       <Card className="post-card" key={props.post._id}>
-        <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
+        <Card.Img variant="top" src={props.post.userPic} className="postedbypic" />
         <Card.Body>
           <Card.Text>{props.post.message}</Card.Text>
         </Card.Body>
@@ -107,6 +108,7 @@ function Post(props) {
 
     </>
   );
+
 }
 
 export default Post;

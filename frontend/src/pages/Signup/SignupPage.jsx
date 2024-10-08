@@ -44,7 +44,6 @@ export function SignupPage() {
     <>
       <h2>Signup</h2>
       <Form onSubmit={handleSubmit}>
-        {/* look at controlID */}
         <Form.Group className="mb-3" controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
@@ -97,32 +96,6 @@ export function SignupPage() {
         </Button>
       </Form>
 
-      {/* <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="text"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          placeholder="Password"
-          id="password"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <label htmlFor="username">Username:</label>
-        <input
-          placeholder="Username"
-          id="username"
-          type="text"
-          value={username}
-          onChange={handleUsernameChange}
-        />
-        <input role="submit-button" id="submit" type="submit" value="Submit" />
-      </form> */}
     </>
   );
 }

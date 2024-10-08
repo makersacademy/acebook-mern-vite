@@ -24,7 +24,7 @@ h1 {
   line-height: 1.1;
 }
 
-#message-box {
+.message-box {
   border: solid 2px black;
   width: 80%;
   margin: 0 auto;
