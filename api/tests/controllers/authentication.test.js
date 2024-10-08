@@ -8,6 +8,11 @@ describe("/tokens", () => {
     const user = new User({
       email: "auth-test@test.com",
       password: "12345678",
+      username: "someuser2",
+      firstName: "christophe",
+      lastName: "chris",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     });
 
     // We need to use `await` so that the "beforeAll" setup function waits for
