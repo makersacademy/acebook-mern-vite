@@ -9,6 +9,7 @@ import { CreatePost } from "./pages/CreatePost/CreatePost";
 import { Profile } from "./pages/Profile/Profile";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 // docs: https://reactrouter.com/en/main/start/overview
 const router = createBrowserRouter([
   {

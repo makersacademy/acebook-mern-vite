@@ -43,4 +43,28 @@ export async function getUser(token) {
   return data; // Can we return less or more specific data here?
 }
 
+export async function updateProfilePic(imgURL) {
+  const payload = {
+    "imgURL": imgURL
+  };
 
+  const requestOptions = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.token}`
+    },
+    body: JSON.stringify(payload),
+  };
+
+  let response = await fetch(`${BACKEND_URL}/users/me`, requestOptions);
+
+  if (response.status === 202) {
+    console.log(payload)
+    return response.status;
+  } else {
+    throw new Error(
+      `Received status ${response.status} when updating profile picture. Expected 201`
+    );
+  }
+}

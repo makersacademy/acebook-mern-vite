@@ -12,7 +12,11 @@ const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true 
-  }
+  },
+  imgURL: {
+    type: String,
+    required: false
+  } // added imgURL to User model
 },
 {timstamps: true}
 );

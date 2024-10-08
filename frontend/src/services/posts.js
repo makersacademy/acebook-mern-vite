@@ -25,10 +25,10 @@ export async function createPost(message) {
   // organizes the data that needs to be sent to the backend. The backend typically expects data in a specific format, and payload ensures that.
   // const userId = localStorage.user_id;
   const user = JSON.parse(localStorage.getItem("user")) // gets user object from localStorage as object
-  // console.log(user) // logs user data
   const payload = {
     message: message,
-    user: user.username
+    user: user.username,
+    userPic : user.imgURL // added current users imgURL to payload
   }
   
   const requestOptions = {
