@@ -33,7 +33,7 @@ describe("ListOfPosts", () => {
   
     test("renders multiple posts correctly - usernames", () => {
         render(<ListOfPosts posts={mockPosts} />);
-        const post = screen.getAllByTestId("username");
+        const post = screen.getAllByTestId("user-link");
         expect(post[0].textContent).toEqual("Alexia")
         expect(post[1].textContent).toEqual("Marion")
         expect(post[2].textContent).toEqual("Alexia")
@@ -58,8 +58,8 @@ describe("ListOfPosts", () => {
     test("renders multiple posts correctly - likes", () => {
         render(<ListOfPosts posts={mockPosts} />);
         const post = screen.getAllByTestId("numberOfLikes");
-        expect(post[0].textContent).toEqual("15")
-        expect(post[1].textContent).toEqual("16")
-        expect(post[2].textContent).toEqual("20")
+        expect(post[0].textContent).toEqual("15 Likes")
+        expect(post[1].textContent).toEqual("16 Likes")
+        expect(post[2].textContent).toEqual("20 Likes")
     });
 });

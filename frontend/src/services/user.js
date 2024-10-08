@@ -11,7 +11,7 @@ export async function getUserInfo(token, userID="") {
 
   const newUrl = new URL(`${BACKEND_URL}/user`);
   if (userID) {
-    newUrl.searchParams.append("userID",`${userID}`)
+    newUrl.searchParams.append("userId",`${userID}`)
   }
   
   const response = await fetch(newUrl.toString(), requestOptions);
