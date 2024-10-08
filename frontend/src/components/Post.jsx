@@ -102,7 +102,7 @@ function Post(props) {
         </Form>
 
         <Card.Body>
-          {/* <Card.Link href="#">Like</Card.Link> */}
+          <ListGroup.Item className="post-metadata">Likes: {props.post.likes.count}</ListGroup.Item> 
           <LikeButton post={props.post} user={props.user} toggleLike={props.toggleLike} />  
 
           <div>
