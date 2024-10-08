@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-
 import { signup } from "../../services/authentication";
 
 export function SignupPage() {
@@ -12,15 +11,31 @@ export function SignupPage() {
   const [imgURL, setimgURL] = useState(""); // added state for imgURL submission
   const navigate = useNavigate();
 
+  const passValidator = (string) => {
+    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    const lowercaseRegex = /[a-z]/;
+    const numberRegex = /[0-9]/;
+    const uppercaseRegex = /[A-Z]/;
+    return (
+      specialCharRegex.test(string) &&
+      uppercaseRegex.test(string) &&
+      lowercaseRegex.test(string) &&
+      numberRegex.test(string)
+    );
+  };
+
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log(imgURL);
-    try {
-      await signup(email, password, username, imgURL);
-      navigate("/login");
-    } catch (err) {
-      console.error(err);
-      navigate("/signup");
+    if (password.length >= 7 && passValidator(password)) {
+      try {
+        await signup(email, password, username, imgURL);
+        navigate("/login");
+      } catch (err) {
+        console.error(err);
+        navigate("/signup");
+      }
+    } else {
+      alert("Your password is not valid");
     }
   }
 
@@ -95,7 +110,6 @@ export function SignupPage() {
           Submit
         </Button>
       </Form>
-
     </>
   );
 }

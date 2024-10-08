@@ -7,12 +7,10 @@ import DisplayComment from "../components/DisplayComment";
 import { getComments } from "../services/comments";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import LikeButton from './LikeButton';
+import LikeButton from "./LikeButton";
 
 function Post(props) {
-
   const formatDate = (date) => {
-
     const options = {
       year: "numeric",
       month: "long",
@@ -29,6 +27,8 @@ function Post(props) {
 
   const [allComments, setAllComments] = useState([]); // all comments
 
+  const [refreshComments, setRefreshComments] = useState(false); // all comments
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     const loggedIn = token !== null;
@@ -36,25 +36,27 @@ function Post(props) {
       getComments(token)
         .then((data) => {
           setAllComments(data.comments);
+          setRefreshComments(false);
           localStorage.setItem("token", data.token);
         })
         .catch((err) => {
           console.error(err);
           navigate("/login");
         });
-      }
-    }, [navigate, allComments]);
+    }
+  }, [navigate, refreshComments]);
 
   // set an individual comment into state
   const handleCommentChange = (event) => {
     setComment(event.target.value);
-  }
+  };
 
   // handleSubmit for posting a comment
   const handleSubmit = (event) => {
     event.preventDefault();
     createComment(comment);
     setComment(""); // clears COMMENT field upon submit
+    setRefreshComments(true);
   };
 
   // set local storage item 'post_id' as the post id of the comment box being clicked on
@@ -62,12 +64,18 @@ function Post(props) {
     localStorage.setItem("post_id", props.post._id);
   };
 
-  const filteredComments = allComments.filter((comment) => comment.post_id === props.post._id);
+  const filteredComments = allComments.filter(
+    (comment) => comment.post_id === props.post._id
+  );
 
   return (
     <>
-    <Card className="post-card" key={props.post._id}>
-        <Card.Img variant="top" src={props.post.userPic} className="postedbypic" />
+      <Card className="post-card" key={props.post._id}>
+        <Card.Img
+          variant="top"
+          src={props.post.userPic}
+          className="postedbypic"
+        />
         <Card.Body>
           <Card.Text>{props.post.message}</Card.Text>
         </Card.Body>
@@ -80,7 +88,6 @@ function Post(props) {
           </ListGroup.Item>
           {/* <ListGroup.Item className="post-metadata">Posted By: {props.post.author ? props.post.author.username : "Unknown User"}</ListGroup.Item>        
         <ListGroup.Item className="post-metadata">Likes: {props.post.likes.count}</ListGroup.Item>         */}
-
         </ListGroup>
 
         <Form onSubmit={handleSubmit}>
@@ -102,19 +109,29 @@ function Post(props) {
         </Form>
 
         <Card.Body>
-          <ListGroup.Item className="post-metadata">Likes: {props.post.likes.count}</ListGroup.Item> 
-          <LikeButton post={props.post} user={props.user} toggleLike={props.toggleLike} />  
+          <ListGroup.Item className="post-metadata">
+            Likes: {props.post.likes.count}
+          </ListGroup.Item>
+          <LikeButton
+            post={props.post}
+            user={props.user}
+            toggleLike={props.toggleLike}
+          />
 
           <div>
-      {filteredComments.map((comment) => (
-        <DisplayComment key={comment._id} comment_text={comment.comment} user={comment.user} created_at={formatDate(comment.createdAt)}/>
-      ))}
-      </div>
+            {filteredComments.map((comment) => (
+              <DisplayComment
+                key={comment._id}
+                comment_text={comment.comment}
+                user={comment.user}
+                created_at={formatDate(comment.createdAt)}
+              />
+            ))}
+          </div>
         </Card.Body>
       </Card>
     </>
-  )
+  );
 }
 
 export default Post;
-
