@@ -64,7 +64,11 @@ describe("/posts", () => {
       const user = new User({
         email: "post-test@test.com",
         password: "12345678",
-        username: "alexia"
+        username: "alexia",
+        firstName: "test",
+        lastName: "dummy",
+        gender: "dummy",
+        birthday: new Date("1989-11-12"),
       });
       await user.save();
 
@@ -150,7 +154,7 @@ describe("/posts", () => {
         firstName: "Alexia",
         lastName: "Chris",
         gender: "both",
-        birthday: new Date("0000-12-25"),
+        birthday: new Date("1990-12-25"),
       })
       user1.save()
       
@@ -223,7 +227,7 @@ describe("/posts", () => {
         firstName: "Alexia",
         lastName: "Chris",
         gender: "both",
-        birthday: new Date("0000-12-25"),
+        birthday: new Date("1990-12-25"),
       })
       user1.save()
 
@@ -313,7 +317,7 @@ describe("DELETE /posts/:id", () => {
       firstName: "Alexia",
       lastName: "Chris",
       gender: "both",
-      birthday: new Date("0000-12-25"),
+      birthday: new Date("1990-12-25"),
     });
     await user1.save();
 
