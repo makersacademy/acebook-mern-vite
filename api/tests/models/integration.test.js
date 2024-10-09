@@ -12,6 +12,11 @@ describe("Post model", () => {
     const user = new User({ 
       email: "someone@example.com",
       password: "password",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     });
     await user.save();
     const post = new Post({
@@ -31,14 +36,29 @@ describe("Post model", () => {
     const user1 = new User({
       email: "someone1@example.com",
       password: "password",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     });
     const user2 = new User({
       email: "someone2@example.com",
       password: "password",
+      username: "someuser2",
+      firstName: "christoph",
+      lastName: "marianne",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     });
     const user3 = new User({
       email: "someone3@example.com",
       password: "password",
+      username: "someuser",
+      firstName: "Alexia",
+      lastName: "Maynart",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     });
     await user1.save();
     await user2.save();
@@ -63,6 +83,11 @@ describe("Post model", () => {
     const user1 = new User({
       email: "someone1@example.com",
       password: "password",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     });
     await user1.save();
     const post = new Post({
@@ -82,12 +107,22 @@ describe("Post model", () => {
     const user1 = new User({
       email: "someone1@example.com",
       password: "password",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     });
     await user1.save();
 
     const user2 = new User({
       email: "someone2@example.com",
       password: "password",
+      username: "someuser2",
+      firstName: "christophe",
+      lastName: "chris",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     });
     await user2.save();
 
@@ -141,6 +176,11 @@ describe("User model", () => {
     const user = new User({
       email: "someone@example.com",
       password: "password",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01"),
       likedPosts: [post1._id, post2._id]
     });
     await user.save()
