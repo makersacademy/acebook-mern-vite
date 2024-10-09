@@ -78,6 +78,37 @@ describe("Signup Page", () => {
 
     await completeSignupForm();
 
-    expect(navigateMock).toHaveBeenCalledWith("/signup");
+      expect(navigateMock).toHaveBeenCalledWith("/signup");
+    });
+
+
+  test("shows error for invalid email format", async () => {
+    render(<SignupPage />);
+    const user = userEvent.setup();
+    
+    // Filling in other valid fields
+    const emailInputEl = screen.getByLabelText("Email:");
+    const passwordInputEl = screen.getByLabelText("Password:");
+    const usernameInputEl = screen.getByLabelText("Username:");
+    const firstNameInputEl = screen.getByLabelText("First name:");
+    const lastNameInputEl = screen.getByLabelText("Last name:");
+    const genderInputEl = screen.getByLabelText("Gender:");
+    const birthdayInputEl = screen.getByLabelText("Birthday:");
+    const submitButtonEl = screen.getByRole("submit-button");
+    
+    // Fill form with invalid email
+    await user.type(emailInputEl, "invalid-email");
+    await user.type(passwordInputEl, "1234");
+    await user.type(usernameInputEl, "TestUsername");
+    await user.type(firstNameInputEl, "TestFirstName");
+    await user.type(lastNameInputEl, "TestLastName");
+    await user.type(genderInputEl, "TestGender");
+    await user.type(birthdayInputEl, "2001-01-01");
+    
+    // Submit form
+    await user.click(submitButtonEl);
+    
+    // Assert that the email error message appears
+    expect(screen.getByText("Please enter a valid email address")).to.exist;
   });
 });

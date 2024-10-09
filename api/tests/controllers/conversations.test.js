@@ -34,7 +34,7 @@ describe("/users", () => {
     await Conversation.deleteMany({});
     await Message.deleteMany({});
     user1 = new User({
-      email: "email1",
+      email: "email3@email.com",
       password: 1234,
       username: "bobmarley",
       firstName: "Bob",
@@ -44,7 +44,7 @@ describe("/users", () => {
     });
 
     user2 = new User({
-      email: "email2",
+      email: "email2@email.com",
       password: 1234,
       username: "johnsmith",
       firstName: "John",
