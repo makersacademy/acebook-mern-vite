@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { signup } from "../../services/authentication";
-
 
 export function SignupPage() {
   const [email, setEmail] = useState("");
@@ -12,8 +10,10 @@ export function SignupPage() {
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("");
   const [birthday, setBirthday] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   const navigate = useNavigate();
+
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -22,12 +22,19 @@ export function SignupPage() {
       navigate("/login");
     } catch (err) {
       console.error(err);
-      navigate("/signup");
     }
   }
 
+
   function handleEmailChange(event) {
     setEmail(event.target.value);
+
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (!emailRegex.test(event.target.value)) {
+      setEmailError('Please enter a valid email address');
+    } else {
+      setEmailError('');
+    }
   }
 
   function handlePasswordChange(event) {
@@ -61,11 +68,13 @@ export function SignupPage() {
         {/* email */}
         <label htmlFor="email">Email:</label>
         <input
+          placeholder="Email"
           id="email"
-          type="text"
+          type="email"
           value={email}
           onChange={handleEmailChange}
         />
+        {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
 
         {/* password */}
         <label htmlFor="password">Password:</label>
@@ -98,9 +107,9 @@ export function SignupPage() {
         />
 
          {/* last name */}
-         <label htmlFor="lastName">Last name:</label>
+        <label htmlFor="lastName">Last name:</label>
         <input
-          placeholder="Last name"
+          placeholder="Last Name"
           id="lastName"
           type="text"
           value={lastName}
@@ -108,7 +117,7 @@ export function SignupPage() {
         />
 
          {/* gender */}
-         <label htmlFor="gender">Gender:</label>
+        <label htmlFor="gender">Gender:</label>
         <input
           placeholder="Gender"
           id="gender"
@@ -118,7 +127,7 @@ export function SignupPage() {
         />
 
          {/* birthday */}
-         <label htmlFor="birthday">Birthday:</label>
+        <label htmlFor="birthday">Birthday:</label>
         <input
           placeholder="Birthday"
           id="birthday"
