@@ -21,11 +21,11 @@ export function ProfilePage() {
         try {
           const userData = await getUserInfo(token);
           setUser(userData.userInfo[0]);
-          localStorage.setItem("token", userData.token);
+          // localStorage.setItem("token", userData.token);
 
           const postData = await getPosts(token, userData.userInfo[0]._id);
           setPosts(postData.posts);
-          localStorage.setItem("token", postData.token);
+          // localStorage.setItem("token", postData.token);
         } catch (err) {
           console.log(err);
           navigate("/login");

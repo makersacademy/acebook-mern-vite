@@ -6,6 +6,7 @@ import { Routes } from "react-router-dom";
 import { render, screen } from "@testing-library/react";
 import { getPosts } from "../../src/services/posts";
 import { act } from "react-dom/test-utils";
+import { getFriends } from "../../src/services/friends";
 vi.mock("../../src/services/users", () => {
   const getUserMock = vi.fn();
   return { getUser: getUserMock };
@@ -14,6 +15,11 @@ vi.mock("../../src/services/users", () => {
 vi.mock("../../src/services/posts", () => {
   const getPostsMock = vi.fn();
   return { getPosts: getPostsMock };
+});
+
+vi.mock("../../src/services/friends", () => {
+  const getFriendsMock = vi.fn();
+  return { getFriends: getFriendsMock };
 });
 
 describe("UserPage", () => {
@@ -26,6 +32,10 @@ describe("UserPage", () => {
       token: "newToken",
     });
     await getPosts.mockResolvedValue({
+      posts: [],
+      token: "newToken",
+    });
+    await getFriends.mockResolvedValue({
       posts: [],
       token: "newToken",
     });
@@ -69,4 +79,44 @@ describe("UserPage", () => {
     });
     expect(getPosts).toHaveBeenCalledWith("testToken", "1234");
   });
+  test("when the page is loaded the user's friends are fetch from the back end", async () => {
+    window.localStorage.setItem("token", "testToken");
+
+    await act(async () => {
+      render(
+        <MemoryRouter initialEntries={["/user/1234"]}>
+          <Routes>
+            <Route path="/user/:userId" element={<UserPage />} />
+          </Routes>
+        </MemoryRouter>
+      );
+    });
+    expect(getFriends).toHaveBeenCalledWith("testToken");
+  })
+  test("if the user is a friend the add friend component isnt loaded", async () => {
+    window.localStorage.setItem("token", "testToken");
+    await getFriends.mockResolvedValue({
+      friends: [
+        {_id: "12345"},
+        {_id: "12346"}
+      ]
+    })
+    await getUser.mockResolvedValue({
+      user: {
+        _id: "12345",
+        username: "testuser1",
+      },
+      token: "newToken",
+    });
+    await act(async () => {
+      render(
+        <MemoryRouter initialEntries={["/user/1234"]}>
+          <Routes>
+            <Route path="/user/:userId" element={<UserPage />} />
+          </Routes>
+        </MemoryRouter>
+      );
+    });
+    expect(screen.queryByText("Add Friend")).to.exist;
+  })
 });

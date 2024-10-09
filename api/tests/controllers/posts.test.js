@@ -27,6 +27,7 @@ function createToken(userId) {
 let token;
 describe("/posts", () => {
   beforeAll(async () => {
+    await Post.deleteMany({});
     const user = new User({
       email: "post-test@test.com",
       password: "12345678",
