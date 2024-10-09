@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema({
   },
   imgURL: {
     type: String,
-    default: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
+    default: "https://i.guim.co.uk/img/media/98b5d04bd6657b580369ac8c30d469af1fdec172/0_0_4296_2932/master/4296.jpg?width=1300&dpr=1&s=none",
     required: false
   } // added imgURL to User model
 },
