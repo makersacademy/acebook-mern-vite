@@ -79,15 +79,30 @@ function Post(props) {
         <Card.Body>
           <Card.Text>{props.post.message}</Card.Text>
         </Card.Body>
+
         <ListGroup className="list-group-flush">
+
           <ListGroup.Item className="post-metadata">
             Posted on: {formatDate(props.post.createdAt)}
           </ListGroup.Item>
-          <ListGroup.Item className="post-metadata">
+
+          {/* <ListGroup.Item className="post-metadata">
             Posted By: {props.post.user}
+          </ListGroup.Item> */}
+
+          <ListGroup.Item className="post-metadata">
+          Posted By: {props.post.author ? props.post.author.username : "Unknown User"}
+          </ListGroup.Item>       
+
+          <ListGroup.Item className="post-metadata">
+            Likes: {props.post.likes.count}
           </ListGroup.Item>
-          {/* <ListGroup.Item className="post-metadata">Posted By: {props.post.author ? props.post.author.username : "Unknown User"}</ListGroup.Item>        
-        <ListGroup.Item className="post-metadata">Likes: {props.post.likes.count}</ListGroup.Item>         */}
+          
+          <LikeButton
+            post={props.post}
+            user={props.user}
+            toggleLike={props.toggleLike}
+          />
         </ListGroup>
 
         <Form onSubmit={handleSubmit}>
@@ -109,14 +124,6 @@ function Post(props) {
         </Form>
 
         <Card.Body>
-          <ListGroup.Item className="post-metadata">
-            Likes: {props.post.likes.count}
-          </ListGroup.Item>
-          <LikeButton
-            post={props.post}
-            user={props.user}
-            toggleLike={props.toggleLike}
-          />
 
           <div>
             {filteredComments.map((comment) => (
