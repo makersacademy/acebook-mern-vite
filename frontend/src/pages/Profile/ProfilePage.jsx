@@ -1,5 +1,6 @@
 import NavBar from "../../components/NavBar";
 import CreatePost from "../../components/CreatePost";
+import ProfileUserName from "../../components/ProfileUserName";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getPosts } from "../../services/posts";
@@ -10,7 +11,7 @@ import ListOfPosts from "../../components/ListOfPosts";
 export function ProfilePage() {
   const [posts, setPosts] = useState([]);
   const [createPostState, setCreatePostState] = useState(false);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +22,7 @@ export function ProfilePage() {
         try {
           const userData = await getUserInfo(token);
           setUser(userData.userInfo[0]);
+          // console.log(userData.userInfo[0])
           // localStorage.setItem("token", userData.token);
 
           const postData = await getPosts(token, userData.userInfo[0]._id);
@@ -43,15 +45,20 @@ export function ProfilePage() {
   return (
     <>
       <NavBar></NavBar>
-      <h1 data-testid="profilePage-h1">Welcome to your profile!</h1>
+      <ProfileUserName 
+        username={user.username}
+        />
+      <br/>  
       <CreatePost
         setPosts={setPosts}
         setCreatePostState={setCreatePostState}
         createPostState={createPostState}
-      ></CreatePost>
+        />
+      <br/>  
       <h2>Posts</h2>
-        <ListOfPosts posts={posts}/>         
-
+        <ListOfPosts 
+        posts={posts}
+        />         
     </>
   );
 }

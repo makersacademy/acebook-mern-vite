@@ -28,8 +28,8 @@ describe("Profile Page", () => {
       </MemoryRouter>
     );
 
-    const heading = await screen.findByTestId("profilePage-h1");
-    expect(heading.textContent).toEqual("Welcome to your profile!");
+    const heading = await screen.findByTestId("profile-heading");
+    expect(heading.textContent).toEqual("Welcome to your profile");
   });
 
 
