@@ -3,14 +3,13 @@ import { useNavigate } from "react-router-dom";
 // import { getPosts, updatePost } from "../../services/posts";
 // import Post from "../../components/Post";
 import CreatePostForm from "../../components/CreatePostForm";
-import { getAllUsers} from "../../services/users";
+import { getAllUsers } from "../../services/users";
 import { getUser } from "../../services/users";
 import UserProfile from "../../components/UserProfile";
 import { NavbarComponent } from "../../components/NavbarComponent";
 import AllPosts from "../../components/AllPosts";
 
 export function FeedPage() {
-
   // const [posts, setPosts] = useState([]);
 
   const [users, setUsers] = useState([]);
@@ -18,7 +17,7 @@ export function FeedPage() {
   const [user, setUser] = useState({});
 
   // const [likedBy, setLikedBy] = useState([])
-  
+
   const navigate = useNavigate();
   // const [postReverse, setPostReverser] = useState(true); // Determines which button to render based on postReverse status
   // const handleReverse = () => {
@@ -31,7 +30,7 @@ export function FeedPage() {
   //creat function to pass in to useEffect below
 
   // // GET POSTS
-  // useEffect(() => { //trigger when a post is created 
+  // useEffect(() => { //trigger when a post is created
   //   const token = localStorage.getItem("token");
   //   const loggedIn = token !== null;
   //   if (loggedIn) {
@@ -49,7 +48,7 @@ export function FeedPage() {
   //   // }, [navigate, posts]); // added posts argument to re-render page upon post
   //   }, [navigate]); // added posts argument to re-render page upon post
 
-    // GET USERS
+  // GET USERS
   useEffect(() => {
     const token = localStorage.getItem("token");
     const loggedIn = token !== null;
@@ -63,33 +62,33 @@ export function FeedPage() {
           console.error(err);
           navigate("/login");
         });
-      }
-    }, [navigate]);
+    }
+  }, [navigate]);
 
-    // GET USER
-    useEffect(() => {
-      const token = localStorage.getItem("token");
-      const loggedIn = token !== null;
-      if (loggedIn) {
-        getUser(token)
-          .then((data) => {
-            setUser(data.user);
-            localStorage.setItem("user", JSON.stringify(data.user)) // add all user data to local storage !! INCLUDES PASSWORD !!
-            localStorage.setItem("username", data.user.username) // adds username to local storage
-            localStorage.setItem("token", data.token);
-          })
-          .catch((err) => {
-            console.error(err);
-            navigate("/login");
-          });
-        }
-      }, [navigate]);
+  // GET USER
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const loggedIn = token !== null;
+    if (loggedIn) {
+      getUser(token)
+        .then((data) => {
+          setUser(data.user);
+          localStorage.setItem("user", JSON.stringify(data.user)); // add all user data to local storage !! INCLUDES PASSWORD !!
+          localStorage.setItem("username", data.user.username); // adds username to local storage
+          localStorage.setItem("token", data.token);
+        })
+        .catch((err) => {
+          console.error(err);
+          navigate("/login");
+        });
+    }
+  }, [navigate]);
 
   // LIKE POST
   // const toggleLike = (postId) => {
   //   const token = localStorage.getItem("token");
   //   if (token) {
-  //     updatePost(postId) 
+  //     updatePost(postId)
   //       .then((updatedPost) => {
   //         console.log(`90 feed: Updated Post = ${updatedPost}`);
   //         // Update the posts state with the updated post
@@ -110,7 +109,6 @@ export function FeedPage() {
   //   }
   // };
 
-
   const token = localStorage.getItem("token");
   if (!token) {
     navigate("/login");
@@ -119,21 +117,16 @@ export function FeedPage() {
 
   return (
     <>
-    <NavbarComponent />
+      <NavbarComponent />
       <h2>Posts</h2>
       <CreatePostForm />
 
-      <AllPosts 
-          user={user}
-          postFilter="all"
-      />
-
-
+      <AllPosts user={user} postFilter="all" />
       <h2>All User Profiles</h2>
       <div>
         {users.map((user, index) => (
-            <UserProfile user={user} key={index} />
-          ))}
+          <UserProfile user={user} key={index} />
+        ))}
         {/* {users.map((user) => (
             <UserProfile user={user} key={user._id} />
           ))} */}
@@ -142,11 +135,10 @@ export function FeedPage() {
 
       <h2>Current User Profile</h2>
       <div>
-        <img src={user.imgURL}></img> {/* Displays the img from the imgURL property of current user*/}
+        <img src={user.imgURL}></img>{" "}
+        {/* Displays the img from the imgURL property of current user*/}
         {user && <UserProfile user={user} key={user._id} />}
       </div>
     </>
   );
 }
-
-
