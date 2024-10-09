@@ -71,7 +71,7 @@ const AllPosts = ({ refresh, ...props }) => {
   if (props.postFilter === "all") {
     return (
       <div className="feed" role="feed">
-        <button onClick={handleReverse}>Reverse</button>
+        <button onClick={handleReverse} className="reverse-btn p-2 mt-2">Reverse</button>
         {posts.map((post) => (
           <Post
             post={post}

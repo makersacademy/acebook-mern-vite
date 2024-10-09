@@ -17,7 +17,7 @@ const CreatePostForm = ({ whenPostCreated }) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+      <Form.Group className="mb-3" controlId="createpostform">
         <Form.Label>Enter Post</Form.Label>
         <Form.Control
           as="textarea"

@@ -9,6 +9,11 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import LikeButton from "./LikeButton";
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+
 function Post(props) {
   const formatDate = (date) => {
     const options = {
@@ -70,14 +75,51 @@ function Post(props) {
 
   return (
     <>
+    <Container>
+    <Card className="post-card" key={props.post._id}>
+      <Row>
+        <Col sm={4}>
+        <Card.Img
+          variant="top"
+          src={props.post.userPic}
+          className="profile-photo" 
+        />
+        </Col>
+        <Card.Body>
+          <Card.Text className="">{props.post.message}</Card.Text>
+          <ListGroup className="list-group-flush">
+
+          <ListGroup.Item className="post-metadata">
+          <span>Posted By: {props.post.author ? props.post.author.username : "Unknown User"}</span> <span>on {formatDate(props.post.createdAt)}</span> 
+          </ListGroup.Item>       
+
+          <ListGroup.Item className="">
+          <LikeButton
+            post={props.post}
+            user={props.user}
+            toggleLike={props.toggleLike}
+          /> <span className="mx-2">{props.post.likes.count}</span>
+          </ListGroup.Item>
+
+        </ListGroup>
+        <Card.Footer>Footer</Card.Footer>
+        </Card.Body>
+
+      </Row>
+      </Card>
+    </Container>
+
+ {/* OLD POST LAYOUT BELOW - PLEASE KEEP UNTIL STYLING IS HOW WE WANT IT */}
       <Card className="post-card" key={props.post._id}>
         <Card.Img
           variant="top"
           src={props.post.userPic}
-          className="postedbypic"
+          className="postedbypic roundedCircle" 
         />
         <Card.Body>
           <Card.Text>{props.post.message}</Card.Text>
+
+          
         </Card.Body>
 
         <ListGroup className="list-group-flush">

@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import { getPosts, updatePost } from "../../services/posts";
-// import Post from "../../components/Post";
 import CreatePostForm from "../../components/CreatePostForm";
 import { getAllUsers } from "../../services/users";
 import { getUser } from "../../services/users";
 import UserProfile from "../../components/UserProfile";
 import { NavbarComponent } from "../../components/NavbarComponent";
 import AllPosts from "../../components/AllPosts";
-import { UploadProfilePic } from "../../components/uploadProfilePicture";
 
 export function FeedPage() {
   const [users, setUsers] = useState([]);
@@ -69,12 +66,14 @@ export function FeedPage() {
   return (
     <>
       <NavbarComponent />
-      <h2>Posts</h2>
+      <div className="feedpage">
 
-
-
+      <div className="my-5">
       <CreatePostForm whenPostCreated={createdPost} /> {/* Pass in the change state function */}
+      </div>
       
+      <h1>Posts</h1>
+
       <AllPosts user={user} postFilter="all" refresh={refresh} /> {/* Pass the refresh state to the AllPosts component */}
       
 
@@ -91,6 +90,7 @@ export function FeedPage() {
         <img src={user.imgURL}></img>{" "}
         {/* Displays the img from the imgURL property of current user*/}
         {user && <UserProfile user={user} key={user._id} />}
+      </div>
       </div>
     </>
   );

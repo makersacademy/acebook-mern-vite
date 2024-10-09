@@ -52,9 +52,10 @@ export function SignupPage() {
 
   return (
     <>
-      <h2>Signup</h2>
+      <h2 className="m-4 text-center">Signup</h2>
+      <div className="custom-form rounded shadow">
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicUsername">
+        <Form.Group className="mb-3 px-5" controlId="signupUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
@@ -64,7 +65,7 @@ export function SignupPage() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3 px-5" controlId="signupEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
@@ -74,15 +75,20 @@ export function SignupPage() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3 px-5" controlId="signupPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="Password"
             value={password}
             onChange={handlePasswordChange}
-          />
+            />
+      <Form.Text id="passwordHelpBlock" muted>
+        Your password must be 7 characters or longer, contain a combination of upper and lowercase letters, a special character and number
+      </Form.Text>
         </Form.Group>
+
+        <div className="d-flex justify-content-center">
         <Button
           role="submit-button"
           id="submit"
@@ -92,7 +98,13 @@ export function SignupPage() {
         >
           Submit
         </Button>
+        </div>
+
       </Form>
+      </div>
+
+      <p className="m-4 text-muted text-center">Already have an account? <a href='/login' className="">Login</a></p>
+
     </>
   );
 }

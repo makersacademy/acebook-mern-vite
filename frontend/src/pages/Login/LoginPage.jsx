@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
 import { login } from "../../services/authentication";
 
 export function LoginPage() {
@@ -36,9 +35,10 @@ export function LoginPage() {
 
   return (
     <>
-      <h2>Login</h2>
+      <h2 className="m-4 text-center">Login</h2>
+    <div className="custom-form rounded shadow">
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3 px-5" controlId="loginEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
@@ -48,15 +48,18 @@ export function LoginPage() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3 px-5" controlId="loginPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="Password"
             value={password}
             onChange={handlePasswordChange}
-          />
+            aria-describedby="passwordHelpBlock"
+      />
+
         </Form.Group>
+        <div className="d-flex justify-content-center">
         <Button
           role="submit-button"
           id="submit"
@@ -66,7 +69,11 @@ export function LoginPage() {
         >
           Submit
         </Button>
+        </div>
       </Form>
+      </div>
+
+      <p className="m-4 text-muted text-center">Dont have an account? <a href='/signup' className="">Sign up</a></p>
 
       {/*<form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>

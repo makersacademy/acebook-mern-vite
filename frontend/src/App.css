@@ -1,10 +1,61 @@
 #root {
   margin: 0 auto;
-  text-align: center;
+  /* text-align: center; */
 }
 
-.postedbypic  { 
-  border: 1px solid #ddd; /* Added styling to test functionality, feel free to delete */
+/* .postedbypic  { 
+  border: 1px solid #ddd; 
   border-radius: 4px;
   padding: 5px;
-  width: 150px;}
+  width: 150px;} */
+
+  .postedbypic  { 
+    border: 1px solid #ddd; /* Added styling to test functionality, feel free to delete */
+    border-radius: 4px;
+    padding: 5px;
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+  }
+
+  .custom-form {
+    background-color: #efefef;
+    padding: 15px;
+    max-width: 500px; 
+    width: 100%; 
+    margin: 0 auto;
+  }
+
+  .custom-form #submit {
+    background-color: black;
+    border: 1px solid black;
+    width: 80%;
+    margin-bottom: 20px;;
+  }
+
+.reverse-btn {
+    border-radius: 5px;
+    border: none;
+    background-color: black;
+    color: rgb(239, 239, 239);
+  }
+
+  .feed {
+    text-align: center;
+  }
+
+  .logout-btn {
+    border-radius: 5px;
+    border: none;
+    background-color: black;
+    color: rgb(239, 239, 239);
+  }
+
+  .profile-photo {
+    width:100px;
+    height: auto;
+  }
+
+  .feedpage {
+    text-align: center;
+  }
