@@ -8,7 +8,6 @@ export function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [imgURL, setimgURL] = useState(""); // added state for imgURL submission
   const navigate = useNavigate();
 
   const passValidator = (string) => {
