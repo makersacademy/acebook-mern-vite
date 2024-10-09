@@ -11,7 +11,11 @@ describe("User model", () => {
     const user = new User({
       email: "someone@example.com",
       password: "password",
-    });
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")    });
     expect(user.email).toEqual("someone@example.com");
   });
 
@@ -19,6 +23,11 @@ describe("User model", () => {
     const user = new User({
       email: "someone@example.com",
       password: "password",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     });
     expect(user.password).toEqual("password");
   });
@@ -27,7 +36,11 @@ describe("User model", () => {
     const user = new User({
       email: "someone@example.com",
       password: "password",
-      username: "someuser"
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     });
     expect(user.username).toEqual("someuser");
   })
@@ -38,6 +51,11 @@ describe("User model", () => {
       password: "password",
       username: "someuser",
       firstName: "chris",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     });
     expect(user.firstName).toEqual("chris");
   })
@@ -49,6 +67,8 @@ describe("User model", () => {
       username: "someuser",
       firstName: "chris",
       lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     });
     expect(user.lastName).toEqual("marion");
   })
@@ -60,7 +80,8 @@ describe("User model", () => {
       username: "someuser",
       firstName: "chris",
       lastName: "marion",
-      gender: "some gender"
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     });
     expect(user.gender).toEqual("some gender");
   })
@@ -87,6 +108,11 @@ describe("User model", () => {
     const user = new User({
       email: "someone@example.com",
       password: "password",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     });
 
     await user.save();
@@ -100,12 +126,22 @@ describe("User model", () => {
     const friend = new User({
       email: "friend@example.com",
       password: "password",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     })
     await friend.save()
     
     const user = new User({
       email: "someone@example.com",
       password: "password",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01"),
       friends: [friend._id]
     });
     await user.save()
@@ -122,17 +158,32 @@ describe("User model", () => {
     const friend1 = new User({
       email: "friend1@example.com",
       password: "password",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01"),
     })
     await friend1.save()
     const friend2 = new User({
       email: "friend2@example.com",
       password: "password",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01"),
     })
     await friend2.save()
     
     const user = new User({
       email: "someone@example.com",
       password: "password",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01"),
       friends: [friend1._id, friend2._id]
     });
     await user.save()
@@ -149,18 +200,33 @@ describe("User model", () => {
     const friend1 = new User({
       email: "friend1@example.com",
       password: "password",
+      username: "someuser3",
+      firstName: "christopher",
+      lastName: "marianne",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     })
     await friend1.save()
     const friend2 = new User({
       email: "friend2@example.com",
       password: "password",
+      username: "someuser1",
+      firstName: "christoph",
+      lastName: "marian",
+      gender: "some gender!",
+      birthday: new Date("2019-01-01")
     })
     await friend2.save()
     
     const user = new User({
       email: "someone@example.com",
       password: "password",
-      friends: [friend1._id]
+      friends: [friend1._id],
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01")
     });
     await user.save()
 
