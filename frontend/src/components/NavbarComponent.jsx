@@ -6,18 +6,22 @@ import LogoutButton from "./LogoutButton";
 export function NavbarComponent() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
-        <Navbar.Brand href="/posts">Acebook</Navbar.Brand>
+      <Container className="p-0">
+        <Navbar.Brand className="ms-2 me-4 fw-bolder" href="/posts">Acebook</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse className="justify-content-center text-center" id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/posts">Home</Nav.Link>
-            <Nav.Link href="/users/me">Profile</Nav.Link>
-            <Nav.Link href="/createpost">Create Post</Nav.Link>
-            <Nav.Link href="/viewAllUsers">View All Users</Nav.Link>
-            <Nav.Link href="/users/me/update">Account Settings</Nav.Link>{" "}
+            <Nav.Link className="m-2" href="/posts">Home</Nav.Link>
+            <Nav.Link className="m-2" href="/users/me">Profile</Nav.Link>
+            <Nav.Link className="m-2" href="/createpost">Create Post</Nav.Link>
+            <Nav.Link className="m-2" href="/viewAllUsers">View All Users</Nav.Link>
             {/* Added update page to navbar*/}
-            <LogoutButton />
+          </Nav>
+          <Nav className="ms-auto align-items-center">
+            <Nav.Link className="m-2" href="/users/me/update">Account Settings</Nav.Link>{" "}
+            <div className="d-inline w-auto">
+              <LogoutButton className="m-5"/>
+            </div>
           </Nav>
         </Navbar.Collapse>
       </Container>
