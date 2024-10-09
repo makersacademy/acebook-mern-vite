@@ -4,7 +4,7 @@ import { describe, expect, vi } from "vitest";
 // importing the functions we want to test
 import { getPosts } from "../../src/services/posts";
 import { createPost } from "../../src/services/posts";
-import { deletePost } from "../../../api/controllers/posts";
+import { deletePost } from "../../src/services/posts";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
