@@ -65,7 +65,6 @@ export function FeedPage() {
   return (
     <>
       <NavbarComponent />
-      <UploadProfilePic/>
       <h2>Posts</h2>
       <CreatePostForm />
 
