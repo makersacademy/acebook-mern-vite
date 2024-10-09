@@ -23,7 +23,7 @@ function DeletePostButton(props) {
     const isCreator = props.userId === props.postCreatorId;
 
     if (!isCreator) {
-        return "not your post";
+        return null;
     }
 
     return (
