@@ -57,8 +57,8 @@ describe("/user", () => {
       .get(`/user?userId=${user1._id}`)
       .set("Authorization", `Bearer ${token}`);
 
-      console.log("CONSOLE LOG = response.body");
-      console.log(response.body);
+      //console.log("CONSOLE LOG = response.body");
+      //console.log(response.body);
 
       const userInfo = response.body.userInfo[0];
       expect(userInfo.username).toEqual("marion");
