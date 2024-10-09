@@ -5,9 +5,8 @@ function create(req, res) {
   const email = req.body.email;
   const password = req.body.password;
   const username = req.body.username;
-  const imgURL = req.body.imgURL; // added imgURL field
 
-  const user = new User({ email, password, username, imgURL }); // added imgURL argument
+  const user = new User({ email, password, username}); // added imgURL argument
   user
     .save()
     .then((user) => {

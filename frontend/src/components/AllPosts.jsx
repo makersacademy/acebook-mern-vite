@@ -84,7 +84,7 @@ const AllPosts = (props) => {
       </div>
     );
   } else if (props.postFilter === "currentUser") {
-    const currentUsersPosts = posts.filter((post) => post.author._id == props.user._id)
+    const currentUsersPosts = posts.filter((post) => post.author._id === props.user._id)
     return (
       <div className="feed" role="feed">
         <button onClick={handleReverse}>Reverse</button>

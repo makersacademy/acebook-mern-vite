@@ -28,7 +28,7 @@ export function SignupPage() {
     event.preventDefault();
     if (password.length >= 7 && passValidator(password)) {
       try {
-        await signup(email, password, username, imgURL);
+        await signup(email, password, username);
         navigate("/login");
       } catch (err) {
         console.error(err);
@@ -49,10 +49,6 @@ export function SignupPage() {
 
   function handleUsernameChange(event) {
     setUsername(event.target.value);
-  }
-  function handleImgURLChange(event) {
-    // added handle imgURL function
-    setimgURL(event.target.value);
   }
 
   return (
@@ -76,18 +72,6 @@ export function SignupPage() {
             value={email}
             placeholder="Enter email"
             onChange={handleEmailChange}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicImgURL">
-          {" "}
-          {/* added a box to enter your img URL to signup form*/}
-          <Form.Label>Image URL</Form.Label>
-          <Form.Control
-            type="text"
-            value={imgURL}
-            placeholder="Enter Image URL"
-            onChange={handleImgURLChange}
           />
         </Form.Group>
 
