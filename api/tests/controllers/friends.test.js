@@ -194,7 +194,7 @@ describe("/friends", () => {
       await user.save();
 
       const user3 = new User({
-        email: "email3",
+        email: "email3@email.com",
         password: 1234,
         username: "janedoe",
         firstName: "Jane",
@@ -204,7 +204,7 @@ describe("/friends", () => {
       });
 
       const user4 = new User({
-        email: "email4",
+        email: "email4@email.com",
         password: 1234,
         username: "alexjones",
         firstName: "Alex",
@@ -221,10 +221,11 @@ describe("/friends", () => {
         .set("Authorization", `Bearer ${token}`);
 
       const users = response.body.users;
+      
+      expect(users.length).toEqual(2)
+      expect(users[0].email).toEqual("email3@email.com")
+      expect(users[1].email).toEqual("email4@email.com")
 
-      expect(users.length).toEqual(2);
-      expect(users[0].email).toEqual("email3");
-      expect(users[1].email).toEqual("email4");
     });
   });
   describe("accept friend request", () => {

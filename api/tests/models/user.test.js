@@ -19,6 +19,20 @@ describe("User model", () => {
     expect(user.email).toEqual("someone@example.com");
   });
 
+  it("given an incorrect email address, won't save", async () => {
+    const user = new User({
+      email: "incorrect-email!",
+      password: "password",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01"),
+    });
+  
+    await expect(user.save()).rejects.toThrow()
+  })
+
   it("has a password", () => {
     const user = new User({
       email: "someone@example.com",
