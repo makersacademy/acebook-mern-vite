@@ -61,6 +61,7 @@ export function SignupPage() {
         {/* email */}
         <label htmlFor="email">Email:</label>
         <input
+          placeholder="katherine.johnson@email.com"
           id="email"
           type="text"
           value={email}
@@ -70,7 +71,7 @@ export function SignupPage() {
         {/* password */}
         <label htmlFor="password">Password:</label>
         <input
-          placeholder="Password"
+          placeholder="Include letters and numbers"
           id="password"
           type="password"
           value={password}
@@ -80,7 +81,7 @@ export function SignupPage() {
         {/* username */}
         <label htmlFor="username">Username:</label>
         <input
-          placeholder="Username"
+          placeholder="NASA_Kathy"
           id="username"
           type="text"
           value={username}
@@ -90,7 +91,7 @@ export function SignupPage() {
         {/* first name */}
         <label htmlFor="firstName">First name:</label>
         <input
-          placeholder="First Name"
+          placeholder="Katherine"
           id="firstName"
           type="text"
           value={firstName}
@@ -98,9 +99,9 @@ export function SignupPage() {
         />
 
          {/* last name */}
-         <label htmlFor="lastName">Last name:</label>
+        <label htmlFor="lastName">Last name:</label>
         <input
-          placeholder="Last name"
+          placeholder="Johnson"
           id="lastName"
           type="text"
           value={lastName}
@@ -108,9 +109,9 @@ export function SignupPage() {
         />
 
          {/* gender */}
-         <label htmlFor="gender">Gender:</label>
+        <label htmlFor="gender">Pronouns:</label>
         <input
-          placeholder="Gender"
+          placeholder="She/her"
           id="gender"
           type="text"
           value={gender}
@@ -118,9 +119,9 @@ export function SignupPage() {
         />
 
          {/* birthday */}
-         <label htmlFor="birthday">Birthday:</label>
+        <label htmlFor="birthday">Birthday:</label>
         <input
-          placeholder="Birthday"
+          placeholder="28-08-1918"
           id="birthday"
           type="text"
           value={birthday}
