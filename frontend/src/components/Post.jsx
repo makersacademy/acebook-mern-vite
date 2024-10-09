@@ -72,7 +72,8 @@ function Post(props) {
             postId={props.postId} 
             userId={props.userId} 
             postCreatorId={props.postCreatorId} 
-            setPosts={props.setPosts} 
+            setPosts={props.setPosts}
+            setDelete={props.setDelete} 
           />
       </Footer>
     </PostContainer>
