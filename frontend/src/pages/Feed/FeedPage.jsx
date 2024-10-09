@@ -11,7 +11,6 @@ import AllPosts from "../../components/AllPosts";
 import { UploadProfilePic } from "../../components/uploadProfilePicture";
 
 export function FeedPage() {
-
   const [users, setUsers] = useState([]);
 
   const [user, setUser] = useState({});
@@ -20,7 +19,6 @@ export function FeedPage() {
 
   const navigate = useNavigate();
 
-  
   // GET USERS
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -57,7 +55,6 @@ export function FeedPage() {
     }
   }, [navigate]);
 
-
   const token = localStorage.getItem("token");
   if (!token) {
     navigate("/login");
@@ -73,10 +70,14 @@ export function FeedPage() {
     <>
       <NavbarComponent />
       <h2>Posts</h2>
+
+
+
       <CreatePostForm whenPostCreated={createdPost} /> {/* Pass in the change state function */}
       
       <AllPosts user={user} postFilter="all" refresh={refresh} /> {/* Pass the refresh state to the AllPosts component */}
       
+
       <h2>All User Profiles</h2>
       <div>
         {users.map((user, index) => (
