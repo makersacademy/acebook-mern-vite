@@ -11,10 +11,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@chatscope/chat-ui-kit-react": "^2.0.3",
-    "@chatscope/chat-ui-kit-styles": "^1.4.0",
     "react": "^18.2.0",
-    "react-chat-elements": "^12.0.16",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.2",
     "styled-components": "^6.1.13"
