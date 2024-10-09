@@ -8,6 +8,7 @@ import { FeedPage } from "./pages/Feed/FeedPage";
 import { CreatePost } from "./pages/CreatePost/CreatePost";
 import { Profile } from "./pages/Profile/Profile";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { UpdateUser } from "./pages/UpdateUser/UpdateUser";
 
 
 // docs: https://reactrouter.com/en/main/start/overview
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: "/users/me",
     element: <Profile />, // route to page for current users profile  
+  },
+  {
+    path: "/users/me/update",
+    element: <UpdateUser />, // 
   },
 ]);
 

@@ -9,6 +9,7 @@ import { UploadProfilePic } from "../../components/uploadProfilePicture";
 import AllPosts from "../../components/AllPosts";
 
 
+
 export function Profile() {
   const [user, setUser] = useState({});
   // const [posts, setPosts] = useState([]);
@@ -71,7 +72,6 @@ export function Profile() {
       <NavbarComponent />
       <h2>My Profile</h2>
       <img src={user.imgURL}></img>
-      <UploadProfilePic></UploadProfilePic>
       <div>{user && <UserProfile user={user} key={user._id} />}</div>
       <div className="feed" role="feed">
         <h2>Posts you have submitted: </h2>

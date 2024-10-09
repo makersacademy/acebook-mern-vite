@@ -43,10 +43,12 @@ export async function getUser(token) {
   return data; // Can we return less or more specific data here?
 }
 
-export async function updateProfilePic(imgURL) {
-  const payload = {
-    "imgURL": imgURL
-  };
+export async function UpdateUser(updateDetails) {
+  const payload = {};
+  if (updateDetails.imgURL !== undefined) payload.imgURL = updateDetails.imgURL;
+  if (updateDetails.newUsername !== undefined) payload.newUsername = updateDetails.newUsername;
+  if (updateDetails.newEmail !== undefined) payload.newEmail = updateDetails.newEmail;
+  
 
   const requestOptions = {
     method: "PATCH",
