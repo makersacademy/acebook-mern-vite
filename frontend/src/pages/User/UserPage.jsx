@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { getPosts } from "../../services/posts";
 import { getUserInfo } from "../../services/user";
 import NavBar from "../../components/NavBar";
-import { useParams } from "react-router-dom";
 import ListOfPosts from "../../components/ListOfPosts";
 import { AddFriend } from "../../components/AddFriend";
 import { getFriends } from "../../services/friends";
