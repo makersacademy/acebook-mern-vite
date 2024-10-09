@@ -237,4 +237,45 @@ describe("User model", () => {
     expect(userDocument.friends[0].email).toEqual("friend1@example.com")
     expect(userDocument.friends.length).toEqual(1)
   })
+  it("should return user's friend requests", async () => {
+    const friend1 = new User({
+      email: "friend1@example.com",
+      password: "password",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01"),
+    })
+    await friend1.save()
+    const friend2 = new User({
+      email: "friend2@example.com",
+      password: "password",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01"),
+    })
+    await friend2.save()
+    
+    const user = new User({
+      email: "someone@example.com",
+      password: "password",
+      username: "someuser",
+      firstName: "chris",
+      lastName: "marion",
+      gender: "some gender",
+      birthday: new Date("2019-01-01"),
+      friendRequests: [friend1._id, friend2._id]
+    });
+    await user.save()
+
+    const userDocument = await User
+    .findOne( {email: "someone@example.com"} )
+    .populate("friendRequests")
+
+    expect(userDocument.friendRequests[0].email).toEqual("friend1@example.com")
+    expect(userDocument.friendRequests[1].email).toEqual("friend2@example.com")
+  })
 });

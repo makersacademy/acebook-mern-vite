@@ -4,7 +4,7 @@ import { FriendsPage } from "../../src/pages/Friends/FriendsPage";
 import { vi } from "vitest";
 import { useNavigate } from "react-router-dom";
 import { act } from "react-dom/test-utils";
-import { getFriends, getNonFriendUsers } from "../../src/services/friends";
+import { getFriends, getNonFriendUsers, getFriendRequests } from "../../src/services/friends";
 
 // Mocking React Router's useNavigate function
 vi.mock("react-router-dom", () => {
@@ -20,15 +20,21 @@ vi.mock("../../src/services/users", () => {
 vi.mock("../../src/services/friends", () => {
   const getFriendsMock = vi.fn();
   const getNonFriendUsersMock = vi.fn();
+  const getFriendRequestsMock = vi.fn()
   return {
     getFriends: getFriendsMock,
     getNonFriendUsers: getNonFriendUsersMock,
+    getFriendRequests: getFriendRequestsMock
   };
 });
 describe("Testing Friends Page", () => {
   beforeEach(async () => {
     window.localStorage.removeItem("token");
     vi.resetAllMocks();
+    await getFriendRequests.mockResolvedValue({
+      friendRequests: [],
+      token: "newToken",
+    });
   });
 
   test("It displays the heading", async () => {
@@ -59,7 +65,6 @@ describe("Testing Friends Page", () => {
 
   test("When page is loading all other users are fetched from the backend", async () => {
     window.localStorage.setItem("token", "testToken");
-
     await getNonFriendUsers.mockResolvedValue({
       users: [],
       token: "newToken",
