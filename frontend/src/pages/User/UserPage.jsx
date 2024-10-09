@@ -1,4 +1,3 @@
-
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getPosts } from "../../services/posts";
@@ -10,7 +9,7 @@ import Username from "../../components/UserName"
 import { AddFriend } from "../../components/AddFriend";
 import { getFriends } from "../../services/friends";
 
-export function UserPage() {  
+export function UserPage() {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState({ username: '', firstName: '', lastName: '' });
   const [friends, setFriends] = useState([]);
@@ -58,6 +57,7 @@ export function UserPage() {
       }
     }, [navigate, userId]);
  
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     const loggedIn = token !== null;
@@ -73,12 +73,13 @@ export function UserPage() {
         });
     }
   }, [navigate]);
-  // useEffect(() => {
-  //   if (friends) {
-  //     const hasId = friends.some((friend) => friend._id === user._id);
-  //     setIsFriend(hasId);
-  //   }
-  // }, [user, friends]);
+  console.log("friends", friends)
+  useEffect(() => {
+    if (friends) {
+      const hasId = friends.some((friend) => friend._id === user._id);
+      setIsFriend(hasId);
+    }
+  }, [user, friends]);
 
   const token = localStorage.getItem("token");
   if (!token) {
@@ -97,9 +98,9 @@ export function UserPage() {
             birthday={user.birthday}
             />
       <br/>
+       {!isFriend && <AddFriend userId={userId} />}
       <h2>Posts</h2>
-        <ListOfPosts posts={posts}/>  
-      </>
-    )
-  }
-  
+      <ListOfPosts posts={posts} />
+    </>
+  );
+}

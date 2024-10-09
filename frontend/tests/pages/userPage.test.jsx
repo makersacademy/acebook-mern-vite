@@ -104,11 +104,11 @@ describe("UserPage", () => {
         {_id: "12346"}
       ]
     })
-    await getUser.mockResolvedValue({
-      user: {
+    await getUserInfo.mockResolvedValue({
+      userInfo: [{
         _id: "12345",
         username: "testuser1",
-      },
+      }],
       token: "newToken",
     });
     await act(async () => {
@@ -120,6 +120,33 @@ describe("UserPage", () => {
         </MemoryRouter>
       );
     });
-    expect(screen.queryByText("Add Friend")).to.exist;
+    expect(screen.queryByText("Add Friend")).not.to.exist;
+  })
+  test("if the user isnt a friend the add friend component is loaded", async () => {
+    window.localStorage.setItem("token", "testToken");
+    await getFriends.mockResolvedValue({
+      friends: [
+        {_id: "12345"},
+        {_id: "12346"}
+      ]
+    })
+    await getUserInfo.mockResolvedValue({
+      userInfo: [{
+        _id: "1234",
+        username: "testuser1",
+      }],
+      token: "newToken",
+    });
+    await act(async () => {
+      render(
+        <MemoryRouter initialEntries={["/user/1234"]}>
+          <Routes>
+            <Route path="/user/:userId" element={<UserPage />} />
+          </Routes>
+        </MemoryRouter>
+      );
+    });
+    const buttonEls = await screen.findAllByRole("button")
+    expect(buttonEls[1].textContent).toEqual("Add Friend")
   })
 });
