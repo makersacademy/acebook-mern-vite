@@ -1,18 +1,17 @@
 import { useState } from "react";
-import { Form, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UpdateUser } from "../services/users";
-import Button from "react-bootstrap/esm/Button";
 
 
-export function UploadProfilePic () {
-    const [imgURL, setimgURL] = useState("");
+export function UpdateEmail () {
+    const [newEmail, setNewEmail] = useState("");
     const navigate = useNavigate();
 
     async function handleSubmit(event) {
         event.preventDefault();
         const payload = {};
         try {
-            payload.imgURL  = imgURL;
+            payload.newEmail = newEmail;
             UpdateUser(payload);
             navigate('/users/me');
         } catch (err) {
@@ -20,16 +19,16 @@ export function UploadProfilePic () {
             navigate(0);
         }
     }
-    function handleImgURLChange(event) {
-        setimgURL(event.target.value);
+    function handleNewEmailChange(event) {
+        setNewEmail(event.target.value);
     }
     return (
         <>
-        <h2>Update Profile Picture
+        <h2>Change Email
         </h2>
         <form onSubmit={handleSubmit}>
-        <label>Image URL</label>
-        <input type="text" value={imgURL} placeholder="Enter Image URL" onChange={handleImgURLChange} />
+        <label>New Email</label>
+        <input type="text" value={newEmail} placeholder="Enter new Email" onChange={handleNewEmailChange} />
         <button
         role="submit-button"
         id="submit"
