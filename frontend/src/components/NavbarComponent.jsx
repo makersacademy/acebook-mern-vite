@@ -14,6 +14,7 @@ export function NavbarComponent() {
             <Nav.Link href="/posts">Home</Nav.Link>
             <Nav.Link href="/users/me">Profile</Nav.Link>
             <Nav.Link href="/createpost">Create Post</Nav.Link>
+            <Nav.Link href="/users/me/update">Account Settings</Nav.Link> {/* Added update page to navbar*/}
             <LogoutButton />
           </Nav>
         </Navbar.Collapse>

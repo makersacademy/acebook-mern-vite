@@ -7,7 +7,7 @@ export function UpdateEmail () {
     const [newEmail, setNewEmail] = useState("");
     const navigate = useNavigate();
 
-    async function handleSubmit(event) {
+    async function handleSubmit(event) { // Potentially add email validation? Does React/Bootstrap do this?
         event.preventDefault();
         const payload = {};
         try {
@@ -28,7 +28,7 @@ export function UpdateEmail () {
         </h2>
         <form onSubmit={handleSubmit}>
         <label>New Email</label>
-        <input type="text" value={newEmail} placeholder="Enter new Email" onChange={handleNewEmailChange} />
+        <input type="email" value={newEmail} placeholder="Enter new Email" onChange={handleNewEmailChange} />
         <button
         role="submit-button"
         id="submit"
