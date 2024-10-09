@@ -8,9 +8,11 @@ const AllPosts = ({ refresh, ...props }) => {
   const navigate = useNavigate();
 
   const [posts, setPosts] = useState([]);
+  const [reverseStatus, setReverseStatus] = useState(false)
 
   const handleReverse = () => {
       setPosts([...posts].reverse());
+      setReverseStatus(!reverseStatus)
   }
 
   // GET POSTS
@@ -71,7 +73,9 @@ const AllPosts = ({ refresh, ...props }) => {
   if (props.postFilter === "all") {
     return (
       <div className="feed" role="feed">
-        <button onClick={handleReverse}>Reverse</button>
+        <button onClick={handleReverse}>
+          {reverseStatus? "See newest first": "See oldest first"} 
+        </button>
         {posts.map((post) => (
           <Post
             post={post}
@@ -87,7 +91,9 @@ const AllPosts = ({ refresh, ...props }) => {
     const currentUsersPosts = posts.filter((post) => post.author._id === props.user._id)
     return (
       <div className="feed" role="feed">
-        <button onClick={handleReverse}>Reverse</button>
+        <button onClick={handleReverse}>
+          {reverseStatus? "See newest first": "See oldest first"}  
+        </button>
         {currentUsersPosts.map((post) => (
           <Post
             post={post}
