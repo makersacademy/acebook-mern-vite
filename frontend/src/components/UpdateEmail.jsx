@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UpdateUser } from "../services/users";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 
 export function UpdateEmail () {
@@ -24,20 +26,28 @@ export function UpdateEmail () {
     }
     return (
         <>
-        <h2>Change Email
-        </h2>
-        <form onSubmit={handleSubmit}>
-        <label>New Email</label>
-        <input type="email" value={newEmail} placeholder="Enter new Email" onChange={handleNewEmailChange} />
-        <button
+<Form onSubmit={handleSubmit}>
+<Form.Group className="mb-3" controlId="formBasicEmail">
+<Form.Label>Change Email address</Form.Label>
+<Form.Control
+type="email"
+value={newEmail}
+placeholder="Enter email"
+onChange={handleNewEmailChange}
+/>
+</Form.Group>
+<Button
         role="submit-button"
         id="submit"
+        variant="primary"
         type="submit"
         value="Submit"
         >
         Submit
-        </button>
-        </form>
-        </>
-    )
-}
+        </Button>
+    </Form>
+    </>
+    )}
+
+
+
