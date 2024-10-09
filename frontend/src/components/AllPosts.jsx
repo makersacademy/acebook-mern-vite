@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getPosts, updatePost } from "../services/posts";
 import Post from "./Post";
 
-const AllPosts = (props) => {
+const AllPosts = ({ refresh, ...props }) => {
 
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ const AllPosts = (props) => {
     if (loggedIn) {
       getPosts(token)
         .then((data) => {
-          setPosts(data.posts);
+          setPosts(data.posts.reverse()); // Set the posts as reversed
           localStorage.setItem("token", data.token);
         })
         .catch((err) => {
@@ -29,7 +29,7 @@ const AllPosts = (props) => {
           navigate("/login");
         });
     }
-  }, [navigate]);
+  }, [navigate, refresh]); // Pass in the refresh value. If this changes then it reruns this useEffect
 
   // LIKE POST
   const toggleLike = (postId) => {

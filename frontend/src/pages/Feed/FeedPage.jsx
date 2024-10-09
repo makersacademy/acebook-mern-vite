@@ -15,6 +15,8 @@ export function FeedPage() {
 
   const [user, setUser] = useState({});
 
+  const [refresh, setRefresh] = useState(false); // Create a boolean state that will rerender posts when changed
+
   const navigate = useNavigate();
 
   
@@ -43,7 +45,7 @@ export function FeedPage() {
       getUser(token)
         .then((data) => {
           setUser(data.user);
-          localStorage.setItem("user", JSON.stringify(data.user)); // add all user data to local storage !! INCLUDES PASSWORD !!
+          localStorage.setItem("user", JSON.stringify(data.user)); // add all user data to local storage
           localStorage.setItem("username", data.user.username); // adds username to local storage
           localStorage.setItem("token", data.token);
         })
@@ -61,13 +63,18 @@ export function FeedPage() {
     return;
   }
 
+  // This toggles the refresh to the opposite state eg true to false or false to true
+  const createdPost = () => {
+    setRefresh(prevRefresh => !prevRefresh);
+  };
+
   return (
     <>
       <NavbarComponent />
       <h2>Posts</h2>
-      <CreatePostForm />
-
-      <AllPosts user={user} postFilter="all" />
+      <CreatePostForm whenPostCreated={createdPost} /> {/* Pass in the change state function */}
+      
+      <AllPosts user={user} postFilter="all" refresh={refresh} /> {/* Pass the refresh state to the AllPosts component */}
       
       <h2>All User Profiles</h2>
       <div>
