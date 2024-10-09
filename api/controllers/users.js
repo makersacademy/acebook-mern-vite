@@ -24,13 +24,19 @@ function create(req, res) {
 async function updateImgURL(req, res) {
   const user = await User.findById(req.user_id);
   const token = generateToken(req.user_id);
-  const newImgURL = req.body.imgURL; 
+  const payload = {
+    imgURL : req.body.imgURL,
+    username: req.body.newUsername,
+    email: req.body.newEmail,
+  }
 try {
   if (!user) {
     return res.status(404).json({ message: "Can't seem to find that user..."});
     }
 
-user.imgURL = newImgURL;
+if (payload.imgURL !== undefined) user.imgURL = payload.imgURL;
+if (payload.username !== undefined) user.username = payload.username;
+if (payload.email !== undefined) user.email = payload.email;
 const updatedUser = user.save();
 res.status(202).json({ message: "Image updated!", user: updatedUser.username, token: token});
 } catch (err) {
