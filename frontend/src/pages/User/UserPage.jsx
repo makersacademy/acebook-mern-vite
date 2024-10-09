@@ -2,7 +2,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getPosts } from "../../services/posts";
-import { getUser }  from "../../services/users";
+import { getUserInfo } from "../../services/user";
 import NavBar from "../../components/NavBar";
 import ListOfPosts from "../../components/ListOfPosts";
 
@@ -32,7 +32,7 @@ export function UserPage() {
       const token = localStorage.getItem("token");
       const loggedIn = token !== null;
       if (loggedIn) {
-        getUser(token, userId)
+        getUserInfo(token, userId)
           .then((data) => {
             setUser(data.userInfo[0]);
             console.log(data.userInfo[0])
