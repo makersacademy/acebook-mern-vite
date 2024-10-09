@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Form, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UpdateUser } from "../services/users";
 import Button from "react-bootstrap/esm/Button";
-
+import Form from "react-bootstrap/Form";
 
 export function UploadProfilePic () {
     const [imgURL, setimgURL] = useState("");
@@ -25,20 +25,26 @@ export function UploadProfilePic () {
     }
     return (
         <>
-        <h2>Update Profile Picture
-        </h2>
-        <form onSubmit={handleSubmit}>
-        <label>Image URL</label>
-        <input type="text" value={imgURL} placeholder="Enter Image URL" onChange={handleImgURLChange} />
-        <button
+<Form onSubmit={handleSubmit}>
+<Form.Group className="mb-3" controlId="formBasicUsername">
+<Form.Label>Change Profile Picture</Form.Label>
+<Form.Control
+type="text"
+value={imgURL}
+placeholder="Enter image URL"
+onChange={handleImgURLChange}
+/>
+</Form.Group>
+<Button
         role="submit-button"
         id="submit"
+        variant="primary"
         type="submit"
         value="Submit"
         >
         Submit
-        </button>
-        </form>
-        </>
+        </Button>
+    </Form>
+    </>
     )
 }
