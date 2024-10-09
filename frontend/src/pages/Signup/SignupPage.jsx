@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { signup } from "../../services/authentication";
-
 
 export function SignupPage() {
   const [email, setEmail] = useState("");
@@ -12,8 +10,10 @@ export function SignupPage() {
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("");
   const [birthday, setBirthday] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   const navigate = useNavigate();
+
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -26,8 +26,16 @@ export function SignupPage() {
     }
   }
 
+
   function handleEmailChange(event) {
     setEmail(event.target.value);
+
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (!emailRegex.test(event.target.value)) {
+      setEmailError('Please enter a valid email address');
+    } else {
+      setEmailError('');
+    }
   }
 
   function handlePasswordChange(event) {
@@ -63,10 +71,11 @@ export function SignupPage() {
         <input
           placeholder="katherine.johnson@email.com"
           id="email"
-          type="text"
+          type="email"
           value={email}
           onChange={handleEmailChange}
         />
+        {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
 
         {/* password */}
         <label htmlFor="password">Password:</label>

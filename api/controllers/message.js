@@ -6,9 +6,9 @@ async function getMessagesByConversation(req, res) {
   try {
     const token = generateToken(req.user_id); 
     const conversation = await Conversation.findById(req.query.conversationId);
-    console.log("api conversation",conversation)
+    //console.log("api conversation",conversation)
     const messages = await Message.find({conversationId: conversation._id}).populate('senderId')
-    console.log("api messages", messages)
+    //console.log("api messages", messages)
     res.status(200).json({ messages: messages, token: token });
   } catch (error) {
     res.status(500).json({ message: "Error fetching user information", error: error.message });
