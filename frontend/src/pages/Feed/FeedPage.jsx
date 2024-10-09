@@ -10,14 +10,12 @@ import { NavbarComponent } from "../../components/NavbarComponent";
 import AllPosts from "../../components/AllPosts";
 
 export function FeedPage() {
-
   const [users, setUsers] = useState([]);
 
   const [user, setUser] = useState({});
 
   const navigate = useNavigate();
 
-  
   // GET USERS
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -54,7 +52,6 @@ export function FeedPage() {
     }
   }, [navigate]);
 
-
   const token = localStorage.getItem("token");
   if (!token) {
     navigate("/login");
@@ -68,7 +65,7 @@ export function FeedPage() {
       <CreatePostForm />
 
       <AllPosts user={user} postFilter="all" />
-      
+
       <h2>All User Profiles</h2>
       <div>
         {users.map((user, index) => (

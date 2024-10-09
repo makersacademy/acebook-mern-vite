@@ -1,7 +1,7 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import LogoutButton from './LogoutButton';
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import LogoutButton from "./LogoutButton";
 
 export function NavbarComponent() {
   return (
@@ -14,7 +14,9 @@ export function NavbarComponent() {
             <Nav.Link href="/posts">Home</Nav.Link>
             <Nav.Link href="/users/me">Profile</Nav.Link>
             <Nav.Link href="/createpost">Create Post</Nav.Link>
-            <Nav.Link href="/users/me/update">Account Settings</Nav.Link> {/* Added update page to navbar*/}
+            <Nav.Link href="/viewAllUsers">View All Users</Nav.Link>
+            <Nav.Link href="/users/me/update">Account Settings</Nav.Link>{" "}
+            {/* Added update page to navbar*/}
             <LogoutButton />
           </Nav>
         </Navbar.Collapse>

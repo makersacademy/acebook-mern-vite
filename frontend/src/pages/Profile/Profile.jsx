@@ -5,10 +5,8 @@ import UserProfile from "../../components/UserProfile";
 import { NavbarComponent } from "../../components/NavbarComponent";
 // import ProfilePost from "../../components/ProfilePosts";
 // import { getPosts } from "../../services/posts";
-import { UploadProfilePic } from "../../components/uploadProfilePicture";
+// import { UploadProfilePic } from "../../components/uploadProfilePicture";
 import AllPosts from "../../components/AllPosts";
-
-
 
 export function Profile() {
   const [user, setUser] = useState({});
@@ -24,7 +22,7 @@ export function Profile() {
       getUser(token)
         .then((data) => {
           setUser(data.user);
-          console.log("data.user", data.user)
+          console.log("data.user", data.user);
           localStorage.setItem("user", JSON.stringify(data.user)); // add all user data to local storage
           localStorage.setItem("username", data.user.username); // adds username to local storage
           localStorage.setItem("token", data.token);
@@ -66,7 +64,7 @@ export function Profile() {
 
   // console.log("filtered posts", filteredPosts)
 
-  console.log("user", user)
+  console.log("user", user);
   return (
     <>
       <NavbarComponent />
@@ -78,10 +76,7 @@ export function Profile() {
         {/* {filteredPosts.map((post) => (
           <ProfilePost key={post._id} post={post} user={user}/>  // key={post._id} was post.id in like branch
         ))} */}
-        <AllPosts 
-          user={user}
-          postFilter="currentUser"
-        />
+        <AllPosts user={user} postFilter="currentUser" />
       </div>
     </>
   );
