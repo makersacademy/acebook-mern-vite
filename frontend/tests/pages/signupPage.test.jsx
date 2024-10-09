@@ -30,7 +30,7 @@ async function completeSignupForm() {
   const usernameInputEl = screen.getByLabelText("Username:");
   const firstNameInputEl = screen.getByLabelText("First name:");
   const lastNameInputEl = screen.getByLabelText("Last name:");
-  const genderInputEl = screen.getByLabelText("Gender:");
+  const pronounsInputEl = screen.getByLabelText("Pronouns:");
   const birthdayInputEl = screen.getByLabelText("Birthday:");
 
   // submitting the form
@@ -41,7 +41,7 @@ async function completeSignupForm() {
   await user.type(usernameInputEl, "TestUsername");
   await user.type(firstNameInputEl, "TestFirstName");
   await user.type(lastNameInputEl, "TestLastName");
-  await user.type(genderInputEl, "TestGender");
+  await user.type(pronounsInputEl, "TestPronouns");
   await user.type(birthdayInputEl, "2001-01-01");
 
   await user.click(submitButtonEl);
@@ -57,7 +57,7 @@ describe("Signup Page", () => {
 
     await completeSignupForm();
 
-    expect(signup).toHaveBeenCalledWith("test@email.com", "1234", "TestUsername", "TestFirstName", "TestLastName", "TestGender", "2001-01-01");
+    expect(signup).toHaveBeenCalledWith("test@email.com", "1234", "TestUsername", "TestFirstName", "TestLastName", "TestPronouns", "2001-01-01");
   });
 
   test("navigates to /login on successful signup", async () => {

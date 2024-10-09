@@ -1,15 +1,18 @@
 import {  UserPage } from "../../src/pages/User/UserPage";
 import { MemoryRouter, Route } from "react-router-dom";
 import { vi } from "vitest";
-import { getUser } from "../../src/services/users";
+import { getUserInfo } from "../../src/services/user";
 import { Routes } from "react-router-dom";
 import { render, screen } from "@testing-library/react";
 import { getPosts } from "../../src/services/posts";
 import { act } from "react-dom/test-utils";
 import { getFriends } from "../../src/services/friends";
-vi.mock("../../src/services/users", () => {
-  const getUserMock = vi.fn();
-  return { getUser: getUserMock };
+
+
+vi.mock("../../src/services/user", () => {
+  const getUserInfoMock = vi.fn();
+  return { getUserInfo: getUserInfoMock };
+
 });
 
 vi.mock("../../src/services/posts", () => {
@@ -25,10 +28,10 @@ vi.mock("../../src/services/friends", () => {
 describe("UserPage", () => {
   beforeEach(async () => {
     window.localStorage.removeItem("token");
-    await getUser.mockResolvedValue({
-      user: {
+    await getUserInfo.mockResolvedValue({
+      userInfo: [{
         username: "testuser1",
-      },
+      }],
       token: "newToken",
     });
     await getPosts.mockResolvedValue({
@@ -58,10 +61,10 @@ describe("UserPage", () => {
       );
     });
     // step 3: assert getUser was called with id of 1234
-    expect(getUser).toHaveBeenCalledWith("testToken", "1234");
+    expect(getUserInfo).toHaveBeenCalledWith("testToken", "1234");
 
     // step 4: assert username on page matches user object
-    const username = await screen.findByTestId("username-heading");
+    const username = await screen.getByTestId("username-heading");
     expect(username.textContent).toEqual("testuser1's Profile");
   });
 
