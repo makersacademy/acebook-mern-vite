@@ -42,6 +42,7 @@ export function UserPage() {
         getUserInfo(token, userId)
           .then((data) => {
             setUser({
+              _id: data.userInfo[0]._id,
               username: data.userInfo[0].username,
               firstName: data.userInfo[0].firstName,
               lastName: data.userInfo[0].lastName,

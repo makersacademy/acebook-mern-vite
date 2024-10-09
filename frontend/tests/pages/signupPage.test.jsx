@@ -92,7 +92,7 @@ describe("Signup Page", () => {
     const usernameInputEl = screen.getByLabelText("Username:");
     const firstNameInputEl = screen.getByLabelText("First name:");
     const lastNameInputEl = screen.getByLabelText("Last name:");
-    const genderInputEl = screen.getByLabelText("Gender:");
+    const genderInputEl = screen.getByLabelText("Pronouns:");
     const birthdayInputEl = screen.getByLabelText("Birthday:");
     const submitButtonEl = screen.getByRole("submit-button");
     
