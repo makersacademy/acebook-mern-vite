@@ -8,6 +8,7 @@ import { getUser } from "../../services/users";
 import UserProfile from "../../components/UserProfile";
 import { NavbarComponent } from "../../components/NavbarComponent";
 import AllPosts from "../../components/AllPosts";
+import { UploadProfilePic } from "../../components/uploadProfilePicture";
 
 export function FeedPage() {
 
@@ -64,6 +65,7 @@ export function FeedPage() {
   return (
     <>
       <NavbarComponent />
+      <UploadProfilePic/>
       <h2>Posts</h2>
       <CreatePostForm />
 

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UpdateUser } from "../services/users";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 
 export function UpdateUsername () {
@@ -24,20 +26,26 @@ export function UpdateUsername () {
     }
     return (
         <>
-        <h2>Change Username
-        </h2>
-        <form onSubmit={handleSubmit}>
-        <label>New Username</label>
-        <input type="text" value={newUsername} placeholder="Enter new username" onChange={handleNewUsernameChange} />
-        <button
+<Form onSubmit={handleSubmit}>
+<Form.Group className="mb-3" controlId="formBasicUsername">
+<Form.Label>Change Username address</Form.Label>
+<Form.Control
+type="text"
+value={newUsername}
+placeholder="Enter Username"
+onChange={handleNewUsernameChange}
+/>
+</Form.Group>
+<Button
         role="submit-button"
         id="submit"
+        variant="primary"
         type="submit"
         value="Submit"
         >
         Submit
-        </button>
-        </form>
-        </>
+        </Button>
+    </Form>
+    </>
     )
 }
