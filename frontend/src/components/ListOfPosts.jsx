@@ -8,10 +8,14 @@ function ListOfPosts(props) { //creating shallow array for good practice (no dir
       {sortedPosts.map((post) => (
       <Post 
         key={post._id} 
+        postId={post._id}
+        userId={post.userId}
+        postCreatorId={post.user._id}
         message={post.message} 
         dateCreated={post.dateCreated}
         username={post.user?.username}
         noOfLikes={post.noOfLikes}
+        setPosts={post.setPosts}
       />
       ))}
     </div>
