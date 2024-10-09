@@ -3,7 +3,7 @@ import { createPost } from "../services/posts";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-const CreatePostForm = () => {
+const CreatePostForm = ({ whenPostCreated }) => {
   const [message, setMessage] = useState("");
 
   const handleMessageChange = (event) => setMessage(event.target.value);
@@ -11,6 +11,7 @@ const CreatePostForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     createPost(message);
+    whenPostCreated(); // Triggers the createdPost function on FeedPage.jsx to run
     setMessage(""); // clears message field upon submit
   };
 
