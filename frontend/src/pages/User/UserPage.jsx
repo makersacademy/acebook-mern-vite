@@ -1,15 +1,15 @@
-import NavBar from "../../components/NavBar";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getPosts } from "../../services/posts";
 import { getUser }  from "../../services/users";
-import { useParams } from "react-router-dom";
+import NavBar from "../../components/NavBar";
 import ListOfPosts from "../../components/ListOfPosts";
 
 
 export function UserPage() {
     const [posts, setPosts] = useState([]);
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState([]);          
     const navigate = useNavigate();
     const { userId } = useParams()
     
@@ -34,7 +34,8 @@ export function UserPage() {
       if (loggedIn) {
         getUser(token, userId)
           .then((data) => {
-            setUser(data.user);
+            setUser(data.userInfo[0]);
+            console.log(data.userInfo[0])
             localStorage.setItem("token", data.token);
           })
           .catch((err) => {
@@ -52,10 +53,11 @@ export function UserPage() {
     return (
       <>
       <NavBar></NavBar>
-      <h1 data-testid="username-heading">{`${user?.username}'s Profile`}</h1>
+      <h1 data-testid="username-heading">{`${user.username}'s Profile`}</h1>
+      {/* <h1 data-testid="username-heading">testuser1's Profile</h1> */}
+      {/* <h1 data-testid="username-heading">{`${user?.username}'s Profile`}</h1> */}
       
       <h2>Posts</h2>
-        {/* Should be replaced by the feed component */}
         <ListOfPosts posts={posts}/>  
       </>
     )

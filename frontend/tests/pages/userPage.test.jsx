@@ -20,9 +20,9 @@ describe("UserPage", () => {
   beforeEach(async () => {
     window.localStorage.removeItem("token");
     await getUser.mockResolvedValue({
-      user: {
+      userInfo: [{
         username: "testuser1",
-      },
+      }],
       token: "newToken",
     });
     await getPosts.mockResolvedValue({
@@ -51,7 +51,7 @@ describe("UserPage", () => {
     expect(getUser).toHaveBeenCalledWith("testToken", "1234");
 
     // step 4: assert username on page matches user object
-    const username = await screen.findByTestId("username-heading");
+    const username = await screen.getByTestId("username-heading");
     expect(username.textContent).toEqual("testuser1's Profile");
   });
 
