@@ -1,4 +1,28 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  /* overflow: hidden; */
+}
+
 .home {
-  display: flex;
-  flex-direction: column;
+  text-align: center;
+  margin-top: 55px;
+}
+
+.login-btn {
+  background-color: blue;
+  color: white;
+}
+
+.login-link {
+  color: white;
+  text-decoration: none;
+}
+
+.signup-link {
+  text-decoration: none;
+}
+
+.signup-link:hover {
+  color: white;
 }
