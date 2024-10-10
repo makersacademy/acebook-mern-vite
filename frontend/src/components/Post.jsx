@@ -8,10 +8,10 @@ import { getComments } from "../services/comments";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import LikeButton from "./LikeButton";
-
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
 
 
 function Post(props) {
@@ -75,6 +75,55 @@ function Post(props) {
 
   return (
     <>
+
+    {/* ROB */}
+      <Container>
+        <Card className="post-card my-3" key={props.post._id}>
+          {/* message at top */}
+          <Card.Body>
+            <Card.Text className="fs-5">{props.post.message}</Card.Text>
+          </Card.Body>
+
+          <Row className="align-items-center">
+            {/* pic on  left */}
+            <Col sm={3} className="text-center">
+              <Card.Img
+                variant="top"
+                src={props.post.userPic}
+                className="profile-photo img-fluid " 
+                style={{ width: "100px", height: "100px", objectFit: "cover" }}
+              />
+            </Col>
+
+            {/* details on right  */}
+            <Col sm={9}>
+              <ListGroup className="list-group-flush">
+                <ListGroup.Item className="post-metadata">
+                  <span>Posted By: {props.post.author ? props.post.author.username : "Unknown User"}</span> 
+                  <span> on {formatDate(props.post.createdAt)}</span> 
+                </ListGroup.Item>       
+              </ListGroup>
+            </Col>
+          </Row>
+          <br />
+
+          <Card.Footer className="text-muted">
+            <ListGroup.Item className="post-metadata">
+              <LikeButton
+                className=""
+                post={props.post}
+                user={props.user}
+                toggleLike={props.toggleLike}
+              /> 
+              <span className="mx-3">{props.post.likes.count}</span>
+            </ListGroup.Item>
+          </Card.Footer>
+        </Card>
+      </Container>
+
+
+
+{/* REBECCA */}
     <Container>
     <Card className="post-card" key={props.post._id}>
       <Row>

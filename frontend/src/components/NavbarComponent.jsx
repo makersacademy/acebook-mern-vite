@@ -5,7 +5,7 @@ import LogoutButton from "./LogoutButton";
 
 export function NavbarComponent() {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-body-tertiary sticky-top">
       <Container className="p-0">
         <Navbar.Brand className="ms-2 me-4 fw-bolder" href="/posts">Acebook</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

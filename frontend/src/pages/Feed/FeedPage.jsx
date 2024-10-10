@@ -6,6 +6,9 @@ import { getUser } from "../../services/users";
 import UserProfile from "../../components/UserProfile";
 import { NavbarComponent } from "../../components/NavbarComponent";
 import AllPosts from "../../components/AllPosts";
+import Container from "react-bootstrap/Container";  // Import Container
+import Row from "react-bootstrap/Row";  // Import Row
+import Col from "react-bootstrap/Col";  // Import Col
 
 export function FeedPage() {
   const [users, setUsers] = useState([]);
@@ -68,29 +71,31 @@ export function FeedPage() {
       <NavbarComponent />
       <div className="feedpage">
 
-      <div className="my-5">
-      <CreatePostForm whenPostCreated={createdPost} /> {/* Pass in the change state function */}
-      </div>
-      
-      <h1>Posts</h1>
-
-      <AllPosts user={user} postFilter="all" refresh={refresh} /> {/* Pass the refresh state to the AllPosts component */}
-      
-
-      <h2>All User Profiles</h2>
-      <div>
-        {users.map((user, index) => (
-          <UserProfile user={user} key={index} />
-        ))}
-      </div>
-      <br />
-
-      <h2>Current User Profile</h2>
-      <div>
-        <img src={user.imgURL}></img>{" "}
-        {/* Displays the img from the imgURL property of current user*/}
-        {user && <UserProfile user={user} key={user._id} />}
-      </div>
+        <div className="my-5">
+          <CreatePostForm whenPostCreated={createdPost} /> {/* Pass in the change state function */}
+        </div>
+    
+        <Container>
+          <Row className="justify-content-center">
+            <Col lg={10} md={12} className="mx-auto">
+              <h1>Posts</h1>
+              <AllPosts user={user} postFilter="all" refresh={refresh} /> {/* Pass the refresh state to the AllPosts component */}
+              <h2>All User Profiles</h2>
+              <div>
+                {users.map((user, index) => (
+                  <UserProfile user={user} key={index} />
+                ))}
+              </div>
+              <br />
+              <h2>Current User Profile</h2>
+              <div>
+                <img src={user.imgURL}></img>{" "}
+                {/* Displays the img from the imgURL property of current user*/}
+                {user && <UserProfile user={user} key={user._id} />}
+              </div>
+            </Col>
+          </Row>
+        </Container>
       </div>
     </>
   );
