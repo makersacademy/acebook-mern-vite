@@ -75,40 +75,39 @@ function Post(props) {
 
   return (
     <>
-
-    {/* ROB */}
       <Container>
         <Card className="post-card my-3" key={props.post._id}>
-          {/* message at top */}
           <Card.Body>
-            <Card.Text className="fs-5">{props.post.message}</Card.Text>
+            <Row>
+              <Col sm={3} className="text-center">
+                <Card.Img
+                  variant="top"
+                  src={props.post.userPic}
+                  className="profile-photo img-fluid" 
+                  style={{ width: "100px", height: "100px", objectFit: "cover" }}
+                />
+              </Col>
+              <Col sm={9} className="d-flex align-items-center">
+                <Card.Text className="fs-5">{props.post.message}</Card.Text>
+              </Col>
+            </Row>
           </Card.Body>
 
           <Row className="align-items-center">
-            {/* pic on  left */}
-            <Col sm={3} className="text-center">
-              <Card.Img
-                variant="top"
-                src={props.post.userPic}
-                className="profile-photo img-fluid " 
-                style={{ width: "100px", height: "100px", objectFit: "cover" }}
-              />
+            <Col sm={6} className="text-center text-sm-start">
+              <ListGroup.Item className="post-metadata">
+                <span>Posted By: {props.post.author ? props.post.author.username : "Unknown User"}</span> 
+              </ListGroup.Item>
             </Col>
-
-            {/* details on right  */}
-            <Col sm={9}>
-              <ListGroup className="list-group-flush">
-                <ListGroup.Item className="post-metadata">
-                  <span>Posted By: {props.post.author ? props.post.author.username : "Unknown User"}</span> 
-                  <span> on {formatDate(props.post.createdAt)}</span> 
-                </ListGroup.Item>       
-              </ListGroup>
+            <Col sm={6} className="text-end">
+              <ListGroup.Item className="post-metadata">
+                <span>on {formatDate(props.post.createdAt)}</span>
+              </ListGroup.Item>
             </Col>
           </Row>
-          <br />
 
           <Card.Footer className="text-muted">
-            <ListGroup.Item className="post-metadata">
+            <ListGroup.Item className="post-metadata d-flex align-items-center">
               <LikeButton
                 className=""
                 post={props.post}
@@ -119,147 +118,43 @@ function Post(props) {
             </ListGroup.Item>
           </Card.Footer>
 
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="message-box">
-            <Form.Label></Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              onChange={handleCommentChange}
-              onClick={handleClick}
-              value={comment}
-              name="comment"
-              placeholder="Your comment..."
-            />
-          </Form.Group>
-          <Button className="btn-sm" value="Submit" variant="primary" type="submit">
-            Submit
-          </Button>
-        </Form>
+          <Form onSubmit={handleSubmit}>
+            <Row>
+              <Col sm={10}>
+                <Form.Group className="mb-3" controlId="message-box">
+                  <Form.Control
+                    as="textarea"
+                    rows={2}
+                    onChange={handleCommentChange}
+                    onClick={handleClick}
+                    value={comment}
+                    name="comment"
+                    placeholder="Your comment..."
+                  />
+                </Form.Group>
+              </Col>
+              <Col sm={2} className="d-flex align-items-center justify-content-end">
+                <Button className="btn-sm" value="Submit" variant="primary" type="submit">
+                  Submit
+                </Button>
+              </Col>
+            </Row>
+          </Form>
 
-        <Card.Body>
-
-          <div>
-            {filteredComments.map((comment) => (
-              <DisplayComment
-                key={comment._id}
-                comment_text={comment.comment}
-                user={comment.user}
-                created_at={formatDate(comment.createdAt)}
-              />
-            ))}
-          </div>
-        </Card.Body>
-      </Card>
+          <Card.Body>
+            <div>
+              {filteredComments.map((comment) => (
+                <DisplayComment
+                  key={comment._id}
+                  comment_text={comment.comment}
+                  user={comment.user}
+                  created_at={formatDate(comment.createdAt)}
+                />
+              ))}
+            </div>
+          </Card.Body>
+        </Card>
       </Container>
-
-
-
-{/* REBECCA */}
-    <Container>
-    <Card className="post-card" key={props.post._id}>
-      <Row>
-        <Col sm={4}>
-        <Card.Img
-          variant="top"
-          src={props.post.userPic}
-          className="profile-photo" 
-        />
-        </Col>
-        <Card.Body>
-          <Card.Text className="">{props.post.message}</Card.Text>
-          <ListGroup className="list-group-flush">
-
-          <ListGroup.Item className="post-metadata">
-          <span>Posted By: {props.post.author ? props.post.author.username : "Unknown User"}</span> <span>on {formatDate(props.post.createdAt)}</span> 
-          </ListGroup.Item>       
-
-          <ListGroup.Item className="">
-          <LikeButton
-            post={props.post}
-            user={props.user}
-            toggleLike={props.toggleLike}
-          /> <span className="mx-2">{props.post.likes.count}</span>
-          </ListGroup.Item>
-
-        </ListGroup>
-        <Card.Footer>Footer</Card.Footer>
-        </Card.Body>
-
-      </Row>
-      </Card>
-    </Container>
-
- {/* OLD POST LAYOUT BELOW - PLEASE KEEP UNTIL STYLING IS HOW WE WANT IT */}
-      <Card className="post-card" key={props.post._id}>
-        <Card.Img
-          variant="top"
-          src={props.post.userPic}
-          className="postedbypic roundedCircle" 
-        />
-        <Card.Body>
-          <Card.Text>{props.post.message}</Card.Text>
-
-          
-        </Card.Body>
-
-        <ListGroup className="list-group-flush">
-
-          <ListGroup.Item className="post-metadata">
-            Posted on: {formatDate(props.post.createdAt)}
-          </ListGroup.Item>
-
-          {/* <ListGroup.Item className="post-metadata">
-            Posted By: {props.post.user}
-          </ListGroup.Item> */}
-
-          <ListGroup.Item className="post-metadata">
-          Posted By: {props.post.author ? props.post.author.username : "Unknown User"}
-          </ListGroup.Item>       
-
-          <ListGroup.Item className="post-metadata">
-            Likes: {props.post.likes.count}
-          </ListGroup.Item>
-          
-          <LikeButton
-            post={props.post}
-            user={props.user}
-            toggleLike={props.toggleLike}
-          />
-        </ListGroup>
-
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="message-box">
-            <Form.Label>Enter Comment: </Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              onChange={handleCommentChange}
-              onClick={handleClick}
-              value={comment}
-              name="comment"
-              placeholder="Your comment..."
-            />
-          </Form.Group>
-          <Button value="Submit" variant="primary" type="submit">
-            Submit
-          </Button>
-        </Form>
-
-        <Card.Body>
-
-          <div>
-            {filteredComments.map((comment) => (
-              <DisplayComment
-                key={comment._id}
-                comment_text={comment.comment}
-                user={comment.user}
-                created_at={formatDate(comment.createdAt)}
-              />
-            ))}
-          </div>
-        </Card.Body>
-      </Card>
     </>
   );
 }
