@@ -118,7 +118,39 @@ function Post(props) {
               <span className="mx-3">{props.post.likes.count}</span>
             </ListGroup.Item>
           </Card.Footer>
-        </Card>
+
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="message-box">
+            <Form.Label></Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              onChange={handleCommentChange}
+              onClick={handleClick}
+              value={comment}
+              name="comment"
+              placeholder="Your comment..."
+            />
+          </Form.Group>
+          <Button className="btn-sm" value="Submit" variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
+
+        <Card.Body>
+
+          <div>
+            {filteredComments.map((comment) => (
+              <DisplayComment
+                key={comment._id}
+                comment_text={comment.comment}
+                user={comment.user}
+                created_at={formatDate(comment.createdAt)}
+              />
+            ))}
+          </div>
+        </Card.Body>
+      </Card>
       </Container>
 
 
