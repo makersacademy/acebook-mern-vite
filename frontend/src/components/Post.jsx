@@ -1,13 +1,12 @@
 function Post(props) {
+  const cleanDate = new Date(props.timestamp)
+    .toLocaleString("en-gb")
+    .slice(0, -3)
+    .replaceAll(",", "");
   return (
     <div>
       <h2>{props.user}</h2>
-      <h3>
-        {props.timestamp
-          .replace("Z", "")
-          .replace(":00.000", "")
-          .replace("T", " ")}
-      </h3>
+      <h3>{cleanDate}</h3>
       <article key={props._id}>{props.message}</article>
     </div>
   );
