@@ -1,8 +1,14 @@
+
+const Bcrypt = require("bcrypt")
 const User = require("../models/user");
 
 function create(req, res) {
+  const password = Bcrypt.hashSync(req.body.password, 10);
+
+  console.log(password)
+
   const email = req.body.email;
-  const password = req.body.password;
+
 
   const user = new User({ email, password });
   user
