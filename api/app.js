@@ -17,6 +17,7 @@ app.use(cors());
 // Parse JSON request bodies, made available on `req.body`
 app.use(bodyParser.json());
 
+
 // API Routes
 app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);
