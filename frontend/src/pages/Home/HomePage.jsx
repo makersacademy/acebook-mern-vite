@@ -8,6 +8,7 @@ export function HomePage() {
       <h1>Welcome to Acebook!</h1>
       <Link to="/signup">Sign Up</Link>
       <Link to="/login">Log In</Link>
+      {/* <Link to="/hello">Hello!</Link> */}
     </div>
   );
 }
