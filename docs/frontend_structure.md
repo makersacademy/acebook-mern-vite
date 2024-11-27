@@ -5,7 +5,7 @@ The frontend of this project can be found in the `frontend` directory.
 The front end of this project is a React application, which uses Vite to handle
 scaffolding, a dev server, and building for production.
 
-![Diagram of the structure of the frontend](./diagrams/frontend_overview.png)
+![Diagram of the structure of the frontend](./diagrams/frontendcd _overview.png)
 
 ## Contents
 
