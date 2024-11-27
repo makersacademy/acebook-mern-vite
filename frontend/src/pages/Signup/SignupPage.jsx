@@ -8,12 +8,13 @@ export function SignupPage() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [image, setImage] = useState("");
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      await signup(firstName, lastName, email, password);
+      await signup(firstName, lastName, email, password, image);
       navigate("/login");
     } catch (err) {
       console.error(err);
@@ -35,6 +36,14 @@ export function SignupPage() {
 
   function handlePasswordChange(event) {
     setPassword(event.target.value);
+  }
+
+  function handleImageChange(event) {
+    const file = event.target.files[0]
+    // console.log(file)
+    if(file) {
+    setImage(event.target.files[0]);
+    }
   }
 
   return (
@@ -69,6 +78,14 @@ export function SignupPage() {
           type="password"
           value={password}
           onChange={handlePasswordChange}
+        />
+        <label htmlFor="mage">Profile Image:</label>
+        <input
+          placeholder="Image"
+          id="image"
+          type="file"
+          // value={image ? image.name : ""}
+          onChange={handleImageChange}
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
