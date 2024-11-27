@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { signup } from "../../services/authentication";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function SignupPage() {
   const [name, setName] = useState("");
@@ -11,23 +13,38 @@ export function SignupPage() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const validatePassword = (password) => {
+    const chars = /[!@£$%]/;
+    if (password.length < 8) {
+      toast.error("Password must be 8 or more characters long");
+    } else if (!chars.test(password)) {
+      toast.error("Must contain at least 1 special character");
+    } else {
+      return true;
+    }
+  };
+
   async function handleSubmit(event) {
     event.preventDefault();
-    try {
-      await signup(name, birthday, email, username, password);
-      navigate("/login");
-    } catch (err) {
-      console.error(err);
-      const errorMessage = err.message;
+    if (validatePassword(password)) {
+      try {
+        await signup(name, birthday, email, username, password);
+        navigate("/login");
+      } catch (err) {
+        console.error(err);
+        const errorMessage = err.message;
 
-      if (errorMessage === "username") {
-        alert("pleaser enter a different username, already taken!");
-      } else {
-        if (errorMessage === "email") {
-          alert("there is already an account with that email, please login");
+        if (errorMessage === "username") {
+          toast.error("pleaser enter a different username, already taken!");
+        } else {
+          if (errorMessage === "email") {
+            toast.error(
+              "there is already an account with that email, please login"
+            );
+          }
         }
+        navigate("/signup");
       }
-      navigate("/signup");
     }
   }
 
@@ -59,6 +76,7 @@ export function SignupPage() {
 
   return (
     <>
+      <ToastContainer />
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name:</label>

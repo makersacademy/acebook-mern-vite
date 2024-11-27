@@ -18,7 +18,7 @@ function create(req, res) {
       res.status(201).json({ message: "OK" });
     })
     .catch((err) => {
-      console.error("hello!!!::     ", err);
+      console.error(err);
       const errorType = Object.keys(err.keyValue);
       res.status(400).json({ message: errorType[0] });
     });
