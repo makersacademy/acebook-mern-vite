@@ -8,6 +8,7 @@ async function getAllPosts(req, res) {
 }
 
 async function createPost(req, res) {
+  console.log(req.body);
   const post = new Post(req.body);
   post.save();
 
