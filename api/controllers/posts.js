@@ -3,15 +3,17 @@ const { generateToken } = require("../lib/token");
 
 async function getAllPosts(req, res) {
   const posts = await Post.find();
-  const token = generateToken(req.user_id);
+  const token = generateToken(req.user_id, req.username);
   res.status(200).json({ posts: posts, token: token });
 }
 
 async function createPost(req, res) {
+  req.body.user = req.username
   const post = new Post(req.body);
-  post.save();
 
-  const newToken = generateToken(req.user_id);
+  await post.save();
+
+  const newToken = generateToken(req.user_id, req.username);
   res.status(201).json({ message: "Post created", token: newToken });
 }
 

@@ -18,3 +18,22 @@ export async function getPosts(token) {
   const data = await response.json();
   return data;
 }
+
+export async function CreatePost(token, body) {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ message: body }),
+  };
+
+  const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
+  // console.log(response)
+  if (response.status !== 201) {
+    throw new Error("Unable to create post");
+  }
+
+  return response;
+}
