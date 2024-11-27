@@ -41,7 +41,13 @@ export function FeedPage() {
       </div>
       <div className="feed" role="feed">
         {posts.map((post) => (
-          <Post post={post} key={post._id} />
+          <Post
+            post={post}
+            key={post._id}
+            user={post.user}
+            message={post.message}
+            timestamp={post.timestamp}
+          />
         ))}
       </div>
       <LogoutButton />

@@ -3,6 +3,7 @@ const { generateToken } = require("../lib/token");
 
 async function getAllPosts(req, res) {
   const posts = await Post.find();
+  posts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
   const token = generateToken(req.user_id, req.username);
   res.status(200).json({ posts: posts, token: token });
 }
