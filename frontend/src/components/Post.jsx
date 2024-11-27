@@ -1,13 +1,11 @@
 import DeletePostId from "./DeletePostButton";
 import {deletePostId} from "../services/posts"
 
-
 function Post(props) {
   const cleanDate = new Date(props.timestamp)
     .toLocaleString("en-gb")
     .slice(0, -3)
     .replaceAll(",", "");
-    console.log(props.post._id)
   return (
     <div>
       <h2>{props.user}</h2>
