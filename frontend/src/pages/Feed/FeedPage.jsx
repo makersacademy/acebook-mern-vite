@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post";
 import LogoutButton from "../../components/LogoutButton";
+import NewPostForm from "../../components/NewPostForm";
 
 export function FeedPage() {
   const [posts, setPosts] = useState([]);
+  const [updatePost, setUpdatePost] = useState(false)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +25,7 @@ export function FeedPage() {
           navigate("/login");
         });
     }
-  }, [navigate]);
+  }, [navigate, updatePost]);
 
   const token = localStorage.getItem("token");
   if (!token) {
@@ -34,6 +36,9 @@ export function FeedPage() {
   return (
     <>
       <h2>Posts</h2>
+      <div>
+        <NewPostForm token={token} setUpdatePost={setUpdatePost}/>
+      </div>
       <div className="feed" role="feed">
         {posts.map((post) => (
           <Post
