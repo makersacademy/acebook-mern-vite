@@ -12,28 +12,30 @@ async function seedData() {
   console.log("Cleared existing data.");
 
   try {
-
     // Seed Users
     const users = [
       {
         username: "JavaJunkie",
         name: "Charles",
         email: "javajunkie@coffee.com",
-        password: "12345678",
+        password:
+          "$2b$10$EC7tDwsuW.CTjF5EpPCZ4e1KNyW/ZOoI3uM.ygp3aNK8uaz5MgtZG",
         birthday: new Date("2000-01-01"),
       },
       {
         username: "BeanBlogger",
         name: "Bob",
         email: "beanblogger@coffee.com",
-        password: "12345678",
+        password:
+          "$2b$10$EC7tDwsuW.CTjF5EpPCZ4e1KNyW/ZOoI3uM.ygp3aNK8uaz5MgtZG",
         birthday: new Date("1991-03-18"),
       },
       {
         username: "LatteLover",
         name: "Leticia",
         email: "lattelover@latte.com",
-        password: "12345678",
+        password:
+          "$2b$10$EC7tDwsuW.CTjF5EpPCZ4e1KNyW/ZOoI3uM.ygp3aNK8uaz5MgtZG",
         birthday: new Date("1989-09-25"),
       },
     ];
@@ -90,22 +92,24 @@ async function seedData() {
     }
 
     const friends = [
-        {
-            sender: "JavaJunkie",
-            receiver: "LatteLover",
-            approved: true,
-            timestamp: new Date("2024-11-25 10:44")
-        },
-        {
-            sender: "BeanBlogger",
-            receiver: "JavaJunkie"
-        }
+      {
+        sender: "JavaJunkie",
+        receiver: "LatteLover",
+        approved: true,
+        timestamp: new Date("2024-11-25 10:44"),
+      },
+      {
+        sender: "BeanBlogger",
+        receiver: "JavaJunkie",
+      },
     ];
 
     for (const friendData of friends) {
-        const friend = new Friend(friendData);
-        await friend.save();
-        console.log(`Friendship between ${friend.sender} and ${friend.receiver} created.`)
+      const friend = new Friend(friendData);
+      await friend.save();
+      console.log(
+        `Friendship between ${friend.sender} and ${friend.receiver} created.`
+      );
     }
 
     console.log("Seeding completed successfully!");
