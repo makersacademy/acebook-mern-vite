@@ -9,10 +9,11 @@ require("../mongodb_helper");
 
 const secret = process.env.JWT_SECRET;
 
-function createToken(userId) {
+function createToken(userId, username) {
   return JWT.sign(
     {
       user_id: userId,
+      username: username,
       // Backdate this token of 5 minutes
       iat: Math.floor(Date.now() / 1000) - 5 * 60,
       // Set the JWT token to expire in 10 minutes
@@ -26,12 +27,15 @@ let token;
 describe("/posts", () => {
   beforeAll(async () => {
     const user = new User({
+      name: "Test User",
+      username: "post-test",
+      birthday: "2000-11-25",
       email: "post-test@test.com",
-      password: "12345678",
+      password: "$2b$10$EC7tDwsuW.CTjF5EpPCZ4e1KNyW/ZOoI3uM.ygp3aNK8uaz5MgtZG",
     });
     await user.save();
     await Post.deleteMany({});
-    token = createToken(user.id);
+    token = createToken(user.id, user.username);
   });
 
   afterEach(async () => {
@@ -57,6 +61,7 @@ describe("/posts", () => {
       const posts = await Post.find();
       expect(posts.length).toEqual(1);
       expect(posts[0].message).toEqual("Hello World!!");
+      expect(posts[0].user).toEqual("post-test")
     });
 
     test("returns a new token", async () => {
@@ -104,8 +109,8 @@ describe("/posts", () => {
 
   describe("GET, when token is present", () => {
     test("the response code is 200", async () => {
-      const post1 = new Post({ message: "I love all my children equally" });
-      const post2 = new Post({ message: "I've never cared for GOB" });
+      const post1 = new Post({ user: "post-test", message: "I love all my children equally" });
+      const post2 = new Post({ user: "post-test", message: "I've never cared for GOB" });
       await post1.save();
       await post2.save();
 
@@ -117,8 +122,8 @@ describe("/posts", () => {
     });
 
     test("returns every post in the collection", async () => {
-      const post1 = new Post({ message: "howdy!" });
-      const post2 = new Post({ message: "hola!" });
+      const post1 = new Post({ user: "post-test-1", message: "howdy!" });
+      const post2 = new Post({ user: "post-test-2", message: "hola!" });
       await post1.save();
       await post2.save();
 
@@ -131,12 +136,14 @@ describe("/posts", () => {
       const secondPost = posts[1];
 
       expect(firstPost.message).toEqual("howdy!");
+      expect(firstPost.user).toEqual("post-test-1");
       expect(secondPost.message).toEqual("hola!");
+      expect(secondPost.user).toEqual("post-test-2");
     });
 
     test("returns a new token", async () => {
-      const post1 = new Post({ message: "First Post!" });
-      const post2 = new Post({ message: "Second Post!" });
+      const post1 = new Post({ user: "post-test", message: "First Post!" });
+      const post2 = new Post({ user: "post-test", message: "Second Post!" });
       await post1.save();
       await post2.save();
 
@@ -155,8 +162,8 @@ describe("/posts", () => {
 
   describe("GET, when token is missing", () => {
     test("the response code is 401", async () => {
-      const post1 = new Post({ message: "howdy!" });
-      const post2 = new Post({ message: "hola!" });
+      const post1 = new Post({ user: "post-test", message: "howdy!" });
+      const post2 = new Post({ user: "post-test", message: "hola!" });
       await post1.save();
       await post2.save();
 
@@ -166,8 +173,8 @@ describe("/posts", () => {
     });
 
     test("returns no posts", async () => {
-      const post1 = new Post({ message: "howdy!" });
-      const post2 = new Post({ message: "hola!" });
+      const post1 = new Post({ user: "post-test", message: "howdy!" });
+      const post2 = new Post({ user: "post-test", message: "hola!" });
       await post1.save();
       await post2.save();
 
@@ -177,8 +184,8 @@ describe("/posts", () => {
     });
 
     test("does not return a new token", async () => {
-      const post1 = new Post({ message: "howdy!" });
-      const post2 = new Post({ message: "hola!" });
+      const post1 = new Post({ user: "post-test", message: "howdy!" });
+      const post2 = new Post({ user: "post-test", message: "hola!" });
       await post1.save();
       await post2.save();
 

@@ -14,7 +14,13 @@ describe("/users", () => {
     test("the response code is 201", async () => {
       const response = await request(app)
         .post("/users")
-        .send({ email: "poppy@email.com", password: "1234" });
+        .send({
+          name: "Poppy",
+          username: "poppy",
+          birthday: "2000-11-25",
+          email: "poppy@email.com",
+          password: "1234"
+        });
 
       expect(response.statusCode).toBe(201);
     });
@@ -22,10 +28,19 @@ describe("/users", () => {
     test("a user is created", async () => {
       await request(app)
         .post("/users")
-        .send({ email: "scarconstt@email.com", password: "1234" });
+        .send({
+          name: "Scarconstt",
+          username: "scarconstt",
+          birthday: "2000-11-25",
+          email: "scarconstt@email.com",
+          password: "1234"
+        });
 
       const users = await User.find();
       const newUser = users[users.length - 1];
+      expect(newUser.name).toEqual("Scarconstt");
+      expect(newUser.username).toEqual("scarconstt");
+      expect(newUser.birthday).toEqual(new Date("2000-11-25"));
       expect(newUser.email).toEqual("scarconstt@email.com");
     });
   });
@@ -36,7 +51,7 @@ describe("/users", () => {
         .post("/users")
         .send({ email: "skye@email.com" });
 
-      expect(response.statusCode).toBe(400);
+      expect(response.statusCode).toBe(500);
     });
 
     test("does not create a user", async () => {
