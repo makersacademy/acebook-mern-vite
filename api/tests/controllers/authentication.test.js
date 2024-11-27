@@ -6,8 +6,11 @@ const User = require("../../models/user");
 describe("/tokens", () => {
   beforeAll(async () => {
     const user = new User({
+      name: "Test User",
+      username: "auth-test",
+      birthday: "2000-11-25",
       email: "auth-test@test.com",
-      password: "12345678",
+      password: "$2b$10$EC7tDwsuW.CTjF5EpPCZ4e1KNyW/ZOoI3uM.ygp3aNK8uaz5MgtZG",
     });
 
     // We need to use `await` so that the "beforeAll" setup function waits for

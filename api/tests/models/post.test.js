@@ -8,7 +8,8 @@ describe("Post model", () => {
   });
 
   it("has a message", () => {
-    const post = new Post({ message: "some message" });
+    const post = new Post({ user: "post-test", message: "some message" });
+    expect(post.user).toEqual("post-test");
     expect(post.message).toEqual("some message");
   });
 
@@ -18,10 +19,11 @@ describe("Post model", () => {
   });
 
   it("can save a post", async () => {
-    const post = new Post({ message: "some message" });
+    const post = new Post({ user: "post-test", message: "some message" });
 
     await post.save();
     const posts = await Post.find();
+    expect(posts[0].user).toEqual("post-test");
     expect(posts[0].message).toEqual("some message");
   });
 });
