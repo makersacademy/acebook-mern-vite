@@ -8,5 +8,8 @@
     "preview": "echo 'You are in the wrong directory. cd to api or frontend folder to run this command'",
     "test": "echo 'You are in the wrong directory. cd to api or frontend folder to run this command'",
     "install": "cd ./api && npm install && cd ../frontend && npm install && cd ../"
+  },
+  "dependencies": {
+    "react-toastify": "^10.0.6"
   }
 }

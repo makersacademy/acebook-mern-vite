@@ -1,5 +1,4 @@
-
-const Bcrypt = require("bcrypt")
+const Bcrypt = require("bcrypt");
 const User = require("../models/user");
 
 function create(req, res) {
@@ -8,8 +7,8 @@ function create(req, res) {
   const email = req.body.email;
   const username = req.body.username;
   const password = Bcrypt.hashSync(req.body.password, 10);
-  
-// console.log(`Name: ${name}, Birthday: ${birthday}, Email: ${email}, Username: ${username}, Password: ${password}`)
+
+  // console.log(`Name: ${name}, Birthday: ${birthday}, Email: ${email}, Username: ${username}, Password: ${password}`)
 
   const user = new User({ name, birthday, email, username, password });
   user
@@ -19,8 +18,9 @@ function create(req, res) {
       res.status(201).json({ message: "OK" });
     })
     .catch((err) => {
-      console.error(err);
-      res.status(400).json({ message: "Something went wrong" });
+      console.error("hello!!!::     ", err);
+      const errorType = Object.keys(err.keyValue);
+      res.status(400).json({ message: errorType[0] });
     });
 }
 
