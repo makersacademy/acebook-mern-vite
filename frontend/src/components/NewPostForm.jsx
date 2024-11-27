@@ -13,6 +13,7 @@ const NewPostForm = ({token, setUpdatePost}) => {
     event.preventDefault();
     const CreatedPost = await CreatePost(token, postMessage)
     setUpdatePost(CreatedPost)
+    setPostMessage("");
   }
 
 

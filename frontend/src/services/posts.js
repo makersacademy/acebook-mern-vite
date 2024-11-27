@@ -37,3 +37,18 @@ export async function CreatePost(token, body) {
 
   return response;
 }
+
+export async function deletePostId(token,post_id) {
+  const requestOptions = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    }
+  };
+  const response = await fetch(`${BACKEND_URL}/posts/${post_id}`, requestOptions);
+  // console.log(response)
+  if (response.status !== 200) {
+    throw new Error("Unable to delete post");
+  }
+}
