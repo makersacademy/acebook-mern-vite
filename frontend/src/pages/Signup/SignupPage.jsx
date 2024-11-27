@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { signup } from "../../services/authentication";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function SignupPage() {
   const [name, setName] = useState("");
@@ -11,14 +13,38 @@ export function SignupPage() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const validatePassword = (password) => {
+    const chars = /[!@£$%]/;
+    if (password.length < 8) {
+      toast.error("Password must be 8 or more characters long");
+    } else if (!chars.test(password)) {
+      toast.error("Must contain at least 1 special character");
+    } else {
+      return true;
+    }
+  };
+
   async function handleSubmit(event) {
     event.preventDefault();
-    try {
-      await signup(name, birthday, email, username, password);
-      navigate("/login");
-    } catch (err) {
-      console.error(err);
-      navigate("/signup");
+    if (validatePassword(password)) {
+      try {
+        await signup(name, birthday, email, username, password);
+        navigate("/login");
+      } catch (err) {
+        console.error(err);
+        const errorMessage = err.message;
+
+        if (errorMessage === "username") {
+          toast.error("pleaser enter a different username, already taken!");
+        } else {
+          if (errorMessage === "email") {
+            toast.error(
+              "there is already an account with that email, please login"
+            );
+          }
+        }
+        navigate("/signup");
+      }
     }
   }
 
@@ -42,29 +68,31 @@ export function SignupPage() {
     setPassword(event.target.value);
   }
 
-const date18YearsAgo = new Date()
-date18YearsAgo.setFullYear(date18YearsAgo.getFullYear()- 18)
-const formattedDate = `${date18YearsAgo.getFullYear()}-${date18YearsAgo.getMonth() + 1}-${date18YearsAgo.getDate()}`;
-console.log(formattedDate);
+  const date18YearsAgo = new Date();
+  date18YearsAgo.setFullYear(date18YearsAgo.getFullYear() - 18);
+  const formattedDate = `${date18YearsAgo.getFullYear()}-${
+    date18YearsAgo.getMonth() + 1
+  }-${date18YearsAgo.getDate()}`;
 
   return (
     <>
+      <ToastContainer />
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Name:</label>
+        <label htmlFor="name">Name:</label>
         <input
-        id="name"
-        type = "text"
-        value={name}
-        onChange={handleNameChange}
+          id="name"
+          type="text"
+          value={name}
+          onChange={handleNameChange}
         ></input>
-          <label htmlFor="birthday">Birthday:</label>
+        <label htmlFor="birthday">Birthday:</label>
         <input
-        id="birthday"
-        type = "date"
-        value={birthday}
-        max = {formattedDate}
-        onChange={handleBirthdayChange}
+          id="birthday"
+          type="date"
+          value={birthday}
+          max={formattedDate}
+          onChange={handleBirthdayChange}
         ></input>
         <label htmlFor="email">Email:</label>
         <input
@@ -75,10 +103,10 @@ console.log(formattedDate);
         />
         <label htmlFor="username">Username:</label>
         <input
-        id="username"
-        type = "text"
-        value={username}
-        onChange={handleUsernameChange}
+          id="username"
+          type="text"
+          value={username}
+          onChange={handleUsernameChange}
         ></input>
         <label htmlFor="password">Password:</label>
         <input

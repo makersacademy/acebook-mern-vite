@@ -51,8 +51,8 @@ export async function signup(name, birthday, email, username, password) {
   if (response.status === 201) {
     return;
   } else {
-    throw new Error(
-      `Received status ${response.status} when signing up. Expected 201`
-    );
+    return response.json().then((data) => {
+      throw new Error(data.message);
+    });
   }
 }
