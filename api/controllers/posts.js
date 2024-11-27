@@ -17,10 +17,26 @@ async function createPost(req, res) {
   const newToken = generateToken(req.user_id, req.username);
   res.status(201).json({ message: "Post created", token: newToken });
 }
+async function getYourPosts(req, res) {
+  const posts = await Post.find({user:req.username});
+  posts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+  const token = generateToken(req.user_id, req.username);
+  res.status(200).json({ posts: posts, token: token });
+}
+
+
+async function getUserPosts(req, res) {
+  const posts = await Post.find({user:req.params.username});
+  posts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+  const token = generateToken(req.user_id, req.username);
+  res.status(200).json({ posts: posts, token: token });
+}
 
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
+  getUserPosts: getUserPosts,
+  getYourPosts: getYourPosts,
 };
 
 module.exports = PostsController;
