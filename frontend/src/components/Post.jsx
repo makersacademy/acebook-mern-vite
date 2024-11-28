@@ -19,7 +19,7 @@ function Post(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await UpdatePost(token, postMessage, props.post._id)
+    await UpdatePost(token, postMessage, props.post._id, props.isYours)
     props.updatePost(Math.random()) //change state to rerender page
     toggleEditState()
   }
@@ -38,7 +38,7 @@ function Post(props) {
     .toLocaleString("en-gb")
     .slice(0, -3)
     .replaceAll(",", "");
-
+    
   return (
     editState ? (
       <div key="edit mode">
@@ -57,6 +57,7 @@ function Post(props) {
               </div>
           </form>
         <DeletePostId 
+        isYours = {props.isYours}
         post_id = {props.post._id}
         DeletePostId = {deletePostId}
         UpdatePost = {props.updatePost}
@@ -70,12 +71,13 @@ function Post(props) {
         <LikePostButton liked={liked} toggleLiked={toggleLiked} beanNumber={props.beans.length} />
         {isYours && (
           <div>
-            <EditPostButton toggleEditState = {toggleEditState}/>
-            <DeletePostId 
+          <EditPostButton toggleEditState = {toggleEditState}/>
+                  <DeletePostId 
+              isYours={props.isYours}
               post_id = {props.post._id}
               DeletePostId = {deletePostId}
               UpdatePost = {props.updatePost}
-            />
+            />   
           </div>
         )}
       </div>

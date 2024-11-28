@@ -40,14 +40,19 @@ async function getUserPosts(req, res) {
 
 async function deletePostId(req, res) {
   const postId = req.params.post_id
-  await Post.findByIdAndDelete(postId);
-  
-  const newToken = generateToken(req.user_id, req.username);
-  res.status(200).json({ message: "Post created", token: newToken });
+  if (req.body.isYours){
+    await Post.findByIdAndDelete(postId);
+    const newToken = generateToken(req.user_id, req.username);
+    res.status(200).json({ message: "Post deleted", token: newToken });
+  } else {
+    console.error("Not your post can't delete")
+  }
 }
+
 
 async function updatePost(req, res) {
   const postId = req.params.post_id
+  if(req.body.isYours){
   await Post.findOneAndUpdate(
     {_id: postId},
     {$set: {message: req.body.message}},
@@ -55,7 +60,7 @@ async function updatePost(req, res) {
   
   const newToken = generateToken(req.user_id, req.username);
   res.status(200).json({ message: "Post updated", token: newToken });
-}
+}else {console.error("Not your post, can't edit")}} 
 
 async function likePost(req, res) {
   const postId = req.params.post_id
