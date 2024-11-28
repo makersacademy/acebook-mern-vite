@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const { generateToken } = require("../lib/token");
 
 function create(req, res) {
   // const payload = JSON.parse(req.body)
@@ -22,8 +23,22 @@ function create(req, res) {
     });
 }
 
+async function getUserProfile(req, res) {
+  console.log("line 27.....", req.user_id)
+  const user = await User.find({ _id: req.user_id });
+  console.log("User.....", user)
+  const token = generateToken(req.user_id);
+
+  const returnUserData = {
+    firstName: user[0].firstName,
+    lastName: user[0].lastName,
+  }
+  res.status(200).json({ userData: returnUserData, token: token });
+}
+
 const UsersController = {
   create: create,
+  getUserProfile: getUserProfile
 };
 
 module.exports = UsersController;
