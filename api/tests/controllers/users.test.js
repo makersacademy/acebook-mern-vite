@@ -23,100 +23,100 @@ function createToken(userId) {
 let token;
 
 
-// describe("/users", () => {
+describe("/users", () => {
 
-//   beforeEach(async () => {
-//     await User.deleteMany({});
-//   });
+  beforeEach(async () => {
+    await User.deleteMany({});
+  });
 
-//   describe("POST, when email and password are provided", () => {
-//     test("the response code is 201", async () => {
-//       const response = await request(app)
-//         .post("/users")
-//         .send({ email: "poppy@email.com", password: "1234", firstName: "BOB", lastName: "MAN" });
+  describe("POST, when email and password are provided", () => {
+    test("the response code is 201", async () => {
+      const response = await request(app)
+        .post("/users")
+        .send({ email: "poppy@email.com", password: "1234", firstName: "BOB", lastName: "MAN" });
 
-//       expect(response.statusCode).toBe(201);
-//     });
+      expect(response.statusCode).toBe(201);
+    });
 
-//     test("a user is created", async () => {
-//       await request(app)
-//         .post("/users")
-//         .send({ email: "scarconstt@email.com", password: "1234", firstName: "BOB", lastName: "MAN"  });
+    test("a user is created", async () => {
+      await request(app)
+        .post("/users")
+        .send({ email: "scarconstt@email.com", password: "1234", firstName: "BOB", lastName: "MAN"  });
 
-//       const users = await User.find();
-//       const newUser = users[users.length - 1];
-//       expect(newUser.email).toEqual("scarconstt@email.com");
-//     });
-//   });
+      const users = await User.find();
+      const newUser = users[users.length - 1];
+      expect(newUser.email).toEqual("scarconstt@email.com");
+    });
+  });
 
-//   describe("POST, when password is missing", () => {
-//     test("response code is 400", async () => {
-//       const response = await request(app)
-//         .post("/users")
-//         .send({ email: "skye@email.com", firstName: "BOB", lastName: "MAN" });
+  describe("POST, when password is missing", () => {
+    test("response code is 400", async () => {
+      const response = await request(app)
+        .post("/users")
+        .send({ email: "skye@email.com", firstName: "BOB", lastName: "MAN" });
 
-//       expect(response.statusCode).toBe(400);
-//     });
+      expect(response.statusCode).toBe(400);
+    });
 
-//     test("does not create a user", async () => {
-//       await request(app).post("/users").send({ email: "skye@email.com", firstName: "BOB", lastName: "MAN" });
+    test("does not create a user", async () => {
+      await request(app).post("/users").send({ email: "skye@email.com", firstName: "BOB", lastName: "MAN" });
 
-//       const users = await User.find();
-//       expect(users.length).toEqual(0);
-//     });
-//   });
+      const users = await User.find();
+      expect(users.length).toEqual(0);
+    });
+  });
 
-//   describe("POST, when email is missing", () => {
-//     test("response code is 400", async () => {
-//       const response = await request(app)
-//         .post("/users")
-//         .send({ password: "1234", firstName: "BOB", lastName: "MAN" });
+  describe("POST, when email is missing", () => {
+    test("response code is 400", async () => {
+      const response = await request(app)
+        .post("/users")
+        .send({ password: "1234", firstName: "BOB", lastName: "MAN" });
 
-//       expect(response.statusCode).toBe(400);
-//     });
+      expect(response.statusCode).toBe(400);
+    });
 
-//     test("does not create a user", async () => {
-//       await request(app).post("/users").send({ password: "1234", firstName: "BOB", lastName: "MAN" });
+    test("does not create a user", async () => {
+      await request(app).post("/users").send({ password: "1234", firstName: "BOB", lastName: "MAN" });
 
-//       const users = await User.find();
-//       expect(users.length).toEqual(0);
-//     });
-//   });
+      const users = await User.find();
+      expect(users.length).toEqual(0);
+    });
+  });
 
-//   describe("POST, when first name is missing", () => {
-//     test("response code is 400", async () => {
-//       const response = await request(app)
-//         .post("/users")
-//         .send({ password: "1234", lastName: "MAN", email: "skye@email.com" });
+  describe("POST, when first name is missing", () => {
+    test("response code is 400", async () => {
+      const response = await request(app)
+        .post("/users")
+        .send({ password: "1234", lastName: "MAN", email: "skye@email.com" });
 
-//       expect(response.statusCode).toBe(400);
-//     });
+      expect(response.statusCode).toBe(400);
+    });
 
-//     test("does not create a user", async () => {
-//       await request(app).post("/users").send({ password: "1234", lastName: "MAN", email: "skye@email.com" });
+    test("does not create a user", async () => {
+      await request(app).post("/users").send({ password: "1234", lastName: "MAN", email: "skye@email.com" });
 
-//       const users = await User.find();
-//       expect(users.length).toEqual(0);
-//     });
-//   });
+      const users = await User.find();
+      expect(users.length).toEqual(0);
+    });
+  });
 
-//   describe("POST, when last name is missing", () => {
-//     test("response code is 400", async () => {
-//       const response = await request(app)
-//         .post("/users")
-//         .send({ password: "1234", firstName: "BOB", email: "skye@email.com" });
+  describe("POST, when last name is missing", () => {
+    test("response code is 400", async () => {
+      const response = await request(app)
+        .post("/users")
+        .send({ password: "1234", firstName: "BOB", email: "skye@email.com" });
 
-//       expect(response.statusCode).toBe(400);
-//     });
+      expect(response.statusCode).toBe(400);
+    });
 
-//     test("does not create a user", async () => {
-//       await request(app).post("/users").send({ password: "1234", firstName: "BOB", email: "skye@email.com" });
+    test("does not create a user", async () => {
+      await request(app).post("/users").send({ password: "1234", firstName: "BOB", email: "skye@email.com" });
 
-//       const users = await User.find();
-//       expect(users.length).toEqual(0);
-//     });
-//   });
-// });
+      const users = await User.find();
+      expect(users.length).toEqual(0);
+    });
+  });
+});
 
 describe("test GET /user", () => {
   
