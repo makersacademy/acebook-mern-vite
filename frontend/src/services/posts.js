@@ -38,17 +38,14 @@ export async function CreatePost(token, body) {
   return response;
 }
 
-export async function UpdatePost(token, body, post_id) {
-  // console.log(body)
-  // console.log(body)
-  // console.log(post_id)
+export async function UpdatePost(token, body, post_id, isYours) {
   const requestOptions = {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ message: body }),
+    body: JSON.stringify({ message: body, isYours: isYours }),
   };
 
   const response = await fetch(`${BACKEND_URL}/posts/${post_id}`, requestOptions);
@@ -59,13 +56,15 @@ export async function UpdatePost(token, body, post_id) {
   return response;
 }
 
-export async function deletePostId(token,post_id) {
+export async function deletePostId(token, post_id, body) {
   const requestOptions = {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
-    }
+    },
+    "Content-Type": "application/json",
+    body: JSON.stringify({isYours: body})
   };
   const response = await fetch(`${BACKEND_URL}/posts/${post_id}`, requestOptions);
   // console.log(response)
