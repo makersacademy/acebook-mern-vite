@@ -1,9 +1,13 @@
 const Bcrypt = require("bcrypt");
 const User = require("../models/user");
+const { generateToken } = require("../lib/token");
 
 function create(req, res) {
-
-  if (Object.keys(req.body).length !== 5) { return res.status(400).json({ message: "Invalid body, expected 5 inputs." }) }
+  if (Object.keys(req.body).length !== 5) {
+    return res
+      .status(400)
+      .json({ message: "Invalid body, expected 5 inputs." });
+  }
 
   const name = req.body.name;
   const birthday = req.body.birthday;
@@ -27,8 +31,15 @@ function create(req, res) {
     });
 }
 
+async function getAllUsers(req, res) {
+  const users = await User.find();
+  const token = generateToken(req.user_id, req.username);
+  res.status(200).json({ users: users, token: token });
+}
+
 const UsersController = {
   create: create,
+  getAllUsers: getAllUsers,
 };
 
 module.exports = UsersController;

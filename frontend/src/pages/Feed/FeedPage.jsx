@@ -5,10 +5,11 @@ import { getPosts } from "../../services/posts";
 import Post from "../../components/Post";
 import LogoutButton from "../../components/LogoutButton";
 import NewPostForm from "../../components/NewPostForm";
+import { Search } from "../../components/Search";
 
 export function FeedPage() {
   const [posts, setPosts] = useState([]);
-  const [updatePost, setUpdatePost] = useState(false)
+  const [updatePost, setUpdatePost] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,9 +36,10 @@ export function FeedPage() {
 
   return (
     <>
+      <Search />
       <h2>Posts</h2>
       <div>
-        <NewPostForm token={token} setUpdatePost={setUpdatePost}/>
+        <NewPostForm token={token} setUpdatePost={setUpdatePost} />
       </div>
       <div className="feed" role="feed">
         {posts.map((post) => (
