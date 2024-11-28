@@ -8,6 +8,7 @@ export function SignupPage() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // const [image, setImage] = useState("");
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
@@ -19,6 +20,13 @@ export function SignupPage() {
       console.error(err);
       navigate("/signup");
     }
+
+    // const formData = new FormData()
+    // formData.append("firstName", firstName)
+    // formData.append("lastName", lastName)
+    // formData.append("email", email)
+    // formData.append("password", password)
+    // formData.append("image", image)
   }
 
   function handleFirstNameChange(event) {
@@ -36,6 +44,14 @@ export function SignupPage() {
   function handlePasswordChange(event) {
     setPassword(event.target.value);
   }
+
+  // function handleImageChange(event) {
+  //   const file = event.target.files[0]
+  //   // console.log(file)
+  //   if(file) {
+  //   setImage(event.target.files[0]);
+  //   }
+  
 
   return (
     <>
@@ -70,6 +86,14 @@ export function SignupPage() {
           value={password}
           onChange={handlePasswordChange}
         />
+        {/* <label htmlFor="image">Profile Image:</label>
+        <input
+          placeholder="Image"
+          id="image"
+          type="file"
+          // value={image ? image.name : ""}
+          onChange={handleImageChange}
+        /> */}
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
     </>
