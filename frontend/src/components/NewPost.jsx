@@ -1,26 +1,27 @@
 import { useState} from "react";
 import { createPost } from "../services/posts";
 
-export function NewPost() {
+export function NewPost({ handleReloadPosts }) {
 const [postContent, setPostContent] = useState('');
 
     const handlePostContent = (event) => {
         setPostContent(event.target.value);
-        console.log(postContent);
+    }
+
+    const clearPostContent = () => {
+        setPostContent("")
     }
     const submitContent = async () => {
         const token = localStorage.getItem('token');
-        await createPost(token,postContent);
-        window.location.reload();
-        // "Quick dirty fix" ^
+        await createPost(token, postContent);
+        clearPostContent();
+        handleReloadPosts();
     }
     return(
         <>
-            <form>
                 <label htmlFor="postContent">Enter Post Content</label>
                 <input type="text" id="postContent" name="postContent" value={postContent} onChange={handlePostContent}></input>
-                <button type="submit" onClick={submitContent}>Submit Post</button>
-            </form>
+                <button type="button" onClick={submitContent}>Submit Post</button>
         </>
     )
 }

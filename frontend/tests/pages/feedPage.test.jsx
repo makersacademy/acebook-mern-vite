@@ -1,21 +1,35 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen} from "@testing-library/react";
 import { vi } from "vitest";
 import userEvent from "@testing-library/user-event"
 import { FeedPage } from "../../src/pages/Feed/FeedPage";
-import { getPosts } from "../../src/services/posts";
+import { getPosts, createPost } from "../../src/services/posts";
 import { useNavigate } from "react-router-dom";
+
 
 // Mocking the getPosts service
 vi.mock("../../src/services/posts", () => {
   const getPostsMock = vi.fn();
-  return { getPosts: getPostsMock };
+  const createPostMock = vi.fn(); 
+  return { 
+    getPosts: getPostsMock,
+    createPost: createPostMock,
+  };
 });
+
+// vi.mock("../../src/components/NewPost", () => {
+//   const submitContentMock = vi.fn();
+//   return { 
+//     submitContent: submitContentMock,
+//   };
+// });
 
 // Mocking React Router's useNavigate function
 vi.mock("react-router-dom", () => {
   const navigateMock = vi.fn();
   const useNavigateMock = () => navigateMock; // Create a mock function for useNavigate
-  return { useNavigate: useNavigateMock, Link: ({ children }) => <a>{children}</a> };
+  return { 
+    useNavigate: useNavigateMock, 
+    Link: ({ children }) => <a>{children}</a> };
 });
 
 describe("Feed Page", () => {
@@ -48,44 +62,35 @@ describe("Feed Page", () => {
     const textBox = screen.getByLabelText('Enter Post Content');
     await userEvent.type(textBox, 'This is a test post!');
     expect(textBox.value).toBe('This is a test post!');
+  });
+
+  test("Button click calls createPost", async () => {
+    window.localStorage.setItem("token", "testToken");
+    const mockPosts = [{}];
+    getPosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
+    render(<FeedPage />);
+    const textBox = screen.getByLabelText('Enter Post Content');
+    await userEvent.type(textBox, 'This is a test post!');
+    expect(textBox.value).toBe('This is a test post!');
+    const submitButton = screen.getByRole("button", { name: /Submit Post/i });
+    await userEvent.click(submitButton);
+    expect(createPost).toHaveBeenCalledTimes(1);
   })
 
-
-  // beforeEach(() => {
-  //   window.fetch = vi.fn();
-  // });
-  
-  // afterEach(() => {
-  //   vi.restoreAllMocks();
-  // });
-
-  test("Creating a post adds it to the feed", async () => {
+  test("Button click displays new post on page", async () => {
     window.localStorage.setItem("token", "testToken");
-    render(<FeedPage />);
-  
-    const textBox = screen.getByLabelText("Enter Post Content");
-    await userEvent.type(textBox, "This is a test post!");
-  
-    // Mock the fetch call
-    window.fetch.mockResolvedValueOnce(
-      new Response(
-        JSON.stringify({ message: "Post Created", token: "newToken" }),
-        { status: 201 }
-      )
-    );
-  
-    const button = screen.getByRole("button", { name: /submit post/i });
-    await userEvent.click(button);
-  
-    const fetchArguments = window.fetch.mock.calls[0]; // Get the first fetch call
-    const options = fetchArguments[1];
-    const body = JSON.parse(options.body);
-    const message = body.message;
-  
-    const mockPosts = [{ _id: "1234", message }];
+    let mockPosts = [{}];
     getPosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
-  
+    render(<FeedPage />);
+    mockPosts = [{ _id: "12345", message: "Test Post 1" }];
+    getPosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
+    const textBox = screen.getByLabelText('Enter Post Content');
+    await userEvent.type(textBox, 'This is a test post!');
+    expect(textBox.value).toBe('This is a test post!');
+    const submitButton = screen.getByRole("button", { name: /Submit Post/i });
+    await userEvent.click(submitButton);
     const post = await screen.findByRole("article");
-    expect(post.textContent).toContain("This is a test post!");
-  });
+    expect(post.textContent).toContain("Test Post 1");
+
+  })
 });
