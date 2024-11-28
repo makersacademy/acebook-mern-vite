@@ -38,6 +38,27 @@ export async function CreatePost(token, body) {
   return response;
 }
 
+export async function UpdatePost(token, body, post_id) {
+  // console.log(body)
+  // console.log(body)
+  // console.log(post_id)
+  const requestOptions = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ message: body }),
+  };
+
+  const response = await fetch(`${BACKEND_URL}/posts/${post_id}`, requestOptions);
+  if (response.status !== 200) {
+    throw new Error("Unable to update post");
+  }
+
+  return response;
+}
+
 export async function deletePostId(token,post_id) {
   const requestOptions = {
     method: "DELETE",

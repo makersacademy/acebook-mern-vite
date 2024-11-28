@@ -6,6 +6,7 @@ const PostsController = require("../controllers/posts");
 router.get("/", PostsController.getAllPosts);
 router.post("/", PostsController.createPost);
 router.delete("/:post_id", PostsController.deletePostId);
+router.patch("/:post_id", PostsController.updatePost);
 router.get("/mine", PostsController.getYourPosts);
 router.get("/:username", PostsController.getUserPosts);
 
