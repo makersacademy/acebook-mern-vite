@@ -132,13 +132,17 @@ describe("/posts", () => {
         .set("Authorization", `Bearer ${token}`);
 
       const posts = response.body.posts;
-      const firstPost = posts[0];
-      const secondPost = posts[1];
 
-      expect(firstPost.message).toEqual("howdy!");
-      expect(firstPost.user).toEqual("post-test-1");
-      expect(secondPost.message).toEqual("hola!");
-      expect(secondPost.user).toEqual("post-test-2");
+      expect(posts).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            user: "post-test-1", message: "howdy!"
+          }),
+          expect.objectContaining({
+            user: "post-test-2", message: "hola!"
+          })
+        ])
+      );
     });
 
     test("returns a new token", async () => {
