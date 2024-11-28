@@ -10,7 +10,6 @@ function Post(props) {
   const [editState, setEditState] = useState(false)
   const [postMessage, setPostMessage] = useState(props.message);
   const [isYours, setIsYours] = useState(props.isYours)
-  console.log(props.isYours)
 
   const handleChange = (event) => {
     setPostMessage(event.target.value);
