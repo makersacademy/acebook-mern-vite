@@ -8,7 +8,7 @@ import NewPostForm from "../../components/NewPostForm";
 
 export function FeedPage() {
   const [posts, setPosts] = useState([]);
-  const [updatePost, setUpdatePost] = useState(false)
+  const [updatePost, setUpdatePost] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export function FeedPage() {
     <>
       <h2>Posts</h2>
       <div>
-        <NewPostForm token={token} setUpdatePost={setUpdatePost}/>
+        <NewPostForm token={token} setUpdatePost={setUpdatePost} />
       </div>
       <div className="feed" role="feed">
         {posts.map((post) => (
