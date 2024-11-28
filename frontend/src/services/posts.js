@@ -63,7 +63,6 @@ export async function deletePostId(token, post_id, body) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    "Content-Type": "application/json",
     body: JSON.stringify({isYours: body})
   };
   const response = await fetch(`${BACKEND_URL}/posts/${post_id}`, requestOptions);
