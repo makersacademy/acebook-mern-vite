@@ -2,6 +2,9 @@ const Bcrypt = require("bcrypt");
 const User = require("../models/user");
 
 function create(req, res) {
+
+  if (Object.keys(req.body).length !== 5) { return res.status(400).json({ message: "Invalid body, expected 5 inputs." }) }
+
   const name = req.body.name;
   const birthday = req.body.birthday;
   const email = req.body.email;

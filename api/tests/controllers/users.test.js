@@ -51,7 +51,7 @@ describe("/users", () => {
         .post("/users")
         .send({ email: "skye@email.com" });
 
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(400);
     });
 
     test("does not create a user", async () => {
@@ -67,6 +67,8 @@ describe("/users", () => {
       const response = await request(app)
         .post("/users")
         .send({ password: "1234" });
+
+      console.log(response)
 
       expect(response.statusCode).toBe(400);
     });
