@@ -33,6 +33,8 @@ export function FeedPage() {
     return;
   }
 
+  //console.log(posts)
+
   return (
     <>
       <h2>Posts</h2>
@@ -47,6 +49,8 @@ export function FeedPage() {
             user={post.user}
             message={post.message}
             timestamp={post.timestamp}
+            isLiked={post.hasLiked}
+            beans={post.beans}
             updatePost={setUpdatePost}
             isYours={post.isYours}
           />

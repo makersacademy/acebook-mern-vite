@@ -74,6 +74,20 @@ export async function deletePostId(token,post_id) {
   }
 }
 
+export async function likePost(token, post_id) {
+  const requestOptions = {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+  };
+
+  const response = await fetch(`${BACKEND_URL}/posts/${post_id}/like`, requestOptions);
+
+  const data = await response.json();
+  return data;
+}
+
 export async function getYourPosts(token) {
   const requestOptions = {
     method: "GET",
@@ -89,6 +103,5 @@ export async function getYourPosts(token) {
   }
 
   const data = await response.json();
-  console.log(data)
   return data;
 }

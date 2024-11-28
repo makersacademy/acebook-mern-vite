@@ -1,12 +1,14 @@
 import DeletePostId from "./DeletePostButton";
-import {deletePostId, UpdatePost} from "../services/posts"
+import {deletePostId, likePost, UpdatePost} from "../services/posts"
 import EditPostButton from "./EditPostButton";
 import { useState } from "react";
+import LikePostButton from "./LikePostButton";
 
 
 
 function Post(props) {
   const token = localStorage.getItem("token");
+  const [ liked, setLiked ] = useState(props.isLiked);
   const [editState, setEditState] = useState(false)
   const [postMessage, setPostMessage] = useState(props.message);
   const [isYours, setIsYours] = useState(props.isYours)
@@ -17,18 +19,26 @@ function Post(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const EditPost = await UpdatePost(token, postMessage, props.post._id)
-    props.updatePost(EditPost) //change state to rerender page
+    await UpdatePost(token, postMessage, props.post._id)
+    props.updatePost(Math.random()) //change state to rerender page
     toggleEditState()
   }
 
   const toggleEditState = () => {
     setEditState((editState) => !editState)
   }
+
+  const toggleLiked = async () => {
+    await likePost(token, props.post._id)
+    props.updatePost(Math.random())
+    setLiked(() => !liked)
+  }
+
   const cleanDate = new Date(props.timestamp)
     .toLocaleString("en-gb")
     .slice(0, -3)
     .replaceAll(",", "");
+
   return (
     editState ? (
       <div key="edit mode">
@@ -57,17 +67,18 @@ function Post(props) {
         <h2>{props.user}</h2>
         <h3>{cleanDate}</h3>
         <article key={props._id}>{props.message}</article>
+        <LikePostButton liked={liked} toggleLiked={toggleLiked} beanNumber={props.beans.length} />
         {isYours && (
-        <div>
-          <EditPostButton toggleEditState = {toggleEditState}/>
-          <DeletePostId 
-            post_id = {props.post._id}
-            DeletePostId = {deletePostId}
-            UpdatePost = {props.updatePost}
-        />
-        </div>)}
+          <div>
+            <EditPostButton toggleEditState = {toggleEditState}/>
+            <DeletePostId 
+              post_id = {props.post._id}
+              DeletePostId = {deletePostId}
+              UpdatePost = {props.updatePost}
+            />
+          </div>
+        )}
       </div>
-
     )
   );
 }
