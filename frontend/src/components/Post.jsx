@@ -9,6 +9,8 @@ function Post(props) {
   const token = localStorage.getItem("token");
   const [editState, setEditState] = useState(false)
   const [postMessage, setPostMessage] = useState(props.message);
+  const [isYours, setIsYours] = useState(props.isYours)
+  console.log(props.isYours)
 
   const handleChange = (event) => {
     setPostMessage(event.target.value);
@@ -20,7 +22,7 @@ function Post(props) {
     props.updatePost(EditPost) //change state to rerender page
     toggleEditState()
   }
-  
+
   const toggleEditState = () => {
     setEditState((editState) => !editState)
   }
@@ -56,12 +58,15 @@ function Post(props) {
         <h2>{props.user}</h2>
         <h3>{cleanDate}</h3>
         <article key={props._id}>{props.message}</article>
-        <EditPostButton toggleEditState = {toggleEditState}/>
-        <DeletePostId 
-        post_id = {props.post._id}
-        DeletePostId = {deletePostId}
-        UpdatePost = {props.updatePost}
+        {isYours && (
+        <div>
+          <EditPostButton toggleEditState = {toggleEditState}/>
+          <DeletePostId 
+            post_id = {props.post._id}
+            DeletePostId = {deletePostId}
+            UpdatePost = {props.updatePost}
         />
+        </div>)}
       </div>
 
     )

@@ -48,6 +48,7 @@ export function FeedPage() {
             message={post.message}
             timestamp={post.timestamp}
             updatePost={setUpdatePost}
+            isYours={post.isYours}
           />
         ))}
       </div>

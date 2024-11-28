@@ -4,8 +4,14 @@ const { generateToken } = require("../lib/token");
 async function getAllPosts(req, res) {
   const posts = await Post.find();
   posts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+  const yourPosts = posts.map((post) => {
+    post._doc.isYours = (post.user == req.username)
+    return post
+  })
+
   const token = generateToken(req.user_id, req.username);
-  res.status(200).json({ posts: posts, token: token });
+  res.status(200).json({ posts: yourPosts, token: token });
 }
 
 async function createPost(req, res) {
