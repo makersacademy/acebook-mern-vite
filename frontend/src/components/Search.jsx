@@ -35,6 +35,7 @@ export const Search = () => {
   useEffect(() => {
     const result = createFilterUsers(query, users);
     setFilteredUsers(result);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   return (
