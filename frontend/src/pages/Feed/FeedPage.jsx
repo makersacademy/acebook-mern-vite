@@ -52,6 +52,7 @@ export function FeedPage() {
             isLiked={post.hasLiked}
             beans={post.beans}
             updatePost={setUpdatePost}
+            isYours={post.isYours}
           />
         ))}
       </div>

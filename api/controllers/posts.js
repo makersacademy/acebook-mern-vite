@@ -5,13 +5,14 @@ async function getAllPosts(req, res) {
   const posts = await Post.find();
   posts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
-  const likedPosts = posts.map((post) => {
+  const updatedPosts = posts.map((post) => {
+    post._doc.isYours = (post.user == req.username)
     post._doc.hasLiked = (post.beans.includes(req.username))
     return post
   })
 
   const token = generateToken(req.user_id, req.username);
-  res.status(200).json({ posts: likedPosts, token: token });
+  res.status(200).json({ posts: updatedPosts, token: token });
 }
 
 async function createPost(req, res) {

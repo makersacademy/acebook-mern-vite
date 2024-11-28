@@ -11,6 +11,7 @@ function Post(props) {
   const [ liked, setLiked ] = useState(props.isLiked);
   const [editState, setEditState] = useState(false)
   const [postMessage, setPostMessage] = useState(props.message);
+  const [isYours, setIsYours] = useState(props.isYours)
 
   const handleChange = (event) => {
     setPostMessage(event.target.value);
@@ -22,7 +23,7 @@ function Post(props) {
     props.updatePost(Math.random()) //change state to rerender page
     toggleEditState()
   }
-  
+
   const toggleEditState = () => {
     setEditState((editState) => !editState)
   }
@@ -67,14 +68,17 @@ function Post(props) {
         <h3>{cleanDate}</h3>
         <article key={props._id}>{props.message}</article>
         <LikePostButton liked={liked} toggleLiked={toggleLiked} beanNumber={props.beans.length} />
-        <EditPostButton toggleEditState = {toggleEditState}/>
-        <DeletePostId 
-        post_id = {props.post._id}
-        DeletePostId = {deletePostId}
-        UpdatePost = {props.updatePost}
-        />
+        {isYours && (
+          <div>
+            <EditPostButton toggleEditState = {toggleEditState}/>
+            <DeletePostId 
+              post_id = {props.post._id}
+              DeletePostId = {deletePostId}
+              UpdatePost = {props.updatePost}
+            />
+          </div>
+        )}
       </div>
-
     )
   );
 }
