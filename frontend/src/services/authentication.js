@@ -28,10 +28,21 @@ export async function login(email, password) {
   }
 }
 
-export async function signup(email, password) {
+export async function signup(firstName, lastName, email, password) {
+
+  // const formData = new FormData()
+  // formData.append("firstName", firstName)
+  // formData.append("lastName", lastName)
+  // formData.append("email", email)
+  // formData.append("password", password)
+  // formData.append("image", image)
+
   const payload = {
+    firstName: firstName,
+    lastName: lastName,
     email: email,
     password: password,
+    // image: image,
   };
 
   const requestOptions = {

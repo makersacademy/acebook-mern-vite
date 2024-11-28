@@ -6,6 +6,8 @@ const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
 const authenticationRouter = require("./routes/authentication");
 const tokenChecker = require("./middleware/tokenChecker");
+// const multer = require('multer');
+// const upload = multer("api/uploads");
 
 const app = express();
 
@@ -16,6 +18,10 @@ app.use(cors());
 
 // Parse JSON request bodies, made available on `req.body`
 app.use(bodyParser.json());
+// app.use(express.bodyParser({limit: '50mb'}));
+// app.use(express.json({ limit: '50mb' }));
+// app.use(express.urlencoded({ limit: '50mb', extended: true}))
+
 
 // API Routes
 app.use("/users", usersRouter);
