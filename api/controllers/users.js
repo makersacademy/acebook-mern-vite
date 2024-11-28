@@ -1,15 +1,15 @@
 const User = require("../models/user");
 
 function create(req, res) {
-  const payload = JSON.parse(req.body)
-  console.log(payload)
+  // const payload = JSON.parse(req.body)
+  // console.log(payload)
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const email = req.body.email;
   const password = req.body.password;
-  const image = req.body.image;
+  // const image = req.body.image;
 
-  const user = new User({ firstName, lastName, email, password, image });
+  const user = new User({ firstName, lastName, email, password });
   user
     .save()
     .then((user) => {
