@@ -39,10 +39,22 @@ async function deletePostId(req, res) {
   res.status(200).json({ message: "Post created", token: newToken });
 }
 
+async function updatePost(req, res) {
+  const postId = req.params.post_id
+  await Post.findOneAndUpdate(
+    {_id: postId},
+    {$set: {message: req.body.message}},
+  );
+  
+  const newToken = generateToken(req.user_id, req.username);
+  res.status(200).json({ message: "Post updated", token: newToken });
+}
+
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
   deletePostId: deletePostId,
+  updatePost: updatePost,
   getUserPosts: getUserPosts,
   getYourPosts: getYourPosts,
 };
