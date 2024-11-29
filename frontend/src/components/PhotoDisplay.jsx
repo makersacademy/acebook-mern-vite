@@ -5,7 +5,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 
 
-export function PhotoDisplay() {
+export function PhotoDisplay({ photoLoad }) {
     const[photoFilePath, setPhotoFilePath] = useState("");
     // const [photoSrc, setPhotoSrc] = useState("");
 
@@ -20,12 +20,11 @@ export function PhotoDisplay() {
         .catch((err) => {
             console.error(err);
         });
-    }, []);
+    }, [photoLoad]);
 
     return(
         <div>
-            <p>{`${BACKEND_URL}/${photoFilePath}`}</p>
-            <img src={`${BACKEND_URL}/${photoFilePath}`}></img>
+            <img src={`${BACKEND_URL}/${photoFilePath}`} width="300"></img>
         </div>
 
     )

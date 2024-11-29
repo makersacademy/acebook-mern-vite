@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const multer = require('multer');
+const path = require('path');
 
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
@@ -33,6 +34,7 @@ app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);
 app.use("/tokens", authenticationRouter);
 app.use("/photo", tokenChecker, photoRouter);
+app.use("/uploads", express.static(path.join(__dirname, 'uploads')));
 // app.use("/get-photo", tokenChecker, photoRouter);
 
 
