@@ -1,11 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const multer = require('multer');
 
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
 const authenticationRouter = require("./routes/authentication");
 const tokenChecker = require("./middleware/tokenChecker");
+// const upload = require("./middleware/multerConfig");
+const photoRouter = require("./routes/uploadPhoto");
 
 // const multer = require('multer');
 // const upload = multer("api/uploads");
@@ -23,10 +26,15 @@ app.use(bodyParser.json());
 // app.use(express.json({ limit: '50mb' }));
 // app.use(express.urlencoded({ limit: '50mb', extended: true}))
 
+// const upload = multer({ storage: storage });
+
 // API Routes
 app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);
 app.use("/tokens", authenticationRouter);
+app.use("/photo", tokenChecker, photoRouter);
+// app.use("/get-photo", tokenChecker, photoRouter);
+
 
 // 404 Handler
 
@@ -43,7 +51,7 @@ app.use((err, _req, res, _next) => {
 
 /////////////////
 const mongoose = require('mongoose');
-const multer = require('multer');
+// const multer = require('multer');
 const Photo = require('./models/photo');
 // require("./models/photo");
 // const Photo = mongoose.model(Photo);
@@ -56,53 +64,45 @@ app.get("/", async (req, res) => {
 //   console.log("Server started");
 // })
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, '../frontend/src/photos/')
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now();
-    cb(null, uniqueSuffix + file.originalname);
-  }
-})
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, '../frontend/src/photos/')
+//   },
+//   filename: function (req, file, cb) {
+//     const uniqueSuffix = Date.now();
+//     cb(null, uniqueSuffix + file.originalname);
+//   }
+// })
 
-const upload = multer({ storage: storage })
+// const upload = multer({ storage: storage })
 
-app.post("/upload-photo", upload.single("photo"), async (req, res) => {
-  console.log(req.file)
-  const photoName = req.file.filename;
-  const photoPath = req.file.path;
-  const dateNow = Date.now() //date currently doesn't work
-  // userId
+// app.post("/upload-photo", upload.single("photo"), async (req, res) => {
+//   console.log(req.file)
+//   const photoName = req.file.filename;
+//   const photoPath = req.file.path;
+//   const dateNow = Date.now() 
+//   const user_id = req.user_id
 
-  try {
-    await Photo.create({photoFileName: photoName, photoFilePath: photoPath, photoFileDate: dateNow})
-    res.json({status:"ok"})
-  } catch (error) {
-    res.json({status:"error"})
-  }
+//   try {
+//     await Photo.create({photoFileName: photoName, photoFilePath: photoPath, photoFileDate: dateNow, user_id: user_id})
+//     res.json({status:"ok"})
+//   } catch (error) {
+//     res.json({status:"error"})
+//   }
 
-});
+// });
 
-// fieldname: 'photo',
-//   originalname: 'Screenshot 2024-11-26 at 12.02.01.png',
-//   encoding: '7bit',
-//   mimetype: 'image/png',
-//   destination: '../frontend/src/photos/',
-//   filename: '1732811636759Screenshot 2024-11-26 at 12.02.01.png',
-//   path: '../frontend/src/photos/1732811636759Screenshot 2024-11-26 at 12.02.01.png',
-//   size: 235934
 
-app.get("/get-photo", async(req, res) => {
-  try {
-    // Photo.find({}).then(data => {
-    //   res.send({status: "ok", data: data})
-    // })
-    res.json({ status: "ok"})
-  } catch (error) {
-    res.json({status:"error"})
-  }
-})
+// app.get("/get-photo", async(req, res) => {
+//   try {
+//     // Photo.find({ user_id: req.user_id }).then(data => {
+//     //   res.send({status: "ok", data: data})
+//     // })
+//     res.json({ status: "ok"})
+//   } catch (error) {
+//     res.json({status:"error"})
+//   }
+// })
 
 function listRoutes() {
   const routes = [];

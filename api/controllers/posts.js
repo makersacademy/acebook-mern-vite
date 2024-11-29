@@ -2,6 +2,7 @@ const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
 const User = require("../models/user");
 
+
 async function getAllPosts(req, res) {
   const posts = await Post.find();
   const filteredPosts = posts.sort((a, b) => b._id.getTimestamp() - a._id.getTimestamp());
