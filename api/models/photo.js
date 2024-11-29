@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const PhotoDetailsSchema = new mongoose.Schema({
         photoFileName: String,
         photoFilePath: String,
-        dateNow: Number,
-        // userId
+        photoFileDate: Number,
+        user_id: String,
     }, 
     {
     collection: "Photo",

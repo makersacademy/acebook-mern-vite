@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
+// eslint-disable-next-line no-unused-vars
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 export function PhotoUpload() {
     const [photo, setPhoto] = useState()
+    
     // const [allPhoto, setAllPhoto] = useState();
 
     useEffect(() => {
@@ -15,11 +19,15 @@ export function PhotoUpload() {
 
         const formData=new FormData();
         formData.append("photo", photo);
-
-        const result = await axios.post("http://localhost:3000/upload-photo", 
+        const token = localStorage.getItem("token");
+        // eslint-disable-next-line no-unused-vars
+        const result = await axios.post(`${BACKEND_URL}/photo`, 
             formData, 
             {
-                headers: { "Content-Type" : "multipart/form-data"},
+                headers: { 
+                          Authorization: `Bearer ${token}`,
+                          "Content-Type" : "multipart/form-data"
+                        },
             }
         );
 };
@@ -30,7 +38,7 @@ export function PhotoUpload() {
     };
 
     const getPhoto= async() => {
-        const result = await axios.get("http://localhost:3000");
+        const result = await axios.get(`${BACKEND_URL}`);
         console.log(result);
         // setAllPhoto(result.data.data);
         }
