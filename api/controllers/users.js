@@ -2,13 +2,10 @@ const User = require("../models/user");
 const { generateToken } = require("../lib/token");
 
 function create(req, res) {
-  // const payload = JSON.parse(req.body)
-  // console.log(payload)
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const email = req.body.email;
   const password = req.body.password;
-  // const image = req.body.image;
 
   const user = new User({ firstName, lastName, email, password });
   user
@@ -24,9 +21,7 @@ function create(req, res) {
 }
 
 async function getUserProfile(req, res) {
-  console.log("line 27.....", req.user_id)
   const user = await User.find({ _id: req.user_id });
-  console.log("User.....", user)
   const token = generateToken(req.user_id);
 
   const returnUserData = {
