@@ -4,8 +4,9 @@ const User = require("../models/user");
 
 async function getAllPosts(req, res) {
   const posts = await Post.find();
+  const filteredPosts = posts.sort((a, b) => b._id.getTimestamp() - a._id.getTimestamp());
   const token = generateToken(req.user_id);
-  res.status(200).json({ posts: posts, token: token });
+  res.status(200).json({ posts: filteredPosts, token: token });
 }
 
 async function createPost(req, res) {
