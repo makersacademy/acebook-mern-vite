@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 // app.use(express.urlencoded({ limit: '50mb', extended: true}))
 
 // API Routes
-app.use("/users", tokenChecker, usersRouter);
+app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);
 app.use("/tokens", authenticationRouter);
 
