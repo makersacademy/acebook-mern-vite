@@ -32,21 +32,11 @@ module.exports = PostsController;
 
 
 
-// const mongoose = require("mongoose");
-// const Post = require("../models/post");
-// const { generateToken, decodeToken } = require("../lib/token");
 
+//CODE FOR GETTING OWN POST
 // async function getAllPosts(req, res) {
 //   const posts = await Post.find({ userId: req.user_id });
 //   const token = generateToken(req.user_id);
 //   // console.log(req.user_id)
 //   res.status(200).json({ posts: posts, token: token });
 // }
-
-
-// const PostsController = {
-//   getAllPosts: getAllPosts,
-//   createPost: createPost,
-// };
-
-// module.exports = PostsController;
