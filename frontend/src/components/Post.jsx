@@ -62,14 +62,14 @@ function Post(props) {
 
   return (
     <article key={props.post._id}>
-      <p>
+      {/* <p>
         <small>Posted on: {date ? date.toLocaleString("en-GB") : "Unknown Date"}</small>
-      </p>
+      </p> */}
 
       <img src={`${BACKEND_URL}/${props.post.filePath}`} width="50"></img>
       <p>{props.post.firstName} {props.post.lastName}</p>
       <p>{props.post.message}</p>
-//       <p>{props.post.likes}</p>
+       {/* <p>{props.post.likes}</p> */}
       <button onClick={handleDelete}>Delete Post</button>
       <button onClick={handleLike}>{isLiked ? 'Unlike' : 'Like'}</button>
       <p>{likeCount}</p>
