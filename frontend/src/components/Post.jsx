@@ -1,9 +1,13 @@
-// import { useState } from "react";
 import { likePost } from "../services/posts";
 import { useState } from "react";
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+
 function Post(props) {
-  // Extract and parse the date from props.post
-  const date = props.post.date ? new Date(props.post.date) : null;
+  // // Extract and parse the date from props.post
+  // const date = props.post.date ? new Date(props.post.date) : null;
+
 
   const [likeCount, setLikeCount] = useState(props.post.likeCount);
   const [isLiked, setIsLiked] = useState(false);
@@ -55,17 +59,17 @@ function Post(props) {
     }
   };
 
+
   return (
     <article key={props.post._id}>
-      <h2>{props.post.title}</h2>
-      <p>
-        <strong>Author:</strong> {props.post.author}
-      </p>
       <p>
         <small>Posted on: {date ? date.toLocaleString("en-GB") : "Unknown Date"}</small>
       </p>
-      <p>{props.post.likes}</p>
+
+      <img src={`${BACKEND_URL}/${props.post.filePath}`} width="50"></img>
+      <p>{props.post.firstName} {props.post.lastName}</p>
       <p>{props.post.message}</p>
+//       <p>{props.post.likes}</p>
       <button onClick={handleDelete}>Delete Post</button>
       <button onClick={handleLike}>{isLiked ? 'Unlike' : 'Like'}</button>
       <p>{likeCount}</p>
