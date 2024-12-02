@@ -9,11 +9,15 @@ async function upload(req, res) {
     const photoName = req.file.filename;
     const photoPath = req.file.path;
     // const photoPath = "I broke your code";
-    const dateNow = Date.now() 
+    // const dateNow = Date.now() 
     const user_id = req.user_id
+    const photos = await Photo.find({ user_id: user_id })
+    if (photos.length !== 0) {
+      const result = await Photo.findByIdAndDelete(photos[0]._id)
+    }
   
     try {
-      await Photo.create({photoFileName: photoName, photoFilePath: photoPath, photoFileDate: dateNow, user_id: user_id})
+      await Photo.create({photoFileName: photoName, photoFilePath: photoPath, user_id: user_id})
       res.json({status:"ok"})
     } catch (error) {
       res.json({status:"error"})
