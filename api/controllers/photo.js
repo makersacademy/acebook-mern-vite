@@ -37,7 +37,13 @@ async function get(req, res) {
     //     res.setHeader('Content-Type', 'image/png');
     //     res.status(200).send(data);
     //   });
-    res.status(200).json({ filePath: photo[0].photoFilePath, token: newToken })
+  let filePath
+  if (photo.length === 0) {
+    filePath = "uploads/default_photo.webp"
+  } else {
+    filePath = photo[0].photoFilePath
+  }
+    res.status(200).json({ filePath: filePath, token: newToken })
 
   } catch (error) {
     res.status(400);

@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const { generateToken } = require("../lib/token");
+const Photo = require("../models/photo")
 
 function create(req, res) {
   const firstName = req.body.firstName;

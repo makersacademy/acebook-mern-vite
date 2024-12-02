@@ -20,13 +20,19 @@ async function getAllPosts(req, res) {
 
 
     const photo = await Photo.find({ user_id: user_id })
+    let filePath
+    if (photo.length === 0) {
+      filePath = "uploads/default_photo.webp"
+    } else {
+      filePath = photo[0].photoFilePath
+    }
 
 
     const enrichedPost = {
       ...post._doc,
       firstName: user_data[0].firstName,
       lastName: user_data[0].lastName,
-      filePath: photo[0].photoFilePath
+      filePath: filePath
     };
     return enrichedPost;
   })
