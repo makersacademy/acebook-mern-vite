@@ -1,6 +1,7 @@
 const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
 const User = require("../models/user");
+const mongoose = require("mongoose");
 
 
 async function getAllPosts(req, res) {
@@ -11,8 +12,11 @@ async function getAllPosts(req, res) {
 }
 
 async function createPost(req, res) {
-  console.log(req.body);
-  const post = new Post(req.body);
+  const newPostData = {
+    message: req.body.message,
+    user_id: new mongoose.Types.ObjectId(req.user_id)
+  }
+  const post = new Post(newPostData);
   post.save();
 
   const newToken = generateToken(req.user_id);
@@ -39,21 +43,6 @@ module.exports = PostsController;
 //   res.status(200).json({ posts: posts, token: token });
 // }
 
-// async function createPost(req, res) {
-//   // console.log(req);
-//   // console.log(decodeToken(req))
-//   const newPostData = {
-//     message: req.body.message,
-//     userId: new mongoose.Types.ObjectId(req.user_id)
-//   }
-//   const post = new Post(newPostData);
-//   post.save();
-
-//   const newToken = generateToken(req.user_id);
-//   console.log(newToken);
-//   console.log(decodeToken(newToken));
-//   res.status(201).json({ message: "Post created", token: newToken });
-// }
 
 // const PostsController = {
 //   getAllPosts: getAllPosts,
