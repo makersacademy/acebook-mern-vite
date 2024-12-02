@@ -27,11 +27,9 @@ function Post(props) {
     <article key={props.post._id}>
       <h2>{props.post.title}</h2>
       <p>
-        <strong>Author:</strong> {props.post.author}
-      </p>
-      <p>
         <small>Posted on: {date ? date.toLocaleString("en-GB") : "Unknown Date"}</small>
       </p>
+      <p>{props.post.firstName} {props.post.lastName}</p>
       <p>{props.post.message}</p>
       <button onClick={handleDelete}>Delete Post</button>
     </article>
