@@ -6,7 +6,16 @@ function Post(props) {
   const date = props.post.date ? new Date(props.post.date) : null;
 
   const [likeCount, setLikeCount] = useState(props.post.likeCount);
+  const [isLiked, setIsLiked] = useState(false);
 
+  // const token = localStorage.getItem('token');
+  // const response = await likePost(token,props.post._id)
+  // const hasLiked = props.post.likes.includes(user_id);
+
+  
+  const handleIsLiked = () => {
+    setIsLiked(!isLiked);
+  }
   // Storing like status as a state
   // const [isLiked, setLikeStatus] = useState(false);
 
@@ -16,6 +25,7 @@ function Post(props) {
     const response = await likePost(token,props.post._id)
     if ((response === 0 || response) && typeof(response) === 'number'){
       setLikeCount(response)
+      handleIsLiked();
     }
     else{
       console.error('Error: Did not get like count')
@@ -54,9 +64,10 @@ function Post(props) {
       <p>
         <small>Posted on: {date ? date.toLocaleString("en-GB") : "Unknown Date"}</small>
       </p>
+      <p>{props.post.likes}</p>
       <p>{props.post.message}</p>
       <button onClick={handleDelete}>Delete Post</button>
-      <button onClick={handleLike}>Like</button>
+      <button onClick={handleLike}>{isLiked ? 'Unlike' : 'Like'}</button>
       <p>{likeCount}</p>
     </article>
   );
