@@ -18,7 +18,6 @@ async function getAllPosts(req, res) {
 
     const user_data = await User.find({ _id: user_id });
 
-
     const photo = await Photo.find({ user_id: user_id })
     let filePath
     if (photo.length === 0) {
@@ -46,7 +45,11 @@ async function createPost(req, res) {
 
   const newPostData = {
     message: req.body.message,
-    user_id: new mongoose.Types.ObjectId(req.user_id)
+    user_id: new mongoose.Types.ObjectId(req.user_id),
+    likes: [],
+    likeCount: 0
+
+
   }
   const post = new Post(newPostData);
   post.save();
@@ -61,23 +64,25 @@ async function likePost(req, res) {
   try {
     const postId = req.body.post_id;
     // We need to call likePost with the postId
-    const user_id = req.user_id;
+    // const user_id = req.user_id;
+    const user_id = new mongoose.Types.ObjectId(req.user_id)
     // include user's id (from token)
-    // console.log('Test post id'+);
+    // console.log('Test post id' + postId);
 
-    // console.log('my regular Post ID is '+ postId)
+    console.log('my regular Post ID is '+ postId)
     postObjectId = new mongoose.Types.ObjectId(postId)
-    // console.log('my Object Post ID is '+ postObjectId)
+    console.log('my Object Post ID is '+ postObjectId)
     const post = await Post.findById(postObjectId);
 
-    // console.log('This is my post: '+post);
+    console.log('Test log')
+    console.log('This is my post: '+post);
     if (!post) {
-      // console.log('Not post');
+      console.log('Not post');
       return res.status(404).json({message: "Post not found"});
     }
-    // console.log('if statement passes successfully');
+    console.log('if statement passes successfully');
     const hasLiked = post.likes.includes(user_id);
-    // console.log(hasLiked);
+    console.log(hasLiked);
 
     
     if (hasLiked) {
@@ -87,10 +92,12 @@ async function likePost(req, res) {
       post.likes.push(user_id);
       post.likeCount += 1;
     }
+    console.log('Passes');
     
     await post.save();
-
+    console.log('really?')
     const newToken = generateToken(user_id);
+    console.log('broken?')
     res.status(200).json({
       message: hasLiked ? "Post Unliked" : "Post Liked",
       likeCount: post.likeCount,
