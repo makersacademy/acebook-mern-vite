@@ -31,6 +31,7 @@ function Post(props) {
       {/* <h2>{props.post.title}</h2>
       <p>
         <small>Posted on: {date ? date.toLocaleString("en-GB") : "Unknown Date"}</small>
+
       </p> */}
       <img src={`${BACKEND_URL}/${props.post.filePath}`} width="50"></img>
       <p>{props.post.firstName} {props.post.lastName}</p>
