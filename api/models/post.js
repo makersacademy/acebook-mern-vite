@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 // defining the columns of an SQL Database.
 const PostSchema = new mongoose.Schema({
   message: String,
-  likes: Array
+  likes: Array,
+  likeCount: Number,
 });
 
 // We use the Schema to create the Post model. Models are classes which we can

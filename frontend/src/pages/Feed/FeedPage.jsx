@@ -18,7 +18,7 @@ export function FeedPage() {
         .then((data) => {
           setPosts(data.posts);
           localStorage.setItem("token", data.token);
-          console.log(data)
+          // console.log(data)
         })
         .catch((err) => {
           console.error(err);

@@ -1,6 +1,7 @@
 const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
 const User = require("../models/user");
+const mongoose = require('mongoose');
 
 async function getAllPosts(req, res) {
   const posts = await Post.find();
@@ -21,19 +22,26 @@ async function createPost(req, res) {
 async function likePost(req, res) {
   // console.log(req);
   try {
-    const { postId } = req.body.post_id;
+    const postId = req.body.post_id;
     // We need to call likePost with the postId
     const user_id = req.user_id;
     // include user's id (from token)
     // console.log('Test post id'+);
 
-    const post = await Post.findById(postId);
-    console.log(post);
+    // console.log('my regular Post ID is '+ postId)
+    postObjectId = new mongoose.Types.ObjectId(postId)
+    // console.log('my Object Post ID is '+ postObjectId)
+    const post = await Post.findById(postObjectId);
+
+    // console.log('This is my post: '+post);
     if (!post) {
+      // console.log('Not post');
       return res.status(404).json({message: "Post not found"});
     }
-
+    // console.log('if statement passes successfully');
     const hasLiked = post.likes.includes(user_id);
+    // console.log(hasLiked);
+
     
     if (hasLiked) {
       post.likes = post.likes.filter(id => id.toString() !== user_id);
