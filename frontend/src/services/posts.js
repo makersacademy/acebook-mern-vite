@@ -45,3 +45,27 @@ export async function createPost(token, postContent) {
     )
   }
 }
+
+export async function likePost (token, post_id) {
+  const payload = {
+    post_id: post_id
+  }
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload)
+  }
+  const response = await fetch(`${BACKEND_URL}/posts/like`, requestOptions)
+  if (response.status === 200){
+    console.log('Successfully liked post?')
+  } else{
+    throw new Error(
+      `Received status ${response.status} when attempting to like post. Expected 200`
+    )
+  }
+
+}

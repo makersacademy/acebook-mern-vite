@@ -1,6 +1,17 @@
+// import { useState } from "react";
+import { likePost } from "../services/posts";
 function Post(props) {
   // Extract and parse the date from props.post
   const date = props.post.date ? new Date(props.post.date) : null;
+
+  // Storing like status as a state
+  // const [isLiked, setLikeStatus] = useState(false);
+
+  //Function to handle liking/unlkining posts
+  const handleLike = async () => {
+    const token = localStorage.getItem('token');
+    likePost(token,props.post._id)
+  }
 
   // Function to handle deleting the post
   const handleDelete = async () => {
@@ -34,6 +45,7 @@ function Post(props) {
       </p>
       <p>{props.post.message}</p>
       <button onClick={handleDelete}>Delete Post</button>
+      <button onClick={handleLike}>Like</button>
     </article>
   );
 }
