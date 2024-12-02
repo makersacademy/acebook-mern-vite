@@ -32,7 +32,7 @@ function Post(props) {
       <p>
         <small>Posted on: {date ? date.toLocaleString("en-GB") : "Unknown Date"}</small>
       </p>
-      <p>{props.post.message}</p>
+      <pre>{props.post.message}</pre>
       <button onClick={handleDelete}>Delete Post</button>
     </article>
   );
