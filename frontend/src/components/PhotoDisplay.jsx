@@ -24,6 +24,7 @@ export function PhotoDisplay({ photoLoad }) {
 
     return(
         <div>
+            <p>{`${BACKEND_URL}/${photoFilePath}`}</p>
             <img src={`${BACKEND_URL}/${photoFilePath}`} width="300"></img>
         </div>
 

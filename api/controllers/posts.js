@@ -2,6 +2,7 @@ const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
 const User = require("../models/user");
 const mongoose = require("mongoose");
+const Photo = require("../models/photo");
 
 
 async function getAllPosts(req, res) {
@@ -11,13 +12,21 @@ async function getAllPosts(req, res) {
 
   const postsWithUserDetails = await Promise.all( 
     posts.map(async (post) => {
-    user_id = post.user_id;
-    user_data = await User.find({ _id: user_id });
-    post.firstName = user_data[0].firstName;
+    console.log(post.user_id)
+    const user_id = post.user_id;
+
+
+    const user_data = await User.find({ _id: user_id });
+
+
+    const photo = await Photo.find({ user_id: user_id })
+
+
     const enrichedPost = {
       ...post._doc,
       firstName: user_data[0].firstName,
-      lastName: user_data[0].lastName
+      lastName: user_data[0].lastName,
+      filePath: photo[0].photoFilePath
     };
     return enrichedPost;
   })
