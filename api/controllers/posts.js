@@ -6,7 +6,23 @@ const mongoose = require("mongoose");
 
 async function getAllPosts(req, res) {
   const posts = await Post.find();
-  const filteredPosts = posts.sort((a, b) => b._id.getTimestamp() - a._id.getTimestamp());
+  console.log("posts:", posts)
+
+
+  const postsWithUserDetails = await Promise.all( 
+    posts.map(async (post) => {
+    user_id = post.user_id;
+    user_data = await User.find({ _id: user_id });
+    post.firstName = user_data[0].firstName;
+    const enrichedPost = {
+      ...post._doc,
+      firstName: user_data[0].firstName,
+      lastName: user_data[0].lastName
+    };
+    return enrichedPost;
+  })
+);
+  const filteredPosts = postsWithUserDetails.sort((a, b) => b._id.getTimestamp() - a._id.getTimestamp());
   const token = generateToken(req.user_id);
   res.status(200).json({ posts: filteredPosts, token: token });
 }
