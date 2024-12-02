@@ -5,6 +5,8 @@ const User = require("./user");
 // defining the columns of an SQL Database.
 const PostSchema = new mongoose.Schema({
   message: String,
+  likes: Array,
+  likeCount: Number,
   user_id: { type: mongoose.Schema.Types.ObjectId }
 });
 
