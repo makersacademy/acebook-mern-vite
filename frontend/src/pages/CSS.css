@@ -1,0 +1,12 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: rgb(227, 232, 237);
+}
+
+.container-1 {
+    padding: min(50px, 7%);
+}
