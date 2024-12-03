@@ -5,10 +5,11 @@ const Photo = require("../models/photo")
 function create(req, res) {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
+  const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
 
-  const user = new User({ firstName, lastName, email, password });
+  const user = new User({ firstName, lastName, username, email, password });
   user
     .save()
     .then((user) => {
@@ -32,9 +33,25 @@ async function getUserProfile(req, res) {
   res.status(200).json({ userData: returnUserData, token: token });
 }
 
+async function checkUsername(req, res) {
+    const {username} = req.query;
+
+    try {
+      const user = await User.findOne({username});
+      if (user) {
+        return res.status(200).json({ unique: false }); // Username exists
+      }
+      res.status(200).json({unique: true }); // Username is unique
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({error: "Server error" });
+    }
+}
+
 const UsersController = {
   create: create,
-  getUserProfile: getUserProfile
+  getUserProfile: getUserProfile,
+  checkUsername: checkUsername
 };
 
 module.exports = UsersController;
