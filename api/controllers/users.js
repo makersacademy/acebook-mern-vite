@@ -34,6 +34,40 @@ async function getUserProfile(req, res) {
   res.status(200).json({ userData: returnUserData, token: token });
 }
 
+
+async function getAnyUserProfile(req, res) {
+  console.log("req.params.username is ----------->", req.params.username)
+  const currentUser = await User.find({ _id: req.user_id });
+  const queryUser = await User.find({ username: req.params.username });
+
+  // console.log("My details", currentUser[0].username);
+  // console.log("Query details", queryUser[0].username);
+  // console.log((currentUser[0].username == queryUser[0].username))
+  // console.log(queryUser[0]._id.toString())
+  const photo = await Photo.find({ user_id: queryUser[0]._id.toString() })
+  // console.log("My photo is here --------->", photo);
+  let filePath
+  if (photo.length === 0) {
+    filePath = "uploads/default_photo.webp"
+  } else {
+    filePath = photo[0].photoFilePath
+  }
+  console.log("My file path -------->", filePath)
+  const token = generateToken(req.user_id);
+
+  const returnUserData = {
+    firstName: queryUser[0].firstName,
+    lastName: queryUser[0].lastName,
+    myProfile: (currentUser[0].username == queryUser[0].username),
+    photoFilePath: filePath
+  }
+
+  res.status(200).json({ userData: returnUserData, token: token });
+}
+
+
+
+
 async function checkUsername(req, res) {
     const username = req.query.username;
     try {
@@ -56,7 +90,8 @@ async function isUnique(username) {
 const UsersController = {
   create: create,
   getUserProfile: getUserProfile,
-  checkUsername: checkUsername
+  checkUsername: checkUsername,
+  getAnyUserProfile: getAnyUserProfile
 };
 
 module.exports = UsersController;
