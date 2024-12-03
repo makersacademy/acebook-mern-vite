@@ -18,6 +18,7 @@ function create(req, res) {
     })
     .catch((err) => {
       console.error(err);
+      console.log("I was triggered, user not saved to db")
       res.status(400).json({ message: "Something went wrong" });
     });
 }
@@ -34,18 +35,22 @@ async function getUserProfile(req, res) {
 }
 
 async function checkUsername(req, res) {
-    const {username} = req.query;
-
+    const username = req.query.username;
     try {
-      const user = await User.findOne({username});
-      if (user) {
-        return res.status(200).json({ unique: false }); // Username exists
+      if (await isUnique(username)) {
+        return res.status(200).json({unique: true });
+      } else {
+        return res.status(200).json({ unique: false });
       }
-      res.status(200).json({unique: true }); // Username is unique
     } catch (error) {
       console.error(error);
       res.status(500).json({error: "Server error" });
     }
+}
+
+async function isUnique(username) {
+  const userArray = await User.find({username: username});
+  return (userArray.length === 0)
 }
 
 const UsersController = {
