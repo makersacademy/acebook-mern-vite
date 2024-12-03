@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { getPosts } from "../../services/posts";
-import Post from "../../components/Post";
-import LogoutButton from "../../components/LogoutButton";
+import { PostList } from "../../components/PostList";
+import { NavBar } from "../../components/NavBar";
+import { NewPost } from "../../components/NewPost";
 
 export function FeedPage() {
   const [posts, setPosts] = useState([]);
+  const [reloadPosts, setReloadPosts] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,13 +18,14 @@ export function FeedPage() {
         .then((data) => {
           setPosts(data.posts);
           localStorage.setItem("token", data.token);
+          // console.log(data)
         })
         .catch((err) => {
           console.error(err);
           navigate("/login");
         });
     }
-  }, [navigate]);
+  }, [navigate, reloadPosts]);
 
   const token = localStorage.getItem("token");
   if (!token) {
@@ -31,15 +33,16 @@ export function FeedPage() {
     return;
   }
 
+  const handleReloadPosts = () => {
+    setReloadPosts((prevState) => !prevState);
+  };
+
   return (
     <>
+    <NavBar />
+      <NewPost handleReloadPosts={handleReloadPosts}/>
       <h2>Posts</h2>
-      <div className="feed" role="feed">
-        {posts.map((post) => (
-          <Post post={post} key={post._id} />
-        ))}
-      </div>
-      <LogoutButton />
+      <PostList posts={posts}/>
     </>
   );
 }
