@@ -12,7 +12,19 @@ const [postContent, setPostContent] = useState('');
         setPostContent("")
     }
     const submitContent = async () => {
+        const trimmedPost = postContent;
+        const maxLength = 250;
+
+        if (trimmedPost === '') {
+            alert('Post content cannot be empty.');
+            return;
+        }
+        if (trimmedPost.length > maxLength) {
+            alert(`Post cannot exceed ${maxLength} characters.`);
+            return;
+        }
         const token = localStorage.getItem('token');
+        console.log(postContent)
         await createPost(token, postContent);
         clearPostContent();
         handleReloadPosts();

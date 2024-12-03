@@ -5,7 +5,10 @@ const User = require("./user");
 // defining the columns of an SQL Database.
 const PostSchema = new mongoose.Schema({
   message: String,
-  user_id: { type: mongoose.Schema.Types.ObjectId }
+  likes: Array,
+  likeCount: Number,
+  user_id: { type: mongoose.Schema.Types.ObjectId },
+  currentUserId: { type: mongoose.Schema.Types.ObjectId }
 });
 
 // We use the Schema to create the Post model. Models are classes which we can

@@ -9,11 +9,23 @@ async function upload(req, res) {
     const photoName = req.file.filename;
     const photoPath = req.file.path;
     // const photoPath = "I broke your code";
-    const dateNow = Date.now() 
+    // const dateNow = Date.now() 
     const user_id = req.user_id
+    const photos = await Photo.find({ user_id: user_id })
+    if (photos.length !== 0) {
+      const pathParts = __dirname.split(path.sep);
+      const apiIndex = pathParts.indexOf('api');
+      const apiPath = pathParts.slice(0, apiIndex + 1).join(path.sep);
+      console.log(apiPath);
+      console.log(`${apiPath}/${photos[0].photoFilePath}`);
+      fs.unlink(`${apiPath}/${photos[0].photoFilePath}`, (err) => {
+        console.log(err);
+      })
+      const result = await Photo.findByIdAndDelete(photos[0]._id)
+    }
   
     try {
-      await Photo.create({photoFileName: photoName, photoFilePath: photoPath, photoFileDate: dateNow, user_id: user_id})
+      await Photo.create({photoFileName: photoName, photoFilePath: photoPath, user_id: user_id})
       res.json({status:"ok"})
     } catch (error) {
       res.json({status:"error"})
@@ -37,7 +49,13 @@ async function get(req, res) {
     //     res.setHeader('Content-Type', 'image/png');
     //     res.status(200).send(data);
     //   });
-    res.status(200).json({ filePath: photo[0].photoFilePath, token: newToken })
+  let filePath
+  if (photo.length === 0) {
+    filePath = "uploads/default_photo.webp"
+  } else {
+    filePath = photo[0].photoFilePath
+  }
+    res.status(200).json({ filePath: filePath, token: newToken })
 
   } catch (error) {
     res.status(400);
