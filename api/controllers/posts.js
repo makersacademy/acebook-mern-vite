@@ -34,7 +34,8 @@ async function getAllPosts(req, res) {
       firstName: user_data[0].firstName,
       lastName: user_data[0].lastName,
       filePath: filePath,
-      currentUserId: currentUserId
+      currentUserId: currentUserId,
+      username: user_data[0].username
     };
     // console.log('enrichedPost:');
     // console.log(enrichedPost);
