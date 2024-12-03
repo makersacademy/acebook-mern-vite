@@ -1,27 +1,27 @@
 import { likePost } from "../services/posts";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-
 function Post(props) {
-  // // Extract and parse the date from props.post
   // const date = props.post.date ? new Date(props.post.date) : null;
 
-
   const [likeCount, setLikeCount] = useState(props.post.likeCount);
-  const [isLiked, setIsLiked] = useState(false);
-
-  // const token = localStorage.getItem('token');
-  // const response = await likePost(token,props.post._id)
-  // const hasLiked = props.post.likes.includes(user_id);
-
+  const [isLiked, setIsLiked] = useState((false));
+  useEffect(() => {
+    setIsLiked(props.post.likes.includes(props.post.currentUserId));
+  },
+    [] // Empty dependency array - run on page load
+  );
+  console.log(props.post.likes);
+  console.log('does it include')
+  console.log(props.post.currentUserId)
+  console.log(props.post.likes.includes(props.post.currentUserId))
+  console.log(isLiked);
   
   const handleIsLiked = () => {
     setIsLiked(!isLiked);
   }
-  // Storing like status as a state
-  // const [isLiked, setLikeStatus] = useState(false);
 
   //Function to handle liking/unlkining posts
   const handleLike = async () => {
