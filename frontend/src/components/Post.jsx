@@ -1,5 +1,7 @@
 import { likePost } from "../services/posts";
 import { useState, useEffect } from "react";
+import "../pages/CSS.css"
+
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -61,19 +63,32 @@ function Post(props) {
 
 
   return (
+    <body className="grid-container-1">
     <article key={props.post._id}>
       {/* <p>
         <small>Posted on: {date ? date.toLocaleString("en-GB") : "Unknown Date"}</small>
       </p> */}
-
-      <img src={`${BACKEND_URL}/${props.post.filePath}`} width="50"></img>
-      <p>{props.post.firstName} {props.post.lastName}</p>
-      <p>{props.post.message}</p>
+      <div className="post-card">
+        <div className="grid-container-1">
+          <img className="post-image" src={`${BACKEND_URL}/${props.post.filePath}`} width="50"></img>
+          <div className="grid-container-4">
+          <h4>{props.post.firstName} {props.post.lastName}</h4>
+          <p>{props.post.message}</p>
+        </div>
+      </div>
+      <div className="grid-container-1">
        {/* <p>{props.post.likes}</p> */}
-      <button onClick={handleDelete}>Delete Post</button>
-      <button onClick={handleLike}>{isLiked ? 'Unlike' : 'Like'}</button>
-      <p>{likeCount}</p>
+      <div>
+        <p>{likeCount} Likes</p>
+        <button onClick={handleLike}>{isLiked ? 'Unlike' : 'Like'}</button>
+        </div>
+        <div>
+        <button onClick={handleDelete}>Delete Post</button>
+        </div>
+      </div>
+      </div>
     </article>
+    </body>
   );
 }
 

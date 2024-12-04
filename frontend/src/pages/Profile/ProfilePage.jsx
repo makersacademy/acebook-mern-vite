@@ -3,6 +3,7 @@ import { MyUserDetails } from "../../components/MyUserDetails";
 import { PhotoUpload } from "../../components/PhotoUpload";
 import { PhotoDisplay } from "../../components/PhotoDisplay";
 import { useState } from "react";
+import "../CSS.css"
 
 export function Profile() {
   const [photoLoad, setPhotoLoad] = useState(false);

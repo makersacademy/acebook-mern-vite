@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import axios from "axios";
-// import "./SignupPage.css"
+import "./../CSS.css"
+import { NavBar } from "../../components/NavBar";
 
 import { signup } from "../../services/authentication";
 
@@ -75,43 +76,50 @@ export function SignupPage() {
 
   return (
     <>
-    <div>
-      <h2>Signup</h2>
-      <form onSubmit={handleSubmit}>
-      <label htmlFor="firstName">First name:</label>
+    <NavBar />
+    <body className="grid-container-1">
+      {/* <div className="inner-container"> */}
+      <div className="grid-container-2">
+        <img className="login-photo" src="./public/joseph-pearson-Uj749Jv6Otw-unsplash.jpg"></img>
+      </div>
+      <div className="grid-container-3">
+      {/* <img style={{width: "100px"}} src="../src/assets/placeholder_logo.png"></img> */}
+        <div className="card">
+          <h2>Sign Up</h2>
+      <form className="form" onSubmit={handleSubmit}>
+        
         <input
+        placeholder="First Name"
           id="firstName"
           type="text"
           value={firstName}
           onChange={handleFirstNameChange}
         />
-      <br></br>
-      <label htmlFor="lastName">Last name:</label>
+
           <input
+          placeholder="Last Name"
             id="lastName"
             type="text"
             value={lastName}
             onChange={handleLastNameChange}
           />
-      <br></br>
-      <label htmlFor="username">Username</label>
+
           <input
-            placeholder="username"
+            placeholder="Username"
             id="username"
             type="text"
             value={username}
             onChange={handleUsernameChange}
           />
-      <br></br>
-        <label htmlFor="email">Email:</label>
+
           <input
+          placeholder="Email"
             id="email"
             type="text"
             value={email}
             onChange={handleEmailChange}
           />
-        <br></br>
-        <label htmlFor="password">Password:</label>
+
           <input
             placeholder="Password"
             id="password"
@@ -119,17 +127,14 @@ export function SignupPage() {
             value={password}
             onChange={handlePasswordChange}
           />
-          <br></br>
 
-        <input 
-        role="submit-button" 
-        id="submit" 
-        type="submit" 
-        value="Submit" 
-        // disabled={!isUnique} 
-        />
+      
+        <input className="submit-button" role="submit-button" id="submit" type="submit" value="Submit" /* disabled={!isUnique}  *//>
       </form>
+      <p>Already have an account? Log in <a href="/login"><u>here</u></a>.</p>
       </div>
+        </div>
+      </body>
     </>
   );
 }

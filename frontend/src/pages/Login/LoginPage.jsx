@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./../Signup/SignupPage.css"
+import "./../CSS.css"
 import { NavBar } from "../../components/NavBar";
 
 
