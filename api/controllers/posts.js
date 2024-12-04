@@ -6,7 +6,13 @@ const mongoose = require("mongoose");
 const Photo = require("../models/photo");
 
 async function getAllPosts(req, res) {
-  const posts = await Post.find();
+  const currentUser = await User.find({ _id: req.user_id })
+  const followingList = currentUser[0].following
+  console.log("FOLLOWING BEFORE", followingList)
+  followingList.push(new mongoose.Types.ObjectId(req.user_id))
+  console.log("FOLLOWING AFTER", followingList)
+
+  const posts = await Post.find({ user_id: { $in: followingList } });
   // console.log("posts:", posts)
 
 
