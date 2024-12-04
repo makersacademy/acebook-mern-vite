@@ -1,4 +1,5 @@
 import { likePost } from "../services/posts";
+import { deletePost } from "../services/posts";
 import { useState } from "react";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -38,26 +39,23 @@ function Post(props) {
     
   }
 
-  // Function to handle deleting the post
-  const handleDelete = async () => {
-    try {
-      const response = await fetch(`http://localhost:3000/posts/${props.post._id}`, {
-        method: "DELETE",
-      });
-      if (response.ok) {
+
+    // Function to handle deleting the post
+    const handleDelete = async () => {
+      try {
+        const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+        await deletePost(props.post._id, token);
         alert(`Post with ID ${props.post._id} has been deleted.`);
+       
+        // Notify parent component if a callback is provided
         if (props.onDelete) {
-          props.onDelete(props.post._id); // Notify parent component if a callback is provided
+          props.onDelete(props.post._id);
         }
-      } else {
-        const errorData = await response.json();
-        alert(`Failed to delete post: ${errorData.err || "Unknown error"}`);
+      } catch (error) {
+        alert(error.message);
       }
-    } catch (error) {
-      console.error("Error deleting the post:", error);
-      alert("An error occurred while trying to delete the post.");
-    }
-  };
+    };
+  
 
 
   return (
@@ -78,3 +76,4 @@ function Post(props) {
 }
 
 export default Post;
+
