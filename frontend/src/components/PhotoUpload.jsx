@@ -5,63 +5,62 @@ import axios from "axios";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export function PhotoUpload({ triggerPhotoLoad }) {
-    const [photo, setPhoto] = useState(null)
-    
-    // const [allPhoto, setAllPhoto] = useState();
+export function PhotoUpload({ triggerPhotoLoad, setShowDefaultImage }) {
+  const [photo, setPhoto] = useState(null);
 
-    useEffect(() => {
-        getPhoto();
-    }, []);
+  // const [allPhoto, setAllPhoto] = useState();
 
-    const submitPhoto = async (e) => {
-        e.preventDefault();
+  useEffect(() => {
+    getPhoto();
+  }, []);
 
-        const formData=new FormData();
-        formData.append("photo", photo);
-        const token = localStorage.getItem("token");
-        // eslint-disable-next-line no-unused-vars
-        const result = await axios.post(`${BACKEND_URL}/photo`, 
-            formData, 
-            {
-                headers: { 
-                          Authorization: `Bearer ${token}`,
-                          "Content-Type" : "multipart/form-data"
-                        },
-            }
-        );
-        triggerPhotoLoad();
-};
+  const submitPhoto = async (e) => {
+    e.preventDefault();
+    console.log("submitting photo");
 
-    const onInputChange = (e) => {
-        console.log(e.target.files[0]);
-        setPhoto(e.target.files[0]);
-    };
+    setShowDefaultImage(false);
 
-    const getPhoto= async() => {
-        const result = await axios.get(`${BACKEND_URL}`);
-        console.log(result);
-        // setAllPhoto(result.data.data);
-        }
+    const formData = new FormData();
+    formData.append("photo", photo);
 
-    return(
-            <>
-        <h2>Upload Image</h2>
-        <form onSubmit={submitPhoto}>
-        <label htmlFor="image">Profile Image:</label>
+    const token = localStorage.getItem("token");
+    // eslint-disable-next-line no-unused-vars
+    const result = await axios.post(`${BACKEND_URL}/photo`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    triggerPhotoLoad();
+  };
+
+  const onInputChange = (e) => {
+    console.log(e.target.files[0]);
+    setPhoto(e.target.files[0]);
+  };
+
+  const getPhoto = async () => {
+    const result = await axios.get(`${BACKEND_URL}`);
+    console.log(result);
+    // setAllPhoto(result.data.data);
+  };
+
+  return (
+    <>
+      <form onSubmit={submitPhoto}>
+        <label htmlFor="image">Upload Profile Photo</label>
         <input
-        id="image"
-        type="file"
-        accept="image/*"
-                  // value={image ? image.name : ""}
-        onChange={onInputChange}
+          id="image"
+          type="file"
+          accept="image/*"
+          // value={image ? image.name : ""}
+          onChange={onInputChange}
         />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
-        </form>
-        {/* {allPhoto.map(data => {
+      </form>
+      {/* {allPhoto.map(data => {
             return <img src={require(`../photos/${data.photo}`)}/>;
         })} */}
-        </>
-        );
-        }
-        
+    </>
+  );
+}
