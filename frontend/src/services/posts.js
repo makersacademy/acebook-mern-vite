@@ -93,3 +93,28 @@ export async function likePost (token, post_id) {
   }
 
 }
+
+export const deletePost = async (postId, token) => {
+  try {
+    const response = await fetch(`${BACKEND_URL}/posts/${postId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}` 
+      }
+    });
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        throw new Error("Unauthorized: You are not authorized to delete this post.");
+      } else {
+        const errorData = await response.json();
+        throw new Error(`Failed to delete post: ${errorData.err || "Unknown error"}`);
+      }
+    }
+
+    return { success: true, message: "Post deleted successfully" };
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
