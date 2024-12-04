@@ -11,7 +11,6 @@ const tokenChecker = require("./middleware/tokenChecker");
 // const upload = require("./middleware/multerConfig");
 const photoRouter = require("./routes/uploadPhoto");
 
-// const multer = require('multer');
 // const upload = multer("api/uploads");
 
 const app = express();
@@ -28,6 +27,9 @@ app.use(bodyParser.json());
 // app.use(express.urlencoded({ limit: '50mb', extended: true}))
 
 // const upload = multer({ storage: storage });
+function checkRoute() {
+  console.log("/checkusername route");
+}
 
 // API Routes
 app.use("/users", usersRouter);
@@ -35,6 +37,7 @@ app.use("/posts", tokenChecker, postsRouter);
 app.use("/tokens", authenticationRouter);
 app.use("/photo", tokenChecker, photoRouter);
 app.use("/uploads", express.static(path.join(__dirname, 'uploads')));
+// app.use("/users", checkRoute, usersRouter);
 // app.use("/get-photo", tokenChecker, photoRouter);
 
 

@@ -7,13 +7,15 @@ const Photo = require("../models/photo");
 
 async function getAllPosts(req, res) {
   const posts = await Post.find();
-  console.log("posts:", posts)
+  // console.log("posts:", posts)
 
 
   const postsWithUserDetails = await Promise.all( 
     posts.map(async (post) => {
-    console.log(post.user_id)
+    // console.log(post.user_id)
     const user_id = post.user_id;
+    // console.log('CURRENT, user id: '+req.user_id);
+    const currentUserId = new mongoose.Types.ObjectId(req.user_id);
 
 
     const user_data = await User.find({ _id: user_id });
@@ -31,8 +33,12 @@ async function getAllPosts(req, res) {
       ...post._doc,
       firstName: user_data[0].firstName,
       lastName: user_data[0].lastName,
-      filePath: filePath
+      filePath: filePath,
+      currentUserId: currentUserId,
+      username: user_data[0].username
     };
+    // console.log('enrichedPost:');
+    // console.log(enrichedPost);
     return enrichedPost;
   })
 );
@@ -47,7 +53,8 @@ async function createPost(req, res) {
     message: req.body.message,
     user_id: new mongoose.Types.ObjectId(req.user_id),
     likes: [],
-    likeCount: 0
+    likeCount: 0,
+    currentUserId: new mongoose.Types.ObjectId()
 
 
   }
@@ -58,46 +65,30 @@ async function createPost(req, res) {
   res.status(201).json({ message: "Post created", token: newToken });
 }
 
-// NEW:
 async function likePost(req, res) {
-  // console.log(req);
   try {
     const postId = req.body.post_id;
-    // We need to call likePost with the postId
-    // const user_id = req.user_id;
-    const user_id = new mongoose.Types.ObjectId(req.user_id)
-    // include user's id (from token)
-    // console.log('Test post id' + postId);
-
-    console.log('my regular Post ID is '+ postId)
+    const user_id = new mongoose.Types.ObjectId(req.user_id);
     postObjectId = new mongoose.Types.ObjectId(postId)
-    console.log('my Object Post ID is '+ postObjectId)
     const post = await Post.findById(postObjectId);
 
-    console.log('Test log')
-    console.log('This is my post: '+post);
     if (!post) {
-      console.log('Not post');
       return res.status(404).json({message: "Post not found"});
     }
-    console.log('if statement passes successfully');
-    const hasLiked = post.likes.includes(user_id);
-    console.log(hasLiked);
 
-    
+    const hasLiked = post.likes.includes(user_id);
+
     if (hasLiked) {
-      post.likes = post.likes.filter(id => id.toString() !== user_id);
+      post.likes = post.likes.filter(id => id.toString() !== req.user_id);
       post.likeCount -= 1;
     } else {
       post.likes.push(user_id);
       post.likeCount += 1;
     }
-    console.log('Passes');
     
     await post.save();
-    console.log('really?')
     const newToken = generateToken(user_id);
-    console.log('broken?')
+
     res.status(200).json({
       message: hasLiked ? "Post Unliked" : "Post Liked",
       likeCount: post.likeCount,
