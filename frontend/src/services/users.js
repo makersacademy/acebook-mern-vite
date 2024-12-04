@@ -53,3 +53,20 @@ export async function getUserDetails(token, username) {
     return data;
 }
 
+export async function getUsers(token) {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+
+    const response = await fetch(`${BACKEND_URL}/getUsers`, requestOptions);
+
+    if (response.status !== 200) {
+        throw new Error("Unable to fetch users");
+    }
+
+    const data = response.json();
+    return data;
+}
