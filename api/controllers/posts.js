@@ -47,6 +47,43 @@ async function getAllPosts(req, res) {
   res.status(200).json({ posts: filteredPosts, token: token });
 }
 
+
+
+
+
+
+async function getPostsForUser(req, res) {
+  const queryUser = await User.find({ username: req.params.username });
+  const posts = await Post.find({user_id: queryUser[0]._id});
+
+  const postsWithUserDetails = await Promise.all( 
+    posts.map(async (post) => {
+    const user_id = post.user_id;
+    const currentUserId = new mongoose.Types.ObjectId(req.user_id);
+    const user_data = await User.find({ _id: user_id });
+    const photo = await Photo.find({ user_id: user_id })
+    let filePath
+    if (photo.length === 0) {
+      filePath = "uploads/default_photo.webp"
+    } else {
+      filePath = photo[0].photoFilePath
+    }
+    const enrichedPost = {
+      ...post._doc,
+      firstName: user_data[0].firstName,
+      lastName: user_data[0].lastName,
+      filePath: filePath,
+      currentUserId: currentUserId,
+      username: user_data[0].username
+    };
+    return enrichedPost;
+  })
+);
+  const filteredPosts = postsWithUserDetails.sort((a, b) => b._id.getTimestamp() - a._id.getTimestamp());
+  const token = generateToken(req.user_id);
+  res.status(200).json({ posts: filteredPosts, token: token });
+}
+
 async function createPost(req, res) {
 
   const newPostData = {
@@ -103,6 +140,7 @@ const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
   likePost: likePost,
+  getPostsForUser: getPostsForUser
 };
 
 module.exports = PostsController;

@@ -36,7 +36,7 @@ async function getUserProfile(req, res) {
 
 
 async function getAnyUserProfile(req, res) {
-  console.log("req.params.username is ----------->", req.params.username)
+  // console.log("req.params.username is ----------->", req.params.username)
   const currentUser = await User.find({ _id: req.user_id });
   const queryUser = await User.find({ username: req.params.username });
 
@@ -52,7 +52,7 @@ async function getAnyUserProfile(req, res) {
   } else {
     filePath = photo[0].photoFilePath
   }
-  console.log("My file path -------->", filePath)
+  // console.log("My file path -------->", filePath)
   const token = generateToken(req.user_id);
 
   const returnUserData = {

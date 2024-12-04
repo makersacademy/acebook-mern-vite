@@ -4,6 +4,7 @@ const router = express.Router();
 const PostsController = require("../controllers/posts");
 
 router.get("/", PostsController.getAllPosts);
+router.get("/:username", PostsController.getPostsForUser);
 router.post("/", PostsController.createPost);
 
 router.post("/like", PostsController.likePost);
