@@ -24,14 +24,7 @@ export function PhotoDisplay({ photoLoad, showDefaultImage }) {
 
   return (
     <div>
-      {/* <p>{`${BACKEND_URL}/${photoFilePath}`}</p> */}
-      {showDefaultImage ? (
-        <img className="image" src="../../public/user.png" width="300"></img>
-      ) : (
         <img className="image" src={`${BACKEND_URL}/${photoFilePath}`} width="300"></img>
-      )}
-      {/* <img src="../../public/user.png" width="300"></img>
-      <img src={`${BACKEND_URL}/${photoFilePath}`} width="300"></img> */}
     </div>
   );
 }
