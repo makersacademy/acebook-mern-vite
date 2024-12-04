@@ -7,7 +7,7 @@ import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
 import { Profile } from "./pages/Profile/ProfilePage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-// import { OtherProfile } from "./components/OtherProfile";
+import { OtherProfile } from "./pages/Profile/OtherProfilePage";
 
 // docs: https://reactrouter.com/en/main/start/overview
 const router = createBrowserRouter([
@@ -20,8 +20,8 @@ const router = createBrowserRouter([
     element: <ProtectedRoute><Profile /></ProtectedRoute>,
   },
   {
-    // path: `/profile/${props.post.username}`,
-    // element: <ProtectedRoute><OtherProfile /></ProtectedRoute>
+    path: `/profile/:username`,
+    element: <ProtectedRoute><OtherProfile /></ProtectedRoute>
   },
   {
     path: "/login",

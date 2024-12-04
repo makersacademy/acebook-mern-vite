@@ -1,6 +1,10 @@
-import { likePost } from "../services/posts";
+import { likePost, deletePost } from "../services/posts";
 import { useState, useEffect } from "react";
+
 import "../pages/CSS.css"
+
+import { Link } from "react-router-dom";
+
 
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -40,26 +44,23 @@ function Post(props) {
     
   }
 
-  // Function to handle deleting the post
-  const handleDelete = async () => {
-    try {
-      const response = await fetch(`http://localhost:3000/posts/${props.post._id}`, {
-        method: "DELETE",
-      });
-      if (response.ok) {
+
+    // Function to handle deleting the post
+    const handleDelete = async () => {
+      try {
+        const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+        await deletePost(props.post._id, token);
         alert(`Post with ID ${props.post._id} has been deleted.`);
+       
+        // Notify parent component if a callback is provided
         if (props.onDelete) {
-          props.onDelete(props.post._id); // Notify parent component if a callback is provided
+          props.onDelete(props.post._id);
         }
-      } else {
-        const errorData = await response.json();
-        alert(`Failed to delete post: ${errorData.err || "Unknown error"}`);
+      } catch (error) {
+        alert(error.message);
       }
-    } catch (error) {
-      console.error("Error deleting the post:", error);
-      alert("An error occurred while trying to delete the post.");
-    }
-  };
+    };
+  
 
 
   return (
@@ -68,11 +69,12 @@ function Post(props) {
       {/* <p>
         <small>Posted on: {date ? date.toLocaleString("en-GB") : "Unknown Date"}</small>
       </p> */}
+
       <div className="post-card">
         <div className="grid-container-1">
           <img className="post-image" src={`${BACKEND_URL}/${props.post.filePath}`} width="50"></img>
           <div className="grid-container-4">
-          <h4>{props.post.firstName} {props.post.lastName}</h4>
+          <Link className="other-profile-link" to={`/profile/${props.post.username}`}>{props.post.firstName} {props.post.lastName}</Link>
           <p>{props.post.message}</p>
         </div>
       </div>
@@ -87,9 +89,11 @@ function Post(props) {
         </div>
       </div>
       </div>
+
     </article>
     </body>
   );
 }
 
 export default Post;
+

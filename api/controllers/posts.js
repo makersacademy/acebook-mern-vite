@@ -34,7 +34,8 @@ async function getAllPosts(req, res) {
       firstName: user_data[0].firstName,
       lastName: user_data[0].lastName,
       filePath: filePath,
-      currentUserId: currentUserId
+      currentUserId: currentUserId,
+      username: user_data[0].username
     };
     // console.log('enrichedPost:');
     // console.log(enrichedPost);
@@ -98,10 +99,24 @@ async function likePost(req, res) {
   }
 }
 
+async function deletePost(req, res) {
+  try {
+    const { id } = req.params;
+    const deletePost = await Post.findByIdAndDelete(id);
+    if (!deletePost) {
+      return res.status(404).json({ err: "Post not found" });
+    }
+    res.status(200).json({ message: "Post was deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ err: error.message});
+  }
+}
+
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
   likePost: likePost,
+  deletePost: deletePost,
 };
 
 module.exports = PostsController;

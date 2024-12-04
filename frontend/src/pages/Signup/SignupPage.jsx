@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
+
+
 import "./../CSS.css"
 import { NavBar } from "../../components/NavBar";
 
+import axios from "axios";
+
+
 import { signup } from "../../services/authentication";
 
-// const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 
 export function SignupPage() {
@@ -15,7 +19,7 @@ export function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  // const [isUnique, setIsUnique] = useState(true)
+  const [isUnique, setIsUnique] = useState(true);
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
@@ -46,31 +50,31 @@ export function SignupPage() {
   }
 
   async function handleUsernameChange(event) {
-    setUsername(event.target.value); // Comment out this line when reimplementing the username checking
-    // const enteredUsername = event.target.value
-    // setUsername(enteredUsername);
-    // if(enteredUsername.trim() === "") {
-    //   setIsUnique(true); // reset if the field is empty
-    //   return;
-    // }
+    // setUsername(event.target.value); // Comment out this line when reimplementing the username checking
+    const enteredUsername = event.target.value
+    setUsername(enteredUsername);
+    if(enteredUsername.trim() === "") {
+      setIsUnique(true); // reset if the field is empty
+      return;
+    }
 
-    // try {
-    //   // Query the backend to check if the username is unique
-    //   const response = await axios.get(`${BACKEND_URL}/checkUsername`, {
-    //     params: {username: enteredUsername }
-    //   });
+    try {
+      // Query the backend to check if the username is unique
+      const response = await axios.get(`${BACKEND_URL}/users/checkusername`, {
+        params: {username: enteredUsername }
+      });
 
-    //   if (response.data.unique) {
-    //     setIsUnique(true);
-    //     console.log("Username is unique.");
-    //   } else{
-    //     setIsUnique(false);
-    //     alert("Username is already taken. Please choose another.");
-    //   }
-    // } catch (error) {
-    //   console.error("Error checking username:", error);
-    //   alert("An error occurred while checking the username.");
-    // }
+      if (response.data.unique) {
+        setIsUnique(true);
+        console.log("Username is unique.");
+      } else{
+        setIsUnique(false);
+        alert("Username is already taken. Please choose another.");
+      }
+    } catch (error) {
+      console.error("Error checking username:", error);
+      alert("An error occurred while checking the username.");
+    }
   }
   
 
@@ -128,8 +132,18 @@ export function SignupPage() {
             onChange={handlePasswordChange}
           />
 
+
       
-        <input className="submit-button" role="submit-button" id="submit" type="submit" value="Submit" /* disabled={!isUnique}  *//>
+        <input 
+           className="submit-button" 
+            role="submit-button" 
+            id="submit" 
+            type="submit" 
+            value="Submit" 
+            disabled={!isUnique} />
+
+          <br></br>
+
       </form>
       <p>Already have an account? Log in <a href="/login"><u>here</u></a>.</p>
       </div>
