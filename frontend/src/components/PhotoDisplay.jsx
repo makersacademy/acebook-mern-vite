@@ -28,7 +28,7 @@ export function PhotoDisplay({ photoFilePath }) {
     //     });
     // }, [photoLoad]);
 
-  console.log("show default image", showDefaultImage);
+  // console.log("show default image", showDefaultImage);
 
   return (
     <div>

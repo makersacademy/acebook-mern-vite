@@ -5,7 +5,7 @@ import axios from "axios";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export function PhotoUpload({ triggerPhotoLoad, setShowDefaultImage }) {
+export function PhotoUpload({ triggerPhotoLoad }) {
   const [photo, setPhoto] = useState(null);
 
   // const [allPhoto, setAllPhoto] = useState();
@@ -18,7 +18,7 @@ export function PhotoUpload({ triggerPhotoLoad, setShowDefaultImage }) {
     e.preventDefault();
     console.log("submitting photo");
 
-    setShowDefaultImage(false);
+    // setShowDefaultImage(false);
 
     const formData = new FormData();
     formData.append("photo", photo);

@@ -58,7 +58,7 @@ export function OtherProfile() {
             <PhotoDisplay photoFilePath={photoFilePath}/>
             <UserDetails username={username} name={name} myProfile={myProfile}/>
             {myProfile ? <PhotoUpload triggerPhotoLoad={triggerPhotoLoad}/> : <p>No photo upload for you</p>}
-            <Feed allowPosting={myProfile} getMethod={getPostsForUser} username={username}/>
+            <Feed allowPosting={myProfile} getMethod={getPostsForUser} username={username} photoLoad={photoLoad}/>
             {/* <PhotoDisplay photoLoad={photoLoad}/> */}
             {/* <OtherUserDetails /> */}
         </div>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { PostList } from "./PostList";
 import { NewPost } from "./NewPost";
 
-function Feed({allowPosting, getMethod, username}) {
+function Feed({allowPosting, getMethod, username, photoLoad}) {
     const [posts, setPosts] = useState([]);
     const [reloadPosts, setReloadPosts] = useState(false);
     const navigate = useNavigate();
@@ -24,7 +24,7 @@ function Feed({allowPosting, getMethod, username}) {
                     navigate("/login");
                 });
         }
-    }, [navigate, reloadPosts]);
+    }, [navigate, reloadPosts, photoLoad]);
 
     const token = localStorage.getItem("token");
     if (!token) {
