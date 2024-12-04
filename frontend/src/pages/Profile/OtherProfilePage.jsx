@@ -9,6 +9,7 @@ import { getUserDetails } from "../../services/users";
 import { PhotoUpload } from "../../components/PhotoUpload";
 import Feed from "../../components/Feed";
 import { getPostsForUser } from "../../services/posts";
+import  FollowButton from "../../components/FollowButton";
 
 
 
@@ -25,6 +26,7 @@ export function OtherProfile() {
 
     const [photoLoad, setPhotoLoad] = useState(false);
     const[photoFilePath, setPhotoFilePath] = useState("Test");
+    const [following, setFollowing] = useState(false);
 
 
     function triggerPhotoLoad() {
@@ -40,6 +42,7 @@ export function OtherProfile() {
             setName(`${data.userData.firstName} ${data.userData.lastName}`);
             setMyProfile(data.userData.myProfile);
             setPhotoFilePath(data.userData.photoFilePath);
+            setFollowing(data.userData.following);
             // console.log(photoFilePath);
             localStorage.setItem("token", data.token);
             })
@@ -57,8 +60,9 @@ export function OtherProfile() {
             <h1>Profile page</h1>
             <PhotoDisplay photoFilePath={photoFilePath}/>
             <UserDetails username={username} name={name} myProfile={myProfile}/>
-            {myProfile ? <PhotoUpload triggerPhotoLoad={triggerPhotoLoad}/> : <p>No photo upload for you</p>}
-            <Feed allowPosting={myProfile} getMethod={getPostsForUser} username={username} photoLoad={photoLoad}/>
+            {myProfile ? <PhotoUpload triggerPhotoLoad={triggerPhotoLoad}/> : <p></p>}
+            {myProfile ? <p></p> : <FollowButton username={username} following={following} setFollowing={setFollowing}/>}
+            {following ? <Feed allowPosting={myProfile} getMethod={getPostsForUser} username={username} photoLoad={photoLoad}/> : <></>}
             {/* <PhotoDisplay photoLoad={photoLoad}/> */}
             {/* <OtherUserDetails /> */}
         </div>

@@ -20,9 +20,9 @@ export function UserDetails({ username, name, myProfile }) {
 
     return(
         <>
-            <p>Username: {username}</p>
-            <p>Name: {name}</p>
-            {myProfile ? <p>Your profile?? {myProfile}</p> : <p>Not yours :-s</p>}
+            <h2>{name}</h2>
+            <p>@{username}</p>
+            {/* {myProfile ? <p>Your profile?? {myProfile}</p> : <p>Not yours :-s</p>} */}
         </>
     )
 }

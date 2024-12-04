@@ -24,6 +24,8 @@
 }
 
 @keyframes navbarhover {
-    0% {background-color:#272829; box-shadow: 0px 0px 00px #06b400;}
-    100% {background-color:#06b400; box-shadow: 0px 4px 10px #06b400;}
+    /* 0% {background-color:#272829; box-shadow: 0px 0px 00px #06b400;}
+    100% {background-color:#06b400; box-shadow: 0px 4px 10px #06b400;} */
+        0% {background-color:#297772; box-shadow: 0px 0px 00px #297772;}
+    100% {background-color:#297772; box-shadow: 0px 4px 10px #297772;}
 }
