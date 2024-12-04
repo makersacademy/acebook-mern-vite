@@ -38,12 +38,10 @@ export function OtherProfile() {
         const token = localStorage.getItem("token");
         getUserDetails(token, username)
         .then((data) => {
-            // console.log(data.userData.photoFilePath)
             setName(`${data.userData.firstName} ${data.userData.lastName}`);
             setMyProfile(data.userData.myProfile);
             setPhotoFilePath(data.userData.photoFilePath);
             setFollowing(data.userData.following);
-            // console.log(photoFilePath);
             localStorage.setItem("token", data.token);
             })
             .catch((err) => {

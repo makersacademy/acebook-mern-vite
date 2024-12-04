@@ -1,6 +1,6 @@
 
-import { getMyPhoto } from "../services/photos";
-import { useState, useEffect } from "react";
+// import { getMyPhoto } from "../services/photos";
+// import { useState, useEffect } from "react";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 import "../assets/App.css"
