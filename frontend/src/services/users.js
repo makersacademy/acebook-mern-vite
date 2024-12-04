@@ -68,5 +68,54 @@ export async function getUsers(token) {
     }
 
     const data = response.json();
+
+export async function follow(token, username) {
+    const payload = {
+        username: username
+      };
+
+    const requestOptions = {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      };
+
+    const response = await fetch(`${BACKEND_URL}/users/follow`, requestOptions);
+
+    if (response.status !== 201) {
+        throw new Error("Unable to follow user");
+    }
+    
+    const data = await response.json();
+    return data;
+}
+
+export async function unfollow(token, username) {
+
+    const payload = {
+        username: username
+      };
+
+    const requestOptions = {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      };
+
+    const response = await fetch(`${BACKEND_URL}/users/unfollow`, requestOptions);
+
+    if (response.status !== 201) {
+        throw new Error("Unable to unfollow user");
+    }
+    
+    const data = await response.json();
     return data;
 }

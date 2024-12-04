@@ -18,7 +18,6 @@ function Feed({allowPosting, getMethod, username, photoLoad}) {
                 .then((data) => {
                     setPosts(data.posts);
                     localStorage.setItem("token", data.token);
-                    // console.log(data)
                 })
                 .catch((err) => {
                     console.error(err);

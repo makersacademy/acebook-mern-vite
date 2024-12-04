@@ -15,10 +15,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <HomePage />,
   },
-  {
-    path: "/profile",
-    element: <ProtectedRoute><Profile /></ProtectedRoute>,
-  },
+  // {
+  //   path: "/profile",
+  //   element: <ProtectedRoute><Profile /></ProtectedRoute>,
+  // },
   {
     path: `/profile/:username`,
     element: <ProtectedRoute><OtherProfile /></ProtectedRoute>
