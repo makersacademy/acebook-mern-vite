@@ -24,6 +24,11 @@ function create(req, res) {
     });
 }
 
+async function getUsers(req, res) {
+  const users = await User.find()
+  res.status(200).json({users: users})
+}
+
 async function getUserProfile(req, res) {
   const user = await User.find({ _id: req.user_id });
   const token = generateToken(req.user_id);
@@ -153,6 +158,7 @@ const UsersController = {
   checkUsername: checkUsername,
   getAnyUserProfile: getAnyUserProfile,
   getMyUsername: getMyUsername,
+  getUsers: getUsers,
   follow: follow,
   unfollow: unfollow,
 };

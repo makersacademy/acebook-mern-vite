@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 // import { getPosts } from "../services/posts";
 import { PostList } from "./PostList";
 import { NewPost } from "./NewPost";
+import { UserList } from "./UserList";
 
 function Feed({allowPosting, getMethod, username, photoLoad}) {
     const [posts, setPosts] = useState([]);
@@ -39,6 +40,7 @@ function Feed({allowPosting, getMethod, username, photoLoad}) {
         <>
             {allowPosting ? <NewPost handleReloadPosts={handleReloadPosts} /> : <></>}
             <PostList posts={posts} />
+            <UserList />
         </>
     );
 }
