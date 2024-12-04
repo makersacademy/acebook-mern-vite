@@ -45,7 +45,7 @@ async function getAnyUserProfile(req, res) {
   } else {
     filePath = photo[0].photoFilePath
   }
-  console.log("My file path -------->", filePath)
+  // console.log("My file path -------->", filePath)
   const token = generateToken(req.user_id);
 
   const returnUserData = {

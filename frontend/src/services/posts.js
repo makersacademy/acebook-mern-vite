@@ -19,6 +19,27 @@ export async function getPosts(token) {
   return data;
 }
 
+export async function getPostsForUser(token, username) {
+  console.log('Here is a test');
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  console.log('Help');
+  const response = await fetch(`${BACKEND_URL}/posts/${username}`, requestOptions);
+  console.log('HELP@2222')
+
+  if (response.status !== 200) {
+    console.log(response.status);
+    throw new Error("Unable to fetch posts hdliusdbfvlkhlkdjsahfvliuadsfhvlsdkfjhvasdfvhbhvsd;oiuvhsdf;obiuhsbfio;hsebfio;h");
+  }
+
+  const data = await response.json();
+  return data;
+}
+
 export async function createPost(token, postContent) {
   const payload = {
     message: postContent,

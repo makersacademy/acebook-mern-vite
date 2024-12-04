@@ -7,6 +7,8 @@ import { useParams } from "react-router-dom";
 import { UserDetails } from "../../components/UserDetails";
 import { getUserDetails } from "../../services/users";
 import { PhotoUpload } from "../../components/PhotoUpload";
+import Feed from "../../components/Feed";
+import { getPostsForUser } from "../../services/posts";
 
 
 
@@ -26,7 +28,7 @@ export function OtherProfile() {
 
 
     function triggerPhotoLoad() {
-      setPhotoLoad(!photoLoad);
+        setPhotoLoad(!photoLoad);
     }
 
 
@@ -56,6 +58,7 @@ export function OtherProfile() {
             <PhotoDisplay photoFilePath={photoFilePath}/>
             <UserDetails username={username} name={name} myProfile={myProfile}/>
             {myProfile ? <PhotoUpload triggerPhotoLoad={triggerPhotoLoad}/> : <p>No photo upload for you</p>}
+            <Feed allowPosting={myProfile} getMethod={getPostsForUser} username={username}/>
             {/* <PhotoDisplay photoLoad={photoLoad}/> */}
             {/* <OtherUserDetails /> */}
         </div>
