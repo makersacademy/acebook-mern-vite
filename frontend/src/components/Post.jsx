@@ -5,6 +5,7 @@ import { VscHeartFilled } from "react-icons/vsc";
 import { ImBin } from "react-icons/im";
 
 
+
 import "../pages/CSS.css"
 import { Link } from "react-router-dom";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -14,6 +15,7 @@ function Post(props) {
 
   const [likeCount, setLikeCount] = useState(props.post.likeCount);
   const [isLiked, setIsLiked] = useState((false));
+
   useEffect(() => {
     setIsLiked(props.post.likes.includes(props.post.currentUserId));
   },
@@ -66,6 +68,8 @@ function Post(props) {
     // Check if the current user is the same as the user_id associated with the post
     const isOwnPost = props.post.currentUserId === props.post.user_id
 
+
+
   return (
     <body className="grid-container-1">
     <article key={props.post._id}>
@@ -99,7 +103,7 @@ function Post(props) {
             {isOwnPost && (
               <a onClick={handleDelete}><ImBin className="bin-icon" /></a>
             )}
-            
+          {props.post.photoFilePath ? <img className="image" src={`${BACKEND_URL}/${props.post.photoFilePath}`} width="300"></img> : <></>}
           </div>
         </div>
       </div>
