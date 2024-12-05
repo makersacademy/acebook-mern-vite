@@ -111,6 +111,30 @@ async function createPost(req, res) {
   res.status(201).json({ message: "Post created", token: newToken, message_id: post._id.toString() });
 }
 
+async function editPost(req, res) {
+  try{
+  postObjectId = new mongoose.Types.ObjectId(req.body.postId);
+  const post = await Post.findById(postObjectId);
+  console.log('1')
+  if (!post) {
+    return res.status(404).json({message: "Post not found"});
+  }
+  console.log('2')
+
+  newMessage = req.body.message
+  post.message = newMessage;
+  await post.save();
+  const newToken = generateToken(req.user_id);
+  console.log('3')
+  res.status(201).json({
+    message: "Post edited successfully",
+    token: newToken
+  });
+} catch (error) {
+  res.status(500).json({ message: "Error updating post", error: error.message});
+}
+}
+
 async function likePost(req, res) {
 console.log("likePost has been called1!!!!!!!!")
   try {
@@ -190,6 +214,7 @@ const PostsController = {
   likePost: likePost,
   getPostsForUser: getPostsForUser,
   deletePost: deletePost,
+  editPost: editPost,
   setPostPhoto: setPostPhoto
 
 };
