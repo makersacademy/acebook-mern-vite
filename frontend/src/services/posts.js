@@ -67,6 +67,34 @@ export async function createPost(token, postContent) {
   }
 }
 
+export async function editPost(token, postContent, postId) {
+  const payload = {
+    message: postContent,
+    postId: postId
+  };
+
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  };
+
+  const response = await fetch(`${BACKEND_URL}/posts/edit`, requestOptions);
+  // check this is right ^
+
+  if (response.status === 201) {
+    return;
+  } else{
+    throw new Error(
+      `Received status ${response.status} when attempting to edit post. Expected 201`
+    )
+  }
+}
+
 export async function likePost (token, post_id) {
   const payload = {
     post_id: post_id
