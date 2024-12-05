@@ -222,3 +222,11 @@ input::placeholder {
     background-color: #195786;
 }
 
+.bin-icon{
+    color: #d44646;
+}
+
+.bin-icon:hover{
+    color: #ab2929;
+}
+

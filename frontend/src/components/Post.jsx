@@ -1,5 +1,10 @@
 import { likePost, deletePost } from "../services/posts";
 import { useState, useEffect } from "react";
+import { VscHeart } from "react-icons/vsc";
+import { VscHeartFilled } from "react-icons/vsc";
+import { ImBin } from "react-icons/im";
+
+
 import "../pages/CSS.css"
 import { Link } from "react-router-dom";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -85,11 +90,12 @@ function Post(props) {
           {/* <p>{props.post.likes}</p> */}
           <div>
             <p>{likeCount} Likes</p>
-            <button onClick={handleLike}>{isLiked ? 'Unlike' : 'Like'}</button>
+            <a onClick={handleLike}>{isLiked ? <VscHeartFilled /> : <VscHeart />
+            }</a>
           </div>
           <div>
             {isOwnPost && (
-              <button onClick={handleDelete}>Delete Post</button>
+              <a onClick={handleDelete}><ImBin className="bin-icon" /></a>
             )}
             
           </div>
