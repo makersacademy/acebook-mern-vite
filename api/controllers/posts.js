@@ -179,7 +179,7 @@ async function setPostPhoto(req, res) {
     res.status(201).json({ message: "Photo uploaded sucessfully" });
   } catch {
     console.log("No photo uploaded")
-    res.status(500)
+    res.status(500).json({ message: "Photo uploaded sfailed" });
   }
 }
 
