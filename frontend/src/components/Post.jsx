@@ -96,8 +96,8 @@ function Post(props) {
           {/* <p>{props.post.likes}</p> */}
           <div>
             <p>{likeCount} Likes</p>
-            <button onClick={handleLike}>{isLiked ? <VscHeartFilled /> : <VscHeart />
-            }</button>
+            <a onClick={handleLike}>{isLiked ? <VscHeartFilled /> : <VscHeart />
+            }</a>
           </div>
           <div>
             {isOwnPost && (
