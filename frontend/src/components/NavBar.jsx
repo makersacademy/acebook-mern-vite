@@ -25,8 +25,8 @@ export function NavBar() {
             <img width="70rem" height="70rem" src={placeholderLogo}></img>
             {/* The line below will only show the profile link if the username is not an empty string */}
             {username !== "" && (<Link className="nav-link" to={`/profile/${username}`}>Profile</Link>)}
-            <Link className="nav-link" to="/posts">Feed</Link>
-            <LogoutButton/>
+            {username !== "" && (<Link className="nav-link" to="/posts">Feed</Link>)}
+            {username !== "" && <LogoutButton/>}
         </nav>
         </>
     );
