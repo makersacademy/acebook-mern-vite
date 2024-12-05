@@ -30,7 +30,9 @@ const fileInputRef = useRef(null);
         const token = localStorage.getItem('token');
         console.log(postContent)
         const data = await createPost(token, postContent)
+        if (photo) {
         await submitPhoto(data.message_id)
+        }
         clearPostContent();
         setPhoto(null);
         if (fileInputRef.current) {
