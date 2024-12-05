@@ -5,7 +5,6 @@ import { HomePage } from "./pages/Home/HomePage";
 import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
-import { Profile } from "./pages/Profile/ProfilePage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { OtherProfile } from "./pages/Profile/OtherProfilePage";
 

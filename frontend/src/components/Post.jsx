@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { VscHeart } from "react-icons/vsc";
 import { VscHeartFilled } from "react-icons/vsc";
 import { ImBin } from "react-icons/im";
-
+import { EditPost } from "./EditPost";
 
 
 import "../pages/CSS.css"
@@ -12,21 +12,25 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 function Post(props) {
   // const date = props.post.date ? new Date(props.post.date) : null;
-
+  console.log(props.handleReloadPosts)
   const [likeCount, setLikeCount] = useState(props.post.likeCount);
   const [isLiked, setIsLiked] = useState((false));
+
+
+  const [isEditing, setIsEditing] = useState(false);
+
+
 
   useEffect(() => {
     setIsLiked(props.post.likes.includes(props.post.currentUserId));
   },
     [] // Empty dependency array - run on page load
   );
-  // console.log(props.post.likes);
-  // console.log('does it include')
-  // console.log("props.post.currentUserId is ------>" + props.post.currentUserId)
-  // console.log("props.user_id is ------>" + props._id)
-  // console.log(props.post.likes.includes(props.post.currentUserId))
-  // console.log(isLiked);
+
+  const handleStartEditing = () => {
+    setIsEditing(!isEditing);
+  };
+
   
   const handleIsLiked = () => {
     setIsLiked(!isLiked);
@@ -103,7 +107,17 @@ function Post(props) {
             {isOwnPost && (
               <a onClick={handleDelete}><ImBin className="bin-icon" /></a>
             )}
+
+            {isOwnPost && (
+              <button onClick={handleStartEditing}>Edit Post</button>
+            )}
+            {isEditing && (
+              <EditPost handleReloadPosts={props.handleReloadPosts} message={props.post.message} postId={props.post._id} handleStartEditing={handleStartEditing}/>
+            )}
+            
+
           {props.post.photoFilePath ? <img className="image" src={`${BACKEND_URL}/${props.post.photoFilePath}`} width="300"></img> : <></>}
+
           </div>
         </div>
       </div>
