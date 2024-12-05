@@ -39,7 +39,7 @@ function Feed({allowPosting, getMethod, username, photoLoad}) {
     return (
         <>
             {allowPosting ? <NewPost handleReloadPosts={handleReloadPosts} /> : <></>}
-            <PostList posts={posts} />
+            <PostList posts={posts} handleReloadPosts={handleReloadPosts} />
             <UserList />
         </>
     );
