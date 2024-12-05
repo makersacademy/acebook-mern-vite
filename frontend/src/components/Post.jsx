@@ -38,9 +38,11 @@ function Post(props) {
 
   //Function to handle liking/unliking posts
   const handleLike = async () => {
+    console.log("LIKE BUTTON PRESSED!!!!")
     const token = localStorage.getItem('token');
     const response = await likePost(token, props.post._id)
     if ((response === 0 || response) && typeof(response) === 'number'){
+      console.log("RESPONSE!!!!")
       setLikeCount(response)
       handleIsLiked();
     }

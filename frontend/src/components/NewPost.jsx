@@ -29,11 +29,14 @@ const fileInputRef = useRef(null);
         }
         const token = localStorage.getItem('token');
         console.log(postContent)
-        await createPost(token, postContent)
-        .then((data) => {
-            submitPhoto(data.message_id);
-        })
-
+        const data = await createPost(token, postContent)
+        await submitPhoto(data.message_id)
+        clearPostContent();
+        setPhoto(null);
+        if (fileInputRef.current) {
+                fileInputRef.current.value = "";
+            }
+        handleReloadPosts();
     }
 
     const submitPhoto = async (post_id, e) => {
@@ -53,12 +56,7 @@ const fileInputRef = useRef(null);
             "Content-Type": "multipart/form-data",
           },
         });
-        clearPostContent();
-        handleReloadPosts();
-        setPhoto(null);
-        if (fileInputRef.current) {
-            fileInputRef.current.value = ""; // Reset the file input value
-        }
+        
       };
   
       const onInputChange = (e) => {

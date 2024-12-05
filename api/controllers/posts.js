@@ -1,9 +1,10 @@
 const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
 const User = require("../models/user");
-
+const fs = require('fs');
 const mongoose = require("mongoose");
 const Photo = require("../models/photo");
+const path = require('path');
 
 async function getAllPosts(req, res) {
   const currentUser = await User.find({ _id: req.user_id })
@@ -111,6 +112,7 @@ async function createPost(req, res) {
 }
 
 async function likePost(req, res) {
+console.log("likePost has been called1!!!!!!!!")
   try {
     const postId = req.body.post_id;
     const user_id = new mongoose.Types.ObjectId(req.user_id);
@@ -147,6 +149,16 @@ async function likePost(req, res) {
 async function deletePost(req, res) {
   try {
     const { id } = req.params;
+    const post = await Post.findById(id);
+    photoUrl = post.photoFilePath
+    console.log("PHOTO URL HERE:", photoUrl)
+    const pathParts = __dirname.split(path.sep);
+    const apiIndex = pathParts.indexOf('api');
+    const apiPath = pathParts.slice(0, apiIndex + 1).join(path.sep);
+    console.log("API PATH HERE:", apiPath)
+    fs.unlink(`${apiPath}/${photoUrl}`, (err) => {
+      console.log(err);
+    })
     const deletePost = await Post.findByIdAndDelete(id);
     if (!deletePost) {
       return res.status(404).json({ err: "Post not found" });
@@ -167,7 +179,7 @@ async function setPostPhoto(req, res) {
     res.status(201).json({ message: "Photo uploaded sucessfully" });
   } catch {
     console.log("No photo uploaded")
-    res.status(500).json({ err: error.message})
+    res.status(500).json({ message: "Photo uploaded sfailed" });
   }
 }
 
