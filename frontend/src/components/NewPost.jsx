@@ -32,6 +32,13 @@ const fileInputRef = useRef(null);
         await createPost(token, postContent)
         .then((data) => {
             submitPhoto(data.message_id);
+            clearPostContent();
+            console.log("HANDLE RELOAD POSTS", handleReloadPosts)
+            setPhoto(null);
+            if (fileInputRef.current) {
+                fileInputRef.current.value = ""; // Reset the file input value
+            }
+            handleReloadPosts();
         })
 
     }
@@ -53,12 +60,7 @@ const fileInputRef = useRef(null);
             "Content-Type": "multipart/form-data",
           },
         });
-        clearPostContent();
-        handleReloadPosts();
-        setPhoto(null);
-        if (fileInputRef.current) {
-            fileInputRef.current.value = ""; // Reset the file input value
-        }
+        
       };
   
       const onInputChange = (e) => {
