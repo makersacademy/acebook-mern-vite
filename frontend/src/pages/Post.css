@@ -1,0 +1,69 @@
+/* General styles */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0; /* Light background color */
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Card container */
+  .post-card {
+    background-color: #f2f2f2; /* Card background */
+    border-radius: 15px;
+    width: 600px; /* Adjust the card width as needed */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between sections */
+  }
+  
+  /* Profile section */
+  .profile-section {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .profile-photo {
+    width: 80px;
+    height: 80px;
+    padding: 5px;
+  }
+  
+  .user-name {
+    font-size: 28px;
+    margin: 0; /* Remove default margin */
+  }
+  
+  /* Post content section */
+  .post-content {
+    background-color: white;
+    border-radius: 10px;
+    padding-top: 20px;
+    padding: 15px;
+    font-size: 18px;
+    text-align: center;
+  }
+  
+  /* Likes section */
+  .likes-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .like-button {
+    width: 40px;
+    height: 25px;
+    border-radius: 5px;
+    padding:
+  }
+  
+  .likes-count {
+    font-size: 18px;
+    color: #333; /* Darker text color */
+  }

@@ -5,8 +5,8 @@ import { VscHeartFilled } from "react-icons/vsc";
 import { ImBin } from "react-icons/im";
 import { EditPost } from "./EditPost";
 
-
 import "../pages/CSS.css"
+// import "../pages/Post.css"
 import { Link } from "react-router-dom";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -75,33 +75,37 @@ function Post(props) {
 
 
   return (
-    <body className="grid-container-1">
-    <article key={props.post._id}>
+    <div key={props.post._id}>
       {/* <p>
         <small>Posted on: {date ? date.toLocaleString("en-GB") : "Unknown Date"}</small>
       </p> */}
 
       <div className="post-card">
-        <div className="grid-container-1">
-          <img 
+        <div>
+
+    <div className="profile-section">
+      <div className="profile-photo">
+      <img 
               className="post-image" 
               src={`${BACKEND_URL}/${props.post.filePath}`} 
               width="50">
           </img>
-          <div className="grid-container-4">
-            <Link 
-                className="other-profile-link" 
+      </div>
+      <h2 className="user-name">
+      <Link 
+                className="other-profile-link div-1" 
                 to={`/profile/${props.post.username}`}>{props.post.firstName} {props.post.lastName}
             </Link>
-            <p>{props.post.message}</p>
-          </div>
-        </div>
-        <div className="grid-container-1">
-          {/* <p>{props.post.likes}</p> */}
-          <div>
-            <p>{likeCount} Likes</p>
-            <a onClick={handleLike}>{isLiked ? <VscHeartFilled /> : <VscHeart />
+        </h2>
+    </div>
+    <div className="post-content">
+      <p>{props.post.message}</p>
+    </div>
+    <div>
+      <div className="like-button"><a onClick={handleLike}>{isLiked ? <VscHeartFilled /> : <VscHeart />
             }</a>
+
+    <p>{likeCount} Likes</p>
           </div>
           <div>
             {isOwnPost && (
@@ -121,9 +125,14 @@ function Post(props) {
           </div>
         </div>
       </div>
+      <div>{isOwnPost && (
+              <a onClick={handleDelete}><ImBin className="bin-icon" /></a>
+            )}</div>
+    </div>
 
-    </article>
-    </body>
+        </div>
+        </div>
+        </div>
   );
 }
 

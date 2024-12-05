@@ -69,6 +69,7 @@ const fileInputRef = useRef(null);
 
     return(
         <>
+        <div className="post-card">
         <label htmlFor="postContent">Enter Post Content</label>
         <input type="text" id="postContent" name="postContent" value={postContent} onChange={handlePostContent}></input>
         <form onSubmit={submitPhoto}>
@@ -81,7 +82,8 @@ const fileInputRef = useRef(null);
                 onChange={onInputChange}
                 ref={fileInputRef}
         /></form>
-        <button type="button" onClick={submitContent}>Submit Post</button>
+        <button className="submit-button" type="button" onClick={submitContent}>Submit Post</button>
+        </div>
         </>
 
     )
