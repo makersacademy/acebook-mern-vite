@@ -31,9 +31,11 @@ const [postContent, setPostContent] = useState('');
     }
     return(
         <>
+        <div className="post-card">
                 <label htmlFor="postContent">Enter Post Content</label>
                 <input type="text" id="postContent" name="postContent" value={postContent} onChange={handlePostContent}></input>
-                <button type="button" onClick={submitContent}>Submit Post</button>
+                <button className="submit-button" type="button" onClick={submitContent}>Submit Post</button>
+                </div>
         </>
     )
 }

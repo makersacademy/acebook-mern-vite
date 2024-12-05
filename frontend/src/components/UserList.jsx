@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../pages/CSS.css"
 import { Link } from "react-router-dom";
+import { PhotoUpload } from "./PhotoUpload";
+import { PhotoDisplay } from "./PhotoDisplay";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -29,7 +31,8 @@ export function UserList() {
     if (loading) return <div>Loading users...</div>;
 
     return (
-    <div>
+    <div className="post-card-2">
+        <h2>People you may know</h2>
         {users.length > 0 ? (
             users.map(user => (
                 <div key={user._id} className="user-item">

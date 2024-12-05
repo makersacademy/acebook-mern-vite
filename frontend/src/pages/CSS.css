@@ -4,6 +4,10 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.div-1 {
+    padding: 10px;
+}
+
 body{
     background-color: rgb(227, 232, 237);
 }
@@ -63,23 +67,31 @@ body{
 
 .grid-container-4 {
     /* grid-template-columns: repeat(auto-fit, 2); */
-    margin: 0 auto;
+    /* margin: 0 auto; */
     /* background-color: #c6b2b2; */
     /* padding: min(50px, 7%); */
     /* min-height: 800px;
     max-width: 75%;
     /* border: 4px solid black; */
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     /* gap: 20px; */
     /* /* column-gap: 10px; */
     /* row-gap: 40px; */
     /* flex-wrap: wrap; */
     /* justify-content: center; */
+    text-align: left;
     align-items: center;
     align-content: center;
     margin: 0 20%;
     justify-content: center;
+}
+
+.grid-container-5 {
+    display: grid;
+    margin: 0 0;
+    grid-template-columns: repeat(auto-fit, 50% );
+
 }
 
 .login-photo {
@@ -127,8 +139,8 @@ h2 {
 }
 
 .post-card {
-    padding: 2em;
-    width: 50%;
+    padding: 1em;
+    width: 75%;
     border: 0.5px solid #c9c5de;
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
@@ -136,6 +148,20 @@ h2 {
     /* text-align: center; */
     justify-content: center;
     align-content: center;
+    margin: 0, auto;
+}
+
+.post-card-2 {
+    padding: 1em;
+    width: 50%;
+    border: 0.5px solid #c9c5de;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    justify-content: center;
+    align-content: center;
+    margin: 0, auto;
 }
 
 .post-image {
@@ -230,3 +256,10 @@ input::placeholder {
     color: #ab2929;
 }
 
+.user-item {
+    display: flex;
+    align-items: center;    /* Vertically center items */
+    padding: 10px;          /* Space around each user item */
+    border-bottom: 1px solid #ccc;  /* Optional: adds a line between users */
+    gap: 15px;  
+}
