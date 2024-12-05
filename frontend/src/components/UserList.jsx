@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../pages/CSS.css"
+import { Link } from "react-router-dom";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -32,7 +33,10 @@ export function UserList() {
         {users.length > 0 ? (
             users.map(user => (
                 <div key={user._id} className="user-item">
-                        <h3>{user.firstName} {user.lastName}</h3>
+                        <Link 
+                className="other-profile-link" 
+                to={`/profile/${user.username}`}>{user.firstName} {user.lastName}
+            </Link>  
                     </div>
                 ))
             ) : (

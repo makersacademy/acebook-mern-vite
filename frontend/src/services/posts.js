@@ -59,7 +59,9 @@ export async function createPost(token, postContent) {
   const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
 
   if (response.status === 201) {
-    return;
+    const data = await response.json();
+    console.log("RETURN DATA HERE PLZ LOOK!!!!", data)
+    return data;
   } else{
     throw new Error(
       `Received status ${response.status} when attempting to create post. Expected 201`
