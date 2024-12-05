@@ -1,6 +1,8 @@
 import Post from "./Post"
 
+
 export function PostList({ posts, handleReloadPosts }) {
+
   console.log(posts)
   console.log(handleReloadPosts);
   return (

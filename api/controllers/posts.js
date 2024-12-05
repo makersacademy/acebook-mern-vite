@@ -1,9 +1,10 @@
 const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
 const User = require("../models/user");
-
+const fs = require('fs');
 const mongoose = require("mongoose");
 const Photo = require("../models/photo");
+const path = require('path');
 
 async function getAllPosts(req, res) {
   const currentUser = await User.find({ _id: req.user_id })
@@ -97,15 +98,17 @@ async function createPost(req, res) {
     user_id: new mongoose.Types.ObjectId(req.user_id),
     likes: [],
     likeCount: 0,
-    currentUserId: new mongoose.Types.ObjectId()
+    currentUserId: new mongoose.Types.ObjectId(),
+    photoFilePath: null
 
 
   }
   const post = new Post(newPostData);
+  console.log("NEW POST IS HERE LOOK AT ME", post._id.toString())
   post.save();
 
   const newToken = generateToken(req.user_id);
-  res.status(201).json({ message: "Post created", token: newToken });
+  res.status(201).json({ message: "Post created", token: newToken, message_id: post._id.toString() });
 }
 
 async function editPost(req, res) {
@@ -133,6 +136,7 @@ async function editPost(req, res) {
 }
 
 async function likePost(req, res) {
+console.log("likePost has been called1!!!!!!!!")
   try {
     const postId = req.body.post_id;
     const user_id = new mongoose.Types.ObjectId(req.user_id);
@@ -169,6 +173,16 @@ async function likePost(req, res) {
 async function deletePost(req, res) {
   try {
     const { id } = req.params;
+    const post = await Post.findById(id);
+    photoUrl = post.photoFilePath
+    console.log("PHOTO URL HERE:", photoUrl)
+    const pathParts = __dirname.split(path.sep);
+    const apiIndex = pathParts.indexOf('api');
+    const apiPath = pathParts.slice(0, apiIndex + 1).join(path.sep);
+    console.log("API PATH HERE:", apiPath)
+    fs.unlink(`${apiPath}/${photoUrl}`, (err) => {
+      console.log(err);
+    })
     const deletePost = await Post.findByIdAndDelete(id);
     if (!deletePost) {
       return res.status(404).json({ err: "Post not found" });
@@ -179,6 +193,21 @@ async function deletePost(req, res) {
   }
 }
 
+async function setPostPhoto(req, res) {
+
+  try {
+  const updatePhotoForPost = await Post.updateOne(
+    { _id: req.params.post_id },
+    { $set: { photoFilePath: req.file.path } } )
+    console.log(updatePhotoForPost)
+    res.status(201).json({ message: "Photo uploaded sucessfully" });
+  } catch {
+    console.log("No photo uploaded")
+    res.status(500).json({ message: "Photo uploaded sfailed" });
+  }
+}
+
+
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
@@ -186,6 +215,7 @@ const PostsController = {
   getPostsForUser: getPostsForUser,
   deletePost: deletePost,
   editPost: editPost,
+  setPostPhoto: setPostPhoto
 
 };
 

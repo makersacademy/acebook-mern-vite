@@ -8,7 +8,8 @@ const PostSchema = new mongoose.Schema({
   likes: Array,
   likeCount: Number,
   user_id: { type: mongoose.Schema.Types.ObjectId },
-  currentUserId: { type: mongoose.Schema.Types.ObjectId }
+  currentUserId: { type: mongoose.Schema.Types.ObjectId },
+  photoFilePath: String
 });
 
 // We use the Schema to create the Post model. Models are classes which we can

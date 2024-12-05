@@ -24,10 +24,79 @@ function create(req, res) {
     });
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 async function getUsers(req, res) {
   const users = await User.find()
-  res.status(200).json({users: users})
+  // res.status(200).json({users: users})
+
+  const usersWithProfilePhotos = await Promise.all( 
+    users.map(async (user) => {
+
+    const user_id = user._id.toString();
+
+    const photo = await Photo.find({ user_id: user_id });
+    let filePath
+    if (photo.length === 0) {
+      filePath = "uploads/default_photo.webp"
+    } else {
+      filePath = photo[0].photoFilePath
+    }
+
+
+    const enrichedUser = {
+      ...user._doc,
+      filePath: filePath,
+    };
+    // console.log('enrichedPost:');
+    // console.log(enrichedPost);
+    return enrichedUser;
+  }))
+  res.status(200).json({users: usersWithProfilePhotos})
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 async function getUserProfile(req, res) {
   const user = await User.find({ _id: req.user_id });
@@ -39,6 +108,25 @@ async function getUserProfile(req, res) {
   }
   res.status(200).json({ userData: returnUserData, token: token });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 async function getAnyUserProfile(req, res) {
