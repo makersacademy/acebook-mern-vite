@@ -24,8 +24,8 @@ vi.mock("../../src/services/authentication", () => {
 async function completeLoginForm() {
   const user = userEvent.setup();
 
-  const emailInputEl = screen.getByLabelText("Email:");
-  const passwordInputEl = screen.getByLabelText("Password:");
+  const emailInputEl = screen.getByPlaceholderText("Email");
+  const passwordInputEl = screen.getByPlaceholderText("Password");
   const submitButtonEl = screen.getByRole("submit-button");
 
   await user.type(emailInputEl, "test@email.com");

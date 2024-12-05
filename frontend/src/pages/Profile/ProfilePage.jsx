@@ -18,7 +18,6 @@ export function Profile() {
   return (
     <>
       <NavBar />
-      <body>
       <div className="Profile">
         <div className="container">
           <div className="column left">
@@ -38,7 +37,6 @@ export function Profile() {
         />
         </div>
       </div>  
-      </body>
     </>
   );
 }

@@ -128,7 +128,7 @@ function Post(props) {
         </div>
       </div>
       <div>{isOwnPost && (
-              <a onClick={handleDelete}><ImBin className="bin-icon" /></a>
+              <a onClick={handleDelete}><ImBin className="bin-icon" size="20px"/></a>
             )}</div>
     </div>
 

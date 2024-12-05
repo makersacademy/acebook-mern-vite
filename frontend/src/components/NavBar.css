@@ -5,6 +5,7 @@
 .navbar {
     display: flex;
     background-color: #34948c;
+    /* align-items: center; */
 }
 
 .nav-link {
