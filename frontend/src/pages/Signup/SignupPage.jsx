@@ -24,6 +24,11 @@ export function SignupPage() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    // Validation to avoid empty fields
+    if (!firstName || !lastName || !email || !password || !username) {
+      alert("You must enter something in every field");
+      return; // Prevent form submission if any field is empty
+        }
     try {
       await signup(firstName, lastName, username, email, password);
       navigate("/login");
@@ -66,7 +71,7 @@ export function SignupPage() {
 
       if (response.data.unique) {
         setIsUnique(true);
-        console.log("Username is unique.");
+        // console.log("Username is unique.");
       } else{
         setIsUnique(false);
         alert("Username is already taken. Please choose another.");

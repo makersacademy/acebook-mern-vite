@@ -97,15 +97,17 @@ async function createPost(req, res) {
     user_id: new mongoose.Types.ObjectId(req.user_id),
     likes: [],
     likeCount: 0,
-    currentUserId: new mongoose.Types.ObjectId()
+    currentUserId: new mongoose.Types.ObjectId(),
+    photoFilePath: null
 
 
   }
   const post = new Post(newPostData);
+  console.log("NEW POST IS HERE LOOK AT ME", post._id.toString())
   post.save();
 
   const newToken = generateToken(req.user_id);
-  res.status(201).json({ message: "Post created", token: newToken });
+  res.status(201).json({ message: "Post created", token: newToken, message_id: post._id.toString() });
 }
 
 async function likePost(req, res) {
@@ -155,12 +157,28 @@ async function deletePost(req, res) {
   }
 }
 
+async function setPostPhoto(req, res) {
+
+  try {
+  const updatePhotoForPost = await Post.updateOne(
+    { _id: req.params.post_id },
+    { $set: { photoFilePath: req.file.path } } )
+    console.log(updatePhotoForPost)
+    res.status(201).json({ message: "Photo uploaded sucessfully" });
+  } catch {
+    console.log("No photo uploaded")
+    res.status(500).json({ err: error.message})
+  }
+}
+
+
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
   likePost: likePost,
   getPostsForUser: getPostsForUser,
   deletePost: deletePost,
+  setPostPhoto: setPostPhoto
 
 };
 

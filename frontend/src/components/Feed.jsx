@@ -41,9 +41,9 @@ function Feed({allowPosting, getMethod, username, photoLoad}) {
         <body className="grid-container-1">
         <div className="grid-container-2">
             {allowPosting ? <NewPost handleReloadPosts={handleReloadPosts} /> : <></>}
-            <PostList posts={posts} />
-            </div>
+        </div>
             <div>
+            <PostList posts={posts} handleReloadPosts={handleReloadPosts} />
             <UserList />
             </div>
             </body>
