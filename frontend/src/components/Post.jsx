@@ -51,11 +51,13 @@ function Post(props) {
       try {
         const token = localStorage.getItem("token"); // Retrieve the token from localStorage
         await deletePost(props.post._id, token);
-        alert(`Post with ID ${props.post._id} has been deleted.`);
+        await props.handleReloadPosts();
+        // alert(`Post with ID ${props.post._id} has been deleted.`);
         
         // Notify parent component if a callback is provided
         if (props.onDelete) {
           props.onDelete(props.post._id);
+
         }
       } catch (error) {
         alert(error.message);
