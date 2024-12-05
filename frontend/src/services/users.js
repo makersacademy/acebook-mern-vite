@@ -68,6 +68,9 @@ export async function getUsers(token) {
     }
 
     const data = response.json();
+    //return data;
+    // ^ is this needed? wasn't there
+}
 
 export async function follow(token, username) {
     const payload = {
@@ -115,7 +118,7 @@ export async function unfollow(token, username) {
     if (response.status !== 201) {
         throw new Error("Unable to unfollow user");
     }
-    
+   
     const data = await response.json();
     return data;
 }
