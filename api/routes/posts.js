@@ -8,6 +8,7 @@ router.get("/:username", PostsController.getPostsForUser);
 router.post("/", PostsController.createPost);
 
 router.post("/like", PostsController.likePost);
+router.post("/edit", PostsController.editPost);
 router.delete("/:id", PostsController.deletePost);
 
 module.exports = router;
