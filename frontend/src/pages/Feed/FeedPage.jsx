@@ -10,19 +10,21 @@ export function FeedPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const loggedIn = token !== null;
-    if (loggedIn) {
-      getPosts(token)
-        .then((data) => {
-          setPosts(data.posts);
-          localStorage.setItem("token", data.token);
-        })
-        .catch((err) => {
-          console.error(err);
-          navigate("/login");
-        });
-    }
+    const fetchPosts = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      try {
+        const data = await getPosts(token);
+        setPosts(data.posts);
+        localStorage.setItem("token", data.token);
+      } catch (err) {
+        console.error(err);
+        navigate("/login");
+      }
+    };
+
+    fetchPosts();
   }, [navigate]);
 
   const token = localStorage.getItem("token");
