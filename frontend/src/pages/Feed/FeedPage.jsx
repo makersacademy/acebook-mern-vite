@@ -1,45 +1,42 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
+import { NavBar } from "../../components/NavBar";
+import Feed from "../../components/Feed";
 import { getPosts } from "../../services/posts";
-import Post from "../../components/Post";
-import LogoutButton from "../../components/LogoutButton";
-
 export function FeedPage() {
-  const [posts, setPosts] = useState([]);
-  const navigate = useNavigate();
+  // const [posts, setPosts] = useState([]);
+  // const [reloadPosts, setReloadPosts] = useState(false);
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const loggedIn = token !== null;
-    if (loggedIn) {
-      getPosts(token)
-        .then((data) => {
-          setPosts(data.posts);
-          localStorage.setItem("token", data.token);
-        })
-        .catch((err) => {
-          console.error(err);
-          navigate("/login");
-        });
-    }
-  }, [navigate]);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   const loggedIn = token !== null;
+  //   if (loggedIn) {
+  //     getPosts(token)
+  //       .then((data) => {
+  //         setPosts(data.posts);
+  //         localStorage.setItem("token", data.token);
+  //         // console.log(data)
+  //       })
+  //       .catch((err) => {
+  //         console.error(err);
+  //         navigate("/login");
+  //       });
+  //   }
+  // }, [navigate, reloadPosts]);
 
-  const token = localStorage.getItem("token");
-  if (!token) {
-    navigate("/login");
-    return;
-  }
+  // const token = localStorage.getItem("token");
+  // if (!token) {
+  //   navigate("/login");
+  //   return;
+  // }
+
+  // const handleReloadPosts = () => {
+  //   setReloadPosts((prevState) => !prevState);
+  // };
 
   return (
     <>
-      <h2>Posts</h2>
-      <div className="feed" role="feed">
-        {posts.map((post) => (
-          <Post post={post} key={post._id} />
-        ))}
-      </div>
-      <LogoutButton />
+    <NavBar />  
+      <Feed allowPosting={true} getMethod={getPosts}/>
     </>
   );
 }
