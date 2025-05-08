@@ -23,7 +23,7 @@ the application works.
 
 ### Card wall
 
-REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
+[LINK TO THE TRELLO BOARD WALL](https://trello.com/b/MbzzGYju/acebook-meta-sd-specialism)
 
 ### Quickstart
 
