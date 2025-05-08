@@ -1,5 +1,7 @@
 const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
+const User = require("../models/user");
+
 
 async function getAllPosts(req, res) {
   const posts = await Post.find();
@@ -8,6 +10,7 @@ async function getAllPosts(req, res) {
 }
 
 async function createPost(req, res) {
+  console.log(req.body);
   const post = new Post(req.body);
   post.save();
 
