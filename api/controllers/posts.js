@@ -8,6 +8,8 @@ async function getAllPosts(req, res) {
 }
 
 async function createPost(req, res) {
+  //we need an error handling
+  
   const post = new Post(req.body);
   post.save();
 
