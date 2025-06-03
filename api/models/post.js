@@ -25,7 +25,14 @@ const Post = mongoose.model("Post", PostSchema);
 // You can delete this once you are creating your own posts.
 const dateTimeString = new Date().toLocaleString("en-GB");
 new Post({ content: `Test message, created at ${dateTimeString}`, 
-  image: { data: imageData, contentType: "image/jpeg"}}).save();
-  console.log(imagePath);
+  //issue how we're calling the below to generate the image
+  image: [{ 
+    name: "puppies.jpeg",
+    image: {
+      data: imageData, 
+      contentType: "image/jpeg"
+    }
+  }]
+}).save();
 
 module.exports = Post;
