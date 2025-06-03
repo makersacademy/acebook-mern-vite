@@ -14,7 +14,7 @@ describe("/users", () => {
     test("the response code is 201", async () => {
       const response = await request(app)
         .post("/users")
-        .send({ email: "poppy@email.com", password: "1234" });
+        .send({ email: "poppy@email.com", password: "1234", name: "jeff" });
 
       expect(response.statusCode).toBe(201);
     });
@@ -22,7 +22,7 @@ describe("/users", () => {
     test("a user is created", async () => {
       await request(app)
         .post("/users")
-        .send({ email: "scarconstt@email.com", password: "1234" });
+        .send({ email: "scarconstt@email.com", password: "1234", name: "jeff" });
 
       const users = await User.find();
       const newUser = users[users.length - 1];
@@ -64,3 +64,22 @@ describe("/users", () => {
     });
   });
 });
+
+  describe("GET all users", () => {
+    test("returns every user in the collection", async () => {
+    const user1 = new User({ name: "eric", email: "email@domain.com", password: "password" });
+    const user2 = new User({ name: "erica", email: "nunya@business.com", password: "1234secure" });
+    await user1.save();
+    await user2.save();
+
+    const response = await request(app)
+      .get("/users")
+
+    const users = response.body.users;
+    const firstUser = users[0];
+    const secondUser = users[1];
+
+    expect(firstUser.name).toEqual("eric");
+    expect(secondUser.name).toEqual("erica");
+    });
+  })
