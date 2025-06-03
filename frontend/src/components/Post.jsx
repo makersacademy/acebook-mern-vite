@@ -1,28 +1,31 @@
 function Post(props) {
   const { _id, content, image } = props.post;
 
-  // Check if there's image data
-  let imageElement = null;
-  if (image?.data && image?.contentType) {
-    const base64String = btoa(
-      new Uint8Array(image.data.data).reduce(
-        (data, byte) => data + String.fromCharCode(byte),
-        ""
-      )
-    );
-    imageElement = (
-      <img
-        src={`data:${image.contentType};base64,${base64String}`}
-        alt="Post"
-        style={{ maxWidth: "300px", marginTop: "10px" }}
-      />
-    );
-  }
-
   return (
     <article key={_id}>
       <p>{content}</p>
-      {imageElement}
+      {Array.isArray(image) && image.map((img, i) => {
+        //convert buffer to base64 and render as <img />
+        //and allows for multiple image storage.
+        if (!img.image?.data || !img.image?.contentType) return null;
+
+        const base64String = btoa(
+          new Uint8Array(img.image.data.data).reduce(
+            (data, byte) => data + String.fromCharCode(byte),
+            ""
+          )
+        );
+
+        return (
+          <img
+            key={i}
+            //also edited the use of template literals (backticks) to dynamically build the src string
+            src={`data:${img.image.contentType};base64,${base64String}`}
+            alt={img.name || "Post image"}
+            style={{ maxWidth: "300px", marginTop: "10px" }}
+          />
+        );
+      })}
     </article>
   );
 }
