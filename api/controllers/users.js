@@ -1,6 +1,4 @@
 const User = require("../models/user");
-const { generateToken } = require("../lib/token")
-const { ObjectId } = require('mongodb')
 
 function create(req, res) {
   const email = req.body.email;
@@ -21,21 +19,39 @@ function create(req, res) {
 }
 
 async function getAllUsers(req, res) {
-  const users = await User.find();
-  res.status(200).json({users});
-};
+  try {
+    const users = await User.find();
+
+    if (!users) {
+      return res.status(404).json({ message: "Users not found" });
+    }
+
+    res.status(200).json({ users });
+  } catch (error) {
+    console.error("Error retrieving all users in getAllUsers func", error);
+    res.status(500).json({ message: "Server error" });
+  }
+}
 
 async function getById(req, res) {
-  const user = await User.findById(req.params._id);
-  // const token = generateToken(req.user_id);
+  try {
+    const user = await User.findById(req.params.id);
 
-  res.status(200).json({ user });
-}; // where we got up to
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ user });
+  } catch (error) {
+    console.error("Error retrieving user by id in getById func", error);
+    res.status(500).json({ message: "Server error" });
+  }
+}
 
 const UsersController = {
   create: create,
   getAllUsers: getAllUsers,
-  getById: getById
+  getById: getById,
 };
 
 module.exports = UsersController;
