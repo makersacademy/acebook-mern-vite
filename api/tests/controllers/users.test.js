@@ -104,13 +104,68 @@ describe("GET user by id", () => {
     });
     await user.save();
 
-    const exists = await User.findOne({ email: "email@domain.com" });
-    console.log("Found user? pleaseeeee work", exists);
-
     const response = await request(app).get(`/users/${user._id}`);
-    console.log(response);
+    // console.log(response);
 
     expect(response.body.user._id).toEqual(user._id.toString());
     expect(response.body.user.name).toBe("eric");
   });
 });
+
+describe("Put method - to update user", () => {
+  test("user details are updated following a find based on ObjectId", async () => {
+    const user = new User({
+      name: "eric",
+      email: "test@test.com",
+      password: "123password"
+    });
+    await user.save()
+
+    const updates = {name: "erica"}
+    const response = await request(app)
+      .put(`/users/${user._id}`)
+      .send(updates)
+      .expect(200);
+
+    expect(response.body.updatedUser.name).toBe("erica");
+
+  })
+
+  test("can update fields that are currently undefined", async () => {
+    const user = new User({
+      name: "john",
+      email: "test@test.com",
+      password: "123password"
+    });
+    await user.save()
+
+    const updates = {status: "I am not a robot"};
+    const response = await request(app)
+      .put(`/users/${user._id}`)
+      .send(updates)
+      .expect(200)
+
+    expect(response.body.updatedUser.status).toBe("I am not a robot")
+  })
+
+  test("can update date of birth field", async () => {
+    const user = new User({
+      name: "john",
+      email: "test@test.com",
+      password: "123password",
+      dob: "2008-06-21"
+    })
+    await user.save()
+
+    const dob = new Date("2007-01-21").toISOString().slice(0, 10)
+    const updates = {dob}
+    const response = await request(app)
+      .put(`/users/${user._id}`)
+      .send(updates)
+      .expect(200)
+
+    const trimmedDate = response.body.updatedUser.dob.slice(0, 10)
+    expect(trimmedDate).toBe(dob)
+  })
+
+})

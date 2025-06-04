@@ -35,7 +35,8 @@ async function getAllUsers(req, res) {
 
 async function getById(req, res) {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id).select("name");
+    console.log("this is my nameeeeee:", user)
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -48,10 +49,33 @@ async function getById(req, res) {
   }
 }
 
+async function updateUser(req, res) {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      {new: true}
+    );
+
+    if (!updatedUser) {
+      return res.status(400).json({message: "Could not update user information"})
+    }
+
+    res.status(200).json({updatedUser})
+
+  } catch (error) {
+    console.error("Error with updating the user via updateUser func", error)
+    res.status(500).json({message: "Server error"})
+  }
+}
+
 const UsersController = {
   create: create,
   getAllUsers: getAllUsers,
   getById: getById,
+  updateUser: updateUser
 };
 
 module.exports = UsersController;
