@@ -10,7 +10,7 @@ describe("/users", () => {
     await User.deleteMany({});
   });
 
-  describe("POST, when email and password are provided", () => {
+  describe("POST, when name, email and password are provided", () => {
     test("the response code is 201", async () => {
       const response = await request(app)
         .post("/users")
@@ -83,3 +83,16 @@ describe("/users", () => {
     expect(secondUser.name).toEqual("erica");
     });
   })
+
+  describe("GET user by id", () =>{
+    test("returns given user based on Objectid in MongoDB", async () => {
+      const user = new User({ name: "eric", email: "email@domain.com", password: "password" })
+      await user.save();
+
+      const response = await request(app).get(`/users/${user._id}`)
+      console.log(response)
+
+      expect(response.body.user._id).toEqual(user._id.toString())
+      expect(response.body.user.name).toBe("eric")
+    });
+  });

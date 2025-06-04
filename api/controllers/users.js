@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const { generateToken } = require("../lib/token")
+const { ObjectId } = require('mongodb')
 
 function create(req, res) {
   const email = req.body.email;
@@ -24,16 +25,17 @@ async function getAllUsers(req, res) {
   res.status(200).json({users});
 };
 
-async function getByID(req, res) {
-  const user = await User.findById(req.params.id);
-  const token = generateToken(req.user_id);
+async function getById(req, res) {
+  const user = await User.findById(req.params._id);
+  // const token = generateToken(req.user_id);
 
-  res.status(200).json({user: user, token: token})
-} // where we got up to
+  res.status(200).json({ user });
+}; // where we got up to
 
 const UsersController = {
   create: create,
-  getAllUsers: getAllUsers
+  getAllUsers: getAllUsers,
+  getById: getById
 };
 
 module.exports = UsersController;
