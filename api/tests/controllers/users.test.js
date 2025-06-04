@@ -1,4 +1,5 @@
 const request = require("supertest");
+const JWT = require("jsonwebtoken");
 
 const app = require("../../app");
 const User = require("../../models/user");
@@ -154,8 +155,8 @@ describe("Put method - to update user", () => {
       email: "test@test.com",
       password: "123password",
       dob: "2008-06-21"
-    })
-    await user.save()
+    });
+    await user.save();
 
     const dob = new Date("2007-01-21").toISOString().slice(0, 10)
     const updates = {dob}
@@ -168,4 +169,32 @@ describe("Put method - to update user", () => {
     expect(trimmedDate).toBe(dob)
   })
 
+})
+
+describe("POST method to add friends", () => {
+  test("passing in another users id, adds them to the first user's friends list *unidirectionally*", async () => {
+    const user1 = new User({
+      name: "Harry",
+      email: "chosen@one.wiz",
+      password: "voldemort"
+    })
+    const user2 = new User({
+      name: "Ron",
+      email: "side@kick.wiz",
+      password: "spiders"
+    })
+    await user1.save();
+    await user2.save();
+
+    const token = JWT.sign({ sub: user1._id }, process.env.JWT_SECRET);
+    
+    const response = await request(app)
+      .post(`users/${user1._id}/friends/${user2._id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ friendId: user2._id })
+      .expect(200)
+
+    expect(response.body.user.friends).toContain(user2._id.toString());
+    }
+  )
 })

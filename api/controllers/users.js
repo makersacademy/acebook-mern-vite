@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const { generateToken } = require("../lib/token");
 
 function create(req, res) {
   const email = req.body.email;
@@ -71,11 +72,45 @@ async function updateUser(req, res) {
   }
 }
 
+async function addFriend(req, res) {
+  try {
+    const userId = req.user_id; // From JWT
+    const { friendId } = req.body;
+    
+    const friendExists = await User.findById(friendId);
+    if (!friendExists) {
+      return res.status(404).json({ message: "Friend not found" });
+    }
+    
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $addToSet: { friends: friendId } }, // $addToSet prevents duplicates
+      { new: true, runValidators: true }
+    );
+    
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    
+    res.status(200).json({ 
+      message: "Friend added successfully",
+      user: updatedUser
+    });
+    
+  } catch (error) {
+    res.status(500).json({ 
+      message: "Error adding friend", 
+      error: error.message 
+    });
+  }
+}
+
 const UsersController = {
   create: create,
   getAllUsers: getAllUsers,
   getById: getById,
-  updateUser: updateUser
+  updateUser: updateUser,
+  addFriend: addFriend
 };
 
 module.exports = UsersController;
