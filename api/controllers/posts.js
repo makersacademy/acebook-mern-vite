@@ -2,24 +2,109 @@ const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
 
 async function getAllPosts(req, res) {
-  const posts = await Post.find();
+try
+{  const posts = await Post.find();
   const token = generateToken(req.user_id);
-  res.status(200).json({ posts: posts, token: token });
+  res.status(200).json({ posts: posts, token: token });}
+catch (error){
+  res.status(500).json({message: "It's not you, it's me", error})
+}
+}
+
+async function getPostById(req, res) {
+try
+{  const postId = req.params.postId;
+  const post = await Post.findById(postId);
+
+  if (!post){
+    return res.status(404).json({message: 'Try again loser.'});
+  }
+  const token = generateToken(req.user_id);
+  res.status(200).json({ post: post, token: token });}
+  catch (error){
+  res.status(500).json({message: "It's not you, it's me", error})
+}
+
+}
+async function getPostsByFriend(friendId) {
+  const posts = await Post.find({userId: friendId});
+  return posts;
+}
+
+async function getFeed(req, res) {
+  try {
+    const userId = req.userId; 
+    const user = await user.findById(userId);
+    const friends = user.friends;
+
+    // Get posts from all friends in parallel
+    const postsArrays = await Promise.all(
+      friends.map(friendId => getPostsByFriend(friendId))
+    );
+
+    // Flatten array of arrays into a single array of posts
+    const allPosts = postsArrays.flat();
+
+    const token = generateToken(userId);
+    res.status(200).json({ posts: allPosts, token });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to load feed", error });
+  }
 }
 
 async function createPost(req, res) {
   //we need an error handling
-  
-  const post = new Post(req.body);
+  try
+{  const post = new Post(req.body);
   post.save();
 
   const newToken = generateToken(req.user_id);
-  res.status(201).json({ message: "Post created", token: newToken });
+  res.status(201).json({ message: "Post created", token: newToken });}
+  catch (error){
+  res.status(500).json({message: "It's not you, it's me", error})
 }
+}
+
+async function editPost(req, res) {
+  try
+{  const postId = req.params.postId;
+  const updatedPost = await Post.findByIdAndUpdate(postId, req.body,{
+    new: true
+  });
+  if (!updatedPost){
+    return res.status(404).json({message: 'Post not found.'});
+  }
+  const token = generateToken(req.user_id);
+  res.status(200).json({ posts: posts, token: token });}
+  catch (error){
+  res.status(500).json({message: "It's not you, it's me", error})
+}
+}
+
+async function deletePost(req, res) {
+  try
+{  const postId = req.params.postId;
+  const deletePost = await Post.findByIdAndDelete(postId);
+  if (!deletePost){
+    return res.status(404).json({message: 'Post not found.'});
+  }
+  const token = generateToken(req.user_id);
+  res.status(200).json({ posts: posts, token: token });}
+  catch (error){
+  res.status(500).json({message: "It's not you, it's me", error})
+}
+}
+
+
 
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
+  getPostById: getPostById,
+  getFeed: getFeed,
+  editPost: editPost,
+  deletePost: deletePost,
 };
 
 module.exports = PostsController;

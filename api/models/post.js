@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 // A Schema defines the "shape" of entries in a collection. This is similar to
 // defining the columns of an SQL Database.
 const PostSchema = new mongoose.Schema({
+  userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   content: {type: String, required: true},
   likes: {type: Number, default: 0},
   image: [imageSchema],
