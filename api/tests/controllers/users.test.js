@@ -172,7 +172,7 @@ describe("Put method - to update user", () => {
 })
 
 describe("POST method to add friends", () => {
-  test("passing in another users id, adds them to the first user's friends list *unidirectionally*", async () => {
+  test("passing in another users id, adds them to the first user's friends list", async () => {
     const user1 = new User({
       name: "Harry",
       email: "chosen@one.wiz",
@@ -189,12 +189,81 @@ describe("POST method to add friends", () => {
     const token = JWT.sign({ sub: user1._id }, process.env.JWT_SECRET);
     
     const response = await request(app)
-      .post(`users/${user1._id}/friends/${user2._id}`)
+      .post(`/users/${user1._id}/friends/${user2._id}`)
       .set('Authorization', `Bearer ${token}`)
-      .send({ friendId: user2._id })
       .expect(200)
 
     expect(response.body.user.friends).toContain(user2._id.toString());
     }
   )
+
+  test("That by adding user2 to the friends list of user1, it is unidirectional:\
+    user1 does not show in the friends of user2", async () => {
+      const user1 = new User({
+        name: "Phobos",
+        email: "phobos@fear.ares",
+        password: "bigmoon"
+      });
+      const user2 = new User({
+        name: "Deimos",
+        email: "deimos@dread.ares",
+        password: "littlemoon"
+      });
+      await user1.save();
+      await user2.save();
+
+    const token = JWT.sign({ sub: user1._id }, process.env.JWT_SECRET);
+    
+    await request(app)
+      .post(`/users/${user1._id}/friends/${user2._id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .expect(200);
+
+    const response = await request(app)
+      .get(`/users/${user2._id}`)
+      // .set('Authorization', `Bearer ${user2Token}`)
+      .expect(200);
+
+    expect(response.body.user.friends).not.toContain(user1._id.toString());
+    })
+
+  test("adding two friends shows them both in the array of friends", async () => {
+    const user1 = new User({
+        name: "Aragorn",
+        email: "ranger@king.lotr",
+        password: "arwen"
+      })
+      const user2 = new User({
+        name: "Legolas",
+        email: "shield@surfer.lotr",
+        password: "gimli"
+      })
+      const user3 = new User({
+        name: "Gimli",
+        email: "not@thebeard.lotr",
+        password: "legolas"
+      })
+      await user1.save();
+      await user2.save();
+      await user3.save();
+
+    const token = JWT.sign({ sub: user1._id }, process.env.JWT_SECRET);
+    
+    await request(app)
+      .post(`/users/${user1._id}/friends/${user2._id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .expect(200);
+
+    await request(app)
+      .post(`/users/${user1._id}/friends/${user3._id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .expect(200);
+
+    const response = await request(app)
+      .get(`/users/${user1._id}`)
+      .expect(200);
+
+    expect(response.body.user.friends).toContain(user2._id.toString());
+    expect(response.body.user.friends).toContain(user3._id.toString());
+  })
 })

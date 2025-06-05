@@ -36,7 +36,7 @@ async function getAllUsers(req, res) {
 
 async function getById(req, res) {
   try {
-    const user = await User.findById(req.params.id).select("name");
+    const user = await User.findById(req.params.id).select("name location bio dob status friends");
     console.log("this is my nameeeeee:", user)
 
     if (!user) {
@@ -75,7 +75,7 @@ async function updateUser(req, res) {
 async function addFriend(req, res) {
   try {
     const userId = req.user_id; // From JWT
-    const { friendId } = req.body;
+    const { friendId } = req.params;
     
     const friendExists = await User.findById(friendId);
     if (!friendExists) {
@@ -104,6 +104,8 @@ async function addFriend(req, res) {
     });
   }
 }
+
+
 
 const UsersController = {
   create: create,
