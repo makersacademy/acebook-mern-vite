@@ -38,7 +38,6 @@ async function getAllUsers(req, res) {
 async function getById(req, res) {
   try {
     const user = await User.findById(req.params.id).select("name location bio dob status friends");
-    console.log("this is my nameeeeee:", user)
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
