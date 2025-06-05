@@ -15,7 +15,9 @@ function create(req, res) {
       res.status(201).json({ message: "OK" });
     })
     .catch((err) => {
-      console.error(err);
+      if (process.env.NODE_ENV !== 'test') {
+        console.error(err);
+      }
       res.status(400).json({ message: "Something went wrong" });
     });
 }
