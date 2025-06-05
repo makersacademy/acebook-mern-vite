@@ -23,6 +23,7 @@ function createToken(userId) {
 }
 
 let token;
+let userId
 describe("/posts", () => {
   beforeAll(async () => {
     const user = new User({
@@ -202,7 +203,6 @@ describe("/posts", () => {
       await post1.save();
       await post2.save();
 
-      console.log("Token in test:", token);
 
       const response = await request(app)
         .get(`/posts/${post1._id}`)
@@ -240,6 +240,14 @@ describe("/posts", () => {
       // iat stands for issued at
       expect(newTokenDecoded.iat > oldTokenDecoded.iat).toEqual(true);
 });
+    test("responds with 404 when post not found", async () => {
+      const nonExistentId = "64a13f8bcf1e4f13e9d12345"; 
+      const response = await request(app)
+        .get(`/posts/${nonExistentId}`)
+        .set("Authorization", `Bearer ${token}`);
+      expect(response.status).toBe(404);
+      expect(response.body.message).toMatch("Try again loser.")
+});
 
 describe('GET /posts/feed/:userId, when a token is present', () => {
   test("the response code is 200 and returns posts from friends only", async () => {
@@ -270,11 +278,6 @@ describe('GET /posts/feed/:userId, when a token is present', () => {
       .get(`/posts/feed/${mainUser._id}`)
       .set("Authorization", `Bearer ${token}`);
 
-    // Debug logs
-    console.log('Main User ID:', mainUser._id);
-    console.log('Response status:', response.status);
-    console.log('Returned posts:', response.body.posts);
-
     // Assertions
     expect(response.status).toEqual(200);
     expect(response.body.posts).toHaveLength(2);
@@ -284,6 +287,73 @@ describe('GET /posts/feed/:userId, when a token is present', () => {
     expect(returnedContents).toContain("Friend 1 post");
     expect(returnedContents).toContain("Friend 2 post");
     expect(returnedContents).not.toContain("Stranger post");
+
+    const newToken = response.body.token;
+    const newTokenDecoded = JWT.decode(newToken, process.env.JWT_SECRET);
+    const oldTokenDecoded = JWT.decode(token, process.env.JWT_SECRET);
+    expect(newTokenDecoded.iat > oldTokenDecoded.iat).toEqual(true);
+  
   });
+  test("returns 404 for non existent user", async () => {
+    const nonExistentId = "64a13f8bcf1e4f13e9d12345"; 
+    const response = await request(app)
+      .get(`/posts/feed/${nonExistentId}`)
+      .set("Authorization", `Bearer ${token}`);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toMatch("User not found.")
+  });
+
+describe('PATCH /posts/:postId, when token is present', () => {
+  test("responds with 200 and updates the post", async () => {
+    const mainUser = await User.findById(userId).exec();
+    const post = new Post({content: "Original post", userId: mainUser._id});
+    await post.save();
+    const response = await request(app)
+      .patch(`/posts/${post._id}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({content: "Updated post"});
+    expect(response.status).toEqual(200);
+    expect(response.body.posts.content).toBe("Updated post");
+
+  });
+  test("responds with 404 when the post doesn't exist", async () => {
+    const nonExistentId = "64a13f8bcf1e4f13e9d12345"; 
+    const response = await request(app)
+      .patch(`/posts/${nonExistentId}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({content: "Updated post"});
+
+    expect(response.status).toEqual(404);
+    expect(response.body.message).toMatch('Post not found.')
+  });
+})
+describe('DELETE /posts/:postId, when token is present', () => {
+  test("responds with 200, deletes the post and generates the token", async () => {
+    const mainUser = await User.findById(userId).exec();
+    const post = new Post ({content: "Original post", userId: mainUser._id});
+    await post.save();
+
+    const response = await request(app)
+      .delete(`/posts/${post._id}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.posts.content).toMatch("Original post");
+
+    const newToken = response.body.token;
+    const newTokenDecoded = JWT.decode(newToken, process.env.JWT_SECRET);
+    const oldTokenDecoded = JWT.decode(token, process.env.JWT_SECRET);
+    expect(newTokenDecoded.iat > oldTokenDecoded.iat).toEqual(true);
+  })
+  test("responds with 404 when post doesn't exist", async () => {
+    const nonExistentId = "64a13f8bcf1e4f13e9d12345"; 
+    const response = await request(app)
+      .delete(`/posts/${nonExistentId}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.status).toEqual(404);
+    expect(response.body.message).toMatch('Post not found.')
+  })
+})
 });
 }) }) 

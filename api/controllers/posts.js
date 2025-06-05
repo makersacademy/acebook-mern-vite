@@ -29,16 +29,16 @@ try
 }
 async function getPostsByFriend(friendId) {
   const posts = await Post.find({userId: friendId});
-  console.log('gvgv', posts);
   return posts;
 }
 
 async function getFeed(req, res) {
-  console.log('ghv');
   try {
     const userId = req.params.userId; 
-    console.log('CAN U SEE ME', userId);
     const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({message: 'User not found.'});
+    }
     const friends = user.friends;
 
     // Get posts from all friends in parallel
@@ -48,7 +48,6 @@ async function getFeed(req, res) {
 
     // Flatten array of arrays into a single array of posts
     const allPosts = postsArrays.flat();
-    console.log('HERE!', allPosts.toString());
 
     const token = generateToken(userId);
     res.status(200).json({ posts: allPosts, token });
@@ -73,7 +72,7 @@ async function createPost(req, res) {
 
 async function editPost(req, res) {
   try
-{  const postId = req.params.postId;
+{ const postId = req.params.postId;
   const updatedPost = await Post.findByIdAndUpdate(postId, req.body,{
     new: true
   });
@@ -81,7 +80,7 @@ async function editPost(req, res) {
     return res.status(404).json({message: 'Post not found.'});
   }
   const token = generateToken(req.user_id);
-  res.status(200).json({ posts: posts, token: token });}
+  res.status(200).json({ posts: updatedPost, token: token });}
   catch (error){
   res.status(500).json({message: "It's not you, it's me", error})
 }
@@ -95,7 +94,7 @@ async function deletePost(req, res) {
     return res.status(404).json({message: 'Post not found.'});
   }
   const token = generateToken(req.user_id);
-  res.status(200).json({ posts: posts, token: token });}
+  res.status(200).json({ posts: deletePost, token: token });}
   catch (error){
   res.status(500).json({message: "It's not you, it's me", error})
 }
