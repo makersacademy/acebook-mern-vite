@@ -1,5 +1,6 @@
 const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
+const User = require("../models/user")
 
 async function getAllPosts(req, res) {
 try
@@ -37,7 +38,7 @@ async function getFeed(req, res) {
   try {
     const userId = req.params.userId; 
     console.log('CAN U SEE ME', userId);
-    const user = await user.findById(userId);
+    const user = await User.findById(userId);
     const friends = user.friends;
 
     // Get posts from all friends in parallel

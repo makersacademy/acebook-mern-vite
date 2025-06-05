@@ -4,7 +4,7 @@ const JWT = require("jsonwebtoken");
 const app = require("../../app");
 const Post = require("../../models/post");
 const User = require("../../models/user");
-
+const mongoose = require('mongoose');
 require("../mongodb_helper");
 
 const secret = process.env.JWT_SECRET;
@@ -28,6 +28,7 @@ describe("/posts", () => {
     const user = new User({
       email: "post-test@test.com",
       password: "12345678",
+      friends: [],
     });
     await user.save();
     userId = user._id
@@ -36,9 +37,13 @@ describe("/posts", () => {
   });
 
   afterEach(async () => {
-    await User.deleteMany({});
+    await User.deleteMany({_id: { $ne: userId }});
     await Post.deleteMany({});
   
+  });
+
+  afterAll(async () => {
+  await mongoose.connection.close();
   });
 
   describe("POST, when a valid token is present", () => {
@@ -236,33 +241,49 @@ describe("/posts", () => {
       expect(newTokenDecoded.iat > oldTokenDecoded.iat).toEqual(true);
 });
 
-describe('GET /feed/:userId, when a token is present', () => {
-    test("the response code is 200 and returns posts from friends only", async () => {
-      const friend1 = new User({email: 'f1@test.com', password: 'test123'});
-      const friend2 = new User({email: 'f2@test.com', password: 'test1234'});
-      await friend1.save();
-      await friend2.save();
-      await User.findByIdAndUpdate(userId, {friends: [friend1._id, friend2._id]}, {new: true}).exec();
-      const post1 = new Post({ content: "I love all my children equally", userId: friend1._id });
-      const post2 = new Post({ content: "I've never cared for GOB", userId: friend2._id });
-      const stranger = new User({email: 'str@test.com', password: 'test12345'});
-      await stranger.save();
-      const post3 = new Post({ content: 'Blah blah blah', userId: stranger._id});
-      await post1.save();
-      await post2.save();
-      await post3.save();
+describe('GET /posts/feed/:userId, when a token is present', () => {
+  test("the response code is 200 and returns posts from friends only", async () => {
+    // 1. Get fresh instance of main user to avoid stale data
+    const mainUser = await User.findById(userId).exec();
+    if (!mainUser) throw new Error("Main user not found");
 
-      const response = await request(app)
-        .get(`/feed/${userId}`)
-        .set("Authorization", `Bearer ${token}`);
+    // 2. Create friend users
+    const friend1 = await User.create({email: 'f1@test.com', password: 'test123'});
+    const friend2 = await User.create({email: 'f2@test.com', password: 'test1234'});
 
-        console.log('MY USER ID!!', userId);
-        // console.log('ANOTHER ID', req.userId);
-        console.log('PLS SEE ME', User._id);
+    // 3. Update friends list and save
+    mainUser.friends = [friend1._id, friend2._id];
+    await mainUser.save();
 
-        expect(response.status).toEqual(200);
-      const post = response.body.posts;
-      expect(post.length).toBe(2);
-    });
+    // 4. Create test posts - using correct field name (userId)
+    await Post.create([
+      { content: "Friend 1 post", userId: friend1._id },
+      { content: "Friend 2 post", userId: friend2._id },
+      { 
+        content: 'Stranger post', 
+        userId: new mongoose.Types.ObjectId() // Not in friends list
+      }
+    ]);
 
-}) }) })
+    // 5. Make the request
+    const response = await request(app)
+      .get(`/posts/feed/${mainUser._id}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    // Debug logs
+    console.log('Main User ID:', mainUser._id);
+    console.log('Response status:', response.status);
+    console.log('Returned posts:', response.body.posts);
+
+    // Assertions
+    expect(response.status).toEqual(200);
+    expect(response.body.posts).toHaveLength(2);
+    
+    // Verify only friend posts are returned
+    const returnedContents = response.body.posts.map(p => p.content);
+    expect(returnedContents).toContain("Friend 1 post");
+    expect(returnedContents).toContain("Friend 2 post");
+    expect(returnedContents).not.toContain("Stranger post");
+  });
+});
+}) }) 
