@@ -28,12 +28,15 @@ try
 }
 async function getPostsByFriend(friendId) {
   const posts = await Post.find({userId: friendId});
+  console.log('gvgv', posts);
   return posts;
 }
 
 async function getFeed(req, res) {
+  console.log('ghv');
   try {
-    const userId = req.userId; 
+    const userId = req.params.userId; 
+    console.log('CAN U SEE ME', userId);
     const user = await user.findById(userId);
     const friends = user.friends;
 
@@ -44,6 +47,7 @@ async function getFeed(req, res) {
 
     // Flatten array of arrays into a single array of posts
     const allPosts = postsArrays.flat();
+    console.log('HERE!', allPosts.toString());
 
     const token = generateToken(userId);
     res.status(200).json({ posts: allPosts, token });

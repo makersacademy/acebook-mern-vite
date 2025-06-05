@@ -261,6 +261,8 @@ describe('GET /feed/:userId, when a token is present', () => {
         console.log('PLS SEE ME', User._id);
 
         expect(response.status).toEqual(200);
+      const post = response.body.posts;
+      expect(post.length).toBe(2);
     });
 
 }) }) })
