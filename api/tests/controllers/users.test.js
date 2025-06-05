@@ -105,7 +105,6 @@ describe("GET user by id", () => {
     await user.save();
 
     const response = await request(app).get(`/users/${user._id}`);
-    // console.log(response);
 
     expect(response.body.user._id).toEqual(user._id.toString());
     expect(response.body.user.name).toBe("eric");
@@ -122,8 +121,11 @@ describe("Put method - to update user", () => {
     await user.save();
 
     const updates = { name: "erica" };
+
+    const token = JWT.sign({ sub: user._id }, process.env.JWT_SECRET);
     const response = await request(app)
       .put(`/users/${user._id}`)
+      .set("Authorization", `Bearer ${token}`)
       .send(updates)
       .expect(200);
 
@@ -138,9 +140,12 @@ describe("Put method - to update user", () => {
     });
     await user.save();
 
+    const token = JWT.sign({ sub: user._id }, process.env.JWT_SECRET);
+
     const updates = { status: "I am not a robot" };
     const response = await request(app)
       .put(`/users/${user._id}`)
+      .set("Authorization", `Bearer ${token}`)
       .send(updates)
       .expect(200);
 
@@ -158,8 +163,11 @@ describe("Put method - to update user", () => {
 
     const dob = new Date("2007-01-21").toISOString().slice(0, 10);
     const updates = { dob };
+
+    const token = JWT.sign({ sub: user._id }, process.env.JWT_SECRET); 
     const response = await request(app)
       .put(`/users/${user._id}`)
+      .set("Authorization", `Bearer ${token}`)
       .send(updates)
       .expect(200);
 
@@ -209,7 +217,6 @@ describe("POST method to add friends", () => {
     await user2.save();
 
     const token = JWT.sign({ sub: user1._id }, process.env.JWT_SECRET);
-
     await request(app)
       .post(`/users/${user1._id}/friends/${user2._id}`)
       .set("Authorization", `Bearer ${token}`)
@@ -217,7 +224,6 @@ describe("POST method to add friends", () => {
 
     const response = await request(app)
       .get(`/users/${user2._id}`)
-      // .set('Authorization', `Bearer ${user2Token}`)
       .expect(200);
 
     expect(response.body.user.friends).not.toContain(user1._id.toString());
