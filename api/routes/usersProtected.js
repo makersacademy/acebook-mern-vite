@@ -10,5 +10,6 @@ const router = express.Router();
 // router.get("/:id", UsersController.getById);
 // router.put("/:id", UsersController.updateUser);
 router.post("/:myId/friends/:friendId", UsersController.addFriend);
+router.delete("/:id", UsersController.deleteUserById)
 
 module.exports = router;

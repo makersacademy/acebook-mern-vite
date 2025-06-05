@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const { generateToken } = require("../lib/token");
+const Post = require("../models/post");
 
 function create(req, res) {
   const email = req.body.email;
@@ -105,6 +106,43 @@ async function addFriend(req, res) {
   }
 }
 
+async function deleteUserById(req, res) {
+  try {
+    const userId = req.user_id;
+    await Post.deleteMany({ userId });
+
+    if (req.user_id !== req.params.id) {
+      return res.status(403).json({
+        message: "Cannot perform this action"
+      })
+    }
+
+    await User.updateMany(
+      { friends: userId },
+      { $pull: { friends: userId }}
+    );
+
+    await Post.updateMany(
+      {},
+      { $pull: { comments: { userId } } }
+    )
+    
+    // Will have to check if comments exist as entities on the 
+    // Post model or not or if we need to seperately delete comments & likes
+
+    await User.findByIdAndDelete(userId);
+
+    res.status(200).json({
+      message: `Account has successfully been deleted`
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      message: "Error deleting account",
+      error: error.message
+    });
+  }
+}
 
 
 const UsersController = {
@@ -112,7 +150,8 @@ const UsersController = {
   getAllUsers: getAllUsers,
   getById: getById,
   updateUser: updateUser,
-  addFriend: addFriend
+  addFriend: addFriend,
+  deleteUserById: deleteUserById
 };
 
 module.exports = UsersController;

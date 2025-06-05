@@ -20,7 +20,6 @@ app.use(bodyParser.json());
 
 // API Routes
 app.use("/users", usersUnprotectedRouter);
-app.use("/users/:id", usersUnprotectedRouter);
 app.use("/users", tokenChecker, usersProtectedRouter);
 app.use("/posts", tokenChecker, postsRouter);
 app.use("/tokens", authenticationRouter);

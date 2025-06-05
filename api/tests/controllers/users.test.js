@@ -267,3 +267,28 @@ describe("POST method to add friends", () => {
     expect(response.body.user.friends).toContain(user3._id.toString());
   })
 })
+
+describe("DELETE method to remove user and entire footprint", () => {
+  test("deleting a user will delete every reference to that user \
+    including posts & comments", async () => {
+
+      const user = new User({
+        name: "harry",
+        email: "harry@wiz.com",
+        password: "wizardry"
+      })
+
+      const token = JWT.sign({ sub: user._id }, process.env.JWT_SECRET);
+
+      await user.save()
+      await request(app)
+        .delete(`/users/${user._id}`)
+        .set('Authorization', `Bearer ${token}`)
+        .expect(200)
+      
+        await request(app)
+          .get(`/users/${user._id}`)
+          .expect(404)
+      
+    })
+})
