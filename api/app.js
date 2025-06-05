@@ -23,9 +23,6 @@ app.use("/users", usersUnprotectedRouter);
 app.use("/users", tokenChecker, usersProtectedRouter);
 app.use("/posts", tokenChecker, postsRouter);
 app.use("/tokens", authenticationRouter);
-// app.use('/feed/:userId', tokenChecker, postsRouter);
-// app.use('/posts/:postId', tokenChecker, postsRouter);
-
 
 // 404 Handler
 app.use((_req, res) => {
