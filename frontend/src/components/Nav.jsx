@@ -2,13 +2,21 @@ import { useState } from "react";
 import { HomeIcon, User2Icon, SettingsIcon, SearchIcon, MenuIcon} from 'lucide-react';
 import '../assets/styles/Nav.css';
 
-const Nav = ({logo, onSearch}) => {
+const Nav = ({logo, onSearch, users}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [dropdownMenuOpen, setDropdownMenuOpen] = useState(false);
+  const [showSearchResults, setShowSearchResults] = useState(false);
 
   const handleSearch = (event) => {
     event.preventDefault();
-    onSearch(searchTerm);
+
+    if (searchTerm.trim()) {
+      onSearch(searchTerm);
+      setShowSearchResults(true);
+    }
+    
+    console.log("This has been triggered")
+    console.log("These are the users", users)
   }
 
   
@@ -18,7 +26,9 @@ const Nav = ({logo, onSearch}) => {
       <div className="nav-inner flex items-center justify-between p-6">
         {/* Logo - image */}
         <div className="nav-logo">
-          <img src={logo} alt="Logo" className="h-10" />
+          <a href="/posts" className="nav-home-link flex items-center justify-center">
+            <img src={logo} alt="Logo" className="h-10" />
+          </a>
         </div>
 
         {/* Search - search bar */}
@@ -28,10 +38,41 @@ const Nav = ({logo, onSearch}) => {
             placeholder="Search for anything..." 
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
+            onFocus={() => searchTerm.trim() && setShowSearchResults(true)}
             className="search-input"
           />
           <SearchIcon className="search-icon w-5 h-5" />
         </form>
+
+        {showSearchResults && searchTerm.trim() && (
+          <div className="search-dropdown absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-lg border z-50 max-h-60 overflow-y-auto">
+            {users.length > 0 ? (
+              users.map((user) => (
+                <div 
+                  key={user._id}
+                  className="search-result-item p-3 hover:bg-gray-50 cursor-pointer flex items-center border-b last:border-b-0"
+                  // onClick={() => handleUserClick(user)}
+                >
+                  <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center mr-3">
+                    <User2Icon className="w-4 h-4 text-gray-600" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-900">{user.name}</p>
+                    {user.email && (
+                      <p className="text-sm text-gray-500">{user.email}</p>
+                    )}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="p-4 text-center text-gray-500">
+                No users found for: {searchTerm}
+              </div>
+            )}
+          </div>
+          )
+        }
+
 
         {/* Home - link to feed page */}
         <div className="home">
@@ -68,7 +109,3 @@ const Nav = ({logo, onSearch}) => {
 }
 
 export default Nav
-
-// the nav bar is vertical instead of horizontal. 
-// Also, the search icon is outside of the input field and i want it inside. 
-// I also want it sticky so it scrolls with the user

@@ -32,9 +32,34 @@ async function getAllUsers(req, res) {
 
     res.status(200).json({ users });
   } catch (error) {
-    console.error("Error retrieving all users in getAllUsers func", error);
+    console.error("Error retrieving all users", error);
     res.status(500).json({ message: "Server error" });
   }
+}
+
+async function searchusers(req, res) {
+  const {q} = req.query;
+  if (!q) {
+    return res.status(400).json({message: "Query is required to make search"});
+  }
+
+  try {
+    const users = await User.find({
+      name: { $regex: q, $options: "i"} // This searches the name fields on users and ignores case
+    })
+    .select("name")
+    .limit(20); // Stops spamming front end with every user in existence in our DB
+
+    res.json({ users })
+
+  } catch (error) {
+    console.error()
+    res.status(500).json({
+      message: "Error searching for users",
+      error: error.message
+    })
+  }
+
 }
 
 async function getById(req, res) {
@@ -74,7 +99,7 @@ async function updateUser(req, res) {
     res.status(200).json({updatedUser})
 
   } catch (error) {
-    console.error("Error with updating the user via updateUser func", error)
+    console.error("Error with updating the user", error)
     res.status(500).json({message: "Server error"})
   }
 }
@@ -161,7 +186,8 @@ const UsersController = {
   getById: getById,
   updateUser: updateUser,
   addFriend: addFriend,
-  deleteUserById: deleteUserById
+  deleteUserById: deleteUserById,
+  searchusers: searchusers
 };
 
 module.exports = UsersController;

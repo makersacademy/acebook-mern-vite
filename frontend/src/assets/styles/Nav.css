@@ -23,7 +23,22 @@
 }
 
 .nav-logo {
+  height: 40px;
+  width: auto;
+  max-width: 80px;
+  display: flex;
+  align-items: center;
   transition: transform 0.2s ease;
+  overflow: hidden;
+}
+
+.nav-logo img {
+  max-height: 100%;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .nav-logo:hover {
@@ -241,6 +256,16 @@
 
 /* Responsive Design Edits so it's smooth at diff screens sizes */
 @media (max-width: 768px) {
+  .nav-logo {
+    max-width: 75px;
+    height: 35px;
+  }
+
+  .nav-logo img {
+    max-width: 100%;
+    height: auto;
+  }
+
   .modern-nav {
     padding: 12px 16px;
   }
@@ -260,6 +285,16 @@
 }
 
 @media (max-width: 640px) {
+  .nav-logo {
+    max-width: 65px;
+    height: 30px;
+  }
+
+  .nav-logo img {
+    max-width: 100%;
+    height: auto;
+  }
+  
   .search-input {
     width: 200px;
     font-size: 13px;
