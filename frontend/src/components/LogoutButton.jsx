@@ -5,6 +5,7 @@ function LogoutButton() {
 
   function logOut() {
     localStorage.removeItem("token");
+    window.dispatchEvent(new Event('authChange'))
     navigate("/");
   }
 

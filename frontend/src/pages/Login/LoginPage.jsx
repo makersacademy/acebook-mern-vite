@@ -13,6 +13,7 @@ export function LoginPage() {
     try {
       const token = await login(email, password);
       localStorage.setItem("token", token);
+      window.dispatchEvent(new Event('authChange'));
       navigate("/posts");
     } catch (err) {
       console.error(err);
