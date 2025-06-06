@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { HomeIcon, User2Icon, SettingsIcon, SearchIcon, MenuIcon} from 'lucide-react';
+import LogoutButton from "../components/LogoutButton";
+
 import '../assets/styles/Nav.css';
 
 const Nav = ({logo, onSearch, users}) => {
@@ -100,6 +102,9 @@ const Nav = ({logo, onSearch, users}) => {
                 <SettingsIcon className="dropdown-icon w-5 h-5" />
                 Account Settings
               </a>
+              <LogoutButton 
+                className="ml-4 text-sm font-medium text-red-600 hover:text-red-800" 
+              />
             </div>
           )}
         </div>
@@ -109,3 +114,8 @@ const Nav = ({logo, onSearch, users}) => {
 }
 
 export default Nav
+
+// FIXES: 
+// after signup it should automatically login not just route to login page
+// search should show results as user types and not wait for submit
+// search results should show up under search bar and not on the side
