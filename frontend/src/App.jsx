@@ -6,7 +6,8 @@ import { LoginPage } from "./pages/Login/LoginPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
 
-import { getUsers } from "./services/users";
+import { searchUsers } from "./services/users";
+import { addFriend } from "./services/friends";
 import Nav from "./components/Nav";
 import Logo from '../src/assets/images/acebook_logo.png';
 
@@ -54,7 +55,7 @@ function App() {
 
     window.addEventListener('storage', checkAuth)
     window.addEventListener('authChange', checkAuth)
-    
+
     return () => {
       window.removeEventListener('storage', checkAuth);
       window.removeEventListener('authChange', checkAuth);
@@ -64,7 +65,6 @@ function App() {
 
   
   const searchDatabase = async (searchTerm) => {
-    const token = localStorage.getItem('token');
 
     if (!searchTerm.trim()) {
       setUsers([]);
@@ -72,7 +72,7 @@ function App() {
     }
 
     try {
-      const response = await getUsers(token, searchTerm)
+      const response = await searchUsers(searchTerm)
       
       setUsers(response.users || [])
 
@@ -82,7 +82,15 @@ function App() {
     }
     
 }
-    
+
+const HandleAddfriend = async (friendId) => {
+  try {
+    await addFriend(friendId);
+    console.log("friend added:", friendId)
+  } catch (error) {
+    console.error("Error adding friend", error)
+  }
+}
 
   return (
     <>
@@ -91,6 +99,7 @@ function App() {
             logo={logo}
             onSearch={searchDatabase}
             users={users} // nav needs users to display them under search field
+            addFriend={HandleAddfriend}
           />
         )}
         <RouterProvider router={router} />

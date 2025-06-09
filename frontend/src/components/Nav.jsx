@@ -5,7 +5,7 @@ import LogoutButton from "../components/LogoutButton";
 import '../assets/styles/Nav.css';
 import { useEffect } from "react";
 
-const Nav = ({logo, onSearch, users}) => {
+const Nav = ({logo, onSearch, users, addFriend}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [dropdownMenuOpen, setDropdownMenuOpen] = useState(false);
@@ -35,6 +35,10 @@ const Nav = ({logo, onSearch, users}) => {
       onSearch(searchTerm);
       setShowSearchResults(true);
     }
+  }
+
+  const HandleAddfriend = (friendId) => {
+    addFriend(friendId);
   }
   
 
@@ -72,13 +76,18 @@ const Nav = ({logo, onSearch, users}) => {
                     <User2Icon className="w-4 h-4 text-gray-600" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">{user.name}</p>
+                    <p className="font-medium text-gray-900">
+                      {user.name
+                      .charAt(0)
+                      .toUpperCase()
+                      + user.name.slice(1)}</p>
                     {/* {user.email && (
                       <p className="text-sm text-gray-500">{user.email}</p>
                     // )} Might change this to tag of whether result is friend of user 
                     // or users profile themself
                     // */} 
-                    <button>Add Friend</button>
+                    <button
+                    onClick={() => HandleAddfriend(user._id)}>Add Friend</button>
                   </div>
                 </div>
               ))

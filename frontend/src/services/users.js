@@ -1,6 +1,8 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export async function getUsers(token, query) {
+export async function searchUsers(query) {
+  const token = localStorage.getItem("token")
+
   const requestOptions = {
     method: "GET",
     headers: {
