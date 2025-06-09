@@ -41,19 +41,20 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [users, setUsers] = useState([]);
   const logo = Logo
-
+  
 
   const checkAuth = () => {
     const token = localStorage.getItem('token');
+    console.log("token is:", token)
     setIsAuthenticated(!!token);
-  }
+  }  
 
   useEffect(() => {
     checkAuth();
 
     window.addEventListener('storage', checkAuth)
     window.addEventListener('authChange', checkAuth)
-
+    
     return () => {
       window.removeEventListener('storage', checkAuth);
       window.removeEventListener('authChange', checkAuth);
@@ -63,7 +64,6 @@ function App() {
 
   
   const searchDatabase = async (searchTerm) => {
-    console.log("The search was triggereddddd")
     const token = localStorage.getItem('token');
 
     if (!searchTerm.trim()) {
@@ -72,9 +72,7 @@ function App() {
     }
 
     try {
-      console.log("I promise i tried")
       const response = await getUsers(token, searchTerm)
-      console.log("search results: ", response)
       
       setUsers(response.users || [])
 

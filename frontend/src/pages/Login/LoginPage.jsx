@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../services/authentication";
 
 export function LoginPage() {
+  localStorage.removeItem("token");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export function LoginPage() {
     try {
       const token = await login(email, password);
       localStorage.setItem("token", token);
-      window.dispatchEvent(new Event('authChange'));
+      window.dispatchEvent(new Event("authChange"));
       navigate("/posts");
     } catch (err) {
       console.error(err);

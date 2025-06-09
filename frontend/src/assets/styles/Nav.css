@@ -45,9 +45,14 @@
   transform: scale(1.05);
 }
 
+.search-wrapper {
+  position: relative;
+}
+
 .search-container {
   position: relative;
   transition: all 0.3s ease;
+  z-index: 100;
 }
 
 .search-input {
@@ -88,36 +93,108 @@
   color: #6366f1;
 }
 
+.search-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1000;
+  transform: translateY(-10px);
+  opacity: 0;
+  animation: searchDropdownSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  scrollbar-width: none;
+}
+
+.search-dropdown::-webkit-scrollbar {
+  display: auto;
+}
+
+@keyframes searchDropdownSlideIn {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  cursor: pointer;
+  color: #374151;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background-color: rgba(99, 102, 241, 0.08);
+  transform: translateX(2px);
+}
+
+.search-result-item:active {
+  transform: translateX(1px);
+  background-color: rgba(99, 102, 241, 0.12);
+}
+
+/* User avatar(profile pic) in search results */
+.search-result-item .w-8 {
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-result-item:hover .w-8 {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.search-result-item:hover .w-8 .w-4 {
+  color: white;
+}
+
+/* User name styling */
+.search-result-item p.font-medium {
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.search-result-item:hover p.font-medium {
+  color: #6366f1;
+}
+
+/* No results message */
+.search-dropdown .p-4 {
+  padding: 24px 20px;
+  text-align: center;
+  color: #6b7280;
+  font-style: italic;
+  background: linear-gradient(135deg, rgba(156, 163, 175, 0.05), rgba(107, 114, 128, 0.05));
+}
+
 .nav-home-link {
   position: relative;
   padding: 12px 16px;
   border-radius: 16px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background: linear-gradient(135deg, transparent, transparent);
 }
 
 .nav-home-link:hover {
-  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
-
-.nav-home-link::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: -1;
-}
-
-.nav-home-link:hover::before {
-  opacity: 0.1;
 }
 
 .home-icon {
@@ -214,30 +291,13 @@
   text-decoration: none;
   color: #374151;
   font-weight: 500;
-  transition: all 0.2s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.dropdown-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
-  transition: left 0.5s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .dropdown-item:hover {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+  background-color: rgba(99, 102, 241, 0.08);
   color: #6366f1;
-  transform: translateX(4px);
-}
-
-.dropdown-item:hover::before {
-  left: 100%;
+  transform: translateX(2px);
 }
 
 .dropdown-item:not(:last-child) {
@@ -250,7 +310,7 @@
 }
 
 .dropdown-item:hover .dropdown-icon {
-  transform: scale(1.2);
+  transform: scale(1.1);
   color: #6366f1;
 }
 
@@ -272,6 +332,15 @@
   
   .search-input {
     width: 250px;
+  }
+
+  .search-dropdown {
+    max-height: 250px;
+    border-radius: 12px;
+  }
+  
+  .search-result-item {
+    padding: 14px 16px;
   }
   
   .nav-home-link {
@@ -298,6 +367,26 @@
   .search-input {
     width: 200px;
     font-size: 13px;
+  }
+
+  .search-dropdown {
+    max-height: 200px;
+    border-radius: 10px;
+  }
+  
+  .search-result-item {
+    padding: 12px 14px;
+  }
+  
+  .search-result-item .w-8 {
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+  }
+  
+  .search-result-item .w-8 .w-4 {
+    width: 14px;
+    height: 14px;
   }
   
   .dropdown-menu {

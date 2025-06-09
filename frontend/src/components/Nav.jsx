@@ -3,12 +3,31 @@ import { HomeIcon, User2Icon, SettingsIcon, SearchIcon, MenuIcon} from 'lucide-r
 import LogoutButton from "../components/LogoutButton";
 
 import '../assets/styles/Nav.css';
+import { useEffect } from "react";
 
 const Nav = ({logo, onSearch, users}) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [dropdownMenuOpen, setDropdownMenuOpen] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm)
+    }, 300)
+
+    return () => clearTimeout(timer)
+  }, [searchTerm]);
+
+  useEffect(() => {
+    if (debouncedSearchTerm.trim()) {
+      onSearch(debouncedSearchTerm);
+      setShowSearchResults(true)
+    } else {
+      setShowSearchResults(false)
+    }
+  }, [debouncedSearchTerm, onSearch])
+  
   const handleSearch = (event) => {
     event.preventDefault();
 
@@ -16,24 +35,18 @@ const Nav = ({logo, onSearch, users}) => {
       onSearch(searchTerm);
       setShowSearchResults(true);
     }
-    
-    console.log("This has been triggered")
-    console.log("These are the users", users)
   }
-
   
 
   return (
     <nav className="nav">
       <div className="nav-inner flex items-center justify-between p-6">
-        {/* Logo - image */}
         <div className="nav-logo">
           <a href="/posts" className="nav-home-link flex items-center justify-center">
             <img src={logo} alt="Logo" className="h-10" />
           </a>
         </div>
 
-        {/* Search - search bar */}
         <form className="search-container" onSubmit={handleSearch}>
           <input 
             type="text" 
@@ -53,16 +66,19 @@ const Nav = ({logo, onSearch, users}) => {
                 <div 
                   key={user._id}
                   className="search-result-item p-3 hover:bg-gray-50 cursor-pointer flex items-center border-b last:border-b-0"
-                  // onClick={() => handleUserClick(user)}
+                  // onClick={() => handleUserClick(user)} this will link to user profiles
                 >
                   <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center mr-3">
                     <User2Icon className="w-4 h-4 text-gray-600" />
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">{user.name}</p>
-                    {user.email && (
+                    {/* {user.email && (
                       <p className="text-sm text-gray-500">{user.email}</p>
-                    )}
+                    // )} Might change this to tag of whether result is friend of user 
+                    // or users profile themself
+                    // */} 
+                    <button>Add Friend</button>
                   </div>
                 </div>
               ))
@@ -75,8 +91,6 @@ const Nav = ({logo, onSearch, users}) => {
           )
         }
 
-
-        {/* Home - link to feed page */}
         <div className="home">
           <a href="/posts" className="nav-home-link flex items-center justify-center">
             <HomeIcon className="home-icon w-6 h-6" />
@@ -117,5 +131,3 @@ export default Nav
 
 // FIXES: 
 // after signup it should automatically login not just route to login page
-// search should show results as user types and not wait for submit
-// search results should show up under search bar and not on the side
