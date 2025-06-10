@@ -2,7 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const usersRouter = require("./routes/users");
+const usersUnprotectedRouter = require("./routes/usersUnprotected");
+const usersProtectedRouter = require("./routes/usersProtected");
 const postsRouter = require("./routes/posts");
 const authenticationRouter = require("./routes/authentication");
 const tokenChecker = require("./middleware/tokenChecker");
@@ -18,7 +19,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // API Routes
-app.use("/users", usersRouter);
+app.use("/users", usersUnprotectedRouter);
+app.use("/users", tokenChecker, usersProtectedRouter);
 app.use("/posts", tokenChecker, postsRouter);
 app.use("/tokens", authenticationRouter);
 
