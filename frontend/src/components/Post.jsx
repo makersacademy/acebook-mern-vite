@@ -1,5 +1,16 @@
+import { useState } from "react";
+import Button from "./Button";
+
 function Post(props) {
   const { _id, content, image } = props.post;
+
+  const [likes, setLikes] = useState(0);
+  const [liked, setLiked] = useState(false);
+
+  const handleLike = () => {
+    setLikes(prev => liked ? prev -1 : prev + 1);
+    setLiked(!liked);
+  };
 
   return (
     <article key={_id}>
@@ -26,6 +37,12 @@ function Post(props) {
           />
         );
       })}
+
+      <div style={{ marginTop: "10p" }}>
+        <Button onClick={handleLike} variant="default">
+          {liked ? "❤️" : "🤍"} {likes}
+        </Button>
+      </div>
     </article>
   );
 }

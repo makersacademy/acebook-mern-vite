@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post";
-import LogoutButton from "../../components/LogoutButton";
+// import LogoutButton from "../../components/LogoutButton"; - not needed
+import Button from "../../components/Button"; // added
 
 export function FeedPage() {
   const [posts, setPosts] = useState([]);
+  const [confirmed, setConfirmed] = useState(false); // added
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,15 +33,46 @@ export function FeedPage() {
     return;
   }
 
+  //added code below from lines 37 to 44 - handleButtonClick
+  const handleButtonClick = () => {
+    if (confirmed) {
+      alert("Post cancelled!");
+    } else {
+      alert("Post confirmed!");
+    }
+    setConfirmed(!confirmed);
+  };
+
   return (
     <>
       <h2>Posts</h2>
+        {/* added below code: div class of my-4 */}
+      <div className="my-4"> 
+        <Button
+          variant={confirmed ? "cancel" : "confirm"}
+          onClick={handleButtonClick}
+        >
+          {confirmed ? "Cancel Post" : "Confirm Post"}
+        </Button>
+      </div>
+      {/* added this code below and commented out the original logout button */}
+      <div className="my-4">
+        <Button variant="cancel" onClick={() => {
+          localStorage.removeItem("token");
+          navigate("/login")
+          }}
+        >
+          Log out
+        </Button>
+      </div>
+
       <div className="feed" role="feed">
         {posts.map((post) => (
           <Post post={post} key={post._id} />
         ))}
       </div>
-      <LogoutButton />
+      {/* <LogoutButton /> */}
     </>
   );
+  
 }
