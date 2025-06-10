@@ -9,13 +9,10 @@ import { FeedPage } from "./pages/Feed/FeedPage";
 import { searchUsers } from "./services/users";
 import { addFriend } from "./services/friends";
 import Nav from "./components/Nav";
-import Logo from '../src/assets/images/acebook_logo.png';
+import Logo from "../src/assets/images/acebook_logo.png";
 
 import { useState } from "react";
 import { useEffect } from "react";
-
-
-
 
 // docs: https://reactrouter.com/en/main/start/overview
 const router = createBrowserRouter([
@@ -38,71 +35,63 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [users, setUsers] = useState([]);
-  const logo = Logo
-  
+  const logo = Logo;
 
   const checkAuth = () => {
-    const token = localStorage.getItem('token');
-    console.log("token is:", token)
+    const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
-  }  
+  };
 
   useEffect(() => {
     checkAuth();
 
-    window.addEventListener('storage', checkAuth)
-    window.addEventListener('authChange', checkAuth)
+    window.addEventListener("storage", checkAuth);
+    window.addEventListener("authChange", checkAuth);
 
     return () => {
-      window.removeEventListener('storage', checkAuth);
-      window.removeEventListener('authChange', checkAuth);
-    }
+      window.removeEventListener("storage", checkAuth);
+      window.removeEventListener("authChange", checkAuth);
+    };
   }, []);
-  
 
-  
   const searchDatabase = async (searchTerm) => {
-
     if (!searchTerm.trim()) {
       setUsers([]);
       return;
     }
 
     try {
-      const response = await searchUsers(searchTerm)
-      
-      setUsers(response.users || [])
+      const response = await searchUsers(searchTerm);
 
+      setUsers(response.users || []);
     } catch (error) {
-      console.error("Search Failed: ", error)
+      console.error("Search Failed: ", error);
       setUsers([]);
     }
-    
-}
+  };
 
-const HandleAddfriend = async (friendId) => {
-  try {
-    await addFriend(friendId);
-    console.log("friend added:", friendId)
-  } catch (error) {
-    console.error("Error adding friend", error)
-  }
-}
+  const HandleAddfriend = async (friendId) => {
+    try {
+      await addFriend(friendId);
+      console.log("friend added:", friendId);
+    } catch (error) {
+      console.error("Error adding friend", error);
+    }
+  };
 
   return (
     <>
-      { isAuthenticated && (
-          <Nav 
-            logo={logo}
-            onSearch={searchDatabase}
-            users={users} // nav needs users to display them under search field
-            addFriend={HandleAddfriend}
-          />
-        )}
-        <RouterProvider router={router} />
+      {isAuthenticated && (
+        <Nav
+          logo={logo}
+          onSearch={searchDatabase}
+          users={users} // nav needs users to display them under search field
+          addFriend={HandleAddfriend}
+        />
+      )}
+      <RouterProvider router={router} />
     </>
   );
 }

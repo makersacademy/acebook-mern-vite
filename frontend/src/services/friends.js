@@ -1,7 +1,7 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export async function addFriend(friendId) {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
   const requestOptions = {
     method: "POST",
@@ -10,14 +10,16 @@ export async function addFriend(friendId) {
     },
   };
 
-  const response = await fetch(`
-    ${BACKEND_URL}/users/friends/${friendId}`, requestOptions
-  )
+  const response = await fetch(
+    `
+    ${BACKEND_URL}/users/friends/${friendId}`,
+    requestOptions
+  );
 
   if (response.status === 200) {
-    const data = await response.json()
-    console.log("User new friends is:", data.user)
-    return data
+    const data = await response.json();
+    console.log("User new friends is:", data.user);
+    return data;
   } else {
     throw new Error("Failed to add friend");
   }

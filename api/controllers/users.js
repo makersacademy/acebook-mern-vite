@@ -13,10 +13,10 @@ function create(req, res) {
     .then((user) => {
       console.log("User created, id:", user._id.toString());
       const token = generateToken(user.id);
-      res.status(201).json({token: token, message: "OK"})
+      res.status(201).json({ token: token, message: "OK" });
     })
     .catch((err) => {
-      if (process.env.NODE_ENV !== 'test') {
+      if (process.env.NODE_ENV !== "test") {
         console.error(err);
       }
       res.status(400).json({ message: "Something went wrong" });
@@ -39,33 +39,35 @@ async function getAllUsers(req, res) {
 }
 
 async function searchusers(req, res) {
-  const {q} = req.query;
+  const { q } = req.query;
   if (!q) {
-    return res.status(400).json({message: "Query is required to make search"});
+    return res
+      .status(400)
+      .json({ message: "Query is required to make search" });
   }
 
   try {
     const users = await User.find({
-      name: { $regex: q, $options: "i"} // This searches the name fields on users and ignores case
+      name: { $regex: q, $options: "i" }, // This searches the name fields on users and ignores case
     })
-    .select("name")
-    .limit(20); // Stops spamming front end with every user in existence in our DB
+      .select("name")
+      .limit(20); // Stops spamming front end with every user in existence in our DB
 
-    res.json({ users })
-
+    res.json({ users });
   } catch (error) {
-    console.error()
+    console.error();
     res.status(500).json({
       message: "Error searching for users",
-      error: error.message
-    })
+      error: error.message,
+    });
   }
-
 }
 
 async function getById(req, res) {
   try {
-    const user = await User.findById(req.params.id).select("name location bio dob status friends");
+    const user = await User.findById(req.params.id).select(
+      "name location bio dob status friends"
+    );
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -82,7 +84,11 @@ async function updateUser(req, res) {
   try {
     // Authorisation check: user can only update their own profile
     if (req.user_id !== req.params.id) {
-      return res.status(403).json({ message: "Unauthorised: You can only update your own profile" });
+      return res
+        .status(403)
+        .json({
+          message: "Unauthorised: You can only update your own profile",
+        });
     }
 
     const updatedUser = await User.findByIdAndUpdate(
@@ -90,56 +96,56 @@ async function updateUser(req, res) {
       {
         $set: req.body,
       },
-      {new: true}
+      { new: true }
     );
 
     if (!updatedUser) {
-      return res.status(400).json({message: "Could not update user information"})
+      return res
+        .status(400)
+        .json({ message: "Could not update user information" });
     }
 
-    res.status(200).json({updatedUser})
-
+    res.status(200).json({ updatedUser });
   } catch (error) {
-    console.error("Error with updating the user", error)
-    res.status(500).json({message: "Server error"})
+    console.error("Error with updating the user", error);
+    res.status(500).json({ message: "Server error" });
   }
 }
 
 async function addFriend(req, res) {
   try {
     const userId = req.user_id; // From JWT
-    const { friendId } = req.params; 
-    // ^^ Token does validation and authentication, 
+    const { friendId } = req.params;
+    // ^^ Token does validation and authentication,
     // no need to double check user id in params
-    
+
     const friendExists = await User.findById(friendId);
     if (!friendExists) {
       return res.status(404).json({ message: "Friend not found" });
     }
-    
+
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { $addToSet: { friends: friendId } }, // $addToSet prevents duplicates
-      { 
-        new: true, 
+      {
+        new: true,
         runValidators: true,
-        select: "name friends" // when user returned, only name & friends returned 
+        select: "name friends", // when user returned, only name & friends returned
       }
     );
-    
+
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
     }
-    
-    res.status(200).json({ 
+
+    res.status(200).json({
       message: "Friend added successfully",
-      user: updatedUser
+      user: updatedUser,
     });
-    
   } catch (error) {
-    res.status(500).json({ 
-      message: "Error adding friend", 
-      error: error.message 
+    res.status(500).json({
+      message: "Error adding friend",
+      error: error.message,
     });
   }
 }
@@ -151,37 +157,29 @@ async function deleteUserById(req, res) {
 
     if (req.user_id !== req.params.id) {
       return res.status(403).json({
-        message: "Cannot perform this action"
-      })
+        message: "Cannot perform this action",
+      });
     }
 
-    await User.updateMany(
-      { friends: userId },
-      { $pull: { friends: userId }}
-    );
+    await User.updateMany({ friends: userId }, { $pull: { friends: userId } });
 
-    await Post.updateMany(
-      {},
-      { $pull: { comments: { userId } } }
-    )
-    
-    // Will have to check if comments exist as entities on the 
+    await Post.updateMany({}, { $pull: { comments: { userId } } });
+
+    // Will have to check if comments exist as entities on the
     // Post model or not or if we need to seperately delete comments & likes
 
     await User.findByIdAndDelete(userId);
 
     res.status(200).json({
-      message: `Account has successfully been deleted`
-    })
-
+      message: `Account has successfully been deleted`,
+    });
   } catch (error) {
     res.status(500).json({
       message: "Error deleting account",
-      error: error.message
+      error: error.message,
     });
   }
 }
-
 
 const UsersController = {
   create: create,
@@ -190,7 +188,7 @@ const UsersController = {
   updateUser: updateUser,
   addFriend: addFriend,
   deleteUserById: deleteUserById,
-  searchusers: searchusers
+  searchusers: searchusers,
 };
 
 module.exports = UsersController;
